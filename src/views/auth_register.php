@@ -13,7 +13,7 @@
       <label>Email<input type="email" name="email" value="<?= e($old['email']) ?>" autocomplete="email" required></label>
       <label>Contraseña<input type="password" name="password" minlength="8" autocomplete="new-password" required>
         <small>Mínimo 8 caracteres.</small></label>
-      <label class="check"><input type="checkbox" name="terms" value="1" required> Acepto los <a href="/terms.php" target="_blank" rel="noopener">términos</a> y la <a href="/privacy.php" target="_blank" rel="noopener">política de privacidad</a></label>
+      <label class="check"><input type="checkbox" name="terms" value="1" required><span>Acepto los <a href="/terms.php" target="_blank" rel="noopener">términos</a> y la <a href="/privacy.php" target="_blank" rel="noopener">política de privacidad</a>.</span></label>
       <button class="btn btn-block">Crear cuenta</button>
     </form>
     <p class="muted center">¿Ya tenés cuenta? <a href="/login.php">Ingresá</a></p>
