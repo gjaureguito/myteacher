@@ -1412,3 +1412,52 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           .desk-guide h2{
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             font-size:2rem}
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           }
+/* Account entry: a deliberate content inset and consistent field rhythm. */
+.auth.wrap {
+  width: min(560px, calc(100% - 32px));
+  max-width: 560px;
+  padding: 56px 0 72px;
+}
+.auth .auth-card {
+  width: 100%;
+  padding: 38px 40px 30px;
+  border: 1px solid #ded8ce;
+  border-top: 3px solid var(--cobalt);
+  background: #fffdf8;
+  box-shadow: 0 12px 36px #17252b06;
+}
+.auth-card > .eyebrow { margin: 0 0 14px; font-size: .65rem; }
+.auth .auth-card h1 { font-size: clamp(2.2rem, 5vw, 2.8rem); line-height: 1.12; margin: 0 0 18px; }
+.auth-card > .muted:not(.center) { margin: 0 0 26px; font-size: .96rem; line-height: 1.7; }
+.auth-card .social { margin: 0 0 20px; }
+.auth-card .btn-social { gap: 12px; min-height: 48px; }
+.auth-card .btn-social svg { flex: none; }
+.auth-card .divider { margin: 0 0 24px; font-size: .8rem; }
+.auth-card .form { gap: 20px; margin: 0; }
+.auth-card .form label { gap: 8px; font-size: .85rem; }
+.auth-card .form input:not([type=checkbox]):not([type=radio]) {
+  min-height: 48px;
+  padding: 11px 13px;
+  border: 1px solid #cbc7c0;
+  border-radius: 3px;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.auth-card .form input:focus { border-color: var(--cobalt); box-shadow: 0 0 0 3px #862c3914; }
+.auth-card .form small { font-size: .76rem; line-height: 1.5; margin-top: 0; }
+.auth-card .form .check { gap: 10px; align-items: flex-start; font-size: .8rem; line-height: 1.65; margin: 0; }
+.auth-card .check input { width: 16px; height: 16px; flex: none; margin: 3px 0 0; accent-color: var(--cobalt); }
+.auth-card .check span { min-width: 0; }
+.auth-card .check a { text-underline-offset: 3px; }
+.auth-card .form > .btn { width: 100%; min-height: 48px; margin-top: 2px; }
+.auth-card > .center { border-top: 1px solid var(--line); padding-top: 22px; margin: 24px 0 0; font-size: .84rem; }
+.auth-card .flash { margin-bottom: 24px; }
+@media (max-width: 560px) {
+  .auth.wrap { padding-block: 30px 48px; }
+  .auth .auth-card { padding: 28px 24px 24px; }
+  .auth .auth-card h1 { font-size: 2.3rem; }
+}
+@media (max-width: 360px) {
+  .auth .auth-card { padding-inline: 20px; }
+  .auth .auth-card h1 { font-size: 2.05rem; }
+}
