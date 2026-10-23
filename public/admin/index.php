@@ -28,11 +28,12 @@ $users = q_all("SELECT * FROM users $where ORDER BY id DESC LIMIT 100", $params)
 
 $stats = [
     'Usuarios' => (int) q_val('SELECT COUNT(*) FROM users'),
-    'Suscriptores activos' => (int) q_val('SELECT COUNT(*) FROM users WHERE access_until > ?', [now_utc()]),
+    'Con acceso vigente' => (int) q_val('SELECT COUNT(*) FROM users WHERE access_until > ?', [now_utc()]),
+    'Suscripciones activas' => (int) q_val("SELECT COUNT(*) FROM users WHERE sub_status = 'active' AND access_until > ?", [now_utc()]),
     'Nuevos (7 días)' => (int) q_val('SELECT COUNT(*) FROM users WHERE created_at > ?', [gmdate('Y-m-d H:i:s', time() - 7 * 86400)]),
     'Respuestas hoy' => (int) q_val('SELECT COUNT(*) FROM attempts WHERE created_at > ?', [gmdate('Y-m-d 00:00:00')]),
 ];
-$active = $stats['Suscriptores activos'];
+$active = $stats['Suscripciones activas'];
 $mrr = $active * plan_price();
 $log = q_all('SELECT p.*, u.email FROM payments_log p LEFT JOIN users u ON u.id = p.user_id ORDER BY p.id DESC LIMIT 15');
 

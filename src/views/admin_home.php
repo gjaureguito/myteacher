@@ -1,22 +1,24 @@
 <section class="wrap page">
-  <h1>Administración</h1>
+  <p class="eyebrow">GESTIÓN DE LA ACADEMIA</p><h1>Resumen de actividad</h1><p class="muted">Accesos, suscripciones y contenido en un mismo lugar.</p>
   <?php require __DIR__ . '/admin_nav.php'; ?>
 
   <div class="stats">
     <?php foreach ($stats as $label => $n): ?>
       <div class="stat"><strong><?= $n ?></strong><span class="muted"><?= e($label) ?></span></div>
     <?php endforeach; ?>
-    <div class="stat"><strong><?= money_ars($mrr) ?></strong><span class="muted">Ingreso mensual estimado</span></div>
+    <div class="stat"><strong><?= money_ars($mrr) ?></strong><span class="muted">Ingreso mensual teórico de suscripciones activas</span></div>
   </div>
 
+  <p class="fine">La estimación usa el precio actual y excluye accesos manuales. No representa cobros conciliados, descuentos ni ingresos históricos.</p>
   <h2>Usuarios</h2>
-  <form class="form" method="get" style="max-width: 420px">
-    <label>Buscar por email o nombre<input name="s" value="<?= e($s) ?>"></label>
+  <form class="form admin-search" method="get">
+    <label>Buscar por email o nombre<input name="s" value="<?= e($s) ?>" type="search"></label><button class="btn">Buscar</button><a href="/admin/">Limpiar</a>
   </form>
-  <div style="overflow-x:auto">
-  <table class="tbl">
+  <div class="table-scroll" role="region" aria-label="Usuarios" tabindex="0">
+  <table class="tbl"><caption>Hasta 100 usuarios, ordenados por alta más reciente.</caption>
     <thead><tr><th>Usuario</th><th>Alta</th><th>Ingreso</th><th>Estado</th><th>Acceso hasta</th><th>Acciones</th></tr></thead>
     <tbody>
+    <?php if (!$users): ?><tr><td colspan="6">No encontramos usuarios con esa búsqueda.</td></tr><?php endif; ?>
     <?php foreach ($users as $x): ?>
       <tr>
         <td><strong><?= e($x['name']) ?></strong><br><span class="muted"><?= e($x['email']) ?></span></td>
@@ -47,13 +49,13 @@
   <?php if (!$log): ?>
     <p class="muted">Todavía no llegó ninguna. Cuando configures el webhook vas a ver acá cada aviso de alta, cobro o cancelación.</p>
   <?php else: ?>
-  <table class="tbl">
+  <div class="table-scroll" role="region" aria-label="Notificaciones de pagos" tabindex="0"><table class="tbl"><caption>Últimas 15 notificaciones recibidas.</caption>
     <thead><tr><th>Fecha</th><th>Evento</th><th>ID</th><th>Usuario</th><th>Estado</th></tr></thead>
     <tbody>
     <?php foreach ($log as $l): ?>
       <tr><td><?= fmt_date($l['created_at']) ?></td><td><?= e($l['topic']) ?></td><td><?= e($l['resource_id']) ?></td><td><?= e($l['email'] ?? '—') ?></td><td><?= e($l['status'] ?? '—') ?></td></tr>
     <?php endforeach; ?>
     </tbody>
-  </table>
+  </table></div>
   <?php endif; ?>
 </section>

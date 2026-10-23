@@ -12,7 +12,7 @@
   </div>
 
   <p><a class="btn btn-sm" href="/admin/unit.php">Crear unidad nueva</a></p>
-  <table class="tbl">
+  <div class="table-scroll" role="region" aria-label="Unidades del programa" tabindex="0"><table class="tbl"><caption>Unidades, disponibilidad y ejercicios por nivel.</caption>
     <thead><tr><th>Nivel</th><th>#</th><th>Título</th><th>Ejercicios</th><th>Estado</th><th></th></tr></thead>
     <tbody>
     <?php foreach ($units as $u): ?>
@@ -26,5 +26,5 @@
       </tr>
     <?php endforeach; ?>
     </tbody>
-  </table>
+  </table></div>
 </section>
