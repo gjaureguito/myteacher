@@ -5,6 +5,7 @@
     <div>
       <h1><?= e($level['name']) ?></h1>
       <p class="muted"><?= e($level['description']) ?></p>
+      <p class="fine">Cada unidad combina teoría, vocabulario, ejercicios y un taller de lectura y escritura cuando está disponible.</p>
     </div>
   </header>
 

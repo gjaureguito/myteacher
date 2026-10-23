@@ -1,0 +1,59 @@
+{
+  "slug": "b2-gerund-infinitive",
+  "title": "Learning to change a habit",
+  "goal": "Reconocer cómo la forma verbal cambia el significado después de ciertos verbos.",
+  "strategy": "No memorices solo una lista. Compará la intención de acciones como stop doing y stop to do: ¿termina una actividad o se interrumpe otra para hacer algo?",
+  "passage": "When I started studying in the evenings, I used to keep my phone beside my notebook. I enjoyed checking messages, but I found it difficult to concentrate. One day, I stopped reading to answer a call and never returned to the chapter. After that, I decided to leave the phone in another room. I stopped checking it during study sessions. At first, I missed seeing every notification. Now I am used to working without it. I still remember putting it away on the first evening because the silence felt unusual. I also remember to tell my family when I will be unavailable.",
+  "glossary": [
+    [
+      "used to keep",
+      "solía dejar"
+    ],
+    [
+      "concentrate",
+      "concentrarse"
+    ],
+    [
+      "be used to working",
+      "estar acostumbrado/a a trabajar"
+    ],
+    [
+      "unavailable",
+      "no disponible"
+    ]
+  ],
+  "questions": [
+    [
+      "What does “stopped reading to answer a call” mean?",
+      [
+        "The narrator ended phone calls permanently.",
+        "The narrator paused reading in order to answer.",
+        "The narrator could not remember the call."
+      ],
+      1,
+      "To answer expresa la finalidad de interrumpir la lectura: dejó de leer para atender una llamada. No dice que haya abandonado las llamadas como hábito."
+    ],
+    [
+      "Which sentence describes an accustomed state now?",
+      [
+        "I used to keep my phone beside my notebook.",
+        "I am used to working without it.",
+        "I decided to leave the phone elsewhere."
+      ],
+      1,
+      "Be used to + -ing expresa estar acostumbrado; used to + base describe hábito pasado."
+    ]
+  ],
+  "task": "Escribí una reflexión sobre un hábito de estudio. Incluí used to, be used to + -ing y un contraste entre remember doing y remember to do.",
+  "model": "I used to study with the television on because I disliked silence. When I tried a quiet room, I noticed that I read more carefully. I remember finishing a difficult chapter without checking the time. Now I am used to studying in shorter sessions, although I still need breaks. Before I begin, I remember to close unrelated tabs and put a glass of water on the desk. These changes do not solve every problem, but they make it easier to start.",
+  "checklist": [
+    "Después de enjoy usé -ing.",
+    "Diferencié hábito pasado de estar acostumbrado.",
+    "Mi elección de remember refleja memoria de un evento u obligación pendiente."
+  ],
+  "contrast": [
+    "I am used to study at night.",
+    "I am used to studying at night.",
+    "En be used to, to es preposición y va seguida de -ing."
+  ]
+}

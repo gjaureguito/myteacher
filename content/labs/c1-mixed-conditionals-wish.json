@@ -1,0 +1,59 @@
+{
+  "slug": "c1-mixed-conditionals-wish",
+  "title": "A past decision, a present consequence",
+  "goal": "Relacionar decisiones pasadas con consecuencias actuales y distinguir deseos de hechos.",
+  "strategy": "Anotá cuándo ocurre cada parte de la hipótesis. Una oración puede combinar una condición pasada con un resultado presente; la coherencia temporal importa más que una fórmula aislada.",
+  "passage": "At the end of her first year as a project coordinator, Inés reviewed the decisions that still affected her team. If she had documented the early meetings more carefully, the new volunteers would understand the project better now. She wished she had asked for help sooner. Yet she did not regret accepting the role. If she were less interested in community work, she would not have applied in the first place. Her colleague reminded her that reflection could become unproductive when it focused only on what could not be changed. Inés wrote one final note: “I wish our communication were clearer. That is something we can work on this week.”",
+  "glossary": [
+    [
+      "documented",
+      "registrado por escrito"
+    ],
+    [
+      "in the first place",
+      "en un principio"
+    ],
+    [
+      "regret",
+      "lamentar"
+    ],
+    [
+      "unproductive",
+      "poco productivo"
+    ]
+  ],
+  "questions": [
+    [
+      "Which statement links a past action to a present result?",
+      [
+        "If she had documented meetings, volunteers would understand better now.",
+        "She did not regret accepting the role.",
+        "That is something we can work on."
+      ],
+      0,
+      "Had documented se refiere al pasado; would understand … now expresa consecuencia actual."
+    ],
+    [
+      "What does “I wish she had asked sooner” express?",
+      [
+        "A future schedule",
+        "Regret about a past action",
+        "A confirmed request"
+      ],
+      1,
+      "Wish + pasado perfecto presenta un pasado deseado que no ocurrió."
+    ]
+  ],
+  "task": "Escribí una reflexión de 160–190 palabras que conecte una decisión pasada con una consecuencia actual. Cerrá con una acción posible, diferenciándola de tus contrafácticos.",
+  "model": "If I had organised my research notes from the beginning, I would be able to find supporting examples more quickly now. I wish I had understood that a useful archive is part of the research itself, not an administrative task to postpone. However, I would not have joined this project if I were unwilling to learn from mistakes. The experience has shown me which habits need attention. I wish the team had a clearer shared system, but that is not entirely outside our control. This week, I can propose a small set of categories and test them with two colleagues. A counterfactual helps identify a problem; a practical next step helps us address it. I cannot recover every lost detail, but I can stop the same pattern from continuing. If the group had agreed on common labels earlier, our notes would be more consistent today. Still, I wish we spent less time assigning blame and more time testing workable alternatives. The proposed system should therefore be small enough to use during a busy week and clear enough for a new volunteer to understand.",
+  "checklist": [
+    "Identifiqué la referencia temporal de condición y resultado.",
+    "Usé had + participio para un deseo sobre el pasado.",
+    "Separé reflexión hipotética de una acción realmente posible."
+  ],
+  "contrast": [
+    "I wish I would have recorded the meeting.",
+    "I wish I had recorded the meeting.",
+    "Para lamentar un pasado propio no realizado, se usa wish + pasado perfecto."
+  ]
+}

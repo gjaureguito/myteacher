@@ -23,5 +23,6 @@ foreach ($siblings as $s) {
     if ($s['position'] > $unit['position']) { $next = $s; break; }
 }
 $color = level_colors()[$unit['level_code']] ?? '#2747D9';
+$lab = learning_lab($unit['slug']);
 
-render('unit', compact('u', 'unit', 'level', 'exercises', 'vocab', 'next', 'color'), $unit['title']);
+render('unit', compact('u', 'unit', 'level', 'exercises', 'vocab', 'next', 'color', 'lab'), $unit['title']);

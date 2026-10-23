@@ -1,0 +1,59 @@
+{
+  "slug": "c2-cleft-fronting",
+  "title": "What deserves the spotlight",
+  "goal": "Reorganizar información para cambiar el foco sin alterar el contenido de una afirmación.",
+  "strategy": "Leé el párrafo como respuesta a una pregunta implícita. What matters is… sitúa el foco en lo que sigue; It was…that identifica qué elemento se contrasta con una alternativa.",
+  "passage": "The project was initially described as a technology initiative. What changed the discussion was not a new device but a set of conversations with residents. It was the volunteers’ familiarity with the neighbourhood that made those conversations possible. The software itself remained largely unchanged. What the team needed was a more precise understanding of who could use it and under what conditions. That question, the first report had barely addressed. All the second report did was make the omission visible; it did not settle every disagreement. The change in emphasis mattered because it redirected attention from the tool to the circumstances in which people were expected to use it.",
+  "glossary": [
+    [
+      "familiarity",
+      "conocimiento cercano o familiaridad"
+    ],
+    [
+      "barely addressed",
+      "apenas había abordado"
+    ],
+    [
+      "omission",
+      "omisión"
+    ],
+    [
+      "redirected attention",
+      "reorientó la atención"
+    ]
+  ],
+  "questions": [
+    [
+      "What does the first cleft contrast?",
+      [
+        "Conversations with a new device",
+        "Two versions of the software",
+        "Residents with all volunteers"
+      ],
+      0,
+      "“Not a new device but a set of conversations” explicita el contraste focal."
+    ],
+    [
+      "What does the second report claim to achieve?",
+      [
+        "Settling all disagreements",
+        "Making an omission visible",
+        "Replacing the software entirely"
+      ],
+      1,
+      "El texto limita el alcance: hizo visible una omisión y no resolvió todo."
+    ]
+  ],
+  "task": "Reescribí un argumento en 180–220 palabras usando una wh-cleft y una it-cleft. Después señalá qué alternativa queda en contraste y verificá que no exageraste la afirmación.",
+  "model": "What the discussion revealed was a gap between availability and access. The service existed, but some residents could not use it at the times offered. It was the interviews with shift workers that made this limitation particularly clear. Their comments did not show that the entire service was ineffective; they showed that a general claim about accessibility needed qualification. The opening hours, the original evaluation had treated as a minor operational detail. In practice, that detail shaped who could attend. What the next stage requires is a closer comparison between the intended users and the people actually reached. Changing the focus of the sentence helps make that distinction visible, but it must not create a stronger causal claim than the evidence supports. It is not the presence of an emphatic structure that makes a paragraph persuasive, but the relationship between its focus and the question under discussion. A sentence beginning with what can clarify that relationship when a reader might otherwise follow the wrong thread. Used repeatedly without a clear contrast, however, the same construction becomes a mannerism. The test is functional: does the revision help the reader identify what matters, and why?",
+  "checklist": [
+    "Cada estructura focal responde a un contraste identificable.",
+    "Mantuve concordancia y estructura completa.",
+    "No confundí énfasis retórico con evidencia adicional."
+  ],
+  "contrast": [
+    "What the team need are a clearer question.",
+    "What the team needs is a clearer question.",
+    "La construcción debe mantener concordancia y un complemento coherente."
+  ]
+}

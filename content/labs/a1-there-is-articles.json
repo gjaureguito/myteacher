@@ -1,0 +1,59 @@
+{
+  "slug": "a1-there-is-articles",
+  "title": "Finding a place to study",
+  "goal": "Describir un espacio y localizar recursos para una necesidad concreta.",
+  "strategy": "Antes de leer, imaginá qué necesita una persona para estudiar. Luego separá lo que existe (there is/are) de lo que una persona tiene (has).",
+  "passage": "There is a new reading room near the station. There are twelve desks, but there aren’t any computers. There is a quiet area upstairs and a small café on the ground floor. The café has an old piano. There are some books in English near the window. Is there a printer? Yes, there is, but it isn’t free. A student asks for an umbrella at reception: it is raining outside.",
+  "glossary": [
+    [
+      "reading room",
+      "sala de lectura"
+    ],
+    [
+      "upstairs",
+      "en el piso de arriba"
+    ],
+    [
+      "ground floor",
+      "planta baja"
+    ],
+    [
+      "reception",
+      "recepción"
+    ]
+  ],
+  "questions": [
+    [
+      "Can you use a computer there?",
+      [
+        "Yes, there are twelve.",
+        "No, there aren’t any.",
+        "Only upstairs."
+      ],
+      1,
+      "El texto dice explícitamente que no hay computadoras. Los doce elementos son escritorios."
+    ],
+    [
+      "Why does a student need an umbrella?",
+      [
+        "There is a piano.",
+        "It is raining.",
+        "The printer is not free."
+      ],
+      1,
+      "La última oración conecta el paraguas con la lluvia: “it is raining outside”. La información sobre la impresora y el piano no explica esa necesidad."
+    ]
+  ],
+  "task": "Describí un lugar donde estudiarías. Escribí 60–80 palabras e incluí algo que hay, algo que no hay y una pregunta para recepción.",
+  "model": "There is a small library near my home. There are six tables and some comfortable chairs. There isn’t a café, but there is a water dispenser. The quiet room is upstairs. There are books in English on the first shelf. Is there a printer for students? I need to print an article for my class. The library is a good place to read.",
+  "checklist": [
+    "Usé is para singular y are para plural.",
+    "Elegí a/an según el sonido que sigue.",
+    "No confundí there is con have."
+  ],
+  "contrast": [
+    "There have two rooms.",
+    "There are two rooms.",
+    "Para expresar existencia, usá there is/are, no have."
+  ]
+}

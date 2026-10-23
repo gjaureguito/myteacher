@@ -2,6 +2,8 @@
 
 Fecha: 23/10/2026. Repositorio: gjaureguito/myteacher. Base revisada: 2acc978.
 
+> Actualización: la ampliación editorial y la nueva experiencia académica se documentan en [EXPERIENCIA-ACADEMICA.md](EXPERIENCIA-ACADEMICA.md). Los pendientes de contenido de este informe describen el estado de la primera revisión.
+
 ## Alcance y evidencia
 
 Se inspeccionaron por HTTP y navegador la portada pública, ingreso, registro y acceso a administración; por código, panel administrativo, edición de unidades, recorrido del alumno, nivelación, acceso, suscripciones y siembra de contenidos. Las páginas públicas estaban operativas. /admin/ redirige al ingreso sin sesión; no se accedió a cuentas o datos privados de producción.

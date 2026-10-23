@@ -1,0 +1,59 @@
+{
+  "slug": "c1-inversion",
+  "title": "When emphasis needs a reason",
+  "goal": "Elegir inversión negativa por su efecto discursivo, sin convertir todo texto en registro solemne.",
+  "strategy": "Localizá la expresión negativa o restrictiva que se coloca al principio. Después identificá el auxiliar que cambia de posición. Evaluá si el énfasis se justifica por el contexto.",
+  "passage": "The committee had expected a routine discussion about library opening hours. Rarely had a proposal attracted so many responses. Students described long journeys, changing work schedules and the difficulty of finding quiet space. Not only did the comments reveal practical problems, but they also challenged the assumption that all students could study at home. Only after the testimonies were read did the committee revise its original plan. It extended evening access on a trial basis. The report used formal emphasis sparingly: the point was not to dramatise every inconvenience, but to make visible a pattern that the first proposal had overlooked.",
+  "glossary": [
+    [
+      "on a trial basis",
+      "a modo de prueba"
+    ],
+    [
+      "sparingly",
+      "con moderación"
+    ],
+    [
+      "overlooked",
+      "había pasado por alto"
+    ],
+    [
+      "testimonies",
+      "testimonios"
+    ]
+  ],
+  "questions": [
+    [
+      "What does the inversion foreground?",
+      [
+        "The unexpected scale and importance of the responses",
+        "The committee’s total rejection of evening access",
+        "The fact that every sentence must be formal"
+      ],
+      0,
+      "Rarely y Not only enfatizan que las respuestas superaron lo esperado y revelaron algo importante."
+    ],
+    [
+      "Which transformation preserves the meaning?",
+      [
+        "Only after the testimonies were read the committee did revise the plan.",
+        "Only after the testimonies were read did the committee revise the plan.",
+        "Only after did the testimonies were read the committee revise the plan."
+      ],
+      1,
+      "La inversión se produce en la cláusula principal: did + sujeto + forma base."
+    ]
+  ],
+  "task": "Redactá 160–190 palabras para un informe sobre una decisión institucional ficticia. Usá dos inversiones justificadas y combiná el resto con sintaxis directa.",
+  "model": "The initial proposal assumed that extending the booking system would solve the room shortage. Only when the team reviewed actual attendance did it recognise a different problem: many reservations were not being used. Rarely had such a small administrative detail affected so many people. Rather than restricting access immediately, the team introduced a reminder and a simple cancellation option. The change was tested for one month. Staff recorded fewer unused reservations, although the trial was too short to establish a stable trend. The report therefore recommends continuing the test before introducing stricter rules. Its central argument is practical: a problem that appears to concern capacity may partly concern communication. The evidence supports a cautious adjustment, not a claim that the shortage has disappeared. Not only would a longer observation period provide more reliable figures, but it would also allow staff to notice whether the improvement persists after the novelty fades. Only then should the association consider a permanent change. The recommendation remains deliberately limited: continue collecting evidence, retain a simple cancellation process, and distinguish an encouraging pattern from a settled solution. Clear limits make the proposal easier to evaluate.",
+  "checklist": [
+    "Puse un auxiliar antes del sujeto tras la expresión restrictiva.",
+    "Usé forma base después de did.",
+    "Reservé la inversión para puntos que merecen énfasis."
+  ],
+  "contrast": [
+    "Never I have seen this pattern.",
+    "Never have I seen this pattern.",
+    "Al anteponer never, se invierte auxiliar y sujeto en esta estructura."
+  ]
+}

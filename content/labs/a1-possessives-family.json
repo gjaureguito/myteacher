@@ -1,0 +1,59 @@
+{
+  "slug": "a1-possessives-family",
+  "title": "The people behind the photograph",
+  "goal": "Presentar relaciones familiares y expresar pertenencia sin confundir sujeto y posesivo.",
+  "strategy": "Construí un pequeño mapa de personas mientras leés. Cada posesivo apunta a una persona ya mencionada: buscá ese referente antes de traducir.",
+  "passage": "This is my family photo. The woman on the left is my mother, Elena. Her brother, Pablo, is next to her. He is my uncle. His daughter is Sofia, the girl with the red bag. Sofia and I are cousins. Our grandparents are in the middle. Their house is near the sea. My grandfather has got an old camera, and this photo is his favourite. The red bag isn’t my sister’s: it is Sofia’s.",
+  "glossary": [
+    [
+      "on the left",
+      "a la izquierda"
+    ],
+    [
+      "next to",
+      "al lado de"
+    ],
+    [
+      "cousins",
+      "primos/as"
+    ],
+    [
+      "in the middle",
+      "en el medio"
+    ]
+  ],
+  "questions": [
+    [
+      "Who is Pablo?",
+      [
+        "The narrator’s brother",
+        "Elena’s brother",
+        "Sofia’s grandfather"
+      ],
+      1,
+      "“Her brother, Pablo” tiene como referente a Elena. Pablo es el hermano de la madre del narrador, por eso es su tío."
+    ],
+    [
+      "Whose bag is red?",
+      [
+        "Sofia’s",
+        "Elena’s",
+        "The narrator’s sister’s"
+      ],
+      0,
+      "La última oración aclara la pertenencia: “it is Sofia’s”. La frase anterior descarta explícitamente que el bolso sea de la hermana del narrador."
+    ]
+  ],
+  "task": "Inventá una familia o describí una real sin compartir datos privados. Presentá cuatro relaciones y dos objetos que pertenecen a personas distintas.",
+  "model": "In this photograph, my aunt is next to her husband. Their son is my cousin Daniel. He has got a blue bicycle. My grandmother’s bag is on the chair. Our grandfather is behind the camera, so he isn’t in the photo. The small dog is Daniel’s. Its name is Milo. We are at my aunt’s house for lunch.",
+  "checklist": [
+    "Distinguí he de his y she de her.",
+    "Usé ’s para pertenencia de una persona.",
+    "Usé its sin apóstrofo para el posesivo."
+  ],
+  "contrast": [
+    "Its my cousins bag.",
+    "It’s my cousin’s bag.",
+    "It’s significa it is; cousin’s indica a quién pertenece el objeto."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "slug": "b1-passive-voice",
+  "title": "How a book reaches a reader",
+  "goal": "Describir un proceso y elegir cuándo importa la acción más que su agente.",
+  "strategy": "Rastreá qué recibe la acción en cada etapa. La pasiva no es un adorno: sirve para mantener el libro como tema del proceso, aunque cambien quienes trabajan sobre él.",
+  "passage": "Before a book reaches a reader, many decisions are made. A manuscript is first read by an editor. If it is accepted, the text is checked for structure and clarity. The author is then asked to revise it. Later, the pages are designed and the cover is prepared. In the past, most copies were printed before a title was offered for sale. Today, some books are printed only when an order is received. This reduces the number of unsold copies, although it does not remove every environmental cost. Finally, the book is delivered to a shop or directly to a reader.",
+  "glossary": [
+    [
+      "manuscript",
+      "manuscrito"
+    ],
+    [
+      "revise",
+      "revisar y modificar"
+    ],
+    [
+      "unsold copies",
+      "ejemplares no vendidos"
+    ],
+    [
+      "an order is received",
+      "se recibe un pedido"
+    ]
+  ],
+  "questions": [
+    [
+      "Why is the passive useful in this text?",
+      [
+        "It keeps the book and process in focus.",
+        "It proves nobody does the work.",
+        "It makes every sentence refer to the past."
+      ],
+      0,
+      "Los agentes cambian, pero el libro y sus etapas mantienen la continuidad temática."
+    ],
+    [
+      "What does print-on-demand reduce according to the text?",
+      [
+        "Every environmental cost",
+        "The number of unsold copies",
+        "The need for an author"
+      ],
+      1,
+      "El texto limita el beneficio y explícitamente rechaza que desaparezcan todos los costos ambientales."
+    ]
+  ],
+  "task": "Describí un proceso que conozcas en 120 palabras. Usá al menos tres pasivas y una activa cuando el agente sí sea importante.",
+  "model": "At our learning centre, donated books are sorted every Friday. Damaged copies are checked before they are placed on a shelf. A volunteer records each title in a catalogue, because readers need a reliable way to find it. Books for younger readers are kept near the entrance. Last year, a new section was created for bilingual stories. Our coordinator chose the first titles with help from local families. When a book is borrowed, its return date is written on a card. The process is simple, but each stage helps the collection remain useful. At the end of each month, the catalogue is reviewed. Missing titles are discussed at a team meeting, and any errors are corrected before the next lending session.",
+  "checklist": [
+    "Construí la pasiva con be + participio.",
+    "Conservé el tiempo verbal correspondiente.",
+    "Elegí voz activa cuando el agente aportaba información relevante."
+  ],
+  "contrast": [
+    "The book was write in 1998.",
+    "The book was written in 1998.",
+    "Después de be, la pasiva exige participio; write → written."
+  ]
+}

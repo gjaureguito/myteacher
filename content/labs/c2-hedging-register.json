@@ -1,0 +1,59 @@
+{
+  "slug": "c2-hedging-register",
+  "title": "The strength of a careful claim",
+  "goal": "Calibrar una afirmación según la evidencia y evitar tanto la certeza injustificada como la vaguedad.",
+  "strategy": "Preguntate qué justificaría una versión más fuerte de cada afirmación. Una matización útil especifica el límite: muestra, período, método o explicación alternativa; no consiste en sumar perhaps a todo.",
+  "passage": "A small pilot at a fictional learning centre found that students who used a reading journal completed more practice activities during the trial. The result may indicate that reflective routines support engagement. It does not establish that journals caused the difference: participants chose whether to keep one, and those who did may already have been more motivated. Moreover, the trial lasted only four weeks. It would therefore be premature to claim a lasting effect on language proficiency. A more defensible conclusion is that the journal appears feasible and merits further investigation. The next study should distinguish engagement from learning outcomes and examine whether the pattern persists when participation is organised differently.",
+  "glossary": [
+    [
+      "may indicate",
+      "puede indicar"
+    ],
+    [
+      "premature",
+      "prematuro"
+    ],
+    [
+      "defensible conclusion",
+      "conclusión defendible"
+    ],
+    [
+      "learning outcomes",
+      "resultados de aprendizaje"
+    ]
+  ],
+  "questions": [
+    [
+      "What is the most defensible conclusion?",
+      [
+        "Journals guarantee higher proficiency.",
+        "The pilot suggests feasibility and warrants further study.",
+        "Motivation has been ruled out as an explanation."
+      ],
+      1,
+      "El texto limita la conclusión por autoselección, duración breve y diferencia entre actividad y dominio del idioma."
+    ],
+    [
+      "Which limitation concerns selection bias?",
+      [
+        "The centre is fictional.",
+        "Students chose whether to use a journal.",
+        "The text uses the word journal."
+      ],
+      1,
+      "La elección voluntaria puede separar grupos con motivación previa distinta; no prueba causalidad."
+    ]
+  ],
+  "task": "Redactá 180–220 palabras sobre un estudio ficticio o una observación propia. Diferenciá observación, interpretación y limitación. Incluí una explicación alternativa y una conclusión proporcional.",
+  "model": "In a hypothetical four-week reading project, participants who attended an optional discussion completed more follow-up tasks. This pattern could suggest that conversation supports continued engagement. However, the available information does not establish that attendance caused the difference. Students who chose to participate may already have had more time or a stronger interest in the material. The number of completed tasks also measures activity rather than the quality of comprehension. A cautious interpretation is therefore that the discussion format appears workable and may deserve a longer trial. It would be useful to collect an initial measure of reading performance and compare changes over time. Even then, the conclusion should reflect the study design and the range of participants. Careful language does not weaken an argument; it helps readers see exactly what the evidence can support. It is also worth distinguishing a proposal for further research from an implied promise that a later study will confirm the preferred explanation. A longer trial might support, complicate or undermine the initial pattern. Stating this possibility makes the recommendation more credible. The next step should be designed to discriminate between explanations, rather than merely to collect more examples that appear consistent with the first interpretation.",
+  "checklist": [
+    "Diferencié asociación de causalidad.",
+    "Nombré una limitación específica.",
+    "Usé matices con propósito, sin volver indescifrable la conclusión."
+  ],
+  "contrast": [
+    "This proves that journals always improve proficiency.",
+    "This suggests that journals may support engagement in this context.",
+    "La segunda frase limita fuerza y alcance a lo observado; la primera excede el diseño descrito."
+  ]
+}

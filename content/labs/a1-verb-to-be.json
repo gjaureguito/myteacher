@@ -1,0 +1,59 @@
+{
+  "slug": "a1-verb-to-be",
+  "title": "A first conversation",
+  "goal": "Presentarte, decir de dónde sos y hacer una pregunta para continuar una conversación.",
+  "strategy": "Leé una vez para identificar quién habla. En la segunda lectura, distinguí identidad (I am a student) de estado o ubicación (I am here). No traduzcas palabra por palabra: buscá bloques como I am from.",
+  "passage": "Maya: Hi, I’m Maya. I’m from Córdoba, Argentina. Is this the English study group?\nLeo: Yes, it is. I’m Leo, and this is Noura. We’re new here too.\nNoura: Hello! I’m from Rabat. I’m a designer. Are you a student, Maya?\nMaya: Yes, I am. I’m a biology student. I’m a little nervous.\nLeo: That’s OK. We’re here to learn. The teacher is in room twelve.\nNoura: Great. Are we early?\nLeo: No, we aren’t. We’re on time.",
+  "glossary": [
+    [
+      "a study group",
+      "un grupo de estudio"
+    ],
+    [
+      "new here",
+      "nuevo/a acá"
+    ],
+    [
+      "a little nervous",
+      "un poco nervioso/a"
+    ],
+    [
+      "on time",
+      "a horario"
+    ]
+  ],
+  "questions": [
+    [
+      "Where is Maya from?",
+      [
+        "Córdoba",
+        "Rabat",
+        "Room twelve"
+      ],
+      0,
+      "Maya dice “I’m from Córdoba”. Rabat es la ciudad de Noura; twelve es el número del aula."
+    ],
+    [
+      "Are the students early?",
+      [
+        "Yes, they are.",
+        "No, they aren’t.",
+        "The text does not say."
+      ],
+      1,
+      "Leo responde “No, we aren’t. We’re on time.” On time significa a horario; early significa antes de la hora."
+    ]
+  ],
+  "task": "Escribí un diálogo de seis intervenciones entre dos personas que se conocen en un grupo de estudio. Incluí nombre, origen, ocupación y una pregunta. Después leelo en voz alta dos veces.",
+  "model": "A: Hi, I’m Tomás. I’m from Salta. Are you new here?\nB: Yes, I am. I’m Hana. I’m from Osaka.\nA: Nice to meet you. Are you a student?\nB: No, I’m not. I’m a photographer. What about you?\nA: I’m an engineering student. Is this room ten?\nB: Yes, it is. We’re in the right place.",
+  "checklist": [
+    "Usé am con I, is con he/she/it y are con you/we/they.",
+    "Puse el verbo antes del sujeto en las preguntas.",
+    "Respondí Yes, I am, sin contraer la respuesta afirmativa."
+  ],
+  "contrast": [
+    "I have 22 years.",
+    "I am 22 years old.",
+    "Para la edad, el inglés usa be, aunque en español digamos tener."
+  ]
+}

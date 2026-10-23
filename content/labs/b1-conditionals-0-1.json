@@ -1,0 +1,59 @@
+{
+  "slug": "b1-conditionals-0-1",
+  "title": "A plan that can adapt",
+  "goal": "Explicar condiciones reales y consecuencias sin tratar posibilidades como certezas.",
+  "strategy": "Separá reglas habituales de decisiones sobre un evento futuro. Observá que una oración puede hablar del futuro aunque la cláusula con if lleve presente.",
+  "passage": "The neighbourhood reading festival is next week. If the weather is dry, the organisers will hold the main activities in the park. If it rains, they will move the readings to the community hall. The rules for volunteers are simple: if a visitor needs help, a volunteer shows them the information desk. Unless a speaker cancels, the timetable will stay the same. As soon as the final programme is ready, the organisers will email it to everyone. One coordinator reminds the team that a plan is useful only if people know how it can change.",
+  "glossary": [
+    [
+      "hold an activity",
+      "realizar una actividad"
+    ],
+    [
+      "community hall",
+      "salón comunitario"
+    ],
+    [
+      "unless",
+      "a menos que / si no"
+    ],
+    [
+      "as soon as",
+      "en cuanto"
+    ]
+  ],
+  "questions": [
+    [
+      "What will happen if it rains?",
+      [
+        "The festival will definitely be cancelled.",
+        "The readings will move indoors.",
+        "The timetable will have no speakers."
+      ],
+      1,
+      "La alternativa prevista es el salón comunitario; el texto no anuncia cancelación total."
+    ],
+    [
+      "Which sentence describes a general procedure?",
+      [
+        "If a visitor needs help, a volunteer shows them the desk.",
+        "If it rains, they will move the readings.",
+        "They will email the final programme."
+      ],
+      0,
+      "Presente + presente expresa aquí una regla operativa habitual: cada vez que un visitante necesita ayuda, un voluntario lo orienta. Las otras opciones describen planes futuros."
+    ]
+  ],
+  "task": "Diseñá un plan alternativo para una actividad. Incluí una regla general, dos condiciones futuras, una cláusula con unless y una con as soon as.",
+  "model": "If a visitor arrives without a ticket, we check the reservation list. If more than forty people come, we will open a second room. Unless the bus is late, the first session will start at ten. If a speaker cannot attend, a volunteer will lead a discussion instead. As soon as we confirm the final schedule, we will put it on the noticeboard. These alternatives will help us keep the event clear and accessible.",
+  "checklist": [
+    "No puse will en la cláusula condicional con if.",
+    "Usé unless con sentido de if not.",
+    "Mis condiciones llevan consecuencias concretas."
+  ],
+  "contrast": [
+    "If it will rain, we will stay inside.",
+    "If it rains, we will stay inside.",
+    "En este condicional real de futuro, la cláusula con if usa presente."
+  ]
+}

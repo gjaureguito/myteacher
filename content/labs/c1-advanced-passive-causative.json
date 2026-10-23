@@ -1,0 +1,59 @@
+{
+  "slug": "c1-advanced-passive-causative",
+  "title": "Who did the work?",
+  "goal": "Distinguir atribución de información, acción directa y encargo a otra persona.",
+  "strategy": "Preguntate quién afirma, quién actúa y quién encarga. Una pasiva de reporte mantiene distancia respecto de una afirmación; el causativo indica que alguien organizó el trabajo, no que lo hizo personalmente.",
+  "passage": "The old observatory is believed to contain one of the town’s earliest public clocks. Its mechanism is thought to have been repaired several times, although the archive is incomplete. Before reopening the building, the council had the stone steps inspected and got the electrical system replaced. Local volunteers cleaned the exhibition cases themselves. The distinction mattered in the final report: volunteers had contributed substantial work, but specialist safety checks had been carried out by qualified contractors. The team avoided presenting every historical claim as certain. It is said that the clock once controlled nearby factory shifts, but the available documents do not establish that conclusively.",
+  "glossary": [
+    [
+      "is believed to contain",
+      "se cree que contiene"
+    ],
+    [
+      "had … inspected",
+      "encargó la inspección de"
+    ],
+    [
+      "contractors",
+      "contratistas"
+    ],
+    [
+      "conclusively",
+      "de forma concluyente"
+    ]
+  ],
+  "questions": [
+    [
+      "Who inspected the steps?",
+      [
+        "The council necessarily did it personally.",
+        "Someone commissioned by the council.",
+        "The historical clockmaker."
+      ],
+      1,
+      "Had the steps inspected expresa un encargo; no identifica a la persona concreta."
+    ],
+    [
+      "Which claim remains uncertain?",
+      [
+        "Volunteers cleaned display cases.",
+        "The clock controlled factory shifts.",
+        "The electrical system was replaced."
+      ],
+      1,
+      "El cierre distingue el relato transmitido de lo que los documentos permiten establecer."
+    ]
+  ],
+  "task": "Redactá un informe de 170–200 palabras sobre la restauración ficticia de un espacio. Diferenciá tareas propias, encargadas y afirmaciones históricas no verificadas.",
+  "model": "The community archive is thought to have opened in the early twentieth century, although no complete record of its first collection survives. Before the reopening, the association had the roof inspected and the damaged wiring replaced. Volunteers catalogued the photographs themselves, using a system agreed with the local archivist. Several objects are believed to have belonged to the original reading club, but their ownership has not yet been independently confirmed. The report separates these uncertainties from the work that can be documented. Invoices identify the contractors who completed the electrical repairs, and dated notes record the volunteers’ contribution. It would therefore be misleading to attribute every improvement to a single group. A useful account makes both responsibility and uncertainty visible. Before the display opens, the association will have the handwritten labels checked by a conservator. It is hoped that visitors will contribute further information, but new accounts will be recorded as testimony rather than treated automatically as verified history. This distinction allows the archive to welcome community knowledge while preserving a clear record of how each claim is supported. The restoration is therefore both a practical task and an exercise in careful attribution.",
+  "checklist": [
+    "Diferencié have something done de hacerlo personalmente.",
+    "Usé to have + participio para anterioridad en pasiva de reporte.",
+    "Atribuí afirmaciones sin presentarlas como hechos demostrados."
+  ],
+  "contrast": [
+    "The council had inspected the steps. (para decir que encargó la inspección)",
+    "The council had the steps inspected.",
+    "La ubicación del objeto distingue el causativo del pasado perfecto activo."
+  ]
+}

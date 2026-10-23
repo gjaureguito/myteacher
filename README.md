@@ -90,3 +90,9 @@ Mientras no cargues las credenciales de Google o Microsoft, el botón correspond
 - Versionado: agregá unidades en `content/xx.php` con el mismo formato, hacé deploy y tocá **Agregar unidades nuevas** en el admin.
 
 La unidad en posición 1 de cada nivel es la que entra en la demo.
+
+## Biblioteca y talleres de aplicación
+
+La experiencia incluye 24 talleres originales con lecturas, comprensión explicada y escritura guiada. Las muestras abiertas están en `/library.php`; el programa, en `/program.php`. Cada unidad de la plataforma incorpora una pestaña Taller de aplicación. Los talleres se versionan en `content/labs/` y no requieren sincronizar ni reemplazar ejercicios de la base. El inventario editorial de consulta está en `/admin/learning.php`.
+
+Ver [diseño y contrato editorial](docs/EXPERIENCIA-ACADEMICA.md). Ejecutar `python tests/curriculum.py` y `python tests/smoke.py` para verificar contenido y flujos con una base temporal.

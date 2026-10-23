@@ -3,7 +3,8 @@ $full = has_full_access($u);
 $colors = level_colors();
 $first = explode(' ', $u['name'])[0];
 ?>
-<section class="wrap page">
+<section class="wrap page learning-dashboard">
+  <p class="eyebrow">MY LEARNING DESK / TU ESPACIO DE ESTUDIO</p>
   <div class="dash-head">
     <div>
       <h1>Hola, <?= e($first) ?></h1>
@@ -14,6 +15,8 @@ $first = explode(' ', $u['name'])[0];
     </div>
     <span class="pill <?= $full ? 'pill-ok' : 'pill-demo' ?>"><?= e(sub_label($u)) ?></span>
   </div>
+
+  <div class="desk-guide"><div><p class="eyebrow">UNA SESIÓN CON DIRECCIÓN</p><h2>Una idea. Un texto.<br><em>Una respuesta propia.</em></h2><p>Elegí una unidad, repasá su explicación y abrí el Taller de aplicación. Leé buscando evidencia y cerrá con tu propio texto.</p></div><ol><li><strong>Prepará</strong><span>Leé el objetivo y activá lo que ya sabés.</span></li><li><strong>Practicá</strong><span>Conectá teoría, vocabulario y ejercicios.</span></li><li><strong>Aplicá</strong><span>Escribí y revisá con el modelo del taller.</span></li></ol></div>
 
   <?php if (!$full): ?>
     <div class="upsell">
@@ -38,7 +41,7 @@ $first = explode(' ', $u['name'])[0];
     </a>
   </div>
 
-  <h2 class="section-title">Niveles</h2>
+  <div class="desk-section-heading"><h2 class="section-title">Elegí tu próximo capítulo</h2><a class="text-link" href="/library.php">Ir a la biblioteca ↗</a></div>
   <ol class="ladder">
     <?php foreach ($levels as $i => $lv):
       $p = $lp[$lv['code']] ?? ['total' => 0, 'solved' => 0];

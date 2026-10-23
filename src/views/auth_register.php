@@ -1,5 +1,6 @@
 <section class="auth wrap">
   <div class="auth-card">
+    <p class="eyebrow">TU PRÓXIMO CAPÍTULO</p>
     <h1>Creá tu cuenta</h1>
     <p class="muted">Gratis y sin tarjeta. Accedés a la primera unidad de cada nivel y al test de nivel.</p>
     <?php require __DIR__ . '/_social.php'; ?>

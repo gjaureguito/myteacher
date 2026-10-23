@@ -1,0 +1,59 @@
+{
+  "slug": "b2-conditionals-2-3",
+  "title": "The decision we did not take",
+  "goal": "Explorar una alternativa presente y una consecuencia hipotética de un pasado cerrado.",
+  "strategy": "Dibujá dos líneas temporales: lo que ocurrió y lo que imaginás que habría ocurrido. No confundas un deseo de cambio actual con una reconstrucción contrafáctica del pasado.",
+  "passage": "The student journal published its first issue in June. The editors were proud, but the launch was quieter than expected. They had relied only on social media, and many students never saw the announcement. At their review meeting, Aisha said, “If we had put posters around campus, more people might have come.” Her colleague agreed but added, “If we had a larger team now, we could organise classroom visits as well.” They decided not to treat the small launch as a failure. If they learned from it, the next issue could reach a wider audience. The point of the meeting was to improve a decision, not to blame a person.",
+  "glossary": [
+    [
+      "relied on",
+      "dependieron de"
+    ],
+    [
+      "launch",
+      "lanzamiento"
+    ],
+    [
+      "might have come",
+      "podrían haber venido"
+    ],
+    [
+      "blame",
+      "culpar"
+    ]
+  ],
+  "questions": [
+    [
+      "Which sentence imagines a different past?",
+      [
+        "If we had put posters around campus, more people might have come.",
+        "If we had a larger team now, we could organise visits.",
+        "They decided not to treat it as a failure."
+      ],
+      0,
+      "Had put + might have come reconstruye una alternativa ya cerrada; la referencia now sitúa la segunda en el presente."
+    ],
+    [
+      "What is the main purpose of the meeting?",
+      [
+        "To identify someone to punish",
+        "To learn from the launch",
+        "To cancel the journal"
+      ],
+      1,
+      "El cierre declara el propósito: mejorar decisiones, no culpar personas."
+    ]
+  ],
+  "task": "Redactá una reflexión de 140–170 palabras sobre un proyecto. Incluí una alternativa de pasado y una posibilidad irreal presente. Explicá qué harías distinto y por qué.",
+  "model": "Our presentation was clear, but we left little time for questions. If we had rehearsed with a timer, we would have noticed the problem earlier. We might also have removed two examples that repeated the same point. This does not mean the whole project failed: the audience understood the central argument. If we had another opportunity now, I would divide the session into shorter sections and invite questions between them. I would also give one team member responsibility for timekeeping. We cannot change the first presentation, but we can make our next decision better. The useful lesson is specific: preparation should include the conditions of the event, not only the content of the talk. If our group were larger, we could assign separate roles for research, delivery and audience support. With the team we actually have, a shorter presentation is a more realistic improvement than an elaborate new format.",
+  "checklist": [
+    "Separé una hipótesis presente de una alternativa de pasado.",
+    "Usé participio después de have.",
+    "La reflexión propone una mejora concreta sin inventar certeza sobre el pasado."
+  ],
+  "contrast": [
+    "If we would have rehearsed, we would have noticed it.",
+    "If we had rehearsed, we would have noticed it.",
+    "La cláusula if de este tercer condicional lleva had + participio."
+  ]
+}
