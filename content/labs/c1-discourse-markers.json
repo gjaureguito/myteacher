@@ -1,0 +1,59 @@
+{
+  "slug": "c1-discourse-markers",
+  "title": "An argument with visible joints",
+  "goal": "Conectar evidencia, contraste y conclusión sin usar conectores como decoración.",
+  "strategy": "Poné una etiqueta a la relación entre ideas antes de elegir un conector: contraste, causa, concesión o consecuencia. Revisá también la gramática que exige cada forma.",
+  "passage": "The pilot extended the study room’s opening hours by two evenings per week. Attendance rose during the first month; however, the figures varied considerably from one week to the next. Whereas some students used the room for group projects, others came because their homes were too noisy. Despite the additional staffing cost, the committee agreed to continue the trial. This decision did not imply that longer hours were the only solution. Improved transport information might also reduce barriers to access. Therefore, the next stage should examine both use of the room and the reasons why some students still do not attend. A higher total is informative, but it does not explain the whole pattern.",
+  "glossary": [
+    [
+      "pilot",
+      "prueba piloto"
+    ],
+    [
+      "whereas",
+      "mientras que (contraste)"
+    ],
+    [
+      "staffing cost",
+      "costo de personal"
+    ],
+    [
+      "barriers to access",
+      "barreras de acceso"
+    ]
+  ],
+  "questions": [
+    [
+      "What does “however” contrast?",
+      [
+        "An increase in attendance with variation in the figures",
+        "The library with a factory",
+        "Costs with a confirmed closure"
+      ],
+      0,
+      "El incremento general se matiza con variación semanal; no se niega el aumento."
+    ],
+    [
+      "Which follows correctly after “despite”?",
+      [
+        "Despite the cost increased",
+        "Despite the additional cost",
+        "Despite of the cost"
+      ],
+      1,
+      "Despite rige un sintagma nominal o -ing; para cláusula completa puede usarse despite the fact that."
+    ]
+  ],
+  "task": "Escribí un argumento de 170–200 palabras sobre un cambio en un espacio de estudio. Incluí evidencia ficticia claramente identificada, una limitación y una recomendación proporcional.",
+  "model": "Consider a hypothetical trial in which a learning centre opens on Sunday mornings. Attendance records show an initial increase; however, this alone would not establish that the new hours meet the greatest need. Some visitors might simply move their usual visit from Saturday to Sunday. Whereas a total count measures use, interviews could help explain who benefits and who remains excluded. Despite the value of the first results, the centre should avoid committing to permanent opening immediately. It should continue the trial and compare patterns across several weeks. Therefore, the most useful next step is to combine attendance figures with short voluntary comments. This would support a more informed decision without treating a promising beginning as conclusive evidence. Moreover, the trial should record whether the additional sessions require resources that would otherwise support weekday activities. Although the new hours may benefit some visitors, the opportunity cost must also be considered. A decision about access is therefore not simply a choice between opening and closing; it involves asking which arrangement serves the range of users most effectively. That question requires evidence about both attendance and unmet needs.",
+  "checklist": [
+    "Elegí conectores según la relación lógica.",
+    "Después de despite usé una construcción válida.",
+    "Mi conclusión no afirma más de lo que permite la evidencia."
+  ],
+  "contrast": [
+    "Despite the room was busy, it stayed quiet.",
+    "Although the room was busy, it stayed quiet.",
+    "Although introduce cláusula completa; despite necesita nombre, -ing o the fact that."
+  ]
+}

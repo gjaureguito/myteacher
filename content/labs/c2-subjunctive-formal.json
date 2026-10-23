@@ -1,0 +1,59 @@
+{
+  "slug": "c2-subjunctive-formal",
+  "title": "The language of a recommendation",
+  "goal": "Redactar recomendaciones formales y reconocer cómo el registro modifica las estructuras.",
+  "strategy": "Distinguí una recomendación de un hecho. La forma base en that the report be revised expresa lo solicitado, no afirma que la revisión ya ocurrió.",
+  "passage": "The review panel recommends that the report be revised before it is circulated. It is essential that each claim about participation be linked to a clearly defined source. The panel further proposes that the appendix include the questions used in the interviews. Should the authors require additional time, they may request an extension before Friday. Were it not for the incomplete attendance records, a fuller comparison would be possible. Be that as it may, the preliminary observations remain useful. The panel does not demand that the authors abandon their central argument; rather, it asks that they distinguish more carefully between what the data show and what they suggest.",
+  "glossary": [
+    [
+      "be circulated",
+      "sea distribuido"
+    ],
+    [
+      "an extension",
+      "una prórroga"
+    ],
+    [
+      "be that as it may",
+      "sea como fuere"
+    ],
+    [
+      "preliminary observations",
+      "observaciones preliminares"
+    ]
+  ],
+  "questions": [
+    [
+      "Has the panel confirmed that the report has been revised?",
+      [
+        "Yes, recommends means the action is complete.",
+        "No, the revision is requested.",
+        "Yes, it was circulated on Friday."
+      ],
+      1,
+      "La estructura mandativa expresa una recomendación pendiente, no un evento completado."
+    ],
+    [
+      "Which option uses formal conditional inversion?",
+      [
+        "Should the authors require additional time, they may request an extension.",
+        "If the authors require additional time, they may request an extension.",
+        "The authors require additional time."
+      ],
+      0,
+      "Ambas primeras formas pueden tener sentido condicional, pero solo la primera contiene inversión formal sin if."
+    ]
+  ],
+  "task": "Escribí una nota editorial de 180–220 palabras para un informe ficticio. Formulá dos recomendaciones mandativas y una condición formal. Incluí una razón sustantiva para cada pedido.",
+  "model": "The editorial group recommends that the introduction be revised to distinguish the research question from the authors’ expectations. It also proposes that the methods section include a clearer account of how participants were selected. These changes would allow readers to assess the scope of the conclusions without having to infer essential details. Should the authors wish to retain the comparison between groups, they should explain why the available records support it. The group does not suggest that uncertainty be removed through stronger wording. On the contrary, any limits should be stated directly. It is important that the final discussion acknowledge alternative explanations and identify which claims remain provisional. The aim is to strengthen the argument by making its basis more transparent, rather than to make the report sound more confident than the evidence permits. The group further requests that any revisions be accompanied by a brief account of the changes made. Were the authors to remove a comparison entirely, they should explain how that decision affects the discussion. Such a note would help reviewers distinguish a substantive response from a cosmetic edit. It is essential that uncertainty be handled through transparent reasoning, rather than concealed behind increasingly elaborate language. Precision is the purpose of the revision.",
+  "checklist": [
+    "Usé forma base en el subjuntivo mandativo.",
+    "Mi inversión con should mantiene sujeto + forma base.",
+    "Diferencié una recomendación de una afirmación de hecho."
+  ],
+  "contrast": [
+    "The panel recommends that she revises the report. (subjuntivo mandativo formal)",
+    "The panel recommends that she revise the report.",
+    "En esta construcción mandativa se usa la forma base, incluso con she."
+  ]
+}

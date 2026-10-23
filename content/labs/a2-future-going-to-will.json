@@ -1,0 +1,59 @@
+{
+  "slug": "a2-future-going-to-will",
+  "title": "Planning a community event",
+  "goal": "Diferenciar un plan previo de una decisión tomada en el momento.",
+  "strategy": "En el diálogo, preguntate qué decisión ya estaba tomada antes de hablar. Esa distinción explica el contraste entre going to y will mejor que traducir ambas como futuro.",
+  "passage": "Sara: We’re going to organise a book exchange on Saturday. I’ve already booked the room.\nBen: Great. How are people going to find out about it?\nSara: We’re going to put posters in the library. I designed them yesterday.\nBen: I’ll share the information with my neighbours, then.\nSara: Thanks. Oh, there are only six chairs in the room.\nBen: Don’t worry. I’ll bring four more from the office.\nSara: Look at those clouds. It’s going to rain.\nBen: Then we’ll keep the books inside.",
+  "glossary": [
+    [
+      "book exchange",
+      "intercambio de libros"
+    ],
+    [
+      "booked the room",
+      "reservó la sala"
+    ],
+    [
+      "find out",
+      "enterarse"
+    ],
+    [
+      "share the information",
+      "compartir la información"
+    ]
+  ],
+  "questions": [
+    [
+      "Which action was planned before the conversation?",
+      [
+        "Ben bringing chairs",
+        "Sara designing the posters",
+        "Ben telling his neighbours"
+      ],
+      1,
+      "Sara ya diseñó los afiches. Las otras dos acciones se ofrecen durante la conversación."
+    ],
+    [
+      "Why does Sara predict rain?",
+      [
+        "She has visible evidence in the clouds.",
+        "She has booked a room.",
+        "It always rains on Saturdays."
+      ],
+      0,
+      "“Look at those clouds” aporta evidencia presente para la predicción."
+    ]
+  ],
+  "task": "Escribí un diálogo para organizar una actividad. Incluí dos planes previos con going to, un ofrecimiento con will y una predicción con evidencia.",
+  "model": "A: We’re going to clean the community garden on Sunday. We bought the tools yesterday. B: Great. I’ll bring some water for everyone. A: We’re going to start at nine, before it gets hot. B: Look at that broken gate. Someone is going to have trouble opening it. A: You’re right. I’ll ask the organiser to check it today.",
+  "checklist": [
+    "Diferencié planes de ofrecimientos espontáneos.",
+    "Después de will usé la forma base.",
+    "Mi predicción con going to incluye evidencia presente."
+  ],
+  "contrast": [
+    "I will to bring water.",
+    "I will bring water.",
+    "Will es un modal: va seguido de infinitivo sin to."
+  ]
+}

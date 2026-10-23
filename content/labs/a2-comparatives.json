@@ -1,0 +1,59 @@
+{
+  "slug": "a2-comparatives",
+  "title": "Choosing between two cities",
+  "goal": "Comparar alternativas y justificar una elección con criterios concretos.",
+  "strategy": "Identificá qué se compara en cada oración: costo, tamaño, tiempo o preferencia. Una comparación útil necesita un criterio, no solo better.",
+  "passage": "Two students are choosing a city for a short course. Lina prefers Brookford because it is smaller and quieter than Westhaven. Accommodation is cheaper, and the language centre is closer to the station. Omar prefers Westhaven. It has the largest library in the region and more evening activities. However, the journey to class is longer. They look at their budget again. Brookford isn’t as exciting as Westhaven, but it is the more practical choice for a two-week stay. They decide to visit Westhaven for one day instead.",
+  "glossary": [
+    [
+      "accommodation",
+      "alojamiento"
+    ],
+    [
+      "budget",
+      "presupuesto"
+    ],
+    [
+      "journey",
+      "trayecto"
+    ],
+    [
+      "a two-week stay",
+      "una estadía de dos semanas"
+    ]
+  ],
+  "questions": [
+    [
+      "Which city has cheaper accommodation?",
+      [
+        "Brookford",
+        "Westhaven",
+        "Both cost the same."
+      ],
+      0,
+      "El segundo enunciado sobre Brookford dice “Accommodation is cheaper”. El texto atribuye a Westhaven la biblioteca más grande, no el alojamiento más barato."
+    ],
+    [
+      "Why do they choose Brookford?",
+      [
+        "It has the largest library.",
+        "It is more practical for their budget and stay.",
+        "It has more evening activities."
+      ],
+      1,
+      "La conclusión prioriza la viabilidad de la estadía, no la cantidad de actividades."
+    ]
+  ],
+  "task": "Compará dos lugares para estudiar. Usá tres comparativos, un superlativo y una oración con as…as. Cerrá con una elección justificada.",
+  "model": "The local library is quieter than the café, and its chairs are more comfortable. The café is closer to my home, but it is usually busier. Both places have internet. The café isn’t as spacious as the library, although it has the best coffee in the neighbourhood. For a long study session, I choose the library because I can concentrate better. For a short conversation with a classmate, I prefer the café.",
+  "checklist": [
+    "Usé than para introducir el segundo elemento.",
+    "Evité combinar more con una forma en -er.",
+    "Justifiqué la elección con un criterio."
+  ],
+  "contrast": [
+    "This room is more quieter.",
+    "This room is quieter.",
+    "Quiet admite quieter: no se suma more a una comparación ya marcada."
+  ]
+}

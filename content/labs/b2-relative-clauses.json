@@ -1,0 +1,59 @@
+{
+  "slug": "b2-relative-clauses",
+  "title": "The detail that changes the meaning",
+  "goal": "Usar relativas para identificar referentes y distinguir información adicional.",
+  "strategy": "Compará qué pasa si quitás la relativa. Si ya no sabés de qué persona u objeto se habla, probablemente sea definitoria; las comas cambian la interpretación.",
+  "passage": "The library is preparing an exhibition about people who changed local education. One display tells the story of a teacher whose evening classes helped factory workers learn to read. Another presents the notebooks that her students kept. These notebooks, which were donated by a former student’s family, include letters and short personal stories. The building where the classes took place no longer exists, but the exhibition includes a map. Visitors who want more detail can listen to a recorded account. The curator, who grew up in the same neighbourhood, hopes the exhibition will encourage people to preserve ordinary documents as well as official records.",
+  "glossary": [
+    [
+      "display",
+      "panel o sección de una exposición"
+    ],
+    [
+      "whose",
+      "cuyo/a"
+    ],
+    [
+      "curator",
+      "curador/a"
+    ],
+    [
+      "official records",
+      "registros oficiales"
+    ]
+  ],
+  "questions": [
+    [
+      "What does “whose” connect?",
+      [
+        "A teacher and her classes",
+        "A building and its map",
+        "A curator and all visitors"
+      ],
+      0,
+      "Whose introduce pertenencia: las clases de esa docente. No funciona como where, que se usaría para relacionar un lugar con una situación."
+    ],
+    [
+      "Which relative clause supplies extra information about an already identified person?",
+      [
+        "people who changed local education",
+        "The curator, who grew up in the same neighbourhood,",
+        "Visitors who want more detail"
+      ],
+      1,
+      "La cláusula entre comas añade un dato sobre la persona ya identificada como curadora."
+    ]
+  ],
+  "task": "Describí un objeto valioso para una comunidad en 130–160 palabras. Incluí una relativa definitoria, una no definitoria y whose o where. Revisá las comas.",
+  "model": "The object that I would preserve is an old notebook from a neighbourhood club. It contains the names of families who helped build the meeting room. The first organiser, whose handwriting appears on almost every page, recorded small donations as carefully as large ones. The notebook, which was kept in a kitchen cupboard for years, also includes sketches and shopping lists. It shows how an ordinary place became a shared space. I would display it near a map of the street where the club opened, so that visitors could connect the personal details with a familiar location. The families whose names appear in the notebook did not all contribute money. Some offered tools, food or time. Those details, which might disappear from an official budget, help explain how the club became possible.",
+  "checklist": [
+    "Usé whose para pertenencia.",
+    "Puse comas en la información adicional.",
+    "No usé that en una relativa no definitoria."
+  ],
+  "contrast": [
+    "The notebook, that was donated last year, is on display.",
+    "The notebook, which was donated last year, is on display.",
+    "En relativas no definitorias sobre cosas se usa which, no that."
+  ]
+}

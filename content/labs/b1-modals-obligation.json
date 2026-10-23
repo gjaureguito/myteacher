@@ -1,0 +1,59 @@
+{
+  "slug": "b1-modals-obligation",
+  "title": "Rules that leave room for choice",
+  "goal": "Diferenciar obligación, prohibición, ausencia de obligación y consejo.",
+  "strategy": "Para cada regla, preguntate si la persona puede elegir. Don’t have to permite no hacer algo; mustn’t lo prohíbe. Esa diferencia cambia lo que un visitante puede hacer.",
+  "passage": "Welcome to the research reading room. Visitors must show a valid reader’s card at reception. You don’t have to book a desk for a short visit, but groups have to reserve a room in advance. You mustn’t take rare books outside the reading area. You should use the foam supports provided for fragile volumes. Photography is allowed, but you mustn’t use a flash. You don’t have to leave your laptop at reception; however, drinks must stay outside. If you are unsure about a rule, you should ask a member of staff before handling an item.",
+  "glossary": [
+    [
+      "valid reader’s card",
+      "carnet de lector vigente"
+    ],
+    [
+      "in advance",
+      "con anticipación"
+    ],
+    [
+      "rare books",
+      "libros raros o valiosos"
+    ],
+    [
+      "handling an item",
+      "manipular un ejemplar"
+    ]
+  ],
+  "questions": [
+    [
+      "Is desk booking compulsory for a short visit?",
+      [
+        "Yes, for everyone.",
+        "No, it is not necessary.",
+        "No, it is forbidden."
+      ],
+      1,
+      "“Don’t have to” elimina la obligación; no prohíbe reservar. La regla sobre reservar una sala con anticipación se aplica a grupos, no a toda visita breve."
+    ],
+    [
+      "Which action is forbidden?",
+      [
+        "Bringing a laptop",
+        "Asking staff a question",
+        "Using a camera flash"
+      ],
+      2,
+      "“You mustn’t use a flash” expresa una prohibición explícita. Llevar una computadora y pedir ayuda al personal no están prohibidos por estas reglas."
+    ]
+  ],
+  "task": "Escribí una guía de bienvenida para un espacio compartido. Incluí dos obligaciones, una prohibición, una acción opcional y un consejo. Asegurate de que no se contradigan.",
+  "model": "Visitors have to sign in before entering the workshop. Everyone must wear closed shoes near the equipment. You mustn’t operate a machine without training. You don’t have to bring your own tools because the centre provides them. You should label any work you leave overnight so that staff can identify it. If you need a quieter area, you can use the side room. Please ask a volunteer if any instruction is unclear.",
+  "checklist": [
+    "Distinguí mustn’t de don’t have to.",
+    "Después de un modal usé forma base.",
+    "Mi guía indica qué es obligatorio y qué es una recomendación."
+  ],
+  "contrast": [
+    "You don’t have to touch the fragile pages. (para prohibirlo)",
+    "You mustn’t touch the fragile pages.",
+    "La primera frase dice que no es necesario; la segunda lo prohíbe."
+  ]
+}

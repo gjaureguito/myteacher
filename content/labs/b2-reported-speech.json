@@ -1,0 +1,59 @@
+{
+  "slug": "b2-reported-speech",
+  "title": "When a message travels",
+  "goal": "Transmitir información conservando quién dijo qué y qué sigue vigente.",
+  "strategy": "Antes de transformar los verbos, identificá hablante, destinatario y momento. El discurso indirecto también exige ajustar pronombres y referencias como tomorrow.",
+  "passage": "On Monday, the course coordinator told the class, “The workshop will start at ten tomorrow. Bring a short text you would like to discuss.” Later that day, Elena sent a message to an absent classmate. She explained that the workshop would start at ten the following day and said that participants should bring a short text. Her classmate asked whether the workshop was open to beginners. Elena did not guess. She contacted the coordinator, who confirmed that it was. In a second message, Elena added, “The coordinator says beginners are welcome.” The present tense was useful because the information was still current.",
+  "glossary": [
+    [
+      "coordinator",
+      "coordinador/a"
+    ],
+    [
+      "absent classmate",
+      "compañero/a ausente"
+    ],
+    [
+      "the following day",
+      "al día siguiente"
+    ],
+    [
+      "whether",
+      "si (pregunta indirecta)"
+    ]
+  ],
+  "questions": [
+    [
+      "Why did Elena contact the coordinator?",
+      [
+        "To check information she did not know",
+        "To change the start time",
+        "To cancel her place"
+      ],
+      0,
+      "El texto destaca que no inventó la respuesta sobre principiantes."
+    ],
+    [
+      "Which is a correct reported question?",
+      [
+        "She asked whether was the workshop open.",
+        "She asked whether the workshop was open.",
+        "She asked that was it open."
+      ],
+      1,
+      "En una pregunta indirecta se usa el orden sujeto + verbo, sin inversión interrogativa."
+    ]
+  ],
+  "task": "Transmití por escrito el anuncio de un evento a alguien ausente. Incluí una afirmación, una instrucción y una pregunta indirecta. Distinguí lo confirmado de lo que todavía debés averiguar.",
+  "model": "The organiser told us that the discussion would begin at six on Friday. She asked us to read the short article before attending. Mateo asked whether we needed to prepare a presentation, and she said that this was not necessary. I also wanted to know if the room had step-free access. The organiser said she would check, so I cannot confirm that detail yet. Her latest message says that visitors are welcome, which is still the current arrangement.",
+  "checklist": [
+    "Usé tell con un destinatario cuando correspondía.",
+    "En la pregunta indirecta mantuve sujeto antes del verbo.",
+    "No transformé automáticamente información actual en algo que parece vencido."
+  ],
+  "contrast": [
+    "She asked where was the room.",
+    "She asked where the room was.",
+    "La interrogativa indirecta no usa el orden invertido de la pregunta directa."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "slug": "b1-present-perfect",
+  "title": "Experience becomes evidence",
+  "goal": "Relacionar experiencias previas con una situación presente y distinguirlas de eventos fechados.",
+  "strategy": "Buscá las referencias temporales antes de elegir un tiempo: last year sitúa un evento terminado; so far mantiene abierto el período. Preguntate por qué la experiencia importa ahora.",
+  "passage": "When I applied for a place in the community research project, I worried about my lack of experience. I have never worked in a laboratory, but I have volunteered at a nature centre for three years. Last summer, I helped a team count birds near the river. We collected observations every morning and published a short report in August. Since then, I have become more interested in how people use evidence. The project coordinator has already read my application. She called yesterday and asked me to bring the report to an interview. I haven’t received a place yet, but I have learned that experience can take more than one form.",
+  "glossary": [
+    [
+      "applied for a place",
+      "solicitó una vacante"
+    ],
+    [
+      "lack of experience",
+      "falta de experiencia"
+    ],
+    [
+      "observations",
+      "observaciones"
+    ],
+    [
+      "so far",
+      "hasta ahora"
+    ]
+  ],
+  "questions": [
+    [
+      "Which experience continues up to the present?",
+      [
+        "Counting birds last summer",
+        "Volunteering at the nature centre",
+        "Publishing the report in August"
+      ],
+      1,
+      "“I have volunteered … for three years” conecta la actividad con el presente; las otras acciones tienen referencias terminadas."
+    ],
+    [
+      "Has the narrator been accepted?",
+      [
+        "Yes, the coordinator read the application.",
+        "No decision is stated yet.",
+        "Yes, last August."
+      ],
+      1,
+      "“I haven’t received a place yet” deja la aceptación pendiente. Una entrevista no equivale a admisión."
+    ]
+  ],
+  "task": "Escribí un perfil de 120–150 palabras para un proyecto. Combiná experiencia acumulada, un ejemplo fechado y algo que todavía no hiciste. Usá for o since de manera pertinente.",
+  "model": "I have helped at a neighbourhood learning centre since 2023. I have organised reading sessions and supported new volunteers, although I have never managed a large project. Last October, I prepared a short guide for families who were using the centre for the first time. Three other volunteers reviewed it, and we distributed it during an open day. Since that experience, I have become more interested in accessible communication. I have already completed an introductory design course, but I haven’t studied research methods yet. I would like to join your project because it connects education with community work. I can contribute practical experience and a willingness to ask questions when I do not understand something. This opportunity would also help me understand how a team turns observations into useful questions.",
+  "checklist": [
+    "Elegí pasado simple con fechas terminadas.",
+    "Usé since con un punto de inicio y for con una duración.",
+    "Relacioné la experiencia con el objetivo actual."
+  ],
+  "contrast": [
+    "I have volunteered here since three years.",
+    "I have volunteered here for three years.",
+    "For introduce duración; since introduce el momento de inicio."
+  ]
+}

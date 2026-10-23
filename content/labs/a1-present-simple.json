@@ -1,0 +1,59 @@
+{
+  "slug": "a1-present-simple",
+  "title": "A day with two rhythms",
+  "goal": "Describir una rutina y contrastarla con la de otra persona.",
+  "strategy": "Subrayá mentalmente quién realiza cada acción. Con she/he, buscá la terminación del verbo. Observá qué cambia cuando aparece doesn’t.",
+  "passage": "I work at a small library. I open the doors at nine and help visitors find books. At lunchtime, I usually eat in the garden. My sister Eva works at a café. She starts at six, so she gets up very early. She doesn’t work on Mondays. We don’t have the same timetable, but we have dinner together on Fridays. After dinner, she reads and I listen to music. Do we always agree on the music? No, we don’t!",
+  "glossary": [
+    [
+      "open the doors",
+      "abrir las puertas"
+    ],
+    [
+      "at lunchtime",
+      "a la hora del almuerzo"
+    ],
+    [
+      "timetable",
+      "horario"
+    ],
+    [
+      "agree on",
+      "ponerse de acuerdo sobre"
+    ]
+  ],
+  "questions": [
+    [
+      "Who starts work at six?",
+      [
+        "The narrator",
+        "Eva",
+        "Both"
+      ],
+      1,
+      "“She starts at six” se refiere a Eva, la hermana que trabaja en el café."
+    ],
+    [
+      "Which sentence matches the text?",
+      [
+        "Eva works every Monday.",
+        "They have dinner together every day.",
+        "They have different timetables."
+      ],
+      2,
+      "“We don’t have the same timetable” expresa que sus horarios son distintos."
+    ]
+  ],
+  "task": "Escribí 70–90 palabras sobre tu rutina y la de una persona cercana. Incluí dos adverbios de frecuencia, una negativa y una actividad compartida.",
+  "model": "I study in the morning and work in the afternoon. I usually take the bus. My friend Clara works from home. She starts at ten and often has lunch at her desk. She doesn’t take the bus. We don’t see each other every day, but we meet on Sundays. We usually walk in the park and talk about our week. Clara likes quiet places, and I like them too. Sometimes we study English together in the evening.",
+  "checklist": [
+    "Marqué la tercera persona en las afirmativas.",
+    "Después de doesn’t, usé la forma base.",
+    "Diferencié una rutina de algo que pasa ahora."
+  ],
+  "contrast": [
+    "Does she works here?",
+    "Does she work here?",
+    "Does ya marca la tercera persona: el verbo principal no lleva -s."
+  ]
+}

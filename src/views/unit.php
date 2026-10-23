@@ -13,7 +13,14 @@ $total = count($exercises);
     <button role="tab" aria-selected="true" aria-controls="t-theory" id="tab-theory">Teoría</button>
     <?php if ($vocab): ?><button role="tab" aria-selected="false" aria-controls="t-vocab" id="tab-vocab">Vocabulario <span class="count"><?= count($vocab) ?></span></button><?php endif; ?>
     <button role="tab" aria-selected="false" aria-controls="t-practice" id="tab-practice">Práctica <span class="count" data-progress><?= $solved ?>/<?= $total ?></span></button>
+    <?php if ($lab): ?><button role="tab" aria-selected="false" aria-controls="t-workshop" id="tab-workshop">Taller de aplicación</button><?php endif; ?>
   </div>
+
+  <?php if ($lab): ?>
+  <div class="tabpanel" id="t-workshop" role="tabpanel" aria-labelledby="tab-workshop" hidden>
+    <?php require __DIR__ . '/learning_lab.php'; ?>
+  </div>
+  <?php endif; ?>
 
   <div class="tabpanel theory" id="t-theory" role="tabpanel" aria-labelledby="tab-theory">
     <?= $unit['theory_html'] /* contenido propio cargado por el admin */ ?>

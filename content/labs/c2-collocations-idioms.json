@@ -1,0 +1,59 @@
+{
+  "slug": "c2-collocations-idioms",
+  "title": "Precision is a choice of neighbours",
+  "goal": "Usar colocaciones naturales y evaluar cuándo una expresión idiomática encaja en el registro.",
+  "strategy": "Observá palabras que suelen aparecer juntas: draw a distinction, raise a concern, reach a conclusion. No supongas que cada equivalente español comparte las mismas combinaciones.",
+  "passage": "The team made a decision to postpone the launch after several reviewers raised concerns about the instructions. Rather than dismiss the comments, the coordinator took them into account and asked the group to draw a clear distinction between a confusing explanation and a technical fault. Heavy rain had affected the first test session, so the team could not simply attribute every difficulty to the design. A second trial would help them reach a more balanced conclusion. In an informal message, one volunteer said they needed to “get the ball rolling” again. In the official report, the same idea became “resume the trial after the revisions.” The difference was one of register, not commitment.",
+  "glossary": [
+    [
+      "raise concerns",
+      "plantear inquietudes"
+    ],
+    [
+      "draw a distinction",
+      "establecer una distinción"
+    ],
+    [
+      "take into account",
+      "tener en cuenta"
+    ],
+    [
+      "get the ball rolling",
+      "poner algo en marcha (informal)"
+    ]
+  ],
+  "questions": [
+    [
+      "Which collocation appears in the text?",
+      [
+        "Do a decision",
+        "Make a decision",
+        "Build a decision"
+      ],
+      1,
+      "La combinación habitual es make a decision. También existe take a decision en determinados usos, especialmente británicos."
+    ],
+    [
+      "Why does the official report avoid “get the ball rolling”?",
+      [
+        "The idiom is always incorrect.",
+        "A more explicit expression suits its formal register.",
+        "The trial was cancelled permanently."
+      ],
+      1,
+      "La locución es válida en contexto informal; el informe prefiere una formulación transparente."
+    ]
+  ],
+  "task": "Escribí dos versiones de un mensaje sobre una revisión: 80–100 palabras para colegas y 100–120 palabras para un informe. Conservá el contenido, cambiá el registro e incluí cuatro colocaciones naturales.",
+  "model": "Informal: We need to get the ball rolling again, but first let’s take the reviewers’ comments into account. They raised a useful concern about the instructions, and we should make a decision about the next test this week. Could everyone look at the revised guide before Thursday? I’d like us to draw a clear distinction between wording problems and technical faults. That way, we can agree on what actually needs fixing instead of changing everything at once. Let me know if you spot an example we have missed.\n\nFormal: The group will review the instructions before resuming the trial. The reviewers raised concerns about clarity rather than identifying a confirmed technical failure. These observations should be taken into account when the team reaches a decision about the next session. A distinction between presentation and functionality will help define the scope of the revision. Members are requested to examine the revised guide before Thursday and identify any remaining ambiguities. The aim is to reach a balanced conclusion about the changes required, rather than to treat every comment as evidence of a broader design failure. A short record of the decision will accompany the next version.",
+  "checklist": [
+    "Revisé combinaciones completas, no solo palabras aisladas.",
+    "Ajusté el registro al destinatario.",
+    "Mantuve el mismo contenido sustantivo en ambas versiones."
+  ],
+  "contrast": [
+    "We did a decision after strong rain.",
+    "We made a decision after heavy rain.",
+    "Make a decision y heavy rain son colocaciones naturales en este contexto."
+  ]
+}

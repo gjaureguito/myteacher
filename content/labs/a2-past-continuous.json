@@ -1,0 +1,59 @@
+{
+  "slug": "a2-past-continuous",
+  "title": "A small interruption",
+  "goal": "Presentar una escena en desarrollo e introducir un evento que la interrumpe.",
+  "strategy": "Pensá en una cámara: el pasado continuo muestra la escena; el pasado simple marca lo que sucede dentro de ella. No todo when exige automáticamente un tiempo determinado.",
+  "passage": "It was eight in the evening, and the library was almost empty. Daniel was writing an email while his friend Amira was looking for a dictionary. A librarian was putting books on a shelf. Suddenly, the lights went out. Daniel stopped typing and turned on his phone. Amira found a torch near the desk. While they were waiting for the lights to return, the librarian told them a story about the building. Ten minutes later, the electricity came back. Daniel finished his email, but Amira stayed to hear the end of the story.",
+  "glossary": [
+    [
+      "almost empty",
+      "casi vacía"
+    ],
+    [
+      "the lights went out",
+      "se apagaron las luces"
+    ],
+    [
+      "torch",
+      "linterna (inglés británico)"
+    ],
+    [
+      "came back",
+      "volvió"
+    ]
+  ],
+  "questions": [
+    [
+      "What was Daniel doing when the lights went out?",
+      [
+        "Writing an email",
+        "Looking for a dictionary",
+        "Leaving the library"
+      ],
+      0,
+      "La escritura es la acción de fondo; el corte de luz la interrumpe."
+    ],
+    [
+      "Why did Amira stay?",
+      [
+        "She lost her phone.",
+        "She wanted to hear the end of the story.",
+        "The electricity did not return."
+      ],
+      1,
+      "El texto cierra con una razón explícita: Amira se queda para escuchar el final de la historia. La electricidad ya había vuelto."
+    ]
+  ],
+  "task": "Narrá una interrupción en 100–120 palabras. Describí dos acciones simultáneas, un evento breve y lo que pasó después.",
+  "model": "I was studying at the kitchen table while my brother was making dinner. It was raining outside, and we were listening to the radio. Suddenly, someone knocked on the door. Our neighbour was standing outside with a wet cardboard box. Her cat had three new kittens, and she needed some dry towels. We stopped what we were doing and helped her. While my brother was finding a bigger box, I warmed the towels. A few minutes later, the kittens were safe and dry. Our dinner was late, but nobody minded. Afterwards, we called our neighbour to ask about them, and she sent us a photograph.",
+  "checklist": [
+    "Usé was/were + -ing para acciones en desarrollo.",
+    "Distinguí la acción de fondo del evento breve.",
+    "Cerré la narración con un resultado."
+  ],
+  "contrast": [
+    "I was study when she called.",
+    "I was studying when she called.",
+    "El continuo requiere la forma en -ing después de was/were."
+  ]
+}

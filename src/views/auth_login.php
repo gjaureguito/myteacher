@@ -1,6 +1,8 @@
 <section class="auth wrap">
   <div class="auth-card">
+    <p class="eyebrow">VOLVÉ A TU ESPACIO DE ESTUDIO</p>
     <h1>Ingresá a tu cuenta</h1>
+    <p class="muted">Tus unidades, ejercicios y próximos descubrimientos.</p>
     <?php require __DIR__ . '/_social.php'; ?>
     <?php if ($errors): ?>
       <div class="flash flash-error" role="alert"><?= implode('<br>', array_map('e', $errors)) ?></div>

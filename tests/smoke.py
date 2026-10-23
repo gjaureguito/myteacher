@@ -30,9 +30,22 @@ q("UPDATE units SET is_published=0 WHERE id=(SELECT MIN(id) FROM units)");
             try: status,home,_=request('/'); break
             except OSError: time.sleep(.1)
         else: raise AssertionError('Local PHP server did not start')
-        assert status==200 and 'Entendé el inglés' in home
-        assert home.count('class="program-card"')==6 and home.count('<li><strong>')==23
-        assert '<strong>23</strong> unidades publicadas' in home
+        assert status==200 and 'Abrí tu mundo.' in home
+        assert home.count('class="track-row"')==6
+        _,programme,_=request('/program.php')
+        assert programme.count('class="unit-index"')==23
+        _,library,_=request('/library.php')
+        assert library.count('class="library-card"')==5
+        assert request('/reading.php?slug=a1-verb-to-be')[0]==404
+        assert request('/reading.php?slug=a1-present-simple')[0]==404
+        assert request('/reading.php?slug=../../src/bootstrap')[0]==404
+        _,sample,_=request('/reading.php?slug=a2-past-simple')
+        assert 'The day the plan changed' in sample and 'name="robots"' not in sample
+        assert 'reading.php?slug=a2-past-simple' in sample
+        assert 'class="writing-draft"' in sample and sample.count('data-reading-question')==2
+        assert '<strong>23</strong><span>Unidades publicadas</span>' in home
+        assert '<strong>23</strong><span>Talleres de aplicación</span>' in home
+        assert '<strong>5</strong><span>Lecturas abiertas</span>' in home
         assert 'name="robots"' not in home and 'rel="canonical"' in home
         print('PASS: public syllabus and counts exclude unpublished units; canonical metadata')
         status,form,_=request('/register.php')
@@ -50,9 +63,16 @@ q("UPDATE units SET is_published=0 WHERE id=(SELECT MIN(id) FROM units)");
         assert 'Hasta 100 usuarios' in admin
         assert 'No encontramos usuarios' in request('/admin/?s=missing@example.test')[1]
         print('PASS: admin login, subscription metrics exclude manual/expired users, empty search')
+        _,inventory,_=request('/admin/learning.php')
+        assert inventory.count('preguntas + explicación')==24
+        for unit_id in range(2,25):
+            status,unit,_=request(f'/unit.php?id={unit_id}')
+            assert status==200 and 'id="t-workshop"' in unit
+            assert 'data-reading-question' in unit
+        print('PASS: all 23 published units render workshops; editorial inventory covers all 24')
         status,xml,_=request('/sitemap.php')
         import xml.etree.ElementTree as ET
-        assert status==200 and len(ET.fromstring(xml))==3
+        assert status==200 and len(ET.fromstring(xml))==10
         assert request('/robots.txt')[0]==200
         print('PASS: sitemap XML and robots response')
         assert request('/admin/',{'action':'grant','user_id':2,'days':30})[0]==419

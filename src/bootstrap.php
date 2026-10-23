@@ -57,6 +57,7 @@ require ROOT . '/src/auth.php';
 require ROOT . '/src/access.php';
 require ROOT . '/src/progress.php';
 require ROOT . '/src/grading.php';
+require ROOT . '/src/learning.php';
 
 if (PHP_SAPI !== 'cli') {
     session_name('ipsess');

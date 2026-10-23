@@ -1,0 +1,59 @@
+{
+  "slug": "a2-past-simple",
+  "title": "The day the plan changed",
+  "goal": "Narrar una experiencia terminada con una secuencia comprensible de eventos.",
+  "strategy": "Primero reconstruí el orden: plan, problema, decisión, resultado. Después buscá verbos irregulares y fijate en la forma base después de didn’t.",
+  "passage": "Last Saturday, Elena planned to visit a museum in another town. She bought a train ticket on Friday, but on Saturday morning she missed the train. She didn’t go home. Instead, she walked to a small gallery near the station. The owner showed her photographs of the town from the 1950s. Elena recognised her grandfather’s old shop in one picture. She took a photograph of it and called him that evening. He remembered the photographer and told her a story she didn’t know. The museum stayed on her list, but the unexpected visit became the best part of her weekend.",
+  "glossary": [
+    [
+      "missed the train",
+      "perdió el tren"
+    ],
+    [
+      "instead",
+      "en cambio"
+    ],
+    [
+      "recognised",
+      "reconoció"
+    ],
+    [
+      "unexpected",
+      "inesperado"
+    ]
+  ],
+  "questions": [
+    [
+      "Why did Elena visit the gallery?",
+      [
+        "She missed her train.",
+        "Her grandfather owned it.",
+        "The museum was closed."
+      ],
+      0,
+      "La galería fue una alternativa después de perder el tren; el texto no dice que el museo estuviera cerrado."
+    ],
+    [
+      "What did she find in a photograph?",
+      [
+        "Her own house",
+        "Her grandfather’s old shop",
+        "A train ticket"
+      ],
+      1,
+      "Elena reconoce el antiguo negocio de su abuelo en una fotografía."
+    ]
+  ],
+  "task": "Escribí 100–120 palabras sobre un plan que cambió. Usá una referencia temporal, al menos tres verbos en pasado y una negativa con didn’t.",
+  "model": "Last month, I wanted to go hiking with a friend. We packed our bags on Friday, but it rained heavily on Saturday. We didn’t leave the city. Instead, we visited a science exhibition. I saw a model of the solar system and learned how scientists study distant planets. My friend took notes because she wanted to use the ideas in a school project. Later, we found a quiet café and talked about the exhibition. The weather changed our plans, but it gave us an interesting afternoon. We went hiking the following weekend, when the sun finally came out. I wrote about both experiences in my notebook on Monday.",
+  "checklist": [
+    "Organicé los eventos en un orden claro.",
+    "Usé pasado simple para eventos terminados.",
+    "Después de didn’t, escribí el verbo en forma base."
+  ],
+  "contrast": [
+    "She didn’t went home.",
+    "She didn’t go home.",
+    "El pasado está marcado en did; no se repite en went."
+  ]
+}
