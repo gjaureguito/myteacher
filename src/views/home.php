@@ -1,93 +1,33 @@
 <?php $colors = level_colors(); ?>
-<section class="hero">
-  <div class="wrap hero-in">
-    <div class="hero-copy">
-      <h1>Inglés de A1 a C2, explicado en castellano y practicado todos los días.</h1>
-      <p class="lead">Teoría clara con los errores típicos de quien habla español, ejercicios que se corrigen al instante y audio en cada oración. Empezás gratis y seguís a tu ritmo.</p>
-      <div class="hero-cta">
-        <a class="btn btn-lg" href="/register.php">Crear cuenta y probar gratis</a>
-        <a class="btn btn-ghost btn-lg" href="#niveles">Ver los niveles</a>
-      </div>
-      <p class="fine">Demo sin tarjeta: primera unidad de cada nivel y test de nivel.</p>
-    </div>
-
-    <div class="try" aria-label="Probá un ejercicio">
-      <p class="try-label">Probá ahora</p>
-      <p class="try-q">My brother <span class="gap-demo" id="demo-gap">____</span> to work by bus every day.</p>
-      <div class="options" id="demo-opts">
-        <button class="opt" data-ok="0">go</button>
-        <button class="opt" data-ok="1">goes</button>
-        <button class="opt" data-ok="0">going</button>
-      </div>
-      <p class="try-fb" id="demo-fb" aria-live="polite"></p>
-      <button class="linkbtn speak" data-say="My brother goes to work by bus every day.">🔊 Escuchar la oración</button>
-    </div>
-  </div>
-</section>
-
-<section class="wrap block" id="niveles">
-  <h2>Seis niveles, del primer "hello" al inglés de negocios</h2>
-  <p class="muted narrow-text">Seguimos el Marco Común Europeo (MCER), el mismo que usan Cambridge, el TOEFL y las empresas para medir el nivel.</p>
-  <ol class="ladder ladder-home">
-    <?php foreach ($levels as $i => $lv): ?>
-      <li class="rung" style="--lv: <?= e($colors[$lv['code']] ?? '#2747D9') ?>; --step: <?= $i ?>">
-        <div>
-          <span class="rung-code"><?= e(strtoupper($lv['code'])) ?></span>
-          <span class="rung-body">
-            <strong><?= e($lv['name']) ?></strong>
-            <span class="muted"><?= e($lv['description']) ?></span>
-          </span>
-          <span class="rung-pct"><?= (int) $lv['n_units'] ?> unidades</span>
-        </div>
-      </li>
-    <?php endforeach; ?>
-  </ol>
-</section>
-
-<section class="band">
-  <div class="wrap block">
-    <h2>Cada unidad tiene tres partes</h2>
-    <div class="parts">
-      <article>
-        <h3>Teoría</h3>
-        <p>Explicaciones cortas en castellano, tablas y ejemplos con traducción. Cada tema marca el error que más cometemos los hispanohablantes.</p>
-        <p class="sample"><span class="hl">She doesn't work</span> — no <s>She doesn't works</s></p>
-      </article>
-      <article>
-        <h3>Vocabulario</h3>
-        <p>Tarjetas para repasar las palabras de la unidad, con pronunciación en audio para escucharlas cuantas veces quieras.</p>
-        <p class="sample"><span class="hl">commute</span> = viajar al trabajo</p>
-      </article>
-      <article>
-        <h3>Práctica</h3>
-        <p>Opción múltiple, completar, ordenar oraciones, comprensión auditiva y dictado. Ves al instante si acertaste y por qué.</p>
-        <p class="sample"><?= (int) $counts['exercises'] ?> ejercicios en <?= (int) $counts['units'] ?> unidades</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="wrap block" id="precio">
-  <div class="pricing">
-    <div>
-      <h2>Un precio, todo incluido</h2>
-      <p>Los seis niveles, todas las unidades, el test de nivel y el seguimiento de tu progreso. Pagás mes a mes con Mercado Pago y cancelás cuando quieras desde tu cuenta.</p>
-    </div>
-    <div class="price-box">
-      <p class="price"><?= money_ars(plan_price()) ?><span>/mes</span></p>
-      <a class="btn btn-block" href="/register.php">Empezar con la demo gratis</a>
-      <p class="fine">Débito automático mensual. Sin permanencia.</p>
-    </div>
-  </div>
-</section>
-
-<section class="wrap block">
-  <div class="narrow">
-  <h2>Preguntas frecuentes</h2>
-  <details><summary>¿Qué incluye la demo gratuita?</summary><p>Al crear tu cuenta accedés a la primera unidad completa de cada nivel (teoría, vocabulario y práctica) y al test de nivel. No pedimos tarjeta.</p></details>
-  <details><summary>¿Cómo se cobra la suscripción?</summary><p>Con Mercado Pago, como débito automático mensual de <?= money_ars(plan_price()) ?> con tarjeta o dinero en cuenta. Mercado Pago te avisa cada cobro.</p></details>
-  <details><summary>¿Puedo cancelar cuando quiera?</summary><p>Sí. Desde "Mi cuenta" cancelás en un clic y seguís usando la plataforma hasta que termine el mes que ya pagaste.</p></details>
-  <details><summary>¿Necesito saber algo de inglés?</summary><p>No. El nivel A1 empieza desde cero. Si ya sabés algo, el test de nivel te dice por dónde arrancar.</p></details>
-  <details><summary>¿Funciona en el celular?</summary><p>Sí, en cualquier navegador moderno de celular, tablet o computadora. El audio usa la voz en inglés de tu dispositivo.</p></details>
-  </div>
-</section>
+<section class="hero home-hero"><div class="wrap hero-in">
+<div class="hero-copy"><p class="eyebrow">INGLÉS PARA HISPANOHABLANTES · A1–C2</p>
+<h1>Entendé el inglés.<br><span class="marker-text">Hacelo parte de tu día.</span></h1>
+<p class="lead">Pasá de memorizar reglas a entender cómo usarlas. Teoría en castellano, ejemplos con audio y práctica con corrección inmediata, a tu ritmo.</p>
+<div class="hero-cta"><a class="btn btn-lg" href="/register.php">Empezar gratis ↗</a><a class="text-link" href="#niveles">Explorar el programa ↓</a></div>
+<p class="fine">Sin tarjeta. Primera unidad de cada nivel + test de nivel.</p></div>
+<div class="practice-sheet" aria-label="Ejercicio de muestra"><div class="sheet-top"><span class="tag">A1 · PRESENTE SIMPLE</span><span>Una pequeña práctica</span></div>
+<p class="sheet-intro">El inglés se aprende usándolo.</p><div class="try"><p class="try-label">Elegí la palabra que completa la oración</p>
+<p class="try-q" lang="en">My brother <span class="gap-demo" id="demo-gap">____</span> to work by bus every day.</p>
+<div class="options" id="demo-opts" role="group" aria-label="Opciones de respuesta"><button class="opt" data-ok="0" lang="en">go</button><button class="opt" data-ok="1" lang="en">goes</button><button class="opt" data-ok="0" lang="en">going</button></div>
+<p class="try-fb" id="demo-fb" aria-live="polite"></p><button class="linkbtn speak" data-say="My brother goes to work by bus every day.">Escuchar la oración ♪</button></div>
+<p class="sheet-note">Probá sin registrarte. Equivocarte también es aprender.</p></div>
+</div></section>
+<div class="course-facts"><div class="wrap facts-in"><p><strong><?= count($levels) ?></strong> niveles para avanzar</p><p><strong><?= (int) $counts['units'] ?></strong> unidades publicadas</p><p><strong><?= (int) $counts['exercises'] ?></strong> ejercicios disponibles</p><p><strong>A tu ritmo</strong> desde tu navegador</p></div></div>
+<section class="wrap block" id="metodo"><div class="section-heading"><p class="eyebrow">DEL «NO ENTIENDO» AL «AHORA SÍ»</p><h2>Entendé. Escuchá. Ponelo en práctica.</h2><p class="muted narrow-text">Una misma unidad conecta la explicación con el uso. Volvé a los ejemplos y repetí la práctica para afianzar lo aprendido.</p></div>
+<div class="method-grid"><article><span class="step-number">01 / ENTENDER</span><h3>Las reglas, en tu idioma</h3><p>Explicaciones en castellano, tablas y ejemplos traducidos. Prestá atención a los errores frecuentes al pasar del español al inglés.</p><p class="sample" lang="en">She <mark>doesn't work</mark><br><s>She doesn't works</s></p></article>
+<article><span class="step-number">02 / ESCUCHAR</span><h3>Palabras que reconocés</h3><p>Repasá vocabulario con tarjetas y escuchá los ejemplos con una voz en inglés de tu navegador o dispositivo.</p><p class="sample"><span lang="en">commute</span><br><span class="muted">viajar al trabajo</span></p></article>
+<article><span class="step-number">03 / PRACTICAR</span><h3>Sabé por qué acertaste</h3><p>Completá, elegí, ordená oraciones y practicá con escucha y dictado. Recibí una explicación para entender la respuesta.</p><p class="sample">Un error es una pista.<br><span class="muted">Revisá, entendé y volvé a intentar.</span></p></article></div></section>
+<section class="program-band" id="niveles"><div class="wrap block"><div class="section-heading"><p class="eyebrow">TU RECORRIDO</p><h2>Un punto de partida.<br>Seis niveles para explorar.</h2><p class="muted narrow-text">Organizamos los contenidos con las etiquetas A1–C2 del MCER. Explorá los temas publicados antes de registrarte. El test de la demo te orienta sobre dónde empezar.</p></div>
+<div class="program-grid"><?php foreach ($levels as $lv): ?><article class="program-card" style="--lv: <?= e($colors[$lv['code']] ?? '#2747D9') ?>"><div class="program-title"><span class="level-pill"><?= e(strtoupper($lv['code'])) ?></span><span class="muted"><?= (int) $lv['n_units'] ?> unidades</span></div><h3><?= e($lv['name']) ?></h3><p><?= e($lv['description']) ?></p><details><summary>Ver temario de <?= e(strtoupper($lv['code'])) ?></summary><ol class="syllabus"><?php foreach ($syllabus as $unit): if ($unit['level_code'] !== $lv['code']) continue; ?><li><strong><?= e($unit['title']) ?></strong><?php if ((int) $unit['position'] === 1): ?> <span class="tag">En la demo</span><?php endif; ?><p class="muted"><?= e($unit['summary']) ?></p></li><?php endforeach; ?></ol></details></article><?php endforeach; ?></div>
+<p class="program-note">El recorrido publicado es una base de práctica autónoma. No equivale a una certificación ni garantiza por sí solo el dominio completo de cada nivel.</p></div></section>
+<section class="wrap block" id="precio"><div class="section-heading"><p class="eyebrow">EMPEZÁ CONOCIENDO LA PLATAFORMA</p><h2>Primero probás. Después elegís.</h2></div><div class="plans">
+<article class="plan"><p class="eyebrow">DEMO GRATUITA</p><h3>Encontrá tu punto de partida</h3><p class="plan-price">$0 <span>sin tarjeta</span></p><ul><li>Primera unidad de cada nivel</li><li>Teoría, vocabulario y práctica de esas unidades</li><li>Test de nivel orientativo</li></ul><a class="btn btn-ghost btn-block" href="/register.php">Crear mi cuenta gratis</a></article>
+<article class="plan plan-full"><p class="eyebrow">ACCESO COMPLETO</p><h3>Seguí con todo el programa</h3><p class="plan-price"><?= money_ars(plan_price()) ?> <span>ARS / mes</span></p><ul><li>Todos los niveles y las unidades publicadas</li><li>Ejercicios con corrección y audio</li><li>Seguimiento de tu progreso</li></ul><a class="btn btn-block" href="/register.php">Probar antes de suscribirme</a><p class="fine">Débito automático mensual por Mercado Pago. Cancelación desde Mi cuenta; conservás el acceso hasta el fin del período pago.</p></article></div></section>
+<section class="wrap block faq-section" id="preguntas"><div><p class="eyebrow">ANTES DE EMPEZAR</p><h2>Las cosas claras,<br>desde el principio.</h2></div><div>
+<details><summary>¿Necesito saber inglés?</summary><p>Podés empezar con A1. Si ya estudiaste, el test gratuito te da una recomendación orientativa.</p></details>
+<details><summary>¿Qué puedo probar gratis?</summary><p>La primera unidad de cada nivel, con teoría, vocabulario y práctica, más el test de nivel. No necesitás tarjeta.</p></details>
+<details><summary>¿Son clases en vivo?</summary><p>La propuesta es de práctica autónoma: explicaciones en castellano, ejercicios y audio desde el navegador. Avanzás a tu ritmo.</p></details>
+<details><summary>¿Cómo funciona la suscripción?</summary><p>El acceso completo cuesta <?= money_ars(plan_price()) ?> pesos argentinos por mes, con débito automático por Mercado Pago. Crear una cuenta gratuita no activa una suscripción.</p></details>
+<details><summary>¿Cómo cancelo?</summary><p>Desde Mi cuenta. Conservás el acceso hasta el final del período que ya pagaste.</p></details>
+<details><summary>¿Cómo escucho el audio?</summary><p>Usamos la síntesis de voz del navegador. La voz varía según tu dispositivo. Los ejemplos escritos siguen visibles si el audio no está disponible.</p></details>
+</div></section><section class="wrap closing"><p class="eyebrow">TU PRÓXIMO PASO</p><h2>Empezá por una oración.<br>Seguí por todo lo que viene.</h2><a class="btn btn-lg" href="/register.php">Probar InglésPro gratis ↗</a><p class="fine">Sin tarjeta · A tu ritmo · Desde tu navegador</p></section>

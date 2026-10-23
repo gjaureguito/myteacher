@@ -9,6 +9,6 @@
     </nav>
   </div>
 </footer>
-<script src="/assets/app.js?v=1" defer></script>
+<script src="/assets/app.js?v=2" defer></script>
 </body>
 </html>

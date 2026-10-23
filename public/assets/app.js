@@ -67,14 +67,28 @@
   /* ---------- Pestañas ---------- */
   const tabs = document.querySelectorAll('.tabs [role="tab"]');
   function openTab(id) {
+    if (![...tabs].some(t => t.getAttribute('aria-controls') === id)) return;
     tabs.forEach(t => {
       const on = t.getAttribute('aria-controls') === id;
       t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
     });
     history.replaceState(null, '', '#' + id);
   }
+  tabs.forEach(t => t.tabIndex = t.getAttribute('aria-selected') === 'true' ? 0 : -1);
   tabs.forEach(t => t.addEventListener('click', () => openTab(t.getAttribute('aria-controls'))));
+  tabs.forEach((t, index) => t.addEventListener('keydown', e => {
+    let next;
+    if (e.key === 'ArrowRight') next = (index + 1) % tabs.length;
+    if (e.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+    if (e.key === 'Home') next = 0;
+    if (e.key === 'End') next = tabs.length - 1;
+    if (next === undefined) return;
+    e.preventDefault();
+    openTab(tabs[next].getAttribute('aria-controls'));
+    tabs[next].focus();
+  }));
   document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => {
     openTab(b.dataset.goto); window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 80, behavior: 'smooth' });
   }));
