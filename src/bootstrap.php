@@ -11,6 +11,7 @@ define('ROOT', dirname(__DIR__));
 function env(string $key, ?string $default = null): ?string
 {
     $v = getenv($key);
+    if ($v !== false) $v = trim($v, " \t\n\r\"'"); // tolera espacios o comillas pegadas por error
     if ($v === false || $v === '') {
         return $default;
     }

@@ -95,6 +95,11 @@ function oauth_finish(string $p): array
     $idt = $res['data']['id_token'] ?? null;
     if (!$idt) {
         log_line("OAuth $p token error: " . substr((string) $res['raw'], 0, 500));
+        // Diagnóstico sin revelar el secreto: formato y largo
+        $sec = (string) $cfg['client_secret'];
+        log_line(sprintf('OAuth %s secret check: largo=%d, empieza_GOCSPX=%s, parece_ID=%s, igual_al_ID=%s',
+            $p, strlen($sec), str_starts_with($sec, 'GOCSPX-') ? 'si' : 'no',
+            str_contains($sec, 'googleusercontent') ? 'si' : 'no', $sec === $cfg['client_id'] ? 'si' : 'no'));
         throw new RuntimeException('No pudimos validar tu cuenta con ' . $cfg['label'] . '.');
     }
     $c = jwt_payload($idt);
