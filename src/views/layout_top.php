@@ -39,7 +39,7 @@ $description = match ($path) {
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css?v=1">
 <link rel="stylesheet" href="/assets/redesign.css?v=5">
-<link rel="stylesheet" href="/assets/pro.css?v=6">
+<link rel="stylesheet" href="/assets/pro.css?v=7">
 <meta name="theme-color" content="#17252b">
 <script>(function(){try{var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">

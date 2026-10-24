@@ -419,3 +419,24 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .mh-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 .mh-pre{white-space:pre-wrap;word-break:break-all;font-size:.72rem;background:var(--surface-2);padding:10px;border-radius:8px;margin:6px 0 0}
 .mic-modal details summary{cursor:pointer;font-size:.85rem;font-weight:700;color:var(--ink-2)}
+
+/* Página de soporte del micrófono */
+.mic-page{max-width:900px}
+.mic-page h2{font-size:1.5rem;margin:40px 0 8px;scroll-margin-top:110px}
+.mic-page h2.mic-hit{color:var(--brand)}
+.mic-page h2.mic-hit::before{content:"👉 "}
+.mic-diag{display:grid;grid-template-columns:1fr auto;gap:12px 20px;align-items:center;padding:20px 22px;border-radius:var(--r-l);background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-m);margin:22px 0}
+.mic-diag p{margin:4px 0 0}
+.mic-diag .mh-status,.mic-diag .mh-meter{grid-column:1/-1;margin:0}
+.mic-diag .mh-status a{color:inherit;text-decoration:underline}
+.mic-toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.mic-toc a{padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-size:.82rem;font-weight:700;color:var(--ink);text-decoration:none}
+.mic-toc a:hover{border-color:var(--brand-2)}
+.cmd{margin:12px 0;border-radius:14px;border:1px solid var(--line);background:var(--surface);overflow:hidden}
+.cmd-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 12px;background:var(--surface-2)}
+.cmd-where{font:700 .74rem var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.cmd pre{margin:0;padding:14px 16px;background:#10181d;color:#e6efe9;overflow-x:auto;font-size:.82rem;line-height:1.5}
+.cmd pre code{white-space:pre-wrap;word-break:break-word}
+.cmd-what{margin:0;padding:10px 14px;font-size:.88rem;color:var(--ink-2)}
+.mh-guide{margin-top:12px}
+@media (max-width:640px){.mic-diag{grid-template-columns:1fr}}

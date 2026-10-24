@@ -162,13 +162,15 @@
     "}",
     "Write-Host 'Listo: cerrá Chrome por completo y volvé a abrirlo.'",
   ].join('\n');
+  const PS_AUDIO = 'Restart-Service -Name AudioEndpointBuilder -Force; Start-Service -Name Audiosrv';
   async function testMic() {
     if (!navigator.mediaDevices?.getUserMedia) return { code: 'unsupported' };
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       return { code: 'ok', stream };
     } catch (e) {
-      return { code: { NotReadableError: 'system', NotAllowedError: 'blocked', SecurityError: 'blocked', NotFoundError: 'nodevice', OverconstrainedError: 'nodevice' }[e.name] || 'system', err: e.name };
+      if (e.name === 'NotAllowedError') return { code: /system/i.test(e.message) ? 'system' : 'blocked', err: e.name };
+      return { code: { NotReadableError: 'busy', SecurityError: 'blocked', NotFoundError: 'nodevice', OverconstrainedError: 'nodevice' }[e.name] || 'busy', err: e.name };
     }
   }
   function micHelp() {
@@ -191,6 +193,19 @@
         </div>` : `<p>En macOS: Configuración del Sistema → Privacidad y seguridad → Micrófono → activá ${browserName}. En el celular: Ajustes → Apps → ${browserName} → Permisos → Micrófono.</p>`}
         <p class="fine">Si ya estaba activado, cerrá Zoom, Teams, Discord o WhatsApp (pueden estar ocupando el micrófono) y reiniciá ${browserName}.</p>
       </section>
+      <section class="mh-step" data-for="busy">
+        <h3>${isWin ? 'Reiniciá el audio de Windows' : 'Liberá el micrófono'}</h3>
+        <p>El micrófono está detectado, pero no arranca: suele pasar cuando el servicio de audio de ${isWin ? 'Windows' : 'sistema'} quedó trabado o cuando otro programa (Zoom, Teams, Discord, WhatsApp) lo tiene tomado.</p>
+        ${isWin ? `<div class="mh-auto">
+          <h4>⚡ Comando seguro (una línea)</h4>
+          <p>Abrí la Terminal como administrador (<b>Win + X</b> → <b>Terminal (administrador)</b>), pegá esta línea y apretá Enter. Solo reinicia el servicio de audio de Windows; el sonido se corta unos segundos.</p>
+          <div class="mh-copy"><code>${PS_AUDIO}</code><button type="button" class="btn btn-ghost btn-sm" data-copy-audio>Copiar</button></div>
+          <p>O descargá el reparador completo: pide permiso de administrador, reinicia el audio, habilita los permisos de micrófono, reactiva micrófonos deshabilitados y te avisa qué programas lo pueden estar ocupando.</p>
+          <div class="mh-actions"><a class="btn" href="/tools/reparar-audio.bat" download="reparar-audio.bat">⬇️ Descargar reparador (.bat)</a></div>
+          <p class="fine">Después cerrá ${browserName} por completo, volvé a abrirlo y tocá Probar de nuevo.</p>
+        </div>
+        <p class="fine">Si sigue igual: Configuración → Sistema → Sonido → tu micrófono → Propiedades → desmarcá "Permitir que las aplicaciones tomen control exclusivo de este dispositivo", o actualizá el driver de audio (Realtek) desde el Administrador de dispositivos.</p>` : `<p>Cerrá las apps que usan el micrófono y reiniciá ${browserName}. Si sigue igual, reiniciá el equipo.</p>`}
+      </section>
       <section class="mh-step" data-for="blocked">
         <h3>Permití el micrófono en este sitio</h3>
         <p>Tocá el ícono 🔒 o ⚙️ a la izquierda de la dirección del sitio, buscá <b>Micrófono</b> y elegí <b>Permitir</b>. Después recargá la página.</p>
@@ -205,6 +220,7 @@
         <h3>Este navegador no permite usar el micrófono acá</h3>
         <p>Abrí el sitio en Chrome o Edge (en la compu o en Android) para practicar pronunciación.</p>
       </section>
+      <p class="fine mh-guide">¿Otro problema? <a href="/microfono.php">Ver todos los comandos para solucionar el micrófono →</a></p>
       <div class="modal-actions"><button type="button" class="btn" data-retry>Probar de nuevo</button><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
     </div>`;
     document.body.append(back);
@@ -226,14 +242,18 @@
         tick();
         return;
       }
-      const code = r.code === 'system' && perm === 'denied' ? 'blocked' : r.code;
+      const code = perm === 'denied' ? 'blocked' : r.code;
       st.className = 'mh-status bad';
-      st.textContent = { system: '⚠️ El navegador tiene permiso, pero ' + (isWin ? 'Windows' : 'el sistema') + ' no le deja abrir el micrófono.', blocked: '⚠️ Este sitio tiene el micrófono bloqueado en ' + browserName + '.', nodevice: '⚠️ No se encontró ningún micrófono.', unsupported: '⚠️ Este navegador no permite usar el micrófono.' }[code];
+      st.textContent = { busy: '⚠️ El micrófono está detectado pero no arranca: el audio de ' + (isWin ? 'Windows' : 'sistema') + ' está trabado o lo está usando otro programa.', system: '⚠️ ' + (isWin ? 'Windows' : 'El sistema') + ' no le da permiso de micrófono a ' + browserName + '.', blocked: '⚠️ Este sitio tiene el micrófono bloqueado en ' + browserName + '.', nodevice: '⚠️ No se encontró ningún micrófono.', unsupported: '⚠️ Este navegador no permite usar el micrófono.' }[code];
       show(code);
     }
     back.addEventListener('click', async e => {
       if (e.target === back || e.target.closest('[data-close]')) { stop(); back.remove(); }
       if (e.target.closest('[data-retry]')) run();
+      if (e.target.closest('[data-copy-audio]')) {
+        try { await navigator.clipboard.writeText(PS_AUDIO); ipToast('Copiado. Pegalo en la Terminal (administrador) y apretá Enter.'); }
+        catch { ipToast('Seleccioná la línea y copiala con Ctrl+C.'); }
+      }
       if (e.target.closest('[data-copy-ps]')) {
         try { await navigator.clipboard.writeText(PS_FIX); ipToast('Comando copiado. Abrí PowerShell (Win+X → Terminal), pegalo con clic derecho y apretá Enter.'); }
         catch { ipToast('Abrí "Ver los comandos" y copialos a mano.'); }
@@ -247,6 +267,39 @@
     run();
   }
   window.ipMicHelp = micHelp;
+  document.addEventListener('click', async e => {
+    const c = e.target.closest('[data-copy-text]');
+    if (!c) return;
+    try { await navigator.clipboard.writeText(c.dataset.copyText); c.textContent = '✓ Copiado'; setTimeout(() => c.textContent = 'Copiar', 1800); }
+    catch { ipToast('Seleccioná el comando y copialo con Ctrl+C.'); }
+  });
+  const diagBtn = document.querySelector('[data-mic-diag]');
+  if (diagBtn) {
+    const out = document.querySelector('[data-diag-out]'), meter = document.querySelector('[data-diag-meter]');
+    const target = { busy: isWin ? 'win-audio' : (navigator.platform.startsWith('Mac') ? 'mac' : 'linux'), system: isWin ? 'win-privacidad' : 'mac', blocked: 'navegador', nodevice: isWin ? 'win-deshabilitado' : 'mac', unsupported: 'android' };
+    const text = { busy: 'El micrófono está detectado pero no arranca: el audio del sistema está trabado o lo usa otro programa.', system: 'El sistema no le da permiso de micrófono al navegador.', blocked: 'Este sitio tiene el micrófono bloqueado en el navegador.', nodevice: 'No se encontró ningún micrófono habilitado.', unsupported: 'Este navegador no permite usar el micrófono.' };
+    diagBtn.addEventListener('click', async () => {
+      out.hidden = false; out.className = 'mh-status'; out.textContent = 'Probando… si el navegador pregunta, tocá Permitir.';
+      const perm = await navigator.permissions?.query({ name: 'microphone' }).then(p => p.state).catch(() => null);
+      const r = await testMic();
+      if (r.code === 'ok') {
+        out.className = 'mh-status ok'; out.textContent = '✅ Tu micrófono funciona en este navegador. Hablá y mirá la barra. Si "Decilo vos" igual falla, revisá tu conexión a internet: el reconocimiento de voz de Chrome funciona online.';
+        meter.hidden = false; const bar = meter.querySelector('i');
+        const ac = new AudioContext(), an = ac.createAnalyser(); ac.createMediaStreamSource(r.stream).connect(an);
+        const buf = new Uint8Array(an.fftSize); const t0 = Date.now();
+        const tick = () => { an.getByteTimeDomainData(buf); let m = 0; for (const v of buf) m = Math.max(m, Math.abs(v - 128)); bar.style.width = Math.min(100, m * 1.6) + '%';
+          if (Date.now() - t0 < 15000) requestAnimationFrame(tick); else { r.stream.getTracks().forEach(t => t.stop()); ac.close(); bar.style.width = '0'; } };
+        tick(); return;
+      }
+      const code = perm === 'denied' ? 'blocked' : r.code;
+      out.className = 'mh-status bad'; out.innerHTML = '';
+      const msg = document.createElement('span'); msg.textContent = '⚠️ ' + text[code] + ' ';
+      const go = document.createElement('a'); go.href = '#' + target[code]; go.textContent = 'Ir a la solución →';
+      out.append(msg, go);
+      document.getElementById(target[code])?.classList.add('mic-hit');
+      setTimeout(() => document.getElementById(target[code])?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 600);
+    });
+  }
   document.addEventListener('click', e => { if (e.target.closest('[data-mic-help]')) { e.preventDefault(); micHelp(); } });
 
   /* Cuando Chrome no puede abrir el micrófono, averigua por qué para dar instrucciones concretas */
@@ -259,10 +312,12 @@
       return 'El micrófono funciona pero el reconocimiento no pudo usarlo. Cerrá otras pestañas o apps que estén usando el micrófono y probá de nuevo.';
     } catch (e) {
       if (e.name === 'NotFoundError') return 'No se encontró ningún micrófono. Revisá que esté conectado y habilitado.';
-      if (e.name === 'NotAllowedError') return SR_ERRORS['not-allowed'];
+      if (e.name === 'NotAllowedError') return /system/i.test(e.message)
+        ? (win ? 'Windows no le da permiso de micrófono a Chrome.' : 'El sistema no le da permiso de micrófono al navegador.')
+        : SR_ERRORS['not-allowed'];
       if (e.name === 'NotReadableError') return win
-        ? 'Windows no deja que Chrome use el micrófono. Abrí Configuración → Privacidad y seguridad → Micrófono, activá "Acceso al micrófono" y "Permitir que las aplicaciones de escritorio accedan al micrófono". Si sigue igual, cerrá Zoom, Teams, Discord o WhatsApp y reiniciá Chrome.'
-        : 'El sistema no deja que el navegador use el micrófono, o lo está usando otra aplicación. Revisá los permisos de micrófono del sistema y cerrá otras apps que lo usen.';
+        ? 'El micrófono está conectado pero no arranca: el audio de Windows está trabado o lo usa otro programa.'
+        : 'El micrófono no arranca: lo está usando otra aplicación o el audio del sistema está trabado.';
       return SR_ERRORS['audio-capture'];
     }
   }
