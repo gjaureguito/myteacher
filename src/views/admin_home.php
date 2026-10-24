@@ -11,6 +11,21 @@
 
   <p class="fine">La estimación usa el precio actual y excluye accesos manuales. No representa cobros conciliados, descuentos ni ingresos históricos.</p>
   <h2>Usuarios</h2>
+  <details class="panel admin-create">
+    <summary><strong>Agregar usuario</strong></summary>
+    <form method="post" class="form" autocomplete="off"><?= csrf_field() ?>
+      <input type="hidden" name="action" value="create">
+      <label>Email<input type="email" name="email" required maxlength="190" autocomplete="off"></label>
+      <label>Nombre <small>(opcional)</small><input name="name" maxlength="120" autocomplete="off"></label>
+      <label>Contraseña <small>(opcional, mínimo 8; si la dejás vacía generamos una y te la mostramos una sola vez)</small>
+        <input type="text" name="password" minlength="8" autocomplete="new-password" spellcheck="false"></label>
+      <label>Días de acceso completo <small>(0 = solo la demo gratuita)</small>
+        <input type="number" name="days" value="30" min="0" max="3650"></label>
+      <label>Rol
+        <select name="role"><option value="student">Alumno</option><option value="admin">Administrador</option></select></label>
+      <button class="btn">Crear usuario</button>
+    </form>
+  </details>
   <form class="form admin-search" method="get">
     <label>Buscar por email o nombre<input name="s" value="<?= e($s) ?>" type="search"></label><button class="btn">Buscar</button><a href="/admin/">Limpiar</a>
   </form>

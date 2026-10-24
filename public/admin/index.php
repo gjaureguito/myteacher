@@ -13,6 +13,36 @@ if (is_post()) {
         q("UPDATE users SET access_until = ?, sub_status = CASE WHEN sub_status = 'active' THEN 'active' ELSE 'manual' END WHERE id = ?",
             [gmdate('Y-m-d H:i:s', $base + $days * 86400), $uid]);
         flash('ok', "Acceso extendido $days días.");
+    } elseif ($action === 'create') {
+        $email = strtolower(post_str('email', 190));
+        $name = post_str('name', 120);
+        $password = (string) ($_POST['password'] ?? '');
+        $role = post_str('role', 20) === 'admin' ? 'admin' : 'student';
+        $days = max(0, min(3650, (int) ($_POST['days'] ?? 0)));
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            flash('error', 'Ingresá un email válido.');
+        } elseif (q_val('SELECT COUNT(*) FROM users WHERE email = ?', [$email])) {
+            flash('error', "Ya existe un usuario con el email $email. Buscalo en la lista para darle acceso.");
+        } elseif ($password !== '' && strlen($password) < 8) {
+            flash('error', 'La contraseña tiene que tener al menos 8 caracteres, o dejala vacía para generar una.');
+        } else {
+            $generated = $password === '';
+            if ($generated) $password = rtrim(strtr(base64_encode(random_bytes(9)), '+/', 'kq'), '=');
+            $extra = ['role' => $role];
+            if ($days > 0) {
+                $extra['access_until'] = gmdate('Y-m-d H:i:s', time() + $days * 86400);
+                $extra['sub_status'] = 'manual';
+            }
+            create_user($email, $name !== '' ? $name : explode('@', $email)[0], $password, $extra);
+            log_line("Admin {$admin['email']} creó el usuario $email ($role, $days días)");
+            $msg = "Creamos la cuenta de $email" . ($role === 'admin' ? ' como administrador' : '')
+                . ($days > 0 ? " con $days días de acceso completo" : ' con acceso de demo') . '.';
+            $msg .= $generated ? " Contraseña generada: $password — compartila ahora, no se vuelve a mostrar." : '';
+            $msg .= ' También puede entrar con Google o Microsoft usando ese email.';
+            flash('ok', $msg);
+            redirect('/admin/?s=' . urlencode($email));
+        }
+        redirect('/admin/');
     } elseif ($action === 'revoke') {
         q("UPDATE users SET access_until = NULL, sub_status = 'none' WHERE id = ?", [$uid]);
         flash('ok', 'Acceso quitado.');
