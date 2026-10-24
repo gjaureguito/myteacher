@@ -398,3 +398,19 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .pron-result.wait{color:var(--brand-2);font-weight:700}
 .pron-result.low{color:var(--bad)}
 .mic-btn.is-listening .lab{font-weight:700}
+
+/* Asistente de micrófono */
+.mic-modal{text-align:left;width:min(600px,100%)}
+.mic-modal h2{font-size:1.8rem}
+.mh-status{padding:12px 14px;border-radius:12px;background:var(--surface-2);font-weight:700;margin:10px 0}
+.mh-status.ok{background:var(--ok-bg);color:var(--ok)}
+.mh-status.bad{background:var(--bad-bg);color:var(--bad)}
+.mh-meter{height:14px;border-radius:99px;background:var(--surface-2);overflow:hidden;margin:4px 0 14px}
+.mh-meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ok),#d9c21a,var(--bad));transition:width .08s linear}
+.mh-step{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+.mh-step h3{font-size:1.15rem;margin:0 0 6px}
+.mh-step p{margin:6px 0;font-size:.92rem}
+.mh-step .btn{margin:6px 0}
+.mh-copy{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mh-copy code{flex:1;min-width:0;overflow-wrap:anywhere;padding:8px 10px;border-radius:8px;background:var(--surface-2);font-size:.78rem}
+.mh-link{font-size:.82rem!important;min-height:0!important;color:var(--brand)!important;text-decoration:underline;margin-left:6px}
