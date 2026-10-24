@@ -18,6 +18,7 @@ $total = count($exercises);
     <?php if ($lab): ?><button role="tab" aria-selected="false" aria-controls="t-workshop" id="tab-workshop">Taller de aplicación</button><?php endif; ?>
   </div>
   <label class="voice-ctl">🎙️ Velocidad de voz <input type="range" id="voice-rate" min="0.6" max="1.3" step="0.05" value="1"> <span id="voice-rate-val">1×</span></label>
+  <button type="button" class="linkbtn mh-link" data-mic-help>🎙️ Probar micrófono</button>
   </div>
 
   <?php if ($lab): ?>

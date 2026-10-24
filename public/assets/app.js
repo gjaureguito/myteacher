@@ -317,7 +317,7 @@
         window.ipRecognize(li.querySelector('.say-target')?.textContent || '', {
           onStart: () => { rec.textContent = '🔴 Escuchando… hablá ahora'; },
           onResult: alts => handle(li, { transcript: alts[0] }),
-          onFail: msg => { fb.className = 'feedback is-bad'; fb.innerHTML = '<strong>⚠️ ' + esc(msg) + '</strong>'; self.hidden = false; },
+          onFail: msg => { fb.className = 'feedback is-bad'; fb.innerHTML = '<strong>⚠️ ' + esc(msg) + '</strong><p><button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button></p>'; self.hidden = false; },
           onEnd: () => { rec.classList.remove('is-listening'); rec.textContent = '🎙️ Grabar de nuevo'; },
         });
       });

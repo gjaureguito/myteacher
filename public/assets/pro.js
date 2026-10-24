@@ -149,6 +149,87 @@
     'network': 'El reconocimiento de voz necesita conexión a internet (Chrome usa un servicio online). Revisá la conexión y probá de nuevo.',
     'language-not-supported': 'Tu navegador no tiene disponible el reconocimiento en inglés.',
   };
+  /* ---------- Asistente para activar el micrófono ---------- */
+  const isWin = /Windows/.test(navigator.userAgent);
+  const isEdge = /Edg\//.test(navigator.userAgent);
+  const browserName = isEdge ? 'Edge' : 'Chrome';
+  const siteSettingsUrl = (isEdge ? 'edge' : 'chrome') + '://settings/content/siteDetails?site=' + encodeURIComponent(location.origin);
+  async function testMic() {
+    if (!navigator.mediaDevices?.getUserMedia) return { code: 'unsupported' };
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      return { code: 'ok', stream };
+    } catch (e) {
+      return { code: { NotReadableError: 'system', NotAllowedError: 'blocked', SecurityError: 'blocked', NotFoundError: 'nodevice', OverconstrainedError: 'nodevice' }[e.name] || 'system', err: e.name };
+    }
+  }
+  function micHelp() {
+    document.querySelector('.mic-help')?.remove();
+    const back = document.createElement('div'); back.className = 'modal-back mic-help';
+    back.innerHTML = `<div class="modal mic-modal" role="dialog" aria-modal="true" aria-labelledby="mh-t">
+      <p class="eyebrow">MICRÓFONO</p><h2 id="mh-t">Activá tu micrófono</h2>
+      <div class="mh-status" aria-live="polite">Probando el micrófono…</div>
+      <div class="mh-meter" hidden><i></i></div>
+      <section class="mh-step" data-for="system">
+        <h3>${isWin ? 'Permití el micrófono en Windows' : 'Permití el micrófono en el sistema'}</h3>
+        ${isWin ? `<p>Windows está bloqueando el micrófono para ${browserName}. Tocá el botón, aceptá cuando el navegador pregunte si querés abrir Configuración, y activá <b>Acceso al micrófono</b> y <b>Permitir que las aplicaciones de escritorio accedan al micrófono</b>.</p>
+        <a class="btn" href="ms-settings:privacy-microphone">Abrir configuración de micrófono de Windows</a>` : `<p>En macOS: Configuración del Sistema → Privacidad y seguridad → Micrófono → activá ${browserName}. En el celular: Ajustes → Apps → ${browserName} → Permisos → Micrófono.</p>`}
+        <p class="fine">Si ya estaba activado, cerrá Zoom, Teams, Discord o WhatsApp (pueden estar ocupando el micrófono) y reiniciá ${browserName}.</p>
+      </section>
+      <section class="mh-step" data-for="blocked">
+        <h3>Permití el micrófono en este sitio</h3>
+        <p>Tocá el ícono 🔒 o ⚙️ a la izquierda de la dirección del sitio, buscá <b>Micrófono</b> y elegí <b>Permitir</b>. Después recargá la página.</p>
+        <p>También podés abrir los ajustes del sitio directamente: copiá esta dirección y pegala en una pestaña nueva.</p>
+        <div class="mh-copy"><code>${siteSettingsUrl}</code><button type="button" class="btn btn-ghost btn-sm" data-copy>Copiar</button></div>
+      </section>
+      <section class="mh-step" data-for="nodevice">
+        <h3>No hay ningún micrófono disponible</h3>
+        <p>Conectá un micrófono o auriculares con micrófono y volvé a probar. En notebooks, revisá que no esté desactivado con una tecla de función.</p>
+      </section>
+      <section class="mh-step" data-for="unsupported">
+        <h3>Este navegador no permite usar el micrófono acá</h3>
+        <p>Abrí el sitio en Chrome o Edge (en la compu o en Android) para practicar pronunciación.</p>
+      </section>
+      <div class="modal-actions"><button type="button" class="btn" data-retry>Probar de nuevo</button><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
+    </div>`;
+    document.body.append(back);
+    const st = back.querySelector('.mh-status'), meter = back.querySelector('.mh-meter'), bar = meter.querySelector('i');
+    let live = null;
+    const stop = () => { if (live) { cancelAnimationFrame(live.raf); live.stream.getTracks().forEach(t => t.stop()); live.ac.close(); live = null; } };
+    const show = code => back.querySelectorAll('.mh-step').forEach(sec => { sec.hidden = sec.dataset.for !== code; });
+    async function run() {
+      stop(); st.className = 'mh-status'; st.textContent = 'Probando el micrófono… si el navegador te pregunta, tocá Permitir.'; meter.hidden = true; show(null);
+      const perm = await navigator.permissions?.query({ name: 'microphone' }).then(p => p.state).catch(() => null);
+      const r = await testMic();
+      if (r.code === 'ok') {
+        st.className = 'mh-status ok'; st.textContent = '✅ ¡El micrófono funciona! Hablá y mirá cómo se mueve la barra. Ya podés cerrar y usar "Decilo vos".';
+        meter.hidden = false;
+        const ac = new AudioContext(), an = ac.createAnalyser(); ac.createMediaStreamSource(r.stream).connect(an);
+        const buf = new Uint8Array(an.fftSize);
+        live = { stream: r.stream, ac, raf: 0 };
+        const tick = () => { an.getByteTimeDomainData(buf); let m = 0; for (const v of buf) m = Math.max(m, Math.abs(v - 128)); bar.style.width = Math.min(100, m * 1.6) + '%'; live && (live.raf = requestAnimationFrame(tick)); };
+        tick();
+        return;
+      }
+      const code = r.code === 'system' && perm === 'denied' ? 'blocked' : r.code;
+      st.className = 'mh-status bad';
+      st.textContent = { system: '⚠️ El navegador tiene permiso, pero ' + (isWin ? 'Windows' : 'el sistema') + ' no le deja abrir el micrófono.', blocked: '⚠️ Este sitio tiene el micrófono bloqueado en ' + browserName + '.', nodevice: '⚠️ No se encontró ningún micrófono.', unsupported: '⚠️ Este navegador no permite usar el micrófono.' }[code];
+      show(code);
+    }
+    back.addEventListener('click', async e => {
+      if (e.target === back || e.target.closest('[data-close]')) { stop(); back.remove(); }
+      if (e.target.closest('[data-retry]')) run();
+      if (e.target.closest('[data-copy]')) {
+        try { await navigator.clipboard.writeText(siteSettingsUrl); ipToast('Dirección copiada. Pegala en una pestaña nueva.'); }
+        catch { ipToast('Seleccioná la dirección y copiala con Ctrl+C.'); }
+      }
+    });
+    document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { stop(); back.remove(); document.removeEventListener('keydown', k); } });
+    run();
+  }
+  window.ipMicHelp = micHelp;
+  document.addEventListener('click', e => { if (e.target.closest('[data-mic-help]')) { e.preventDefault(); micHelp(); } });
+
   /* Cuando Chrome no puede abrir el micrófono, averigua por qué para dar instrucciones concretas */
   async function diagnoseMic() {
     const win = /Windows/.test(navigator.userAgent);
@@ -218,7 +299,7 @@
         play(cls === 'good' ? 'ok' : cls === 'mid' ? 'tap' : 'bad');
         if (cls === 'good') { addXP(5, btn); burst(btn, 26); }
       },
-      onFail: msg => { status('low', '⚠️ ' + msg.replace(/[<>&]/g, '')); play('bad'); },
+      onFail: msg => { status('low', '⚠️ ' + msg.replace(/[<>&]/g, '') + ' <button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button>'); play('bad'); },
       onEnd: () => { btn.classList.remove('is-listening'); if (lab) lab.textContent = ' Decilo vos'; },
     });
   }
