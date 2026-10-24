@@ -8,16 +8,52 @@ declare(strict_types=1);
  * - Nunca confiamos en el cuerpo del webhook: siempre volvemos a consultar la API.
  */
 
+require_once ROOT . '/src/settings.php';
+
 function mp_api(): string
 {
     return rtrim(env('MP_API_BASE', 'https://api.mercadopago.com'), '/'); // MP_API_BASE solo para pruebas
 }
 
+/** Token del panel de administración; si no hay, el de la variable MP_ACCESS_TOKEN. */
 function mp_token(): string
 {
-    $t = env('MP_ACCESS_TOKEN');
-    if (!$t) throw new RuntimeException('Falta configurar MP_ACCESS_TOKEN.');
+    $t = setting_get('mp_access_token') ?: env('MP_ACCESS_TOKEN');
+    if (!$t) throw new RuntimeException('Mercado Pago todavía no está configurado.');
     return $t;
+}
+
+function mp_webhook_secret(): ?string
+{
+    return setting_get('mp_webhook_secret') ?: env('MP_WEBHOOK_SECRET');
+}
+
+function mp_configured(): bool
+{
+    return (bool) (setting_get('mp_access_token') ?: env('MP_ACCESS_TOKEN'));
+}
+
+/** Pagos habilitados para los alumnos (interruptor del panel; por defecto sí, si hay token). */
+function mp_enabled(): bool
+{
+    return mp_configured() && setting_get('mp_enabled', '1') === '1';
+}
+
+/** 'subscription' (débito automático), 'once' (pago único por período) o 'both'. */
+function mp_mode(): string
+{
+    $m = setting_get('mp_mode', 'subscription');
+    return in_array($m, ['subscription', 'once', 'both'], true) ? $m : 'subscription';
+}
+
+function mp_once_days(): int
+{
+    return max(1, min(365, (int) setting_get('mp_once_days', '30')));
+}
+
+function mp_test_mode(): bool
+{
+    return str_starts_with((string) (setting_get('mp_access_token') ?: env('MP_ACCESS_TOKEN')), 'TEST-');
 }
 
 function mp_request(string $method, string $path, ?array $body = null): array
@@ -116,9 +152,12 @@ function mp_cancel_subscription(array $user): bool
  */
 function mp_valid_signature(string $dataId): bool
 {
-    $secret = env('MP_WEBHOOK_SECRET');
+    $secret = mp_webhook_secret();
     if (!$secret) return true; // sin secreto, igual re-consultamos la API
     $sig = $_SERVER['HTTP_X_SIGNATURE'] ?? '';
+    // Los avisos de notification_url (pagos únicos) pueden llegar sin firma: el estado
+    // siempre se vuelve a consultar en la API con nuestro token, así que no es un riesgo.
+    if ($sig === '') return true;
     $reqId = $_SERVER['HTTP_X_REQUEST_ID'] ?? '';
     $ts = $v1 = '';
     foreach (explode(',', $sig) as $part) {
@@ -130,4 +169,100 @@ function mp_valid_signature(string $dataId): bool
     $id = ctype_alnum($dataId) ? strtolower($dataId) : $dataId;
     $manifest = "id:$id;" . ($reqId !== '' ? "request-id:$reqId;" : '') . "ts:$ts;";
     return hash_equals(hash_hmac('sha256', $manifest, $secret), $v1);
+}
+
+/* ---------- Conexión ---------- */
+
+/** Valida un token contra /users/me. Devuelve los datos de la cuenta o lanza una excepción. */
+function mp_check_token(string $token): array
+{
+    $res = http_json('GET', mp_api() . '/users/me', ['Authorization: Bearer ' . $token]);
+    if ($res['code'] !== 200) {
+        $msg = $res['data']['message'] ?? ($res['error'] ?: 'respuesta ' . $res['code']);
+        throw new RuntimeException('Mercado Pago rechazó el token: ' . $msg);
+    }
+    return $res['data'];
+}
+
+/* ---------- Pago único (Checkout Pro) ---------- */
+
+/** Crea una preferencia de pago por mp_once_days() días de acceso y devuelve la URL de pago. */
+function mp_create_one_time(array $user): string
+{
+    $days = mp_once_days();
+    $res = mp_request('POST', '/checkout/preferences', [
+        'items' => [[
+            'id' => 'acceso-' . $days . 'd',
+            'title' => app_name() . ' — Acceso completo por ' . $days . ' días',
+            'quantity' => 1,
+            'currency_id' => 'ARS',
+            'unit_price' => plan_price(),
+        ]],
+        'payer' => ['email' => $user['email']],
+        'external_reference' => 'user:' . $user['id'] . ':once:' . $days,
+        'back_urls' => [
+            'success' => app_url('/payment_return.php'),
+            'pending' => app_url('/payment_return.php'),
+            'failure' => app_url('/payment_return.php'),
+        ],
+        'auto_return' => 'approved',
+        'notification_url' => app_url('/webhook/mercadopago.php?source_news=webhooks'),
+        'statement_descriptor' => mb_substr(preg_replace('/[^A-Za-z0-9 ]/', '', app_name()) ?: 'MYTEACHER', 0, 13),
+    ]);
+
+    $url = mp_test_mode() ? ($res['data']['sandbox_init_point'] ?? null) : null;
+    $url ??= $res['data']['init_point'] ?? null;
+    if ($res['code'] >= 300 || !$url) {
+        log_line('MP create preference error ' . $res['code'] . ': ' . substr((string) $res['raw'], 0, 800));
+        $msg = $res['data']['message'] ?? 'Mercado Pago no respondió.';
+        throw new RuntimeException('No pudimos iniciar el pago: ' . $msg);
+    }
+    return $url;
+}
+
+/**
+ * Consulta un pago y, si está aprobado, acredita los días al usuario una sola vez.
+ * Devuelve ['user_id', 'status'] o null si el pago no es de un acceso de esta app.
+ */
+function mp_sync_payment(string $paymentId): ?array
+{
+    $res = mp_request('GET', '/v1/payments/' . rawurlencode($paymentId));
+    if ($res['code'] !== 200) {
+        log_line("MP get payment $paymentId → " . $res['code']);
+        return null;
+    }
+    $p = $res['data'];
+    // Los cobros de la suscripción también llegan como "payment": esos los maneja la preapproval.
+    if (!preg_match('/^user:(\d+):once:(\d+)$/', (string) ($p['external_reference'] ?? ''), $m)) return null;
+    $userId = (int) $m[1];
+    $days = max(1, min(365, (int) $m[2]));
+    $status = (string) ($p['status'] ?? 'pending');
+    $amount = (float) ($p['transaction_amount'] ?? 0);
+    $pid = (string) ($p['id'] ?? $paymentId);
+
+    settings_ensure();
+    $row = q_one('SELECT * FROM mp_payments WHERE payment_id = ?', [$pid]);
+    if (!$row) {
+        try {
+            q('INSERT INTO mp_payments (payment_id, user_id, amount, status, days, credited, created_at, updated_at) VALUES (?,?,?,?,?,0,?,?)',
+                [$pid, $userId, $amount, $status, $days, now_utc(), now_utc()]);
+        } catch (Throwable $e) { /* otro aviso simultáneo ya lo insertó */ }
+    } else {
+        q('UPDATE mp_payments SET status = ?, updated_at = ? WHERE payment_id = ?', [$status, now_utc(), $pid]);
+    }
+
+    if ($status === 'approved') {
+        // Marca atómica: solo el primer proceso que cambia credited 0→1 suma los días.
+        $claimed = q('UPDATE mp_payments SET credited = 1 WHERE payment_id = ? AND credited = 0', [$pid])->rowCount();
+        if ($claimed === 1) {
+            $u = q_one('SELECT * FROM users WHERE id = ?', [$userId]);
+            if ($u) {
+                $base = (!empty($u['access_until']) && $u['access_until'] > now_utc()) ? strtotime($u['access_until'] . ' UTC') : time();
+                $status_local = $u['sub_status'] === 'active' ? 'active' : 'paid';
+                q('UPDATE users SET access_until = ?, sub_status = ? WHERE id = ?',
+                    [gmdate('Y-m-d H:i:s', $base + $days * 86400), $status_local, $userId]);
+            }
+        }
+    }
+    return ['user_id' => $userId, 'status' => $status];
 }
