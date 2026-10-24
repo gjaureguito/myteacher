@@ -145,6 +145,11 @@
       html += '<div class="speak-score ' + cls + '"><span class="meter"><i style="width:' + d.score + '%"></i></span><b>' + d.score + '%</b> · Entendí: “' + esc(d.heard) + '”'
         + (d.missing && d.missing.length && cls !== 'good' ? '<br>Revisá: <em>' + d.missing.map(esc).join(', ') + '</em>' : '') + '</div>';
     }
+    if (li.dataset.type === 'dictation' && d.words && d.words.length && !data.correct) {
+      html += '<p class="dict-diff" lang="en">' + d.words.map(t => t.t === 'ok' ? '<span class="dw ok">' + esc(t.w) + '</span>'
+        : t.t === 'bad' ? '<span class="dw bad">' + esc(t.w) + '</span>' : '<span class="dw miss" title="Falta una palabra">＿＿</span>').join(' ') + '</p>';
+      html += '<p class="fine">Acertaste ' + d.right + ' de ' + d.total + ' palabras. Lo verde ya está bien: corregí solo lo rojo y completá los huecos.</p>';
+    }
     if (li.dataset.type === 'match' && d.marks) {
       const pairs = li._pairs || [];
       d.marks.forEach((ok, i) => {
@@ -166,6 +171,7 @@
     else if (data.correct) head = data.first_try ? '¡Correcto a la primera! 🎯' : '¡Correcto!';
     else if (li.dataset.type === 'write') head = '✍️ Casi: revisá los criterios marcados en rojo y compará con el modelo.';
     else if (li.dataset.type === 'speak') head = 'Probá de nuevo: escuchá el modelo y repetí más despacio.';
+    else if (li.dataset.type === 'dictation' && data.detail && data.detail.right > 0) head = data.detail.right === data.detail.total ? 'Casi: sobra alguna palabra.' : 'Casi: te falta poco.';
     else head = data.reveal ? 'No es correcto.' : 'Todavía no. Probá otra vez.';
     let html = '<strong>' + head + '</strong>';
     html += renderDetail(li, data);

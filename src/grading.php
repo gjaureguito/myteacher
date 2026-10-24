@@ -26,6 +26,7 @@ function grade_detail(array $ex, $given): array
                 if ($ex['type'] === 'dictation') $a = strip_punct($a);
                 if ($g === $a) return ['ok' => true, 'detail' => []];
             }
+            if ($ex['type'] === 'dictation') return ['ok' => false, 'detail' => dictation_diff($answer['accept'] ?? [], $given)];
             return ['ok' => false, 'detail' => []];
 
         case 'match':
@@ -90,6 +91,63 @@ function word_similarity(string $target, string $heard): int
         $prev = $cur;
     }
     return (int) round(100 * end($prev) / max(count($a), count($b)));
+}
+
+/**
+ * Compara el dictado palabra por palabra contra la respuesta aceptada más parecida.
+ * Devuelve las palabras del alumno marcadas (ok / bad) y huecos (miss) donde falta algo,
+ * sin revelar el texto de las palabras que faltan.
+ */
+function dictation_diff(array $accepts, string $given): array
+{
+    $mine = [];
+    foreach (preg_split('/\s+/u', trim($given)) ?: [] as $tok) {
+        $n = speech_words($tok);
+        if ($n) $mine[] = ['w' => $tok, 'n' => implode(' ', $n)];
+    }
+    $best = null;
+    foreach ($accepts as $acc) {
+        $target = speech_words((string) $acc);
+        if (!$target) continue;
+        $ops = word_alignment($target, array_column($mine, 'n'));
+        $right = count(array_filter($ops, fn($o) => $o[0] === 'ok'));
+        if ($best === null || $right > $best['right']) $best = ['ops' => $ops, 'right' => $right, 'total' => count($target)];
+    }
+    if ($best === null) return [];
+
+    // Arma la vista: una palabra mal escrita en lugar de otra cuenta como un solo error, no como error + hueco.
+    $tokens = []; $bad = []; $miss = 0;
+    $flush = function () use (&$tokens, &$bad, &$miss) {
+        foreach ($bad as $w) { $tokens[] = ['t' => 'bad', 'w' => $w]; if ($miss > 0) $miss--; }
+        for (; $miss > 0; $miss--) $tokens[] = ['t' => 'miss'];
+        $bad = [];
+    };
+    foreach ($best['ops'] as [$op, $j]) {
+        if ($op === 'ok') { $flush(); $tokens[] = ['t' => 'ok', 'w' => $mine[$j]['w']]; }
+        elseif ($op === 'extra') $bad[] = $mine[$j]['w'];
+        else $miss++;
+    }
+    $flush();
+    return ['words' => $tokens, 'right' => $best['right'], 'total' => $best['total']];
+}
+
+/** Alineación por subsecuencia común más larga: ok (coincide), extra (sobra en lo escrito), miss (falta). */
+function word_alignment(array $a, array $b): array
+{
+    $n = count($a); $m = count($b);
+    $L = array_fill(0, $n + 1, array_fill(0, $m + 1, 0));
+    for ($i = $n - 1; $i >= 0; $i--)
+        for ($j = $m - 1; $j >= 0; $j--)
+            $L[$i][$j] = $a[$i] === $b[$j] ? $L[$i + 1][$j + 1] + 1 : max($L[$i + 1][$j], $L[$i][$j + 1]);
+    $ops = []; $i = 0; $j = 0;
+    while ($i < $n && $j < $m) {
+        if ($a[$i] === $b[$j]) { $ops[] = ['ok', $j]; $i++; $j++; }
+        elseif ($L[$i][$j + 1] >= $L[$i + 1][$j]) { $ops[] = ['extra', $j]; $j++; }
+        else { $ops[] = ['miss', null]; $i++; }
+    }
+    for (; $j < $m; $j++) $ops[] = ['extra', $j];
+    for (; $i < $n; $i++) $ops[] = ['miss', null];
+    return $ops;
 }
 
 function missing_words(string $target, string $heard): array

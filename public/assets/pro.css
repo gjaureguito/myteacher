@@ -452,3 +452,10 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .reset-unit{font-size:.85rem!important;color:var(--brand)!important;font-weight:700}
 [hidden]{display:none!important}
 .ex.is-done .check,.ex.is-done .reset,.ex.is-done .record,.ex.is-done .self-check,.ex.is-done .match + .fine{display:none!important}
+
+/* Dictado: corrección palabra por palabra */
+.dict-diff{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px;font-size:1.05rem;line-height:1.4}
+.dict-diff .dw{padding:2px 8px;border-radius:8px;font-weight:600}
+.dict-diff .dw.ok{background:var(--ok-bg);color:var(--ok)}
+.dict-diff .dw.bad{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
+.dict-diff .dw.miss{border:2px dashed var(--bad);color:var(--bad);background:transparent;min-width:3em;text-align:center}
