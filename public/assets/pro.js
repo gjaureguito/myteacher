@@ -149,6 +149,23 @@
     'network': 'El reconocimiento de voz necesita conexión a internet (Chrome usa un servicio online). Revisá la conexión y probá de nuevo.',
     'language-not-supported': 'Tu navegador no tiene disponible el reconocimiento en inglés.',
   };
+  /* Cuando Chrome no puede abrir el micrófono, averigua por qué para dar instrucciones concretas */
+  async function diagnoseMic() {
+    const win = /Windows/.test(navigator.userAgent);
+    if (!navigator.mediaDevices?.getUserMedia) return SR_ERRORS['audio-capture'];
+    try {
+      const st = await navigator.mediaDevices.getUserMedia({ audio: true });
+      st.getTracks().forEach(t => t.stop());
+      return 'El micrófono funciona pero el reconocimiento no pudo usarlo. Cerrá otras pestañas o apps que estén usando el micrófono y probá de nuevo.';
+    } catch (e) {
+      if (e.name === 'NotFoundError') return 'No se encontró ningún micrófono. Revisá que esté conectado y habilitado.';
+      if (e.name === 'NotAllowedError') return SR_ERRORS['not-allowed'];
+      if (e.name === 'NotReadableError') return win
+        ? 'Windows no deja que Chrome use el micrófono. Abrí Configuración → Privacidad y seguridad → Micrófono, activá "Acceso al micrófono" y "Permitir que las aplicaciones de escritorio accedan al micrófono". Si sigue igual, cerrá Zoom, Teams, Discord o WhatsApp y reiniciá Chrome.'
+        : 'El sistema no deja que el navegador use el micrófono, o lo está usando otra aplicación. Revisá los permisos de micrófono del sistema y cerrá otras apps que lo usen.';
+      return SR_ERRORS['audio-capture'];
+    }
+  }
   function recognize(target, { onStart, onResult, onFail, onEnd }) {
     if (!SR) { onFail('Tu navegador no permite el reconocimiento de voz. Probá con Chrome o Edge en la compu o en Android.'); onEnd && onEnd(); return; }
     if (window.speechSynthesis) speechSynthesis.cancel(); // que el micrófono no escuche la voz del sitio
@@ -169,6 +186,7 @@
     rec.onerror = ev => {
       if (ev.error === 'aborted') return;
       failed = true;
+      if (ev.error === 'audio-capture') { diagnoseMic().then(onFail); return; }
       onFail(SR_ERRORS[ev.error] || ('No se pudo usar el micrófono (' + ev.error + '). Probá de nuevo.'));
     };
     rec.onend = () => {
