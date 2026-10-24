@@ -186,9 +186,8 @@
         <a class="btn" href="ms-settings:privacy-microphone">Abrir configuración de micrófono de Windows</a>
         <div class="mh-auto">
           <h4>⚡ Solución automática</h4>
-          <p>Descargá el activador y abrilo con doble clic: aplica estos permisos por vos y abre la configuración para que verifiques. Para que también reinicie el audio de Windows, abrilo con clic derecho → <b>Ejecutar como administrador</b>.</p>
-          <div class="mh-actions"><a class="btn" href="/tools/activar-microfono.bat" download="activar-microfono.bat">⬇️ Descargar activador (.bat)</a><button type="button" class="btn btn-ghost" data-copy-ps>Copiar comando de PowerShell</button></div>
-          <p class="fine">Si Windows muestra "Windows protegió su PC", tocá <b>Más información</b> → <b>Ejecutar de todas formas</b>. El archivo solo cambia los permisos de micrófono; podés ver exactamente qué hace acá abajo.</p>
+          <p>Copiá el comando, abrí la Terminal (<b>Win + X</b> → <b>Terminal</b>), pegalo y apretá Enter: aplica estos permisos por vos. Solo cambia los permisos de micrófono; podés ver exactamente qué hace acá abajo.</p>
+          <div class="mh-actions"><button type="button" class="btn" data-copy-ps>Copiar comando de PowerShell</button></div>
           <details><summary>Ver los comandos</summary><pre class="mh-pre">${PS_FIX.replace(/</g, '&lt;')}</pre></details>
         </div>` : `<p>En macOS: Configuración del Sistema → Privacidad y seguridad → Micrófono → activá ${browserName}. En el celular: Ajustes → Apps → ${browserName} → Permisos → Micrófono.</p>`}
         <p class="fine">Si ya estaba activado, cerrá Zoom, Teams, Discord o WhatsApp (pueden estar ocupando el micrófono) y reiniciá ${browserName}.</p>
@@ -200,9 +199,7 @@
           <h4>⚡ Comando seguro (una línea)</h4>
           <p>Abrí la Terminal como administrador (<b>Win + X</b> → <b>Terminal (administrador)</b>), pegá esta línea y apretá Enter. Solo reinicia el servicio de audio de Windows; el sonido se corta unos segundos.</p>
           <div class="mh-copy"><code>${PS_AUDIO}</code><button type="button" class="btn btn-ghost btn-sm" data-copy-audio>Copiar</button></div>
-          <p>O descargá el reparador completo: pide permiso de administrador, reinicia el audio, habilita los permisos de micrófono, reactiva micrófonos deshabilitados y te avisa qué programas lo pueden estar ocupando.</p>
-          <div class="mh-actions"><a class="btn" href="/tools/reparar-audio.bat" download="reparar-audio.bat">⬇️ Descargar reparador (.bat)</a></div>
-          <p class="fine">Después cerrá ${browserName} por completo, volvé a abrirlo y tocá Probar de nuevo.</p>
+          <p class="fine">Más soluciones paso a paso en <a href="/microfono.php">Solucionar el micrófono</a>. Después cerrá ${browserName} por completo, volvé a abrirlo y tocá Probar de nuevo.</p>
         </div>
         <p class="fine">Si sigue igual: Configuración → Sistema → Sonido → tu micrófono → Propiedades → desmarcá "Permitir que las aplicaciones tomen control exclusivo de este dispositivo", o actualizá el driver de audio (Realtek) desde el Administrador de dispositivos.</p>` : `<p>Cerrá las apps que usan el micrófono y reiniciá ${browserName}. Si sigue igual, reiniciá el equipo.</p>`}
       </section>
