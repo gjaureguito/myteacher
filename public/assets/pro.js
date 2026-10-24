@@ -154,6 +154,14 @@
   const isEdge = /Edg\//.test(navigator.userAgent);
   const browserName = isEdge ? 'Edge' : 'Chrome';
   const siteSettingsUrl = (isEdge ? 'edge' : 'chrome') + '://settings/content/siteDetails?site=' + encodeURIComponent(location.origin);
+  const PS_FIX = [
+    "$p = 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\microphone'",
+    "foreach ($k in @($p, \"$p\\NonPackaged\")) {",
+    "  if (-not (Test-Path $k)) { New-Item -Path $k | Out-Null }",
+    "  Set-ItemProperty -Path $k -Name Value -Value Allow",
+    "}",
+    "Write-Host 'Listo: cerrá Chrome por completo y volvé a abrirlo.'",
+  ].join('\n');
   async function testMic() {
     if (!navigator.mediaDevices?.getUserMedia) return { code: 'unsupported' };
     try {
@@ -173,7 +181,14 @@
       <section class="mh-step" data-for="system">
         <h3>${isWin ? 'Permití el micrófono en Windows' : 'Permití el micrófono en el sistema'}</h3>
         ${isWin ? `<p>Windows está bloqueando el micrófono para ${browserName}. Tocá el botón, aceptá cuando el navegador pregunte si querés abrir Configuración, y activá <b>Acceso al micrófono</b> y <b>Permitir que las aplicaciones de escritorio accedan al micrófono</b>.</p>
-        <a class="btn" href="ms-settings:privacy-microphone">Abrir configuración de micrófono de Windows</a>` : `<p>En macOS: Configuración del Sistema → Privacidad y seguridad → Micrófono → activá ${browserName}. En el celular: Ajustes → Apps → ${browserName} → Permisos → Micrófono.</p>`}
+        <a class="btn" href="ms-settings:privacy-microphone">Abrir configuración de micrófono de Windows</a>
+        <div class="mh-auto">
+          <h4>⚡ Solución automática</h4>
+          <p>Descargá el activador y abrilo con doble clic: aplica estos permisos por vos y abre la configuración para que verifiques. Para que también reinicie el audio de Windows, abrilo con clic derecho → <b>Ejecutar como administrador</b>.</p>
+          <div class="mh-actions"><a class="btn" href="/tools/activar-microfono.bat" download="activar-microfono.bat">⬇️ Descargar activador (.bat)</a><button type="button" class="btn btn-ghost" data-copy-ps>Copiar comando de PowerShell</button></div>
+          <p class="fine">Si Windows muestra "Windows protegió su PC", tocá <b>Más información</b> → <b>Ejecutar de todas formas</b>. El archivo solo cambia los permisos de micrófono; podés ver exactamente qué hace acá abajo.</p>
+          <details><summary>Ver los comandos</summary><pre class="mh-pre">${PS_FIX.replace(/</g, '&lt;')}</pre></details>
+        </div>` : `<p>En macOS: Configuración del Sistema → Privacidad y seguridad → Micrófono → activá ${browserName}. En el celular: Ajustes → Apps → ${browserName} → Permisos → Micrófono.</p>`}
         <p class="fine">Si ya estaba activado, cerrá Zoom, Teams, Discord o WhatsApp (pueden estar ocupando el micrófono) y reiniciá ${browserName}.</p>
       </section>
       <section class="mh-step" data-for="blocked">
@@ -219,6 +234,10 @@
     back.addEventListener('click', async e => {
       if (e.target === back || e.target.closest('[data-close]')) { stop(); back.remove(); }
       if (e.target.closest('[data-retry]')) run();
+      if (e.target.closest('[data-copy-ps]')) {
+        try { await navigator.clipboard.writeText(PS_FIX); ipToast('Comando copiado. Abrí PowerShell (Win+X → Terminal), pegalo con clic derecho y apretá Enter.'); }
+        catch { ipToast('Abrí "Ver los comandos" y copialos a mano.'); }
+      }
       if (e.target.closest('[data-copy]')) {
         try { await navigator.clipboard.writeText(siteSettingsUrl); ipToast('Dirección copiada. Pegala en una pestaña nueva.'); }
         catch { ipToast('Seleccioná la dirección y copiala con Ctrl+C.'); }
