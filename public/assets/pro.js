@@ -140,26 +140,69 @@
     const missing = a.filter(w => !b.includes(w));
     return { score: Math.round(100 * dp[a.length][b.length] / Math.max(a.length, b.length)), missing };
   }
-  function listen(btn, target, outEl) {
-    if (!SR) { ipToast('Tu navegador no permite el reconocimiento de voz. Probá con Chrome o Edge.'); return; }
-    const rec = new SR(); rec.lang = 'en-US'; rec.interimResults = false; rec.maxAlternatives = 3;
-    const lab = btn.querySelector('.lab'); btn.classList.add('is-listening'); if (lab) lab.textContent = ' Escuchando…'; play('mic');
+  /* Reconocimiento de voz compartido (también lo usan los ejercicios de speaking en app.js) */
+  const SR_ERRORS = {
+    'not-allowed': 'El navegador bloqueó el micrófono. Tocá el candado junto a la dirección del sitio, permití el micrófono y probá de nuevo.',
+    'service-not-allowed': 'Este navegador no permite el reconocimiento de voz (pasa en Brave y algunos navegadores con bloqueo). Probá con Chrome o Edge.',
+    'no-speech': 'No te escuché. Tocá el botón y hablá apenas aparezca "Escuchando…".',
+    'audio-capture': 'No se encontró ningún micrófono. Revisá que esté conectado y habilitado.',
+    'network': 'El reconocimiento de voz necesita conexión a internet (Chrome usa un servicio online). Revisá la conexión y probá de nuevo.',
+    'language-not-supported': 'Tu navegador no tiene disponible el reconocimiento en inglés.',
+  };
+  function recognize(target, { onStart, onResult, onFail, onEnd }) {
+    if (!SR) { onFail('Tu navegador no permite el reconocimiento de voz. Probá con Chrome o Edge en la compu o en Android.'); onEnd && onEnd(); return; }
+    if (window.speechSynthesis) speechSynthesis.cancel(); // que el micrófono no escuche la voz del sitio
+    const rec = new SR(); rec.lang = 'en-US'; rec.interimResults = false; rec.continuous = false; rec.maxAlternatives = 3;
+    let got = false, failed = false;
+    const safety = setTimeout(() => { try { rec.stop(); } catch {} }, 9000);
+    rec.onstart = () => onStart && onStart();
     rec.onresult = ev => {
-      const alts = [...ev.results[0]].map(r => r.transcript);
-      const best = alts.map(t => ({ t, ...similarity(target, t) })).sort((x, y) => y.score - x.score)[0];
-      const cls = best.score >= 85 ? 'good' : best.score >= 55 ? 'mid' : 'low';
-      const msg = cls === 'good' ? '¡Excelente pronunciación!' : cls === 'mid' ? 'Muy cerca. Escuchá de nuevo y repetí.' : 'Probá otra vez, más despacio.';
-      outEl.className = 'pron-result ' + cls;
-      outEl.innerHTML = '';
-      const b = document.createElement('b'); b.textContent = best.score + '% · ' + msg;
-      const sm = document.createElement('span'); sm.textContent = ' Entendí: "' + best.t + '"' + (best.missing.length && cls !== 'good' ? ' · Revisá: ' + best.missing.slice(0, 4).join(', ') : '');
-      outEl.append(b, sm);
-      play(cls === 'good' ? 'ok' : cls === 'mid' ? 'tap' : 'bad');
-      if (cls === 'good') { addXP(5, btn); burst(btn, 26); }
+      got = true;
+      try {
+        const res = ev.results[ev.results.length - 1];
+        const alts = [];
+        for (let i = 0; i < res.length; i++) if (res[i] && res[i].transcript) alts.push(res[i].transcript.trim());
+        if (!alts.length) { failed = true; onFail(SR_ERRORS['no-speech']); return; }
+        onResult(alts);
+      } catch (err) { failed = true; onFail('No pude procesar lo que dijiste (' + err.message + '). Probá de nuevo.'); }
     };
-    rec.onerror = ev => { if (ev.error === 'not-allowed') ipToast('Permití el micrófono para practicar pronunciación.'); else if (ev.error === 'no-speech') ipToast('No te escuché. Probá de nuevo.'); };
-    rec.onend = () => { btn.classList.remove('is-listening'); if (lab) lab.textContent = ' Decilo vos'; };
-    try { rec.start(); } catch { rec.onend(); }
+    rec.onerror = ev => {
+      if (ev.error === 'aborted') return;
+      failed = true;
+      onFail(SR_ERRORS[ev.error] || ('No se pudo usar el micrófono (' + ev.error + '). Probá de nuevo.'));
+    };
+    rec.onend = () => {
+      clearTimeout(safety);
+      if (!got && !failed) onFail(SR_ERRORS['no-speech']);
+      onEnd && onEnd();
+    };
+    try { rec.start(); } catch (err) { clearTimeout(safety); onFail('El micrófono ya está en uso. Esperá un segundo y probá de nuevo.'); onEnd && onEnd(); }
+  }
+  window.ipRecognize = recognize;
+
+  function listen(btn, target, outEl) {
+    if (btn.classList.contains('is-listening')) return;
+    const lab = btn.querySelector('.lab');
+    const status = (cls, html) => { outEl.className = 'pron-result ' + cls; outEl.innerHTML = html; };
+    btn.classList.add('is-listening'); if (lab) lab.textContent = ' Escuchando…';
+    status('wait', '🎙️ Preparando el micrófono…');
+    play('mic');
+    recognize(target, {
+      onStart: () => status('wait', '🔴 Escuchando… decí la frase en inglés.'),
+      onResult: alts => {
+        const best = alts.map(t => ({ t, ...similarity(target, t) })).sort((x, y) => y.score - x.score)[0];
+        const cls = best.score >= 85 ? 'good' : best.score >= 55 ? 'mid' : 'low';
+        const msg = cls === 'good' ? '¡Excelente pronunciación!' : cls === 'mid' ? 'Muy cerca. Escuchá de nuevo y repetí.' : 'Probá otra vez, más despacio.';
+        outEl.className = 'pron-result ' + cls; outEl.innerHTML = '';
+        const b = document.createElement('b'); b.textContent = best.score + '% · ' + msg;
+        const sm = document.createElement('span'); sm.textContent = ' Entendí: "' + best.t + '"' + (best.missing.length && cls !== 'good' ? ' · Revisá: ' + best.missing.slice(0, 4).join(', ') : '');
+        outEl.append(b, sm);
+        play(cls === 'good' ? 'ok' : cls === 'mid' ? 'tap' : 'bad');
+        if (cls === 'good') { addXP(5, btn); burst(btn, 26); }
+      },
+      onFail: msg => { status('low', '⚠️ ' + msg.replace(/[<>&]/g, '')); play('bad'); },
+      onEnd: () => { btn.classList.remove('is-listening'); if (lab) lab.textContent = ' Decilo vos'; },
+    });
   }
   function micButton(target, label = true) {
     const b = document.createElement('button'); b.type = 'button'; b.className = 'mic-btn';
@@ -167,7 +210,7 @@
     b.innerHTML = ICON_MIC + (label ? '<span class="lab"> Decilo vos</span>' : '');
     return b;
   }
-  if (SR) {
+  {
     $$('.theory .ex').forEach(p => {
       const say = p.querySelector('.ex-say'); if (!say) return;
       const target = say.dataset.say; const btn = micButton(target); const out = document.createElement('span'); out.className = 'pron-result';
