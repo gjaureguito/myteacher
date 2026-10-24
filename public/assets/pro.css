@@ -395,3 +395,6 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .unit-skills > span{color:var(--sk,var(--ink-2))}
 .unit-skills .unit-pos{color:var(--ink-2);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .ex-prompt .gap{display:inline-block!important;width:8em!important;max-width:45vw;min-height:38px;padding:4px 10px!important;margin:0 4px!important;vertical-align:baseline;border:1.5px solid var(--line)!important;border-bottom:2px solid var(--brand-2)!important}
+.pron-result.wait{color:var(--brand-2);font-weight:700}
+.pron-result.low{color:var(--bad)}
+.mic-btn.is-listening .lab{font-weight:700}

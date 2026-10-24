@@ -307,23 +307,19 @@
     if (type === 'speak') {
       const rec = li.querySelector('.record');
       const self = li.querySelector('.self-check');
-      if (!SR) {
-        rec.disabled = true; rec.title = 'Tu navegador no permite reconocimiento de voz (probá Chrome o Edge)';
-        self.hidden = false;
-      }
+      const fb = li.querySelector('.feedback');
+      if (!SR) self.hidden = false;
       self.addEventListener('click', () => handle(li, { self: true }));
       rec.addEventListener('click', () => {
-        if (!SR) return;
-        const r = new SR(); r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 1;
-        rec.classList.add('is-listening'); rec.textContent = '🔴 Escuchando…';
+        if (rec.classList.contains('is-listening') || !window.ipRecognize) return;
+        rec.classList.add('is-listening'); rec.textContent = '🎙️ Preparando…';
         window.ipPlay && ipPlay('mic');
-        r.onresult = ev => handle(li, { transcript: ev.results[0][0].transcript });
-        r.onerror = ev => {
-          if (ev.error === 'not-allowed') { (window.ipToast || alert)('Permití el micrófono para practicar speaking.'); self.hidden = false; }
-          else if (ev.error === 'no-speech') (window.ipToast || alert)('No te escuché. Probá de nuevo.');
-        };
-        r.onend = () => { rec.classList.remove('is-listening'); rec.textContent = '🎙️ Grabar de nuevo'; };
-        try { r.start(); } catch { r.onend(); }
+        window.ipRecognize(li.querySelector('.say-target')?.textContent || '', {
+          onStart: () => { rec.textContent = '🔴 Escuchando… hablá ahora'; },
+          onResult: alts => handle(li, { transcript: alts[0] }),
+          onFail: msg => { fb.className = 'feedback is-bad'; fb.innerHTML = '<strong>⚠️ ' + esc(msg) + '</strong>'; self.hidden = false; },
+          onEnd: () => { rec.classList.remove('is-listening'); rec.textContent = '🎙️ Grabar de nuevo'; },
+        });
       });
     }
   });
