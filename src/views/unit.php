@@ -9,11 +9,15 @@ $total = count($exercises);
     <p class="muted"><?= e($unit['summary']) ?></p>
   </header>
 
+  <div class="unit-progress" aria-hidden="true"><span></span></div>
+  <div class="unit-toolbar">
   <div class="tabs" role="tablist">
     <button role="tab" aria-selected="true" aria-controls="t-theory" id="tab-theory">Teoría</button>
     <?php if ($vocab): ?><button role="tab" aria-selected="false" aria-controls="t-vocab" id="tab-vocab">Vocabulario <span class="count"><?= count($vocab) ?></span></button><?php endif; ?>
     <button role="tab" aria-selected="false" aria-controls="t-practice" id="tab-practice">Práctica <span class="count" data-progress><?= $solved ?>/<?= $total ?></span></button>
     <?php if ($lab): ?><button role="tab" aria-selected="false" aria-controls="t-workshop" id="tab-workshop">Taller de aplicación</button><?php endif; ?>
+  </div>
+  <label class="voice-ctl">🎙️ Velocidad de voz <input type="range" id="voice-rate" min="0.6" max="1.3" step="0.05" value="1"> <span id="voice-rate-val">1×</span></label>
   </div>
 
   <?php if ($lab): ?>
@@ -43,6 +47,7 @@ $total = count($exercises);
   <?php endif; ?>
 
   <div class="tabpanel" id="t-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+    <p class="kbd-hint">Atajos: <span class="kbd">1</span>–<span class="kbd">4</span> elegir opción · <span class="kbd">L</span> escuchar · <span class="kbd">N</span> siguiente · <span class="kbd">Enter</span> comprobar</p>
     <ol class="exercises">
       <?php foreach ($exercises as $i => $ex):
         $data = json_decode($ex['data_json'], true) ?: [];
@@ -92,3 +97,4 @@ $total = count($exercises);
     </div>
   </div>
 </section>
+<div class="xp-hud" aria-live="polite"><span aria-hidden="true">⭐</span><span class="xp-val">0 XP</span><span class="combo"></span></div>

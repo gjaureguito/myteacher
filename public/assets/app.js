@@ -11,21 +11,27 @@
   }
   if (window.speechSynthesis) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
 
-  function say(text, rate = 0.95) {
-    if (!window.speechSynthesis) { alert('Tu navegador no permite reproducir audio. Probá con Chrome, Edge o Safari.'); return; }
+  function say(text, rate = 0.95, btn = null) {
+    if (!window.speechSynthesis) { (window.ipToast || alert)('Tu navegador no permite reproducir audio. Probá con Chrome, Edge o Safari.'); return; }
     speechSynthesis.cancel();
+    document.querySelectorAll('.is-speaking').forEach(b => b.classList.remove('is-speaking'));
     const u = new SpeechSynthesisUtterance(text);
     u.lang = voice?.lang || 'en-US';
     if (voice) u.voice = voice;
-    u.rate = rate;
+    u.rate = Math.min(2, Math.max(0.4, rate * (parseFloat(localStorage.getItem('ip_rate') || '1') || 1)));
+    if (btn) {
+      u.onstart = () => btn.classList.add('is-speaking');
+      u.onend = u.onerror = () => btn.classList.remove('is-speaking');
+    }
     speechSynthesis.speak(u);
   }
+  window.ipSay = say;
 
   document.addEventListener('click', e => {
     const b = e.target.closest('.speak');
     if (!b) return;
     e.stopPropagation();
-    say(b.dataset.say, parseFloat(b.dataset.rate || '0.95'));
+    say(b.dataset.say, parseFloat(b.dataset.rate || '0.95'), b);
   });
 
   // Botón de audio en cada ejemplo de la teoría (lee solo la parte en inglés)
@@ -56,10 +62,13 @@
         gap.textContent = 'goes';
         gap.classList.add('is-ok');
         fb.textContent = '¡Bien! Con he/she/it el verbo lleva -s: goes.';
+        document.dispatchEvent(new CustomEvent('ip:answer', { detail: { li: b, correct: true, demo: true } }));
+        say('My brother goes to work by bus.');
         demo.querySelectorAll('.opt').forEach(o => o.disabled = true);
       } else {
         b.classList.add('is-bad');
         fb.textContent = 'Casi. Pensá en quién hace la acción: my brother = he.';
+        document.dispatchEvent(new CustomEvent('ip:answer', { detail: { li: b, correct: false, demo: true } }));
       }
     });
   }
@@ -122,13 +131,15 @@
     if (data.reveal && data.answer && !data.correct) html += 'Respuesta correcta: <em>' + esc(data.answer) + '</em><br>';
     if (data.explanation) html += esc(data.explanation);
     fb.innerHTML = html;
-    if (data.correct && !li.classList.contains('is-solved')) {
+    const firstSolve = data.correct && !li.classList.contains('is-solved');
+    let solved = 0, total = 0;
+    if (progress) [solved, total] = progress.textContent.split('/').map(Number);
+    if (firstSolve) {
       li.classList.add('is-solved');
-      if (progress) {
-        const [s, t] = progress.textContent.split('/').map(Number);
-        progress.textContent = (s + 1) + '/' + t;
-      }
+      solved += 1;
+      if (progress) progress.textContent = solved + '/' + total;
     }
+    document.dispatchEvent(new CustomEvent('ip:answer', { detail: { li, correct: !!data.correct, firstSolve, solved, total, reveal: !!data.reveal } }));
     if (data.say && data.reveal) say(data.say);
   }
 

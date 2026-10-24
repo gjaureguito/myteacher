@@ -7,13 +7,21 @@ $first = explode(' ', $u['name'])[0];
   <p class="eyebrow">MY LEARNING DESK / TU ESPACIO DE ESTUDIO</p>
   <div class="dash-head">
     <div>
-      <h1>Hola, <?= e($first) ?></h1>
-      <p class="muted">
-        <?= $solvedTotal ?> ejercicios resueltos
-        <?php if ($streak): ?>· racha de <?= $streak ?> <?= $streak === 1 ? 'día' : 'días' ?><?php endif; ?>
-      </p>
+      <h1><span data-greet>Hola</span>, <?= e($first) ?></h1>
+      <p class="muted">Cada sesión corta suma. Seguí con tu recorrido.</p>
     </div>
     <span class="pill <?= $full ? 'pill-ok' : 'pill-demo' ?>"><?= e(sub_label($u)) ?></span>
+  </div>
+  <?php
+    $doneUnits = 0; $allSolved = 0; $allTotal = 0;
+    foreach ($lp as $p) { $allSolved += $p['solved']; $allTotal += $p['total']; }
+    $globalPct = $allTotal ? (int) round($allSolved * 100 / $allTotal) : 0;
+  ?>
+  <div class="stat-row">
+    <div class="stat flame"><span class="stat-ico" aria-hidden="true">🔥</span><div><strong data-count="<?= (int) $streak ?>"><?= (int) $streak ?></strong><span>días de racha</span></div></div>
+    <div class="stat"><span class="stat-ico" aria-hidden="true">✅</span><div><strong data-count="<?= (int) $solvedTotal ?>"><?= (int) $solvedTotal ?></strong><span>ejercicios resueltos</span></div></div>
+    <div class="stat"><span class="stat-ico" aria-hidden="true">⭐</span><div><strong data-xp>0</strong><span>puntos de experiencia</span></div></div>
+    <div class="stat" style="--lv: var(--brand-2)"><span class="pring" style="--p: <?= $globalPct ?>"><span><?= $globalPct ?>%</span></span><div><strong style="font-size:1.1rem">Recorrido total</strong><span>A1 → C2 publicado</span></div></div>
   </div>
 
   <div class="desk-guide"><div><p class="eyebrow">UNA SESIÓN CON DIRECCIÓN</p><h2>Una idea. Un texto.<br><em>Una respuesta propia.</em></h2><p>Elegí una unidad, repasá su explicación y abrí el Taller de aplicación. Leé buscando evidencia y cerrá con tu propio texto.</p></div><ol><li><strong>Prepará</strong><span>Leé el objetivo y activá lo que ya sabés.</span></li><li><strong>Practicá</strong><span>Conectá teoría, vocabulario y ejercicios.</span></li><li><strong>Aplicá</strong><span>Escribí y revisá con el modelo del taller.</span></li></ol></div>
@@ -30,8 +38,8 @@ $first = explode(' ', $u['name'])[0];
 
   <div class="dash-cards">
     <?php if ($last): ?>
-      <a class="resume" href="/unit.php?id=<?= (int) $last['id'] ?>">
-        <span class="muted">Seguí donde quedaste</span>
+      <a class="resume primary" href="/unit.php?id=<?= (int) $last['id'] ?>">
+        <span class="muted">▶ Seguí donde quedaste</span>
         <strong><?= e(strtoupper($last['level_code'])) ?> · <?= e($last['title']) ?></strong>
       </a>
     <?php endif; ?>
@@ -42,21 +50,21 @@ $first = explode(' ', $u['name'])[0];
   </div>
 
   <div class="desk-section-heading"><h2 class="section-title">Elegí tu próximo capítulo</h2><a class="text-link" href="/library.php">Ir a la biblioteca ↗</a></div>
-  <ol class="ladder">
+  <ol class="level-grid">
     <?php foreach ($levels as $i => $lv):
       $p = $lp[$lv['code']] ?? ['total' => 0, 'solved' => 0];
       $pc = pct($p);
       $rec = $placement && $placement['level_code'] === $lv['code'];
     ?>
-      <li class="rung" style="--lv: <?= e($colors[$lv['code']] ?? '#2747D9') ?>; --step: <?= $i ?>">
+      <li class="level-card" style="--lv: <?= e($colors[$lv['code']] ?? '#2747D9') ?>">
         <a href="/level.php?code=<?= e($lv['code']) ?>">
-          <span class="rung-code"><?= e(strtoupper($lv['code'])) ?></span>
-          <span class="rung-body">
-            <strong><?= e($lv['name']) ?><?php if ($rec): ?> <em class="tag">Recomendado</em><?php endif; ?></strong>
-            <span class="muted"><?= e($lv['description']) ?></span>
-            <span class="bar" aria-label="Progreso <?= $pc ?>%"><span style="width: <?= $pc ?>%"></span></span>
+          <span class="lc-top">
+            <img src="/assets/images/levels/<?= e($lv['code']) ?>.svg" width="76" height="76" alt="">
+            <span class="pring" style="--p: <?= $pc ?>" aria-label="Progreso <?= $pc ?>%"><span><?= $pc ?>%</span></span>
           </span>
-          <span class="rung-pct"><?= $pc ?>%</span>
+          <h3><small><?= e(strtoupper($lv['code'])) ?></small><?= e($lv['name']) ?></h3>
+          <p><?= e($lv['description']) ?></p>
+          <?php if ($rec): ?><em class="tag">★ Recomendado para vos</em><?php endif; ?>
         </a>
       </li>
     <?php endforeach; ?>

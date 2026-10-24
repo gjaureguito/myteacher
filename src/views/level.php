@@ -1,7 +1,7 @@
 <section class="wrap page" style="--lv: <?= e($color) ?>">
   <p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / <?= e(strtoupper($level['code'])) ?></p>
   <header class="level-head">
-    <span class="level-badge"><?= e(strtoupper($level['code'])) ?></span>
+    <img src="/assets/images/levels/<?= e($level['code']) ?>.svg" width="96" height="96" alt="Nivel <?= e(strtoupper($level['code'])) ?>">
     <div>
       <h1><?= e($level['name']) ?></h1>
       <p class="muted"><?= e($level['description']) ?></p>

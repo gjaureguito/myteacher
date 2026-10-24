@@ -96,3 +96,13 @@ La unidad en posición 1 de cada nivel es la que entra en la demo.
 La experiencia incluye 24 talleres originales con lecturas, comprensión explicada y escritura guiada. Las muestras abiertas están en `/library.php`; el programa, en `/program.php`. Cada unidad de la plataforma incorpora una pestaña Taller de aplicación. Los talleres se versionan en `content/labs/` y no requieren sincronizar ni reemplazar ejercicios de la base. El inventario editorial de consulta está en `/admin/learning.php`.
 
 Ver [diseño y contrato editorial](docs/EXPERIENCIA-ACADEMICA.md). Ejecutar `python tests/curriculum.py` y `python tests/smoke.py` para verificar contenido y flujos con una base temporal.
+
+## Experiencia "Pro" (interfaz)
+
+`public/assets/pro.css` y `public/assets/pro.js` se cargan después de los estilos originales y no tocan la lógica del servidor:
+
+- Modo claro/oscuro (respeta el del sistema y se recuerda), topbar de vidrio, animaciones de entrada y navegación inferior en móvil.
+- Efectos de sonido sintetizados con Web Audio (acierto, error, combo, unidad completada), con botón para silenciar. Sin archivos de audio.
+- Confeti, XP y combos en la práctica, barra de progreso fija, atajos de teclado (1–4, L, N, Enter) y control de velocidad de la voz.
+- Práctica de pronunciación con micrófono ("Decilo vos") en ejemplos y vocabulario (Chrome/Edge, Web Speech Recognition).
+- Ilustraciones SVG originales por nivel en `public/assets/images/levels/`.

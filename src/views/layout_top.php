@@ -36,32 +36,46 @@ $description = match ($path) {
 <meta name="csrf" content="<?= e(csrf_token()) ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css?v=1">
 <link rel="stylesheet" href="/assets/redesign.css?v=5">
+<link rel="stylesheet" href="/assets/pro.css?v=1">
+<meta name="theme-color" content="#17252b">
+<script>(function(){try{var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
 </head>
-<body>
+<body<?= $u ? ' class="has-bottom-nav"' : '' ?>>
 <a class="skip" href="#main">Saltar al contenido</a>
 <header class="topbar">
   <div class="wrap topbar-in">
     <a class="brand" href="<?= $u ? '/dashboard.php' : '/' ?>"><span class="brand-mark">En</span><?= e(app_name()) ?></a>
+<?php $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : ''; ?>
     <nav class="nav" aria-label="Principal">
       <?php if ($u): ?>
-        <a href="/dashboard.php">Mis niveles</a>
-        <a href="/placement.php">Test de nivel</a>
-        <a href="/account.php">Mi cuenta</a>
+        <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>>Mis niveles</a>
+        <a href="/placement.php"<?= $navCur('/placement.php') ?>>Test de nivel</a>
+        <a href="/account.php"<?= $navCur('/account.php') ?>>Mi cuenta</a>
         <?php if (is_admin($u)): ?><a href="/admin/">Admin</a><?php endif; ?>
         <form method="post" action="/logout.php" class="inline"><?= csrf_field() ?><button class="linkbtn">Salir</button></form>
       <?php else: ?>
-        <a href="/program.php">Programa</a>
-        <a href="/library.php">Biblioteca</a>
+        <a href="/program.php"<?= $navCur('/program.php') ?>>Programa</a>
+        <a href="/library.php"<?= $navCur('/library.php') ?>>Biblioteca</a>
         <a href="/#metodo">Cómo aprender</a>
         <a href="/#precio">Precio</a>
         <a href="/login.php">Ingresar</a>
         <a class="btn btn-sm" href="/register.php">Probar gratis</a>
       <?php endif; ?>
     </nav>
+      <span class="tools">
+        <button type="button" class="tool-btn" id="tool-sound" aria-pressed="true" aria-label="Efectos de sonido" title="Efectos de sonido">
+          <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>
+          <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zM19 12c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12a9 9 0 0 0-7-8.77v2.06A7 7 0 0 1 19 12zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a9 9 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
+        </button>
+        <button type="button" class="tool-btn" id="tool-theme" aria-pressed="false" aria-label="Modo oscuro" title="Modo claro / oscuro">
+          <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+          <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2zm18 0h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2zM11 2v2a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0zm0 18v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0zM5.99 4.58a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41l-1.06-1.06zm1.06-10.96a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06z"/></svg>
+        </button>
+      </span>
   </div>
 </header>
 <main id="main">
