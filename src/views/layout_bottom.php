@@ -22,6 +22,6 @@
 <?php endif; ?>
 <script src="/assets/app.js?v=7" defer></script>
 <script src="/assets/learning.js?v=1" defer></script>
-<script src="/assets/pro.js?v=6" defer></script>
+<script src="/assets/pro.js?v=7" defer></script>
 </body>
 </html>
