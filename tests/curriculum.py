@@ -12,7 +12,7 @@ echo json_encode($items);
 """
 slugs=json.loads(subprocess.run(['php'],input=source,text=True,cwd=ROOT,capture_output=True,check=True).stdout)
 paths=sorted((ROOT/'content/labs').glob('*.json'))
-assert len(paths)==len(slugs)==24
+assert len(paths)==24 and len(slugs)>=24
 passages=set(); all_words=0
 for path in paths:
  d=json.loads(path.read_text(encoding='utf-8'))

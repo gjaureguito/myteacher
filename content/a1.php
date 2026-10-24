@@ -210,5 +210,12 @@ HTML,
                 ['dictation', 'Escuchá y escribí.', 'Their daughter is a nurse.', 'Their = de ellos.'],
             ],
         ],
+        // Unidades 5–10: definidas por completo en content/units/<slug>.php
+        ['slug' => 'a1-present-continuous', 'exercises' => []],
+        ['slug' => 'a1-can-ability', 'exercises' => []],
+        ['slug' => 'a1-food-countable', 'exercises' => []],
+        ['slug' => 'a1-was-were', 'exercises' => []],
+        ['slug' => 'a1-directions-imperatives', 'exercises' => []],
+        ['slug' => 'a1-likes-free-time', 'exercises' => []],
     ],
 ];

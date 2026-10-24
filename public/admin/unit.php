@@ -6,6 +6,7 @@ require_once ROOT . '/src/seed.php';
 /** Fila de la base → formato compacto editable (el mismo de content/*.php). */
 function exercise_to_compact(array $ex): array
 {
+    if (!empty($ex['compact_json'])) return json_decode($ex['compact_json'], true) ?: [];
     $d = json_decode($ex['data_json'], true) ?: [];
     $a = json_decode($ex['answer_json'], true) ?: [];
     switch ($ex['type']) {
@@ -16,6 +17,17 @@ function exercise_to_compact(array $ex): array
         case 'dictation': return ['dictation', $ex['prompt'], $d['say'], $ex['explanation']];
     }
     return [];
+}
+
+/** Textos de lectura usados por los ejercicios de la unidad (para poder reeditarlos). */
+function unit_readings(array $rows): array
+{
+    $out = [];
+    foreach ($rows as $r) {
+        $d = json_decode($r['data_json'], true) ?: [];
+        if (!empty($d['passage'])) $out[$d['passage']] = ['title' => $d['title'] ?? '', 'text' => $d['text'] ?? '', 'kind' => $d['kind'] ?? 'text'];
+    }
+    return $out;
 }
 
 $id = (int) ($_GET['id'] ?? 0);
@@ -55,7 +67,7 @@ if (is_post()) {
         $errors[] = 'Los ejercicios no son JSON válido.';
     } else {
         foreach ($exList as $i => $ex) {
-            try { $rows[] = exercise_rows($ex); }
+            try { $rows[] = exercise_rows($ex, unit_readings($exRows)); }
             catch (Throwable $e) { $errors[] = 'Ejercicio ' . ($i + 1) . ': formato incorrecto.'; }
         }
     }
@@ -63,21 +75,16 @@ if (is_post()) {
     if (!$errors) {
         $vj = json_encode($vocab, JSON_UNESCAPED_UNICODE);
         if ($unit) {
-            q('UPDATE units SET level_code=?, slug=?, position=?, title=?, summary=?, theory_html=?, vocab_json=?, is_published=?, updated_at=? WHERE id=?',
+            q('UPDATE units SET level_code=?, slug=?, position=?, title=?, summary=?, theory_html=?, vocab_json=?, is_published=?, source_hash=\'admin\', updated_at=? WHERE id=?',
                 [$form['level_code'], $form['slug'], $form['position'], $form['title'], $form['summary'], $form['theory_html'], $vj, $form['is_published'], now_utc(), $id]);
         } else {
-            q('INSERT INTO units (level_code, slug, position, title, summary, theory_html, vocab_json, is_published, updated_at) VALUES (?,?,?,?,?,?,?,?,?)',
+            q("INSERT INTO units (level_code, slug, position, title, summary, theory_html, vocab_json, is_published, source_hash, updated_at) VALUES (?,?,?,?,?,?,?,?,'admin',?)",
                 [$form['level_code'], $form['slug'], $form['position'], $form['title'], $form['summary'], $form['theory_html'], $vj, $form['is_published'], now_utc()]);
             $id = (int) db()->lastInsertId();
         }
-        // Solo se reemplazan los ejercicios si cambiaron (así no se pierde el progreso de los alumnos)
+        // Actualización en el lugar por posición: se conserva el progreso de los ejercicios que no cambiaron
         if (json_encode($exList) !== json_encode(json_decode($exJson, true))) {
-            q('DELETE FROM exercise_status WHERE exercise_id IN (SELECT id FROM exercises WHERE unit_id = ?)', [$id]);
-            q('DELETE FROM exercises WHERE unit_id = ?', [$id]);
-            foreach ($rows as $i => [$type, $prompt, $data, $answer, $expl]) {
-                q('INSERT INTO exercises (unit_id, position, type, prompt, data_json, answer_json, explanation) VALUES (?,?,?,?,?,?,?)',
-                    [$id, $i + 1, $type, $prompt, json_encode($data, JSON_UNESCAPED_UNICODE), json_encode($answer, JSON_UNESCAPED_UNICODE), $expl]);
-            }
+            sync_exercises($id, $exList, unit_readings($exRows));
         }
         flash('ok', 'Unidad guardada.');
         redirect('/admin/unit.php?id=' . $id);

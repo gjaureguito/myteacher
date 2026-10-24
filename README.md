@@ -4,7 +4,7 @@ PHP 8.3 + MySQL, sin frameworks. Registro con email, Google o Microsoft (Hotmail
 
 ## Qué incluye
 
-- 6 niveles, 24 unidades, 234 ejercicios (opción múltiple, completar, ordenar, comprensión auditiva y dictado). Teoría en castellano con tablas, ejemplos con audio y "errores típicos".
+- 6 niveles, 30 unidades (A1 completo con 10), 708 ejercicios en seis habilidades: Grammar, Vocabulary (con imágenes y unir pares), Listening (comprensión y dictado), Reading (30 textos con preguntas), Speaking (micrófono) y Writing (criterios automáticos y texto modelo). Teoría en castellano con tablas, ejemplos con audio y "errores típicos".
 - Corrección en el servidor (las respuestas nunca viajan al navegador antes de responder), progreso por unidad y nivel, racha de días.
 - Test de nivel de 24 preguntas que recomienda por dónde empezar.
 - Audio con la voz en inglés del navegador (Web Speech API): sin costo ni archivos.
@@ -96,3 +96,21 @@ La unidad en posición 1 de cada nivel es la que entra en la demo.
 La experiencia incluye 24 talleres originales con lecturas, comprensión explicada y escritura guiada. Las muestras abiertas están en `/library.php`; el programa, en `/program.php`. Cada unidad de la plataforma incorpora una pestaña Taller de aplicación. Los talleres se versionan en `content/labs/` y no requieren sincronizar ni reemplazar ejercicios de la base. El inventario editorial de consulta está en `/admin/learning.php`.
 
 Ver [diseño y contrato editorial](docs/EXPERIENCIA-ACADEMICA.md). Ejecutar `python tests/curriculum.py` y `python tests/smoke.py` para verificar contenido y flujos con una base temporal.
+
+## Experiencia "Pro" (interfaz)
+
+`public/assets/pro.css` y `public/assets/pro.js` se cargan después de los estilos originales y no tocan la lógica del servidor:
+
+- Modo claro/oscuro (respeta el del sistema y se recuerda), topbar de vidrio, animaciones de entrada y navegación inferior en móvil.
+- Efectos de sonido sintetizados con Web Audio (acierto, error, combo, unidad completada), con botón para silenciar. Sin archivos de audio.
+- Confeti, XP y combos en la práctica, barra de progreso fija, atajos de teclado (1–4, L, N, Enter) y control de velocidad de la voz.
+- Práctica de pronunciación con micrófono ("Decilo vos") en ejemplos y vocabulario (Chrome/Edge, Web Speech Recognition).
+- Ilustraciones SVG originales por nivel en `public/assets/images/levels/`.
+
+## Contenido por unidad y estadísticas
+
+- `content/units/<slug>.php` amplía una unidad existente (vocabulario, lecturas, ejercicios nuevos al final) o define una unidad completa nueva. Formato de cada tipo de ejercicio: ver el encabezado de `src/seed.php`.
+- Al hacer deploy, el contenido se sincroniza solo y sin borrar progreso: los ejercicios se actualizan por posición y las unidades editadas desde `/admin` no se pisan.
+- Validación sin base de datos: `php tests/content_check.php` (índices, textos, que cada texto modelo cumpla sus propios criterios).
+- `/stats.php`: avance y precisión por habilidad, minutos de práctica, actividad de 12 semanas, avance por nivel y unidades a reforzar.
+- `/review.php`: cuaderno de errores para rehacer lo pendiente y reforzar lo que costó.

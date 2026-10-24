@@ -88,22 +88,39 @@ function now_utc(): string
  */
 function db_migrate_if_needed(): void
 {
-    $target = 1;
+    $target = 2;
     try {
         $v = (int) q_val("SELECT v FROM meta WHERE k = 'schema_version'");
     } catch (Throwable $e) {
         $v = 0;
     }
-    if ($v >= $target) return;
-
-    require_once ROOT . '/src/schema.php';
-    run_schema();
-    require_once ROOT . '/src/seed.php';
-    seed_content(false);
-
-    if ($v === 0) {
-        q("INSERT INTO meta (k, v) VALUES ('schema_version', ?)", [(string) $target]);
-    } else {
-        q("UPDATE meta SET v = ? WHERE k = 'schema_version'", [(string) $target]);
+    if ($v < $target) {
+        require_once ROOT . '/src/schema.php';
+        run_schema();
+        meta_set('schema_version', (string) $target);
     }
+
+    // Contenido versionado: cuando cambian los archivos de content/ se sincroniza sin borrar progreso
+    require_once ROOT . '/src/seed.php';
+    $sig = content_signature();
+    if (meta_get('content_sig') !== $sig) {
+        try {
+            seed_content(false);
+            meta_set('content_sig', $sig);
+        } catch (Throwable $e) {
+            error_log('Sincronización de contenido: ' . $e->getMessage());
+        }
+    }
+}
+
+function meta_get(string $k): ?string
+{
+    $v = q_val('SELECT v FROM meta WHERE k = ?', [$k]);
+    return $v === null ? null : (string) $v;
+}
+
+function meta_set(string $k, string $v): void
+{
+    if (q_val('SELECT k FROM meta WHERE k = ?', [$k]) !== null) q('UPDATE meta SET v = ? WHERE k = ?', [$v, $k]);
+    else q('INSERT INTO meta (k, v) VALUES (?, ?)', [$k, $v]);
 }

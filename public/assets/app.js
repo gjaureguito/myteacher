@@ -11,21 +11,27 @@
   }
   if (window.speechSynthesis) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
 
-  function say(text, rate = 0.95) {
-    if (!window.speechSynthesis) { alert('Tu navegador no permite reproducir audio. Probá con Chrome, Edge o Safari.'); return; }
+  function say(text, rate = 0.95, btn = null) {
+    if (!window.speechSynthesis) { (window.ipToast || alert)('Tu navegador no permite reproducir audio. Probá con Chrome, Edge o Safari.'); return; }
     speechSynthesis.cancel();
+    document.querySelectorAll('.is-speaking').forEach(b => b.classList.remove('is-speaking'));
     const u = new SpeechSynthesisUtterance(text);
     u.lang = voice?.lang || 'en-US';
     if (voice) u.voice = voice;
-    u.rate = rate;
+    u.rate = Math.min(2, Math.max(0.4, rate * (parseFloat(localStorage.getItem('ip_rate') || '1') || 1)));
+    if (btn) {
+      u.onstart = () => btn.classList.add('is-speaking');
+      u.onend = u.onerror = () => btn.classList.remove('is-speaking');
+    }
     speechSynthesis.speak(u);
   }
+  window.ipSay = say;
 
   document.addEventListener('click', e => {
     const b = e.target.closest('.speak');
     if (!b) return;
     e.stopPropagation();
-    say(b.dataset.say, parseFloat(b.dataset.rate || '0.95'));
+    say(b.dataset.say, parseFloat(b.dataset.rate || '0.95'), b);
   });
 
   // Botón de audio en cada ejemplo de la teoría (lee solo la parte en inglés)
@@ -56,10 +62,13 @@
         gap.textContent = 'goes';
         gap.classList.add('is-ok');
         fb.textContent = '¡Bien! Con he/she/it el verbo lleva -s: goes.';
+        document.dispatchEvent(new CustomEvent('ip:answer', { detail: { li: b, correct: true, demo: true } }));
+        say('My brother goes to work by bus.');
         demo.querySelectorAll('.opt').forEach(o => o.disabled = true);
       } else {
         b.classList.add('is-bad');
         fb.textContent = 'Casi. Pensá en quién hace la acción: my brother = he.';
+        document.dispatchEvent(new CustomEvent('ip:answer', { detail: { li: b, correct: false, demo: true } }));
       }
     });
   }
@@ -103,40 +112,95 @@
 
   /* ---------- Ejercicios: corrección en el servidor ---------- */
   const progress = document.querySelector('[data-progress]');
+  let lastAnswerAt = Date.now();
 
-  async function send(li, answer) {
+  async function send(li, payload) {
+    const t0 = li._t0 || lastAnswerAt;
     const res = await fetch('/api/answer.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
-      body: JSON.stringify({ id: +li.dataset.id, answer })
+      body: JSON.stringify(Object.assign({ id: +li.dataset.id, ms: Date.now() - t0 }, payload))
     });
     const data = await res.json().catch(() => ({ error: 'Error de conexión' }));
     if (!res.ok) throw new Error(data.error || 'Error');
+    lastAnswerAt = Date.now(); li._t0 = null;
     return data;
+  }
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+  function renderDetail(li, data) {
+    const d = data.detail || {};
+    let html = '';
+    if (li.dataset.type === 'write' && d.criteria) {
+      li.querySelectorAll('.criteria li').forEach((c, i) => {
+        c.classList.toggle('ok', !!(d.criteria[i] && d.criteria[i].ok));
+        c.classList.toggle('bad', !!(d.criteria[i] && !d.criteria[i].ok));
+      });
+      if (d.criteria[0]) li.querySelector('.criteria li[data-c="0"]').textContent = d.criteria[0].label;
+      if (d.model) html += '<div class="model-answer"><span>Texto modelo</span><p lang="en">' + esc(d.model) + '</p></div>';
+    }
+    if (li.dataset.type === 'speak' && d.score != null) {
+      const cls = d.score >= 80 ? 'good' : d.score >= 55 ? 'mid' : 'low';
+      html += '<div class="speak-score ' + cls + '"><span class="meter"><i style="width:' + d.score + '%"></i></span><b>' + d.score + '%</b> · Entendí: “' + esc(d.heard) + '”'
+        + (d.missing && d.missing.length && cls !== 'good' ? '<br>Revisá: <em>' + d.missing.map(esc).join(', ') + '</em>' : '') + '</div>';
+    }
+    if (li.dataset.type === 'match' && d.marks) {
+      const pairs = li._pairs || [];
+      d.marks.forEach((ok, i) => {
+        const l = li.querySelector('.match-item[data-side="l"][data-i="' + i + '"]');
+        if (l) { l.classList.toggle('m-ok', ok); l.classList.toggle('m-bad', !ok); }
+        const r = pairs[i] != null ? li.querySelector('.match-item[data-side="r"][data-pair="' + i + '"]') : null;
+        if (r) { r.classList.toggle('m-ok', ok); r.classList.toggle('m-bad', !ok); }
+      });
+      if (!data.correct) html += '<p class="fine">Acertaste ' + d.right + ' de ' + d.total + ' pares.</p>';
+    }
+    return html;
   }
 
   function showFeedback(li, data) {
     const fb = li.querySelector('.feedback');
-    fb.className = 'feedback ' + (data.correct ? 'is-ok' : 'is-bad');
-    let html = '<strong>' + (data.correct ? '¡Correcto!' : (data.reveal ? 'No es correcto.' : 'No es correcto. Probá otra vez.')) + '</strong>';
-    if (data.reveal && data.answer && !data.correct) html += 'Respuesta correcta: <em>' + esc(data.answer) + '</em><br>';
-    if (data.explanation) html += esc(data.explanation);
+    fb.className = 'feedback ' + (data.correct ? 'is-ok' : (data.solution ? 'is-info' : 'is-bad'));
+    let head;
+    if (data.solution) head = '💡 Solución';
+    else if (data.correct) head = data.first_try ? '¡Correcto a la primera! 🎯' : '¡Correcto!';
+    else if (li.dataset.type === 'write') head = '✍️ Casi: revisá los criterios marcados en rojo y compará con el modelo.';
+    else if (li.dataset.type === 'speak') head = 'Probá de nuevo: escuchá el modelo y repetí más despacio.';
+    else head = data.reveal ? 'No es correcto.' : 'Todavía no. Probá otra vez.';
+    let html = '<strong>' + head + '</strong>';
+    html += renderDetail(li, data);
+    if (data.hint) html += '<p class="hint">💭 Pista: ' + esc(data.hint) + '</p>';
+    if (data.reveal && data.answer && !data.correct && li.dataset.type !== 'write') html += '<p>Respuesta correcta: <em lang="en">' + esc(data.answer) + '</em></p>';
+    if (data.explanation) html += '<p class="why">' + esc(data.explanation) + '</p>';
     fb.innerHTML = html;
-    if (data.correct && !li.classList.contains('is-solved')) {
+
+    const firstSolve = data.correct && !li.classList.contains('is-solved');
+    let solved = 0, total = 0;
+    if (progress) [solved, total] = progress.textContent.split('/').map(Number);
+    if (firstSolve) {
       li.classList.add('is-solved');
-      if (progress) {
-        const [s, t] = progress.textContent.split('/').map(Number);
-        progress.textContent = (s + 1) + '/' + t;
-      }
+      solved += 1;
+      if (progress) progress.textContent = solved + '/' + total;
+      const chip = document.querySelector('[data-skill-chip="' + li.dataset.skill + '"] [data-s]');
+      if (chip) chip.textContent = +chip.textContent + 1;
     }
-    if (data.say && data.reveal) say(data.say);
+    if (!data.solution) document.dispatchEvent(new CustomEvent('ip:answer', { detail: { li, correct: !!data.correct, firstSolve, firstTry: !!data.first_try, skill: li.dataset.skill, solved, total, reveal: !!data.reveal } }));
+    if (data.say && (data.reveal || data.solution) && li.dataset.type !== 'speak') say(data.say);
   }
 
-  function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function markOptions(li, data, chosen) {
+    if (chosen) chosen.classList.add(data.correct ? 'is-ok' : 'is-bad');
+    if (data.reveal || data.solution) {
+      li.querySelectorAll('.opt').forEach(x => {
+        if (+x.dataset.value === data.index) x.classList.add('is-ok');
+        x.disabled = true;
+      });
+    }
+  }
 
   async function handle(li, answer, onResult) {
     try {
-      const data = await send(li, answer);
+      const data = await send(li, { answer });
       showFeedback(li, data);
       onResult && onResult(data);
     } catch (err) {
@@ -146,33 +210,34 @@
     }
   }
 
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
   document.querySelectorAll('.ex').forEach(li => {
     const type = li.dataset.type;
+    const mark = () => { if (!li._t0) li._t0 = Date.now(); };
+    li.addEventListener('pointerdown', mark); li.addEventListener('focusin', mark);
 
-    if (type === 'mcq' || type === 'listen') {
+    /* Ver solución: siempre disponible */
+    li.querySelector('.show-solution')?.addEventListener('click', async () => {
+      try {
+        const data = await send(li, { reveal: true });
+        showFeedback(li, data);
+        if (data.index != null) markOptions(li, data, null);
+        if (type === 'fill' && data.answer) { const g = li.querySelector('.gap'); if (g && !g.value) g.placeholder = data.answer; }
+        if (type === 'match' && data.pairs) solveMatch(li, data.pairs);
+        document.dispatchEvent(new CustomEvent('ip:solution', { detail: { li } }));
+      } catch (err) { (window.ipToast || alert)(err.message); }
+    });
+
+    if (['mcq', 'listen', 'reading', 'image'].includes(type)) {
       li.querySelectorAll('.opt').forEach(o => o.addEventListener('click', () => {
         li.querySelectorAll('.opt').forEach(x => x.classList.remove('is-bad'));
-        handle(li, +o.dataset.value, data => {
-          if (data.correct) o.classList.add('is-ok'); else o.classList.add('is-bad');
-          if (data.reveal) {
-            li.querySelectorAll('.opt').forEach(x => {
-              if (+x.dataset.value === data.index) x.classList.add('is-ok');
-              x.disabled = true;
-            });
-          }
-        });
+        handle(li, +o.dataset.value, data => markOptions(li, data, o));
       }));
     }
 
-    if (type === 'fill') {
-      const input = li.querySelector('.gap');
-      const go = () => input.value.trim() && handle(li, input.value);
-      li.querySelector('.check').addEventListener('click', go);
-      input.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
-    }
-
-    if (type === 'dictation') {
-      const input = li.querySelector('.dict');
+    if (type === 'fill' || type === 'dictation') {
+      const input = li.querySelector(type === 'fill' ? '.gap' : '.dict');
       const go = () => input.value.trim() && handle(li, input.value);
       li.querySelector('.check').addEventListener('click', go);
       input.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
@@ -194,5 +259,80 @@
         if (sentence) handle(li, sentence);
       });
     }
+
+    if (type === 'match') {
+      li._pairs = [];
+      let selL = null;
+      const colors = ['#3b7be0', '#c2405a', '#14915e', '#8150d8', '#e08a1e', '#13897e', '#a42d72', '#5b5fe0'];
+      const paint = () => {
+        li.querySelectorAll('.match-item').forEach(b => { b.style.removeProperty('--mc'); b.classList.remove('paired', 'sel', 'm-ok', 'm-bad'); b.removeAttribute('data-pair'); });
+        li._pairs.forEach((r, i) => {
+          if (r == null) return;
+          const l = li.querySelector('.match-item[data-side="l"][data-i="' + i + '"]');
+          const rb = [...li.querySelectorAll('.match-item[data-side="r"]')].find(b => b.dataset.text === r && !b.dataset.pair);
+          [l, rb].forEach(b => { if (b) { b.classList.add('paired'); b.style.setProperty('--mc', colors[i % colors.length]); } });
+          if (rb) rb.dataset.pair = i;
+        });
+        if (selL != null) li.querySelector('.match-item[data-side="l"][data-i="' + selL + '"]').classList.add('sel');
+      };
+      li._paint = paint;
+      li.querySelector('.match').addEventListener('click', e => {
+        const b = e.target.closest('.match-item'); if (!b) return;
+        if (b.dataset.side === 'l') {
+          const i = +b.dataset.i;
+          if (li._pairs[i] != null) { li._pairs[i] = null; selL = null; } else selL = selL === i ? null : i;
+        } else {
+          if (b.dataset.pair != null) { li._pairs[+b.dataset.pair] = null; }
+          else if (selL != null) { li._pairs[selL] = b.dataset.text; selL = null; }
+        }
+        paint();
+      });
+      li.querySelector('.reset').addEventListener('click', () => { li._pairs = []; selL = null; paint(); });
+      li.querySelector('.check').addEventListener('click', () => {
+        const n = +li.querySelector('.match').dataset.n;
+        const ans = Array.from({ length: n }, (_, i) => li._pairs[i] ?? '');
+        if (ans.some(a => !a)) { (window.ipToast || alert)('Uní todos los pares antes de comprobar.'); return; }
+        handle(li, ans);
+      });
+    }
+
+    if (type === 'write') {
+      const box = li.querySelector('.write-box');
+      const wc = li.querySelector('.wc b');
+      const count = () => { const n = box.value.trim() ? box.value.trim().split(/\s+/).length : 0; wc.textContent = n; wc.parentElement.classList.toggle('ok', n >= parseInt(wc.parentElement.textContent.split('/')[1], 10)); };
+      box.addEventListener('input', count);
+      li.querySelector('.check').addEventListener('click', () => { if (box.value.trim()) handle(li, box.value); });
+    }
+
+    if (type === 'speak') {
+      const rec = li.querySelector('.record');
+      const self = li.querySelector('.self-check');
+      if (!SR) {
+        rec.disabled = true; rec.title = 'Tu navegador no permite reconocimiento de voz (probá Chrome o Edge)';
+        self.hidden = false;
+      }
+      self.addEventListener('click', () => handle(li, { self: true }));
+      rec.addEventListener('click', () => {
+        if (!SR) return;
+        const r = new SR(); r.lang = 'en-US'; r.interimResults = false; r.maxAlternatives = 1;
+        rec.classList.add('is-listening'); rec.textContent = '🔴 Escuchando…';
+        window.ipPlay && ipPlay('mic');
+        r.onresult = ev => handle(li, { transcript: ev.results[0][0].transcript });
+        r.onerror = ev => {
+          if (ev.error === 'not-allowed') { (window.ipToast || alert)('Permití el micrófono para practicar speaking.'); self.hidden = false; }
+          else if (ev.error === 'no-speech') (window.ipToast || alert)('No te escuché. Probá de nuevo.');
+        };
+        r.onend = () => { rec.classList.remove('is-listening'); rec.textContent = '🎙️ Grabar de nuevo'; };
+        try { r.start(); } catch { r.onend(); }
+      });
+    }
   });
+
+  function solveMatch(li, pairs) {
+    const col = li.querySelector('.match-right');
+    pairs.forEach(t => { const b = [...col.children].find(x => x.dataset.text === t && !x._moved); if (b) { b._moved = true; col.appendChild(b); } });
+    li._pairs = pairs.slice();
+    li._paint && li._paint();
+    li.querySelectorAll('.match-item').forEach(b => b.classList.add('m-ok'));
+  }
 })();
