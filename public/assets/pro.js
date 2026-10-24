@@ -241,8 +241,35 @@
   const progEl = $('[data-progress]');
   if (progEl) { const [s, t] = progEl.textContent.split('/').map(Number); setBar(s, t); }
 
+  /* ---------- Resumen al completar la unidad ---------- */
+  const session = { first: 0, answered: 0, revealed: 0, t0: Date.now() };
+  document.addEventListener('ip:solution', () => session.revealed++);
+  const SK = { listening: ['🎧', 'Listening'], reading: ['📖', 'Reading'], writing: ['✍️', 'Writing'], speaking: ['🗣️', 'Speaking'], grammar: ['🧩', 'Grammar'], vocabulary: ['🔤', 'Vocabulary'] };
+  function showSummary() {
+    const exs = $$('.exercises .ex'); const by = {};
+    exs.forEach(li => { const k = li.dataset.skill || 'grammar'; by[k] ??= [0, 0]; by[k][1]++; if (li.classList.contains('is-solved')) by[k][0]++; });
+    const ratio = session.answered ? session.first / session.answered : 1;
+    const stars = ratio >= .85 ? 3 : ratio >= .6 ? 2 : 1;
+    const mins = Math.max(1, Math.round((Date.now() - session.t0) / 60000));
+    const next = $('.unit-end a.btn:not(.btn-ghost)');
+    const back = document.createElement('div'); back.className = 'modal-back';
+    back.innerHTML = '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="sum-h"><p class="eyebrow">UNIDAD COMPLETADA</p>'
+      + '<div class="stars">' + [1, 2, 3].map(i => '<span class="' + (i <= stars ? '' : 'off') + '">⭐</span>').join('') + '</div>'
+      + '<h2 id="sum-h">' + (stars === 3 ? '¡Impecable!' : stars === 2 ? '¡Muy buen trabajo!' : '¡Unidad terminada!') + '</h2>'
+      + '<p class="muted">' + session.first + ' correctas a la primera · ' + session.revealed + ' soluciones vistas · ~' + mins + ' min en esta sesión</p>'
+      + '<div class="sum-grid">' + Object.entries(by).map(([k, [s, t]]) => '<div class="sum-row skill-' + k + '"><span>' + (SK[k] || ['', k]).join(' ') + '</span><span class="meter"><i data-w="' + Math.round(100 * s / t) + '"></i></span><b>' + s + '/' + t + '</b></div>').join('') + '</div>'
+      + '<div class="modal-actions">' + (next ? '<a class="btn" href="' + next.getAttribute('href') + '">Siguiente unidad →</a>' : '') + '<a class="btn btn-ghost" href="/stats.php">Ver mis estadísticas</a><button type="button" class="btn btn-ghost" data-close>Seguir acá</button></div></div>';
+    document.body.append(back);
+    requestAnimationFrame(() => back.querySelectorAll('.meter i').forEach(i => i.style.width = i.dataset.w + '%'));
+    const close = () => back.remove();
+    back.addEventListener('click', e => { if (e.target === back || e.target.closest('[data-close]')) close(); });
+    document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', k); } });
+    back.querySelector('.btn')?.focus();
+  }
+
   document.addEventListener('ip:answer', ev => {
     const { li, correct, firstSolve, solved, total, demo } = ev.detail;
+    if (!demo) { session.answered++; if (ev.detail.firstTry) session.first++; }
     if (correct) {
       combo++;
       play(combo >= 3 ? 'combo' : 'ok');
@@ -252,7 +279,7 @@
       if (combo === 3 || combo === 5 || combo === 10) { burst(li, 40, .7); ipToast(combo === 10 ? '¡Imparable! 10 seguidas 🔥' : combo + ' respuestas seguidas 🔥'); }
       setBar(solved, total);
       if (firstSolve && total && solved === total) {
-        setTimeout(() => { play('complete'); burst(null, 220, 1.4); ipToast('¡Unidad completada! 🎉 Excelente trabajo'); }, 450);
+        setTimeout(() => { play('complete'); burst(null, 220, 1.4); showSummary(); }, 450);
       }
     } else {
       combo = 0; if (comboEl) comboEl.classList.remove('on');

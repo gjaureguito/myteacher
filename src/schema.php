@@ -118,4 +118,22 @@ function run_schema(): void
     foreach ($indexes as $sql) {
         try { db()->exec($sql); } catch (Throwable $e) { /* ya existe */ }
     }
+
+    // v2: habilidades, pistas, soluciones vistas, tiempo por respuesta e íconos de unidad
+    $columns = [
+        ['exercises', 'skill', "VARCHAR(20) NOT NULL DEFAULT 'grammar'"],
+        ['exercises', 'hint', "VARCHAR(500) NOT NULL DEFAULT ''"],
+        ['exercises', 'compact_json', "$text NULL"],
+        ['attempts', 'revealed', 'INT NOT NULL DEFAULT 0'],
+        ['attempts', 'ms', 'INT NULL'],
+        ['units', 'icon', "VARCHAR(16) NOT NULL DEFAULT ''"],
+        ['units', 'source_hash', 'VARCHAR(64) NULL'],
+    ];
+    foreach ($columns as [$table, $col, $def]) {
+        try { db()->exec("ALTER TABLE $table ADD COLUMN $col $def"); } catch (Throwable $e) { /* ya existe */ }
+    }
+    db()->exec("UPDATE exercises SET skill = CASE type WHEN 'listen' THEN 'listening' WHEN 'dictation' THEN 'listening' ELSE skill END WHERE skill = 'grammar'");
+    foreach (['CREATE INDEX idx_attempts_ex ON attempts (exercise_id)', 'CREATE INDEX idx_status_user ON exercise_status (user_id, solved)'] as $sql) {
+        try { db()->exec($sql); } catch (Throwable $e) { /* ya existe */ }
+    }
 }

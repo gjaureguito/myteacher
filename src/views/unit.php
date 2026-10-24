@@ -37,7 +37,7 @@ $total = count($exercises);
     <div class="vocab">
       <?php foreach ($vocab as $v): ?>
         <div class="card-flip" tabindex="0" role="button" aria-label="<?= e($v[0]) ?>">
-          <span class="front"><?= e($v[0]) ?></span>
+          <span class="front"><?php if (!empty($v[3])): ?><span class="vocab-pic" aria-hidden="true"><?= e($v[3]) ?></span><?php endif; ?><?= e($v[0]) ?></span>
           <span class="back"><?= e($v[1]) ?><?php if (!empty($v[2])): ?><small><?= e($v[2]) ?></small><?php endif; ?></span>
           <button class="speak" data-say="<?= e($v[0]) ?>" aria-label="Escuchar <?= e($v[0]) ?>">🔊</button>
         </div>
@@ -47,47 +47,18 @@ $total = count($exercises);
   <?php endif; ?>
 
   <div class="tabpanel" id="t-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
-    <p class="kbd-hint">Atajos: <span class="kbd">1</span>–<span class="kbd">4</span> elegir opción · <span class="kbd">L</span> escuchar · <span class="kbd">N</span> siguiente · <span class="kbd">Enter</span> comprobar</p>
-    <ol class="exercises">
-      <?php foreach ($exercises as $i => $ex):
-        $data = json_decode($ex['data_json'], true) ?: [];
-      ?>
-        <li class="ex<?= $ex['solved'] ? ' is-solved' : '' ?>" data-id="<?= (int) $ex['id'] ?>" data-type="<?= e($ex['type']) ?>">
-          <p class="ex-prompt"><span class="ex-n"><?= $i + 1 ?></span>
-            <?php if ($ex['type'] === 'fill'): ?>
-              <?= preg_replace('/_{3,}/', '<input class="gap" aria-label="Completar" autocomplete="off" autocapitalize="off" spellcheck="false">', e($ex['prompt']), 1) ?>
-            <?php else: ?>
-              <?= e($ex['prompt']) ?>
-            <?php endif; ?>
-          </p>
-
-          <?php if (in_array($ex['type'], ['listen', 'dictation'], true)): ?>
-            <p><button class="btn btn-ghost btn-sm speak" data-say="<?= e($data['say']) ?>">🔊 Escuchar</button>
-               <button class="btn btn-ghost btn-sm speak" data-say="<?= e($data['say']) ?>" data-rate="0.65">🐢 Más lento</button></p>
-          <?php endif; ?>
-
-          <?php if (in_array($ex['type'], ['mcq', 'listen'], true)): ?>
-            <div class="options">
-              <?php foreach ($data['options'] as $k => $opt): ?>
-                <button class="opt" data-value="<?= $k ?>"><?= e($opt) ?></button>
-              <?php endforeach; ?>
-            </div>
-          <?php elseif ($ex['type'] === 'order'): ?>
-            <div class="built" aria-live="polite"></div>
-            <div class="chips">
-              <?php foreach ($data['words'] as $w): ?><button class="chip"><?= e($w) ?></button><?php endforeach; ?>
-            </div>
-            <p><button class="btn btn-sm check">Comprobar</button> <button class="linkbtn reset">Reiniciar</button></p>
-          <?php elseif ($ex['type'] === 'dictation'): ?>
-            <p><input class="dict" placeholder="Escribí lo que escuchás" autocomplete="off" autocapitalize="off" spellcheck="false"></p>
-            <p><button class="btn btn-sm check">Comprobar</button></p>
-          <?php elseif ($ex['type'] === 'fill'): ?>
-            <p><button class="btn btn-sm check">Comprobar</button></p>
-          <?php endif; ?>
-          <div class="feedback" aria-live="polite"></div>
-        </li>
+    <?php
+      $bySkill = [];
+      foreach ($exercises as $x) { $k = $x['skill']; $bySkill[$k] ??= [0, 0]; $bySkill[$k][1]++; if ($x['solved']) $bySkill[$k][0]++; }
+      $sl = skill_labels();
+    ?>
+    <div class="unit-skillbar">
+      <?php foreach ($bySkill as $k => [$sv, $tt]): ?>
+        <span class="skill-chip skill-<?= e($k) ?>" data-skill-chip="<?= e($k) ?>"><?= $sl[$k][2] ?> <?= e($sl[$k][0]) ?> <b><span data-s><?= $sv ?></span>/<?= $tt ?></b></span>
       <?php endforeach; ?>
-    </ol>
+    </div>
+    <p class="kbd-hint">Atajos: <span class="kbd">1</span>–<span class="kbd">4</span> elegir opción · <span class="kbd">L</span> escuchar · <span class="kbd">N</span> siguiente · <span class="kbd">Enter</span> comprobar</p>
+    <?php $exList = $exercises; $groupBySkill = true; require __DIR__ . '/_exercise.php'; ?>
 
     <div class="unit-end">
       <?php if ($next): ?>
