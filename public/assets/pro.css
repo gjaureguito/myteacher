@@ -414,3 +414,8 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .mh-copy{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .mh-copy code{flex:1;min-width:0;overflow-wrap:anywhere;padding:8px 10px;border-radius:8px;background:var(--surface-2);font-size:.78rem}
 .mh-link{font-size:.82rem!important;min-height:0!important;color:var(--brand)!important;text-decoration:underline;margin-left:6px}
+.mh-auto{margin-top:12px;padding:14px;border-radius:12px;background:color-mix(in srgb,var(--ok) 8%,var(--surface));border:1px solid color-mix(in srgb,var(--ok) 30%,transparent)}
+.mh-auto h4{margin:0 0 4px;font-size:1rem}
+.mh-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.mh-pre{white-space:pre-wrap;word-break:break-all;font-size:.72rem;background:var(--surface-2);padding:10px;border-radius:8px;margin:6px 0 0}
+.mic-modal details summary{cursor:pointer;font-size:.85rem;font-weight:700;color:var(--ink-2)}
