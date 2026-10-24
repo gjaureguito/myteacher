@@ -58,6 +58,7 @@ $total = count($exercises);
         <span class="skill-chip skill-<?= e($k) ?>" data-skill-chip="<?= e($k) ?>"><?= $sl[$k][2] ?> <?= e($sl[$k][0]) ?> <b><span data-s><?= $sv ?></span>/<?= $tt ?></b></span>
       <?php endforeach; ?>
     </div>
+    <div class="practice-tools"><span class="muted" data-done-count></span><button type="button" class="linkbtn reset-unit" data-unit="<?= (int) $unit['id'] ?>">↺ Reiniciar práctica</button></div>
     <p class="kbd-hint">Atajos: <span class="kbd">1</span>–<span class="kbd">4</span> elegir opción · <span class="kbd">L</span> escuchar · <span class="kbd">N</span> siguiente · <span class="kbd">Enter</span> comprobar</p>
     <?php $exList = $exercises; $groupBySkill = true; require __DIR__ . '/_exercise.php'; ?>
 

@@ -5,7 +5,7 @@ $u = require_login();
 $uid = (int) $u['id'];
 $mode = ($_GET['m'] ?? '') === 'refuerzo' ? 'refuerzo' : 'errores';
 
-$base = 'SELECT e.id, e.type, e.prompt, e.data_json, e.skill, s.solved, s.tries, un.id AS unit_id, un.title AS unit_title, un.position, un.level_code
+$base = 'SELECT e.id, e.type, e.prompt, e.data_json, e.answer_json, e.explanation, e.skill, s.solved, s.tries, s.last_answer, un.id AS unit_id, un.title AS unit_title, un.position, un.level_code
          FROM exercise_status s JOIN exercises e ON e.id = s.exercise_id JOIN units un ON un.id = e.unit_id
          WHERE s.user_id = ? AND un.is_published = 1 AND ';
 $rows = $mode === 'errores'

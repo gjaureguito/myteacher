@@ -177,6 +177,7 @@
     const firstSolve = data.correct && !li.classList.contains('is-solved');
     let solved = 0, total = 0;
     if (progress) [solved, total] = progress.textContent.split('/').map(Number);
+    if (data.correct) lockDone(li);
     if (firstSolve) {
       li.classList.add('is-solved');
       solved += 1;
@@ -323,6 +324,69 @@
       });
     }
   });
+
+  /* ---------- Ejercicios terminados: quedan resueltos hasta que el alumno los reinicie ---------- */
+  function lockDone(li) {
+    li.classList.add('is-done');
+    li.querySelector('.done-badge')?.removeAttribute('hidden');
+    li.querySelector('.redo')?.removeAttribute('hidden');
+    li.querySelector('.show-solution')?.setAttribute('hidden', '');
+    li.querySelectorAll('.opt, .chip, .match-item').forEach(b => b.disabled = true);
+    li.querySelectorAll('.gap, .dict, .write-box').forEach(i => i.readOnly = true);
+    li.querySelectorAll('.check, .reset, .record, .self-check').forEach(b => b.hidden = true);
+  }
+  function renderDone(li, d) {
+    const type = li.dataset.type;
+    const mine = typeof d.mine === 'string' ? d.mine : (d.mine && d.mine.transcript) || '';
+    if (d.index != null) li.querySelectorAll('.opt').forEach(o => { if (+o.dataset.value === d.index) o.classList.add('is-ok'); });
+    if (type === 'fill' || type === 'dictation') { const i = li.querySelector(type === 'fill' ? '.gap' : '.dict'); i.value = mine || d.answer; i.classList.add('is-ok'); }
+    if (type === 'order') {
+      const built = li.querySelector('.built'), pool = li.querySelector('.chips');
+      (mine || d.answer).split(/\s+/).forEach(w => { const c = [...pool.children].find(x => x.textContent === w); if (c) built.appendChild(c); });
+    }
+    if (type === 'match' && d.pairs) solveMatch(li, d.pairs);
+    if (type === 'write') { const box = li.querySelector('.write-box'); box.value = mine; li.querySelectorAll('.criteria li').forEach(c => c.classList.add('ok')); const wc = li.querySelector('.wc b'); if (wc) wc.textContent = mine ? mine.trim().split(/\s+/).length : 0; }
+    let html = '<strong>✅ Completado</strong>';
+    if (type === 'speak' && mine) html += '<p>Dijiste: “' + esc(mine) + '”</p>';
+    if (type === 'write' && d.answer) html += '<div class="model-answer"><span>Texto modelo</span><p lang="en">' + esc(d.answer) + '</p></div>';
+    if (d.explanation) html += '<p class="why">' + esc(d.explanation) + '</p>';
+    const fb = li.querySelector('.feedback'); fb.className = 'feedback is-ok is-done-fb'; fb.innerHTML = html;
+    lockDone(li);
+  }
+  function countDone() {
+    const el = document.querySelector('[data-done-count]'); if (!el) return;
+    const all = document.querySelectorAll('.exercises .ex'), done = document.querySelectorAll('.exercises .ex.is-solved');
+    el.textContent = done.length + ' de ' + all.length + ' ejercicios completados';
+  }
+  async function resetReq(payload) {
+    const res = await fetch('/api/reset.php', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf }, body: JSON.stringify(payload) });
+    if (!res.ok) throw new Error('No se pudo reiniciar. Recargá la página e intentá de nuevo.');
+    try { sessionStorage.setItem('ip_scroll', String(scrollY)); } catch {}
+    location.reload();
+  }
+  function confirmBox(title, text, okLabel, onOk) {
+    const back = document.createElement('div'); back.className = 'modal-back';
+    back.innerHTML = '<div class="modal" role="dialog" aria-modal="true"><h2>' + esc(title) + '</h2><p class="muted">' + esc(text) + '</p><div class="modal-actions"><button type="button" class="btn" data-ok>' + esc(okLabel) + '</button><button type="button" class="btn btn-ghost" data-no>Cancelar</button></div></div>';
+    document.body.append(back);
+    back.querySelector('[data-ok]').focus();
+    back.addEventListener('click', e => {
+      if (e.target.closest('[data-ok]')) { back.remove(); onOk(); }
+      else if (e.target === back || e.target.closest('[data-no]')) back.remove();
+    });
+  }
+  document.querySelectorAll('.ex[data-done]').forEach(li => { try { renderDone(li, JSON.parse(li.dataset.done)); } catch {} });
+  countDone();
+  document.addEventListener('ip:answer', () => setTimeout(countDone, 0));
+  document.addEventListener('click', e => {
+    const redo = e.target.closest('.ex .redo');
+    if (redo) {
+      const li = redo.closest('.ex');
+      confirmBox('¿Repetir este ejercicio?', 'Se borra su resultado y vuelve a quedar sin resolver. Tus estadísticas conservan el historial.', 'Repetir', () => resetReq({ exercise_id: +li.dataset.id }).catch(err => (window.ipToast || alert)(err.message)));
+    }
+    const ru = e.target.closest('.reset-unit');
+    if (ru) confirmBox('¿Reiniciar la práctica de esta unidad?', 'Todos los ejercicios de la unidad vuelven a quedar sin resolver para que los hagas de nuevo. Tus estadísticas conservan el historial de intentos.', 'Sí, reiniciar', () => resetReq({ unit_id: +ru.dataset.unit }).catch(err => (window.ipToast || alert)(err.message)));
+  });
+  try { const y = sessionStorage.getItem('ip_scroll'); if (y !== null) { sessionStorage.removeItem('ip_scroll'); requestAnimationFrame(() => scrollTo(0, +y)); } } catch {}
 
   function solveMatch(li, pairs) {
     const col = li.querySelector('.match-right');

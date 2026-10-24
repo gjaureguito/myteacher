@@ -45,12 +45,13 @@ $g = grade_detail($ex, $given);
 $ok = $g['ok'];
 
 q('INSERT INTO attempts (user_id, exercise_id, is_correct, revealed, ms, created_at) VALUES (?,?,?,?,?,?)', [$u['id'], $id, $ok ? 1 : 0, 0, $ms, now_utc()]);
+$lastAnswer = $ok ? mb_substr(json_encode($given, JSON_UNESCAPED_UNICODE), 0, 5000) : null;
 if ($st) {
-    q('UPDATE exercise_status SET solved = ?, tries = ?, updated_at = ? WHERE user_id = ? AND exercise_id = ?',
-        [($st['solved'] || $ok) ? 1 : 0, $st['tries'] + 1, now_utc(), $u['id'], $id]);
+    q('UPDATE exercise_status SET solved = ?, tries = ?, updated_at = ?, last_answer = COALESCE(?, last_answer) WHERE user_id = ? AND exercise_id = ?',
+        [($st['solved'] || $ok) ? 1 : 0, $st['tries'] + 1, now_utc(), $lastAnswer, $u['id'], $id]);
 } else {
-    q('INSERT INTO exercise_status (user_id, exercise_id, solved, tries, updated_at) VALUES (?,?,?,?,?)',
-        [$u['id'], $id, $ok ? 1 : 0, 1, now_utc()]);
+    q('INSERT INTO exercise_status (user_id, exercise_id, solved, tries, updated_at, last_answer) VALUES (?,?,?,?,?,?)',
+        [$u['id'], $id, $ok ? 1 : 0, 1, now_utc(), $lastAnswer]);
 }
 
 $tries = ($st['tries'] ?? 0) + 1;

@@ -38,10 +38,12 @@ $n = 0;
     </li>
   <?php endif; ?>
 
-  <li class="ex<?= $ex['solved'] ? ' is-solved' : '' ?>" data-id="<?= (int) $ex['id'] ?>" data-type="<?= e($type) ?>" data-skill="<?= e($skill) ?>">
+  <li class="ex<?= $ex['solved'] ? ' is-solved' : '' ?>" data-id="<?= (int) $ex['id'] ?>" data-type="<?= e($type) ?>" data-skill="<?= e($skill) ?>"<?php if ($ex['solved'] && isset($ex['answer_json'])): ?> data-done="<?= e(json_encode(done_payload($ex), JSON_UNESCAPED_UNICODE)) ?>"<?php endif; ?>>
     <div class="ex-top">
       <span class="ex-n"><?= $n ?></span>
       <span class="skill-badge skill-<?= e($skill) ?>"><?= $skIco ?> <?= e($skEn) ?></span>
+      <span class="done-badge" hidden>✓ Completado</span>
+      <button type="button" class="linkbtn redo" hidden>Repetir</button>
       <button type="button" class="linkbtn show-solution">Ver solución</button>
     </div>
     <p class="ex-prompt">
