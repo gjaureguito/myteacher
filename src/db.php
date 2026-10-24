@@ -88,7 +88,7 @@ function now_utc(): string
  */
 function db_migrate_if_needed(): void
 {
-    $target = 3;
+    $target = 4;
     try {
         $v = (int) q_val("SELECT v FROM meta WHERE k = 'schema_version'");
     } catch (Throwable $e) {

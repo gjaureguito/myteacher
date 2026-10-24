@@ -217,6 +217,7 @@
         <h3>Este navegador no permite usar el micrófono acá</h3>
         <p>Abrí el sitio en Chrome o Edge (en la compu o en Android) para practicar pronunciación.</p>
       </section>
+      ${window.ipEdgeHelpHTML?.() || ''}
       <p class="fine mh-guide">¿Otro problema? <a href="/microfono.php">Ver todos los comandos para solucionar el micrófono →</a></p>
       <div class="modal-actions"><button type="button" class="btn" data-retry>Probar de nuevo</button><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
     </div>`;
@@ -293,6 +294,7 @@
       const msg = document.createElement('span'); msg.textContent = '⚠️ ' + text[code] + ' ';
       const go = document.createElement('a'); go.href = '#' + target[code]; go.textContent = 'Ir a la solución →';
       out.append(msg, go);
+      out.insertAdjacentHTML('beforeend', window.ipEdgeHelpHTML?.() || '');
       document.getElementById(target[code])?.classList.add('mic-hit');
       setTimeout(() => document.getElementById(target[code])?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 600);
     });
@@ -370,7 +372,7 @@
         play(cls === 'good' ? 'ok' : cls === 'mid' ? 'tap' : 'bad');
         if (cls === 'good') { addXP(5, btn); burst(btn, 26); }
       },
-      onFail: msg => { status('low', '⚠️ ' + msg.replace(/[<>&]/g, '') + ' <button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button>'); play('bad'); },
+      onFail: msg => { status('low', '⚠️ ' + msg.replace(/[<>&]/g, '') + ' <button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button>' + (window.ipEdgeHelpHTML?.() || '')); play('bad'); },
       onEnd: () => { btn.classList.remove('is-listening'); if (lab) lab.textContent = ' Decilo vos'; },
     });
   }

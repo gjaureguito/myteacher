@@ -1,10 +1,11 @@
 </main>
 <footer class="footer">
   <div class="wrap footer-in">
-    <span>© <?= date('Y') ?> <?= e(app_name()) ?> · Language & Learning</span>
+    <span>© <?= date('Y') ?> <?= e(app_name()) ?> · Inglés para la vida real</span>
     <nav aria-label="Legales">
       <a href="/program.php">Programa</a>
       <a href="/library.php">Biblioteca</a>
+      <a href="/situations.php">Situaciones</a>
       <a href="/terms.php">Términos</a>
       <a href="/privacy.php">Privacidad</a>
       <?php if ($c = env('CONTACT_EMAIL')): ?><a href="mailto:<?= e($c) ?>">Contacto</a><?php endif; ?>
@@ -20,8 +21,11 @@
   <a href="/account.php"<?= $cur('/account.php') ?>><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/></svg>Cuenta</a>
 </nav>
 <?php endif; ?>
-<script src="/assets/app.js?v=9" defer></script>
+<script src="/assets/edge-access.js?v=1" defer></script>
+<script src="/assets/app.js?v=11" defer></script>
 <script src="/assets/learning.js?v=1" defer></script>
-<script src="/assets/pro.js?v=8" defer></script>
+<script src="/assets/pro.js?v=9" defer></script>
+<script src="/assets/scenes.js?v=1" defer></script>
+<script src="/assets/modern.js?v=1" defer></script>
 </body>
 </html>

@@ -104,6 +104,7 @@ $n = 0;
       <p><button type="button" class="btn btn-sm record">🎙️ Grabar mi voz</button> <button type="button" class="linkbtn self-check" hidden>Lo dije en voz alta</button></p>
     <?php endif; ?>
     <div class="feedback" aria-live="polite"></div>
+    <details class="exercise-solution"><summary>Ver solución explicada</summary><div class="solution-content" aria-live="polite">La solución se consulta al abrir esta sección.</div><p class="fine">Consultar no suma aciertos ni intentos.</p></details>
   </li>
 <?php endforeach; ?>
 </ol>

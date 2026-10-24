@@ -13,6 +13,7 @@ $shade = fn(int $n) => $n === 0 ? 0 : min(4, (int) ceil(4 * $n / $maxDay));
 ?>
 <section class="wrap page stats-page">
   <p class="eyebrow">LEARNING ANALYTICS / TU PROGRESO</p>
+  <?php require __DIR__ . '/scene_overview.php'; ?>
   <div class="dash-head">
     <div>
       <h1>Mis estadísticas</h1>

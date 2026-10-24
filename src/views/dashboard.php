@@ -4,11 +4,11 @@ $colors = level_colors();
 $first = explode(' ', $u['name'])[0];
 ?>
 <section class="wrap page learning-dashboard">
-  <p class="eyebrow">MY LEARNING DESK / TU ESPACIO DE ESTUDIO</p>
+  <p class="eyebrow">MYTEACHER / TU PRÓXIMO PASO</p>
   <div class="dash-head">
     <div>
       <h1><span data-greet>Hola</span>, <?= e($first) ?></h1>
-      <p class="muted">Cada sesión corta suma. Seguí con tu recorrido.</p>
+      <p class="muted">Tu inglés se construye practicando. Retomá donde quedaste.</p>
     </div>
     <span class="pill <?= $full ? 'pill-ok' : 'pill-demo' ?>"><?= e(sub_label($u)) ?></span>
   </div>
@@ -24,7 +24,8 @@ $first = explode(' ', $u['name'])[0];
     <div class="stat" style="--lv: var(--brand-2)"><span class="pring" style="--p: <?= $globalPct ?>"><span><?= $globalPct ?>%</span></span><div><strong style="font-size:1.1rem">Recorrido total</strong><span>A1 → C2 publicado</span></div></div>
   </div>
 
-  <div class="desk-guide"><div><p class="eyebrow">UNA SESIÓN CON DIRECCIÓN</p><h2>Una idea. Un texto.<br><em>Una respuesta propia.</em></h2><p>Elegí una unidad, repasá su explicación y abrí el Taller de aplicación. Leé buscando evidencia y cerrá con tu propio texto.</p></div><ol><li><strong>Prepará</strong><span>Leé el objetivo y activá lo que ya sabés.</span></li><li><strong>Practicá</strong><span>Conectá teoría, vocabulario y ejercicios.</span></li><li><strong>Aplicá</strong><span>Escribí y revisá con el modelo del taller.</span></li></ol></div>
+<?php $startUnit=$last ?: q_one('SELECT id,title,level_code FROM units WHERE is_published=1 ORDER BY level_code,position LIMIT 1'); ?>
+  <div class="mt-dashboard-start"><article class="mt-start-main"><p class="eyebrow"><?= $last ? 'SEGUÍ DONDE QUEDASTE' : 'TU PRIMERA CONVERSACIÓN' ?></p><h2><?= $startUnit ? e($startUnit['title']) : 'Encontrá tu punto de partida.' ?></h2><p>Una explicación clara, una situación para escuchar y actividades para poner tu inglés en movimiento.</p><a class="btn" href="<?= $startUnit ? '/unit.php?id='.(int)$startUnit['id'].'#t-practice' : '/placement.php' ?>"><?= $last ? 'Continuar mi práctica' : 'Empezar mi práctica' ?> ↗</a></article><article class="mt-start-side"><span class="mt-badge">REAL LIFE ENGLISH</span><h3>¿Para qué querés usar tu inglés hoy?</h3><p>Un café, un viaje, tu trabajo. Elegí una escena y practicá con diálogos, fotos y audio.</p><a class="mt-text-link" href="/situations.php">Elegir una situación ↗</a></article></div>
 
   <?php if (!$full): ?>
     <div class="upsell">

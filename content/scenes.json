@@ -1,0 +1,852 @@
+[
+  {
+    "id": "cafe",
+    "unit": "a1-verb-to-be",
+    "level": "A1",
+    "title": "At the café",
+    "photo": "photo-1501339847302-ac426a4a7cbb",
+    "alt": "Lámparas y letrero en el interior de una cafetería.",
+    "lines": [
+      {
+        "speaker": "Sam",
+        "en": "Hello! Is this seat free?",
+        "es": "¡Hola! ¿Está libre este asiento?"
+      },
+      {
+        "speaker": "Mia",
+        "en": "Yes, it is. I am Mia.",
+        "es": "Sí. Soy Mia."
+      },
+      {
+        "speaker": "Sam",
+        "en": "Nice to meet you. I am Sam. Are you a student?",
+        "es": "Un gusto conocerte. Soy Sam. ¿Sos estudiante?"
+      },
+      {
+        "speaker": "Mia",
+        "en": "Yes, I am. My class is at nine.",
+        "es": "Sí. Mi clase es a las nueve."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What time is Mia’s class?",
+        "options": [
+          "At eight",
+          "At nine",
+          "At ten"
+        ],
+        "answer": 1,
+        "explanation": "Mia dice: “My class is at nine”: su clase es a las nueve."
+      },
+      {
+        "type": "fill",
+        "prompt": "My class ___ at nine.",
+        "answer": "is",
+        "explanation": "My class es singular; corresponde is."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "student",
+          "a",
+          "you",
+          "Are"
+        ],
+        "answer": "Are you a student",
+        "explanation": "Las preguntas con to be invierten verbo y sujeto: Are + you + a student?"
+      },
+      {
+        "type": "mcq",
+        "prompt": "Vocabulario: ¿qué significa «seat»?",
+        "options": [
+          "Asiento",
+          "Mesa",
+          "Puerta"
+        ],
+        "answer": 0,
+        "explanation": "Sam pregunta por un asiento libre: seat significa asiento."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: Mia is a teacher.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 1,
+        "explanation": "Mia responde “Yes, I am” a “Are you a student?”: es estudiante."
+      }
+    ],
+    "category": "Vida diaria",
+    "goal": "Conocer a alguien y presentarte."
+  },
+  {
+    "id": "shopping",
+    "unit": "a1-there-is-articles",
+    "level": "A1",
+    "title": "At the market",
+    "photo": "photo-1542838132-92c53300491e",
+    "alt": "Verduras frescas en un mercado.",
+    "lines": [
+      {
+        "speaker": "Customer",
+        "en": "Hello. Is there a bag for these apples?",
+        "es": "Hola. ¿Hay una bolsa para estas manzanas?"
+      },
+      {
+        "speaker": "Seller",
+        "en": "Yes, there is a bag next to the tomatoes.",
+        "es": "Sí, hay una bolsa al lado de los tomates."
+      },
+      {
+        "speaker": "Customer",
+        "en": "Thank you. How much are the apples?",
+        "es": "Gracias. ¿Cuánto cuestan las manzanas?"
+      },
+      {
+        "speaker": "Seller",
+        "en": "They are three pounds.",
+        "es": "Cuestan tres libras."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "Where is the bag?",
+        "options": [
+          "Under the table",
+          "Next to the tomatoes",
+          "Outside"
+        ],
+        "answer": 1,
+        "explanation": "El vendedor dice “next to the tomatoes”: al lado de los tomates."
+      },
+      {
+        "type": "fill",
+        "prompt": "There ___ a bag next to the tomatoes.",
+        "answer": "is",
+        "explanation": "Usamos there is con el singular a bag."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "apples",
+          "the",
+          "are",
+          "much",
+          "How"
+        ],
+        "answer": "How much are the apples",
+        "explanation": "How much pregunta el precio; are concuerda con apples."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Vocabulario: ¿qué significa «next to»?",
+        "options": [
+          "Al lado de",
+          "Debajo de",
+          "Enfrente de"
+        ],
+        "answer": 0,
+        "explanation": "Next to indica que algo está al lado de otra cosa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: The apples are three pounds.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 0,
+        "explanation": "El precio indicado es “three pounds”: tres libras."
+      }
+    ],
+    "category": "Vida diaria",
+    "goal": "Pedir productos y consultar precios."
+  },
+  {
+    "id": "weekend",
+    "unit": "a2-past-simple",
+    "level": "A2",
+    "title": "A weekend in the city",
+    "photo": "photo-1519501025264-65ba15a82390",
+    "alt": "Edificios y calles de una ciudad.",
+    "lines": [
+      {
+        "speaker": "Alex",
+        "en": "What did you do yesterday?",
+        "es": "¿Qué hiciste ayer?"
+      },
+      {
+        "speaker": "Jo",
+        "en": "I visited the city with my sister. We took the bus.",
+        "es": "Visité la ciudad con mi hermana. Tomamos el colectivo."
+      },
+      {
+        "speaker": "Alex",
+        "en": "Did you have lunch there?",
+        "es": "¿Almorzaron allí?"
+      },
+      {
+        "speaker": "Jo",
+        "en": "Yes, we ate at a small restaurant. Then we walked to the museum.",
+        "es": "Sí, comimos en un restaurante pequeño. Después caminamos al museo."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "How did Jo travel?",
+        "options": [
+          "By train",
+          "By car",
+          "By bus"
+        ],
+        "answer": 2,
+        "explanation": "Jo dice “We took the bus”: viajaron en colectivo."
+      },
+      {
+        "type": "fill",
+        "prompt": "We ___ the bus yesterday.",
+        "answer": "took",
+        "explanation": "Took es el pasado irregular de take."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "museum",
+          "the",
+          "to",
+          "walked",
+          "We"
+        ],
+        "answer": "We walked to the museum",
+        "explanation": "Sujeto + verbo en pasado + destino: We walked to the museum."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Vocabulario: ¿qué significa «yesterday»?",
+        "options": [
+          "Ayer",
+          "Mañana",
+          "Hoy"
+        ],
+        "answer": 0,
+        "explanation": "Yesterday sitúa la visita en el día anterior: ayer."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: Jo visited the city alone.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 1,
+        "explanation": "Jo dice “with my sister”: fue con su hermana."
+      }
+    ],
+    "category": "Viajes",
+    "goal": "Contar una experiencia y cómo viajaste."
+  },
+  {
+    "id": "plans",
+    "unit": "a2-future-going-to-will",
+    "level": "A2",
+    "title": "Planning a picnic",
+    "photo": "photo-1519331379826-f10be5486c6f",
+    "alt": "Sendero y árboles de un parque.",
+    "lines": [
+      {
+        "speaker": "Ella",
+        "en": "What are we going to do on Saturday?",
+        "es": "¿Qué vamos a hacer el sábado?"
+      },
+      {
+        "speaker": "Ben",
+        "en": "We are going to have a picnic in the park.",
+        "es": "Vamos a hacer un pícnic en el parque."
+      },
+      {
+        "speaker": "Ella",
+        "en": "Great! I will bring some sandwiches.",
+        "es": "¡Genial! Voy a llevar unos sándwiches."
+      },
+      {
+        "speaker": "Ben",
+        "en": "I will bring water. If it rains, we will stay at home.",
+        "es": "Yo llevaré agua. Si llueve, nos quedaremos en casa."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What will Ella bring?",
+        "options": [
+          "Sandwiches",
+          "Water",
+          "A cake"
+        ],
+        "answer": 0,
+        "explanation": "Ella ofrece “I will bring some sandwiches”. Ben llevará el agua."
+      },
+      {
+        "type": "fill",
+        "prompt": "We are ___ to have a picnic.",
+        "answer": "going",
+        "explanation": "El plan se expresa con be + going to + verbo."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "sandwiches",
+          "some",
+          "bring",
+          "will",
+          "I"
+        ],
+        "answer": "I will bring some sandwiches",
+        "explanation": "I + will + verbo base + complemento: I will bring some sandwiches."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Vocabulario: ¿qué significa «bring»?",
+        "options": [
+          "Traer",
+          "Comprar",
+          "Esperar"
+        ],
+        "answer": 0,
+        "explanation": "Bring significa traer; Ella se ofrece a traer los sándwiches."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: They will stay at home if it rains.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 0,
+        "explanation": "Ben dice “If it rains, we will stay at home”: se quedarán en casa si llueve."
+      }
+    ],
+    "category": "Vida diaria",
+    "goal": "Organizar planes y ofrecer ayuda."
+  },
+  {
+    "id": "workday",
+    "unit": "a1-present-simple",
+    "level": "A1",
+    "title": "A day at work",
+    "category": "Trabajo",
+    "goal": "Hablar de horarios y hábitos de trabajo.",
+    "photo": "photo-1521737711867-e3b97375f902",
+    "alt": "Personas trabajando juntas en una oficina.",
+    "lines": [
+      {
+        "speaker": "Leo",
+        "en": "What time do you start work?",
+        "es": "¿A qué hora empezás a trabajar?"
+      },
+      {
+        "speaker": "Nina",
+        "en": "I start at nine. I work from home on Fridays.",
+        "es": "Empiezo a las nueve. Los viernes trabajo desde casa."
+      },
+      {
+        "speaker": "Leo",
+        "en": "Do you have lunch at the office?",
+        "es": "¿Almorzás en la oficina?"
+      },
+      {
+        "speaker": "Nina",
+        "en": "Yes, I do. My team has lunch at one.",
+        "es": "Sí. Mi equipo almuerza a la una."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "When does Nina work from home?",
+        "options": [
+          "On Mondays",
+          "On Fridays",
+          "Every day"
+        ],
+        "answer": 1,
+        "explanation": "Nina dice “I work from home on Fridays”: trabaja desde casa los viernes."
+      },
+      {
+        "type": "fill",
+        "prompt": "My team ___ lunch at one.",
+        "answer": "has",
+        "explanation": "My team se trata como singular en esta frase: has."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "office",
+          "the",
+          "at",
+          "lunch",
+          "have",
+          "you",
+          "Do"
+        ],
+        "answer": "Do you have lunch at the office",
+        "explanation": "Las preguntas en presente simple usan Do + sujeto + verbo base."
+      },
+      {
+        "type": "mcq",
+        "prompt": "En este diálogo, ¿qué significa «start»?",
+        "options": [
+          "Empezar",
+          "Terminar",
+          "Descansar"
+        ],
+        "answer": 0,
+        "explanation": "En “start work”, start significa empezar."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: Nina starts work at eight.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 1,
+        "explanation": "Dice “I start at nine”, no a las ocho."
+      }
+    ]
+  },
+  {
+    "id": "family",
+    "unit": "a1-possessives-family",
+    "level": "A1",
+    "title": "Meet my family",
+    "category": "Vida diaria",
+    "goal": "Presentar a tu familia y usar posesivos.",
+    "photo": "photo-1511895426328-dc8714191300",
+    "alt": "Una familia compartiendo tiempo al aire libre.",
+    "lines": [
+      {
+        "speaker": "Emma",
+        "en": "Is that your brother?",
+        "es": "¿Ese es tu hermano?"
+      },
+      {
+        "speaker": "Tom",
+        "en": "Yes. His name is Daniel. He is a chef.",
+        "es": "Sí. Se llama Daniel. Es cocinero."
+      },
+      {
+        "speaker": "Emma",
+        "en": "And who is the woman next to him?",
+        "es": "¿Y quién es la mujer que está a su lado?"
+      },
+      {
+        "speaker": "Tom",
+        "en": "She is our mother. Her name is Rosa.",
+        "es": "Es nuestra madre. Se llama Rosa."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What does Daniel do?",
+        "options": [
+          "He is a teacher.",
+          "He is a chef.",
+          "He is a doctor."
+        ],
+        "answer": 1,
+        "explanation": "Tom explica “He is a chef”: Daniel es cocinero."
+      },
+      {
+        "type": "fill",
+        "prompt": "___ name is Daniel.",
+        "answer": "His",
+        "explanation": "El posesivo para un hombre es his: His name is Daniel."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "Rosa",
+          "is",
+          "name",
+          "Her"
+        ],
+        "answer": "Her name is Rosa",
+        "explanation": "El posesivo her se usa aquí para el nombre de la madre."
+      },
+      {
+        "type": "mcq",
+        "prompt": "En este diálogo, ¿qué significa «our»?",
+        "options": [
+          "Nuestro o nuestra",
+          "Tu o tus",
+          "Su de él"
+        ],
+        "answer": 0,
+        "explanation": "Our mother significa nuestra madre: Tom y Daniel comparten madre."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: Rosa is Daniel’s sister.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 1,
+        "explanation": "Tom presenta a Rosa como “our mother”, no como hermana."
+      }
+    ]
+  },
+  {
+    "id": "station",
+    "unit": "a1-directions-imperatives",
+    "level": "A1",
+    "title": "Find the station",
+    "category": "Viajes",
+    "goal": "Pedir y seguir indicaciones sencillas.",
+    "photo": "photo-1474487548417-781cb71495f3",
+    "alt": "Tren y vías en una estación.",
+    "lines": [
+      {
+        "speaker": "Visitor",
+        "en": "Excuse me. Where is the station?",
+        "es": "Disculpá. ¿Dónde está la estación?"
+      },
+      {
+        "speaker": "Local",
+        "en": "Go straight and turn left at the bank.",
+        "es": "Seguí derecho y doblá a la izquierda en el banco."
+      },
+      {
+        "speaker": "Visitor",
+        "en": "Is it next to the supermarket?",
+        "es": "¿Está al lado del supermercado?"
+      },
+      {
+        "speaker": "Local",
+        "en": "Yes. The station is opposite the park.",
+        "es": "Sí. La estación está enfrente del parque."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "Where should the visitor turn left?",
+        "options": [
+          "At the park",
+          "At the bank",
+          "At the supermarket"
+        ],
+        "answer": 1,
+        "explanation": "La indicación es “turn left at the bank”: doblar en el banco."
+      },
+      {
+        "type": "fill",
+        "prompt": "Go ___ and turn left.",
+        "answer": "straight",
+        "explanation": "Go straight significa seguir derecho."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "bank",
+          "the",
+          "at",
+          "left",
+          "Turn"
+        ],
+        "answer": "Turn left at the bank",
+        "explanation": "El imperativo comienza con el verbo: Turn left."
+      },
+      {
+        "type": "mcq",
+        "prompt": "En este diálogo, ¿qué significa «opposite»?",
+        "options": [
+          "Enfrente de",
+          "Dentro de",
+          "Lejos de"
+        ],
+        "answer": 0,
+        "explanation": "Opposite the park significa enfrente del parque."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: The station is next to the supermarket.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 0,
+        "explanation": "El visitante pregunta si está al lado del supermercado y la persona responde “Yes”."
+      }
+    ]
+  },
+  {
+    "id": "restaurant",
+    "unit": "a1-food-countable",
+    "level": "A1",
+    "title": "Your table is ready",
+    "category": "Vida diaria",
+    "goal": "Pedir comida y distinguir cantidades.",
+    "photo": "photo-1517248135467-4c7edcad34c4",
+    "alt": "Mesas y sillas en el interior de un restaurante.",
+    "lines": [
+      {
+        "speaker": "Waiter",
+        "en": "Are you ready to order?",
+        "es": "¿Están listos para pedir?"
+      },
+      {
+        "speaker": "Customer",
+        "en": "Yes. I would like a salad and some water, please.",
+        "es": "Sí. Quisiera una ensalada y un poco de agua, por favor."
+      },
+      {
+        "speaker": "Waiter",
+        "en": "How many sandwiches would you like?",
+        "es": "¿Cuántos sándwiches quisieran?"
+      },
+      {
+        "speaker": "Customer",
+        "en": "Two sandwiches, please. Is there any bread?",
+        "es": "Dos sándwiches, por favor. ¿Hay pan?"
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What drink does the customer order?",
+        "options": [
+          "Coffee",
+          "Juice",
+          "Water"
+        ],
+        "answer": 2,
+        "explanation": "El cliente pide “some water”: agua."
+      },
+      {
+        "type": "fill",
+        "prompt": "I would like ___ water, please.",
+        "answer": "some",
+        "explanation": "Water es incontable; some expresa una cantidad no especificada."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "like",
+          "you",
+          "would",
+          "sandwiches",
+          "many",
+          "How"
+        ],
+        "answer": "How many sandwiches would you like",
+        "explanation": "How many se usa con el plural contable sandwiches."
+      },
+      {
+        "type": "mcq",
+        "prompt": "En este diálogo, ¿qué significa «order»?",
+        "options": [
+          "Pedir comida",
+          "Pagar la cuenta",
+          "Cocinar"
+        ],
+        "answer": 0,
+        "explanation": "Ready to order pregunta si el cliente está listo para pedir."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: The customer asks for three sandwiches.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 1,
+        "explanation": "La respuesta es “Two sandwiches”, no tres."
+      }
+    ]
+  },
+  {
+    "id": "hotel",
+    "unit": "a2-comparatives",
+    "level": "A2",
+    "title": "Choose your room",
+    "category": "Viajes",
+    "goal": "Comparar habitaciones antes de reservar.",
+    "photo": "photo-1566073771259-6a8506099945",
+    "alt": "Exterior de un hotel con piscina.",
+    "lines": [
+      {
+        "speaker": "Guest",
+        "en": "Which room is quieter, the garden room or the street room?",
+        "es": "¿Qué habitación es más silenciosa, la del jardín o la de la calle?"
+      },
+      {
+        "speaker": "Receptionist",
+        "en": "The garden room is quieter, but it is more expensive.",
+        "es": "La del jardín es más silenciosa, pero es más cara."
+      },
+      {
+        "speaker": "Guest",
+        "en": "Is the street room bigger?",
+        "es": "¿La de la calle es más grande?"
+      },
+      {
+        "speaker": "Receptionist",
+        "en": "No. It is smaller, but both rooms have breakfast included.",
+        "es": "No. Es más pequeña, pero ambas habitaciones incluyen desayuno."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "Which room costs more?",
+        "options": [
+          "The street room",
+          "The garden room",
+          "They cost the same"
+        ],
+        "answer": 1,
+        "explanation": "La recepcionista dice que la habitación del jardín es “more expensive”."
+      },
+      {
+        "type": "fill",
+        "prompt": "The garden room is ___ than the street room.",
+        "answer": "quieter",
+        "explanation": "Quieter es el comparativo de quiet; than introduce la comparación."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "smaller",
+          "is",
+          "room",
+          "street",
+          "The"
+        ],
+        "answer": "The street room is smaller",
+        "explanation": "Smaller es el comparativo de small."
+      },
+      {
+        "type": "mcq",
+        "prompt": "En este diálogo, ¿qué significa «included»?",
+        "options": [
+          "Incluido",
+          "Disponible por un extra",
+          "Reservado"
+        ],
+        "answer": 0,
+        "explanation": "Breakfast included significa que el desayuno está incluido."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: Both rooms include breakfast.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 0,
+        "explanation": "La última intervención confirma “both rooms have breakfast included”."
+      }
+    ]
+  },
+  {
+    "id": "airport",
+    "unit": "a2-past-continuous",
+    "level": "A2",
+    "title": "A change of plans",
+    "category": "Viajes",
+    "goal": "Explicar qué estaba pasando cuando ocurrió algo.",
+    "photo": "photo-1436491865332-7a61a109cc05",
+    "alt": "Vista desde un avión durante un viaje.",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "en": "What were you doing when they called your flight?",
+        "es": "¿Qué estabas haciendo cuando anunciaron tu vuelo?"
+      },
+      {
+        "speaker": "Owen",
+        "en": "I was buying a coffee. Then I heard the announcement.",
+        "es": "Estaba comprando un café. Entonces escuché el anuncio."
+      },
+      {
+        "speaker": "Maya",
+        "en": "Were you waiting at the right gate?",
+        "es": "¿Estabas esperando en la puerta correcta?"
+      },
+      {
+        "speaker": "Owen",
+        "en": "No. They changed the gate, so I walked to gate twelve.",
+        "es": "No. Cambiaron la puerta, así que caminé hasta la puerta doce."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "Where did Owen go after the change?",
+        "options": [
+          "To gate ten",
+          "To gate two",
+          "To gate twelve"
+        ],
+        "answer": 2,
+        "explanation": "Owen dice “I walked to gate twelve”: fue a la puerta doce."
+      },
+      {
+        "type": "fill",
+        "prompt": "I ___ buying a coffee when they called my flight.",
+        "answer": "was",
+        "explanation": "Con I, el pasado continuo se forma con was + verbo en -ing."
+      },
+      {
+        "type": "order",
+        "prompt": "Ordená la frase del diálogo.",
+        "words": [
+          "gate",
+          "the",
+          "changed",
+          "They"
+        ],
+        "answer": "They changed the gate",
+        "explanation": "La acción terminada se expresa con el pasado changed."
+      },
+      {
+        "type": "mcq",
+        "prompt": "En este diálogo, ¿qué significa «announcement»?",
+        "options": [
+          "Anuncio por altavoz",
+          "Tarjeta de embarque",
+          "Valija"
+        ],
+        "answer": 0,
+        "explanation": "En el aeropuerto, announcement se refiere al anuncio que se escucha por altavoz."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Verdadero o falso: Owen was buying a sandwich when he heard the announcement.",
+        "options": [
+          "True",
+          "False"
+        ],
+        "answer": 1,
+        "explanation": "Owen estaba comprando un café, no un sándwich."
+      }
+    ]
+  }
+]

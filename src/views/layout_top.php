@@ -3,7 +3,7 @@ $u = current_user();
 $flashes = take_flashes();
 $title = ($pageTitle ? $pageTitle . ' — ' : '') . app_name();
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
-$publicPage = in_array($path, ['/', '/index.php', '/terms.php', '/privacy.php', '/program.php', '/library.php', '/reading.php'], true);
+$publicPage = in_array($path, ['/', '/index.php', '/terms.php', '/privacy.php', '/program.php', '/library.php', '/reading.php', '/situations.php'], true);
 if (http_response_code() >= 400) $publicPage = false;
 $canonical = app_url($path === '/index.php' ? '/' : $path);
 if ($path === '/reading.php') $canonical .= '?slug=' . rawurlencode((string) ($_GET['slug'] ?? ''));
@@ -11,7 +11,7 @@ $description = match ($path) {
     '/library.php' => 'Lecturas originales en inglés, con audio, comprensión, explicaciones y escritura guiada. Explorá muestras A1–C2 sin registrarte.',
     '/program.php' => 'Explorá el programa de InglésPro: objetivos de uso, unidades publicadas y talleres de lectura y escritura de A1 a C2.',
     '/reading.php' => $lab['goal'] ?? 'Leé, escuchá, comprendé y escribí en inglés con un taller de práctica autónoma.',
-    default => 'Inglés para pensar, conectar y crecer. Explicaciones en castellano, práctica, lecturas y talleres de escritura de A1 a C2.',
+    default => 'Aprendé inglés para la vida real con MyTeacher. Situaciones cotidianas con audio, práctica de pronunciación y ejercicios con corrección. Empezá gratis.',
 };
 ?><!doctype html>
 <html lang="es-AR">
@@ -36,19 +36,21 @@ $description = match ($path) {
 <meta name="csrf" content="<?= e(csrf_token()) ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;650;700;750;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css?v=1">
-<link rel="stylesheet" href="/assets/redesign.css?v=5">
+<link rel="stylesheet" href="/assets/redesign.css?v=6">
 <link rel="stylesheet" href="/assets/pro.css?v=9">
-<meta name="theme-color" content="#17252b">
+<link rel="stylesheet" href="/assets/scenes.css?v=2">
+<link rel="stylesheet" href="/assets/modern.css?v=1">
+<meta name="theme-color" content="#102b32">
 <script>(function(){try{var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
 </head>
-<body<?= $u ? ' class="has-bottom-nav"' : '' ?>>
+<body class="site-modern<?= $u ? ' has-bottom-nav' : '' ?>">
 <a class="skip" href="#main">Saltar al contenido</a>
 <header class="topbar">
   <div class="wrap topbar-in">
-    <a class="brand" href="<?= $u ? '/dashboard.php' : '/' ?>"><span class="brand-mark">En</span><?= e(app_name()) ?></a>
+    <a class="brand" href="<?= $u ? '/dashboard.php' : '/' ?>"><span class="brand-mark" aria-hidden="true">m<span>t</span></span><?= e(app_name()) ?></a>
 <?php $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : ''; ?>
     <nav class="nav" aria-label="Principal">
       <?php if ($u): ?>
@@ -60,12 +62,12 @@ $description = match ($path) {
         <?php if (is_admin($u)): ?><a href="/admin/">Admin</a><?php endif; ?>
         <form method="post" action="/logout.php" class="inline"><?= csrf_field() ?><button class="linkbtn">Salir</button></form>
       <?php else: ?>
-        <a href="/program.php"<?= $navCur('/program.php') ?>>Programa</a>
+        <a href="/program.php"<?= $navCur('/program.php') ?>>El programa</a>
         <a href="/library.php"<?= $navCur('/library.php') ?>>Biblioteca</a>
-        <a href="/#metodo">Cómo aprender</a>
+        <a href="/situations.php"<?= $navCur('/situations.php') ?>>Situaciones</a>
         <a href="/#precio">Precio</a>
         <a href="/login.php">Ingresar</a>
-        <a class="btn btn-sm" href="/register.php">Probar gratis</a>
+        <a class="btn btn-sm" href="/register.php">Empezar gratis <span aria-hidden="true">↗</span></a>
       <?php endif; ?>
     </nav>
       <span class="tools">

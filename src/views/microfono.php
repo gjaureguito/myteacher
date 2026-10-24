@@ -16,6 +16,7 @@ $cmd = function (string $code, string $where, string $what) {
 <section class="wrap page mic-page">
   <p class="eyebrow">SOPORTE / MICRÓFONO</p>
   <h1>Solucionar el micrófono</h1>
+  <div data-edge-help></div>
   <p class="lead">Para "Decilo vos" y los ejercicios de speaking, el navegador necesita usar tu micrófono. Empezá por el diagnóstico: te dice qué pasa y te lleva al comando exacto.</p>
 
   <div class="mic-diag" id="mic-diag">

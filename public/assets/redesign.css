@@ -1532,3 +1532,15 @@
   .library-card { min-height: 320px; }
   .topbar-in { min-height: 0; }
 }
+/* Explanations stay next to the exercise, with a direct route back to theory. */
+.practice-guidance { max-width: 72ch; padding: 18px 22px; border-left: 3px solid var(--cobalt); background: #eee7dd; font-size: .91rem; margin-bottom: 28px; }
+.exercise-solution { margin-top: 18px; border-top: 1px solid var(--line); }
+.exercise-solution summary { font-size: .85rem; color: var(--cobalt); padding: 14px 0; }
+.exercise-solution[open] { background: #f4f1e9; padding: 0 20px 16px; border: 1px solid var(--line); margin-top: 22px; }
+.solution-content { padding-top: 8px; }
+.solution-content h4 { font-size: .77rem; letter-spacing: .03em; color: var(--ink-2); margin: 16px 0 7px; }
+.solution-content p { font-size: .94rem; line-height: 1.8; margin-bottom: 14px; }
+.solution-content .solution-answer { font-size: 1.2rem; font-weight: 700; color: var(--ink); padding-left: 14px; border-left: 3px solid #547565; overflow-wrap: anywhere; }
+.exercise-solution .linkbtn { font-size: .84rem; text-align: left; }
+.exercise-solution .fine { margin: 6px 0 0; }
+@media (max-width: 560px) { .exercise-solution[open] { padding-inline: 14px; } .practice-guidance { padding: 16px; } }

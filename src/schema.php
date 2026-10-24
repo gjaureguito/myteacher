@@ -10,6 +10,15 @@ function run_schema(): void
     $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
     $tables = [
+        "CREATE TABLE IF NOT EXISTS scene_status (
+            user_id $fk NOT NULL,
+            scene_id VARCHAR(80) NOT NULL,
+            question_id INT NOT NULL,
+            solved INT NOT NULL DEFAULT 0,
+            tries INT NOT NULL DEFAULT 0,
+            updated_at DATETIME NOT NULL,
+            PRIMARY KEY (user_id, scene_id, question_id)
+        )$engine",
         "CREATE TABLE IF NOT EXISTS meta (
             k VARCHAR(64) NOT NULL PRIMARY KEY,
             v VARCHAR(255) NOT NULL

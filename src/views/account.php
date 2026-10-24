@@ -10,7 +10,7 @@
       <?php if (is_admin($u)): ?>
         <p class="muted">Como administrador tenés acceso completo sin suscripción.</p>
       <?php elseif ($u['sub_status'] === 'active' && $full): ?>
-        <p>Se renueva automáticamente todos los meses por <?= money_ars(plan_price()) ?> con Mercado Pago.</p>
+        <p>Tu suscripción se renueva mensualmente por Mercado Pago. El importe vigente es el de tu autorización de pago.</p>
         <form method="post" onsubmit="return confirm('¿Cancelar la suscripción? Mantenés el acceso hasta el fin del período pago.')">
           <?= csrf_field() ?><input type="hidden" name="action" value="cancel">
           <button class="btn btn-ghost">Cancelar suscripción</button>

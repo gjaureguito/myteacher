@@ -1,6 +1,6 @@
 """Local integration checks. Owns a disposable SQLite database and PHP server."""
 from pathlib import Path
-import http.cookiejar, json, os, re, socket, subprocess, tempfile, time, urllib.request, urllib.parse, urllib.error
+import http.cookiejar, os, re, socket, subprocess, tempfile, time, urllib.request, urllib.parse, urllib.error, json, sqlite3
 ROOT = Path(__file__).resolve().parents[1]
 with tempfile.TemporaryDirectory(prefix='inglespro-test-') as tmp:
     env = dict(os.environ, DB_DRIVER='sqlite', SQLITE_PATH=str(Path(tmp)/'test.sqlite'), ADMIN_EMAILS='')
@@ -24,14 +24,23 @@ q("UPDATE units SET is_published=0 WHERE id=(SELECT MIN(id) FROM units)");
             r=client.open(base+path, data=None if data is None else urllib.parse.urlencode(data).encode(),timeout=5)
         except urllib.error.HTTPError as e: r=e
         return r.status,r.read().decode(),r.geturl()
+    def solution(exercise_id, csrf=None):
+        headers={'Content-Type':'application/json'}
+        if csrf: headers['X-CSRF-Token']=csrf
+        req=urllib.request.Request(base+'/api/solution.php',data=json.dumps({'id':exercise_id}).encode(),headers=headers)
+        try: r=client.open(req,timeout=5)
+        except urllib.error.HTTPError as e: r=e
+        return r.status,r.read().decode()
     def token(html): return re.search(r'name="csrf" value="([a-f0-9]+)"',html)[1]
     try:
         for _ in range(40):
             try: status,home,_=request('/'); break
             except OSError: time.sleep(.1)
         else: raise AssertionError('Local PHP server did not start')
-        assert status==200 and 'Abrí tu mundo.' in home
+        assert status==200 and 'Inglés para la vida' in home
         assert home.count('class="track-row"')==6
+        assert '$50.000' in home and '/assets/modern.css?v=1' in home
+        assert request('/situations.php')[0]==200
         _,programme,_=request('/program.php')
         assert programme.count('class="unit-index"')==29
         _,library,_=request('/library.php')
@@ -52,6 +61,8 @@ q("UPDATE units SET is_published=0 WHERE id=(SELECT MIN(id) FROM units)");
         assert status==200 and 'novalidate' not in form and 'name="terms" value="1" required' in form and 'noindex' in form
         assert request('/register.php',{'name':'Invalid'})[0]==419
         print('PASS: registration constraints and CSRF rejection')
+        assert solution(1)[0]==401
+        assert request('/api/solution.php')[0]==405
         assert request('/admin/')[2].endswith('/login.php')
         _,login,_=request('/login.php')
         status,html,url=request('/login.php',{'csrf':token(login),'email':'admin@example.test','password':'Local-test-123'})
@@ -59,7 +70,7 @@ q("UPDATE units SET is_published=0 WHERE id=(SELECT MIN(id) FROM units)");
         _,admin,_=request('/admin/')
         assert re.search(r'<strong>2</strong>.*?Con acceso vigente',admin,re.S)
         assert re.search(r'<strong>1</strong>.*?Suscripciones activas',admin,re.S)
-        assert '$30.000' in admin
+        assert '$50.000' in admin
         assert 'Hasta 100 usuarios' in admin
         assert 'No encontramos usuarios' in request('/admin/?s=missing@example.test')[1]
         print('PASS: admin login, subscription metrics exclude manual/expired users, empty search')
@@ -83,10 +94,43 @@ q("UPDATE units SET is_published=0 WHERE id=(SELECT MIN(id) FROM units)");
         print('PASS: 23 workshops render; all 29 published units have reading, writing and speaking; stats and review pages load')
         status,xml,_=request('/sitemap.php')
         import xml.etree.ElementTree as ET
-        assert status==200 and len(ET.fromstring(xml))==10
+        assert status==200 and len(ET.fromstring(xml))==11
         assert request('/robots.txt')[0]==200
         print('PASS: sitemap XML and robots response')
         assert request('/admin/',{'action':'grant','user_id':2,'days':30})[0]==419
         print('PASS: privileged mutation rejects missing CSRF; no payment requests executed')
+        _,unit,_=request('/unit.php?id=2')
+        csrf=token(unit)
+        db=sqlite3.connect(Path(tmp)/'test.sqlite'); db.row_factory=sqlite3.Row
+        assert solution(999999,csrf)[0]==404
+        unpublished=db.execute('SELECT e.id FROM exercises e JOIN units u ON u.id=e.unit_id WHERE u.is_published=0 LIMIT 1').fetchone()[0]
+        assert solution(unpublished,csrf)[0]==404
+        assert solution(20)[0]==419
+        rows=db.execute('SELECT e.* FROM exercises e JOIN units u ON u.id=e.unit_id WHERE u.is_published=1 ORDER BY e.id').fetchall()
+        seen=set()
+        before=(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0],db.execute('SELECT COUNT(*) FROM exercise_status').fetchone()[0])
+        for row in rows:
+            if row['type'] in seen or row['type'] not in ['mcq','listen','fill','order','dictation']: continue
+            seen.add(row['type'])
+            status,payload=solution(row['id'],csrf); payload=json.loads(payload)
+            answer=json.loads(row['answer_json']); data=json.loads(row['data_json'])
+            expected=data['options'][answer['index']] if 'index' in answer else answer['accept'][0]
+            assert status==200 and payload['answer']==expected
+            assert payload['explanation']==row['explanation'] and payload['theory_title'] and payload['theory_summary']
+            if row['type'] in ['listen','dictation']: assert payload['transcript']==data['say']
+        assert len(seen)==5
+        after=(db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0],db.execute('SELECT COUNT(*) FROM exercise_status').fetchone()[0])
+        assert before==after
+        _,account,_=request('/account.php')
+        request('/logout.php',{'csrf':token(account)})
+        _,login,_=request('/login.php')
+        request('/login.php',{'csrf':token(login),'email':'expired@example.test','password':'Local-test-123'})
+        _,account,_=request('/account.php')
+        csrf=token(account)
+        locked=db.execute('SELECT e.id FROM exercises e JOIN units u ON u.id=e.unit_id WHERE u.is_published=1 AND u.position>1 LIMIT 1').fetchone()[0]
+        free=db.execute('SELECT e.id FROM exercises e JOIN units u ON u.id=e.unit_id WHERE u.is_published=1 AND u.position=1 LIMIT 1').fetchone()[0]
+        assert solution(locked,csrf)[0]==403 and solution(free,csrf)[0]==200
+        db.close()
+        print('PASS: five solution types, explanations/theory, audio transcript, no progress mutations, authentication/CSRF and subscription boundaries')
     finally:
         process.terminate(); process.wait(timeout=5)

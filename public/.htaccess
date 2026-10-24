@@ -1,6 +1,8 @@
 Options -Indexes
 # Redirige a HTTPS detrás del proxy de Railway
 RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.myteacher\.com\.ar$ [NC]
+RewriteRule ^ https://myteacher.com.ar%{REQUEST_URI} [L,R=301,NE]
 RewriteCond %{HTTP:X-Forwarded-Proto} =http
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 

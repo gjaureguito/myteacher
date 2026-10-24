@@ -19,6 +19,7 @@ $total = count($exercises);
   </div>
   <label class="voice-ctl">🎙️ Velocidad de voz <input type="range" id="voice-rate" min="0.6" max="1.3" step="0.05" value="1"> <span id="voice-rate-val">1×</span></label>
   <button type="button" class="linkbtn mh-link" data-mic-help>🎙️ Probar micrófono</button> <a class="linkbtn mh-link" href="/microfono.php">Solucionar micrófono</a>
+  <span data-edge-shortcut></span>
   </div>
 
   <?php if ($lab): ?>
@@ -48,6 +49,7 @@ $total = count($exercises);
   <?php endif; ?>
 
   <div class="tabpanel" id="t-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+    <?php require __DIR__ . '/scenes.php'; ?>
     <?php
       $bySkill = [];
       foreach ($exercises as $x) { $k = $x['skill']; $bySkill[$k] ??= [0, 0]; $bySkill[$k][1]++; if ($x['solved']) $bySkill[$k][0]++; }

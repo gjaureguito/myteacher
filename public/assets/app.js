@@ -221,6 +221,45 @@
 
   document.querySelectorAll('.ex').forEach(li => {
     const type = li.dataset.type;
+    const solution = li.querySelector('.exercise-solution');
+    if (solution) {
+      let loading = false;
+      let loaded = false;
+      solution.addEventListener('toggle', async () => {
+        if (!solution.open || loading || loaded) return;
+        loading = true;
+        const content = solution.querySelector('.solution-content');
+        content.textContent = 'Consultando la solución…';
+        try {
+          const res = await fetch('/api/solution.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrf },
+            body: JSON.stringify({ id: +li.dataset.id })
+          });
+          const data = await res.json().catch(() => ({ error: 'No pudimos leer la solución.' }));
+          if (!res.ok) throw new Error(data.error || 'No pudimos consultar la solución.');
+          content.replaceChildren();
+          const section = (title, text, className = '') => {
+            const heading = document.createElement('h4');
+            heading.textContent = title;
+            const paragraph = document.createElement('p');
+            paragraph.textContent = text;
+            if (className) paragraph.className = className;
+            content.append(heading, paragraph);
+          };
+          section('Respuesta', data.answer, 'solution-answer');
+          if (data.alternatives?.length) section('También se acepta', data.alternatives.join(' / '));
+          section('Por qué es correcta', data.explanation || 'Repasá la explicación de esta unidad para analizar la respuesta.');
+          if (data.transcript) section('Transcripción del audio', data.transcript);
+          section('Conexión con la teoría: ' + data.theory_title, data.theory_summary);
+          loaded = true;
+        } catch (err) {
+          content.textContent = err.message + ' Cerrá y volvé a abrir la sección para reintentar.';
+        } finally {
+          loading = false;
+        }
+      });
+    }
     const mark = () => { if (!li._t0) li._t0 = Date.now(); };
     li.addEventListener('pointerdown', mark); li.addEventListener('focusin', mark);
 
@@ -324,7 +363,7 @@
         window.ipRecognize(li.querySelector('.say-target')?.textContent || '', {
           onStart: () => { rec.textContent = '🔴 Escuchando… hablá ahora'; },
           onResult: alts => handle(li, { transcript: alts[0] }),
-          onFail: msg => { fb.className = 'feedback is-bad'; fb.innerHTML = '<strong>⚠️ ' + esc(msg) + '</strong><p><button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button></p>'; self.hidden = false; },
+          onFail: msg => { fb.className = 'feedback is-bad'; fb.innerHTML = '<strong>⚠️ ' + esc(msg) + '</strong><p><button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button></p>' + (window.ipEdgeHelpHTML?.() || ''); self.hidden = false; },
           onEnd: () => { rec.classList.remove('is-listening'); rec.textContent = '🎙️ Grabar de nuevo'; },
         });
       });

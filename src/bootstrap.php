@@ -27,9 +27,9 @@ if (is_file(ROOT . '/.env')) {
     }
 }
 
-const PLAN_PRICE = 30000;
+const PLAN_PRICE = 50000;
 
-function app_name(): string { return env('APP_NAME', 'InglésPro'); }
+function app_name(): string { $name = env('APP_NAME', 'MyTeacher'); return $name === 'InglésPro' ? 'MyTeacher' : $name; }
 function plan_price(): float { return (float) env('PLAN_PRICE', (string) PLAN_PRICE); }
 
 function app_url(string $path = ''): string
@@ -58,6 +58,7 @@ require ROOT . '/src/access.php';
 require ROOT . '/src/progress.php';
 require ROOT . '/src/grading.php';
 require ROOT . '/src/learning.php';
+require ROOT . '/src/scenes.php';
 
 if (PHP_SAPI !== 'cli') {
     session_name('ipsess');
