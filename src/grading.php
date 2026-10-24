@@ -128,3 +128,17 @@ function generic_hint(string $type): string
         default => 'Releé la consigna y descartá primero las opciones que seguro no son.',
     };
 }
+
+/** Datos para mostrar un ejercicio ya resuelto (solo se envían si el alumno ya lo resolvió). */
+function done_payload(array $ex): array
+{
+    $answer = json_decode($ex['answer_json'] ?? '{}', true) ?: [];
+    $mine = isset($ex['last_answer']) && $ex['last_answer'] !== null ? json_decode($ex['last_answer'], true) : null;
+    return [
+        'answer' => correct_answer_text($ex),
+        'index' => isset($answer['index']) ? (int) $answer['index'] : null,
+        'pairs' => $ex['type'] === 'match' ? ($answer['pairs'] ?? []) : null,
+        'mine' => $mine,
+        'explanation' => (string) ($ex['explanation'] ?? ''),
+    ];
+}

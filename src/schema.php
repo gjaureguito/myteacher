@@ -128,6 +128,7 @@ function run_schema(): void
         ['attempts', 'ms', 'INT NULL'],
         ['units', 'icon', "VARCHAR(16) NOT NULL DEFAULT ''"],
         ['units', 'source_hash', 'VARCHAR(64) NULL'],
+        ['exercise_status', 'last_answer', "$text NULL"],
     ];
     foreach ($columns as [$table, $col, $def]) {
         try { db()->exec("ALTER TABLE $table ADD COLUMN $col $def"); } catch (Throwable $e) { /* ya existe */ }

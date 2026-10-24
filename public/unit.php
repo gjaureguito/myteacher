@@ -12,7 +12,7 @@ if (!can_access_unit($u, $unit)) {
 }
 
 $level = q_one('SELECT * FROM levels WHERE code = ?', [$unit['level_code']]);
-$exercises = q_all('SELECT e.id, e.type, e.prompt, e.data_json, e.skill, COALESCE(s.solved, 0) AS solved
+$exercises = q_all('SELECT e.id, e.type, e.prompt, e.data_json, e.answer_json, e.explanation, e.skill, COALESCE(s.solved, 0) AS solved, s.last_answer
                     FROM exercises e
                     LEFT JOIN exercise_status s ON s.exercise_id = e.id AND s.user_id = ?
                     WHERE e.unit_id = ? ORDER BY e.position', [$u['id'], $id]);

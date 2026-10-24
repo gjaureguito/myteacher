@@ -440,3 +440,15 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .cmd-what{margin:0;padding:10px 14px;font-size:.88rem;color:var(--ink-2)}
 .mh-guide{margin-top:12px}
 @media (max-width:640px){.mic-diag{grid-template-columns:1fr}}
+
+/* Ejercicios terminados */
+.done-badge{margin-left:auto;padding:3px 10px;border-radius:999px;background:var(--ok-bg);color:var(--ok);font:700 .74rem var(--font-body)}
+.done-badge:not([hidden]) ~ .show-solution{margin-left:0}
+.ex .redo{font-size:.8rem!important;min-height:32px!important;color:var(--ink-2)!important;text-decoration:underline;text-underline-offset:3px}
+.ex.is-done .gap,.ex.is-done .dict{background:var(--ok-bg)!important;border-color:var(--ok)!important;color:var(--ok)!important}
+.ex.is-done .write-box{background:var(--surface-2)}
+.ex.is-done .opt:not(.is-ok){opacity:.55}
+.practice-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:-4px 0 10px;font-size:.85rem}
+.reset-unit{font-size:.85rem!important;color:var(--brand)!important;font-weight:700}
+[hidden]{display:none!important}
+.ex.is-done .check,.ex.is-done .reset,.ex.is-done .record,.ex.is-done .self-check,.ex.is-done .match + .fine{display:none!important}
