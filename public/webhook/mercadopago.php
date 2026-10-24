@@ -2,7 +2,7 @@
 /*
  * Webhook de Mercado Pago. Configurar en "Tus integraciones → Webhooks" con la URL
  *   https://TU-DOMINIO/webhook/mercadopago.php
- * y los eventos "Planes y suscripciones" (subscription_preapproval y subscription_authorized_payment).
+ * y los eventos "Pagos" (pagos únicos) y "Planes y suscripciones" (subscription_preapproval y subscription_authorized_payment).
  */
 require dirname(__DIR__, 2) . '/src/bootstrap.php';
 require ROOT . '/src/mercadopago.php';
@@ -30,6 +30,8 @@ try {
         $ap = mp_request('GET', '/authorized_payments/' . rawurlencode($dataId));
         $pid = $ap['data']['preapproval_id'] ?? null;
         if ($pid) $result = mp_sync_preapproval((string) $pid);
+    } elseif ($topic === 'payment') {
+        $result = mp_sync_payment($dataId);
     }
 } catch (Throwable $e) {
     log_line('Webhook MP error: ' . $e->getMessage());
