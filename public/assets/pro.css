@@ -390,3 +390,8 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 @media (max-width:1080px){.stat-row-5{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:860px){.viz-grid{grid-template-columns:1fr}.skill-row{grid-template-columns:1fr;gap:6px}.skill-count{text-align:left}.lvl-row{grid-template-columns:30px 1fr 70px 40px}}
 @media (max-width:760px){.stat-row-5{grid-template-columns:1fr 1fr}.bottom-nav a{font-size:.62rem!important}[data-tip]:hover::after{white-space:normal;width:200px}}
+.unit-row .unit-num{font-size:1.25rem;width:48px!important;height:48px!important;border-radius:14px!important;background:color-mix(in srgb,var(--lv) 12%,var(--surface));border:0!important}
+.unit-skills{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:6px;font-size:.74rem;font-weight:700}
+.unit-skills > span{color:var(--sk,var(--ink-2))}
+.unit-skills .unit-pos{color:var(--ink-2);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.ex-prompt .gap{display:inline-block!important;width:8em!important;max-width:45vw;min-height:38px;padding:4px 10px!important;margin:0 4px!important;vertical-align:baseline;border:1.5px solid var(--line)!important;border-bottom:2px solid var(--brand-2)!important}

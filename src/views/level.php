@@ -17,10 +17,11 @@
     ?>
       <li class="unit-row<?= $open ? '' : ' is-locked' ?>">
         <a href="<?= $open ? '/unit.php?id=' . (int) $un['id'] : '/account.php' ?>">
-          <span class="unit-num"><?= (int) $un['position'] ?></span>
+          <span class="unit-num"><?= $un['icon'] !== '' ? e($un['icon']) : (int) $un['position'] ?></span>
           <span class="unit-body">
             <strong><?= e($un['title']) ?></strong>
             <span class="muted"><?= e($un['summary']) ?></span>
+            <span class="unit-skills"><span class="unit-pos">Unidad <?= (int) $un['position'] ?></span><?php foreach (skill_labels() as $sk => $lab): if (empty($skillCounts[(int) $un['id']][$sk])) continue; ?><span class="skill-<?= e($sk) ?>" title="<?= e($lab[0]) ?>"><?= $lab[2] ?> <?= $skillCounts[(int) $un['id']][$sk] ?></span><?php endforeach; ?></span>
           </span>
           <span class="unit-state">
             <?php if (!$open): ?>
