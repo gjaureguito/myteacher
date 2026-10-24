@@ -22,11 +22,23 @@
             <button class="btn btn-ghost btn-sm">Ya pagué, actualizar estado</button></form>
         <?php endif; ?>
         <div class="price-box">
-          <p class="price"><?= money_ars(plan_price()) ?><span>/mes</span></p>
-          <p>Acceso completo a los 6 niveles, todas las unidades, ejercicios con corrección y audio. Cancelás cuando quieras.</p>
-          <form method="post" action="/subscribe.php"><?= csrf_field() ?>
-            <button class="btn btn-mp">Suscribirme con Mercado Pago</button></form>
-          <p class="fine">Usá en Mercado Pago el mismo email de tu cuenta (<?= e($u['email']) ?>) para que el pago se asocie sin demoras.</p>
+          <?php $mode = mp_mode(); $days = mp_once_days(); ?>
+          <p class="price"><?= money_ars(plan_price()) ?><span><?= $mode === 'once' ? ' por ' . $days . ' días' : '/mes' ?></span></p>
+          <p>Acceso completo a los 6 niveles, todas las unidades, ejercicios con corrección y audio.<?= $mode === 'once' ? ' Sin débito automático: pagás cuando querés renovar.' : ' Cancelás cuando quieras.' ?></p>
+          <?php if (!mp_enabled()): ?>
+            <p class="note">El pago online todavía no está disponible. Escribinos y te habilitamos el acceso.</p>
+          <?php else: ?>
+            <?php if ($mode !== 'once'): ?>
+              <form method="post" action="/subscribe.php"><?= csrf_field() ?><input type="hidden" name="kind" value="subscription">
+                <button class="btn btn-mp">Suscribirme con Mercado Pago</button></form>
+            <?php endif; ?>
+            <?php if ($mode !== 'subscription'): ?>
+              <form method="post" action="/subscribe.php" style="margin-top:10px"><?= csrf_field() ?><input type="hidden" name="kind" value="once">
+                <button class="btn <?= $mode === 'once' ? 'btn-mp' : 'btn-ghost' ?>" style="width:100%">Pagar <?= $days ?> días con Mercado Pago</button></form>
+              <p class="fine">El pago único acepta tarjeta, débito, dinero en cuenta y efectivo (Rapipago, Pago Fácil).</p>
+            <?php endif; ?>
+            <p class="fine">Usá en Mercado Pago el mismo email de tu cuenta (<?= e($u['email']) ?>) para que el pago se asocie sin demoras.</p>
+          <?php endif; ?>
         </div>
       <?php endif; ?>
     </div>

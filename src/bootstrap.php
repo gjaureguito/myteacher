@@ -30,7 +30,12 @@ if (is_file(ROOT . '/.env')) {
 const PLAN_PRICE = 50000;
 
 function app_name(): string { $name = env('APP_NAME', 'MyTeacher'); return $name === 'InglésPro' ? 'MyTeacher' : $name; }
-function plan_price(): float { return (float) env('PLAN_PRICE', (string) PLAN_PRICE); }
+function plan_price(): float
+{
+    // Precio del panel de administración (Mercado Pago); si no hay, la variable PLAN_PRICE.
+    if (function_exists('setting_get') && ($p = setting_get('plan_price')) && (float) $p > 0) return (float) $p;
+    return (float) env('PLAN_PRICE', (string) PLAN_PRICE);
+}
 
 function app_url(string $path = ''): string
 {
@@ -59,6 +64,7 @@ require ROOT . '/src/progress.php';
 require ROOT . '/src/grading.php';
 require ROOT . '/src/learning.php';
 require ROOT . '/src/scenes.php';
+require_once ROOT . '/src/settings.php';
 
 if (PHP_SAPI !== 'cli') {
     session_name('ipsess');
