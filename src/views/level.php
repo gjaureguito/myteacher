@@ -9,6 +9,7 @@
     </div>
   </header>
 
+  <a class="book-link panel" href="/book.php?code=<?= e($level['code']) ?>"><strong>Leer el libro de estudio <?= e(strtoupper($level['code'])) ?> →</strong><span>Capítulos con teoría desarrollada, ejemplos analizados, práctica guiada y un proyecto de cierre.</span></a>
   <ol class="units">
     <?php foreach ($units as $un):
       $open = can_access_unit($u, $un);
