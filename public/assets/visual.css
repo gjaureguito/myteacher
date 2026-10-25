@@ -1,0 +1,55 @@
+/* Editorial imagery and short, optional movement. Content remains visible without JS. */
+.mt-hero{isolation:isolate;background:radial-gradient(ellipse at 85% 10%,#27554b 0,transparent 48%),#102b32!important}
+.mt-hero::after{content:"";position:absolute;width:360px;height:360px;border:1px solid #d0f56b18;border-radius:50%;right:-170px;top:50px;z-index:-1;pointer-events:none}
+.mt-hero .mt-photo-frame{border:1px solid #ffffff25;box-shadow:0 22px 65px #061d2450;border-radius:28px 28px 100px 28px}
+.mt-photo-frame picture{display:block;width:100%;height:100%}
+.mt-photo-frame picture img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.mt-hero .mt-photo-note{bottom:auto;top:14px;left:auto;right:14px;font-size:.58rem;padding:4px 10px;background:#102b32dc}
+.mt-hero .mt-lesson-label{top:-18px;bottom:auto;left:-8px;z-index:2;box-shadow:0 12px 40px #06292025}
+.mt-hero .mt-hero-quiz{z-index:3;bottom:-4px;left:12%;right:-2%;transform:rotate(-1.5deg);border:1px solid #e3e9e2}
+.mt-hero .mt-orbit{bottom:auto;top:-28px;right:-8px;transform:rotate(8deg);font-family:Georgia,serif;font-style:italic;font-weight:400;font-size:1.5rem}
+.mt-hero .mt-orbit svg{width:42px;height:42px;transform:rotate(70deg)}
+.mt-voice-decoration{display:flex;align-items:center;gap:5px;height:40px;padding:7px 14px;border-radius:24px;background:#d0f56b;color:#102b32;box-shadow:0 6px 18px #102b321a;position:absolute;right:-10px;bottom:214px;z-index:2;transform:rotate(4deg)}
+.mt-voice-decoration i{display:block;width:3px;border-radius:4px;background:currentColor;height:var(--bar,10px)}
+.mt-voice-decoration i:nth-child(2n){--bar:21px}.mt-voice-decoration i:nth-child(3n){--bar:14px}.mt-voice-decoration i:nth-child(4n){--bar:26px}
+.mt-study-band{padding:78px 0;background:#f7f4eb;border-block:1px solid #e7e6d9}
+.mt-study-grid{display:grid;grid-template-columns:1fr 1fr;gap:76px;align-items:center}
+.mt-study-image{position:relative;min-width:0;margin:0}
+.mt-study-image picture{display:block;border-radius:20px 85px 20px 20px;overflow:hidden;background:#e3e7d8;aspect-ratio:1.25}
+.mt-study-image img{width:100%;height:100%;object-fit:cover;display:block}
+.mt-study-image>figcaption{font-size:.63rem;color:#68776d;margin:10px 3px 0}
+.mt-study-label{position:absolute;left:-18px;bottom:58px;padding:17px 21px;border:1px solid #d7e4cd;background:#fffdf7;box-shadow:0 10px 35px #193b3415;transform:rotate(-4deg);border-radius:12px;display:flex;gap:16px;align-items:center;color:#173b34}
+.mt-study-label>span{font-family:Georgia,serif;font-size:2.1rem;line-height:1.1}.mt-study-label strong{font-size:.79rem;display:block}.mt-study-label small{font-size:.68rem;display:block;margin-top:3px}
+.mt-study-copy h2{font-size:clamp(2rem,3.5vw,3rem);line-height:1.15;margin:16px 0 22px}.mt-study-copy h2>span{color:#4d7d63}
+.mt-study-copy>p:not(.eyebrow){color:#5b6e66;font-size:.91rem;line-height:1.9;max-width:480px}
+.mt-study-points{display:flex;flex-wrap:wrap;gap:8px;margin:23px 0 28px;padding:0;list-style:none}
+.mt-study-points li{border:1px solid #d5dfcd;border-radius:30px;padding:7px 12px;font-size:.68rem;font-weight:750;color:#496b53;background:#fffdf780}
+.mt-study-copy .fine{margin:15px 0 0;font-size:.72rem!important}
+.mt-study-dashboard{display:grid;grid-template-columns:220px 1fr;background:#f4f5e9;border:1px solid #dce5d5;border-radius:18px;overflow:hidden;margin:24px 0;color:#173b34}
+.mt-study-dashboard img{width:100%;height:100%;min-height:200px;object-fit:cover}
+.mt-study-dashboard-copy{padding:26px 30px}.mt-study-dashboard h2{font-size:1.5rem;margin:8px 0 12px}.mt-study-dashboard p{font-size:.84rem;line-height:1.8;max-width:650px}.mt-study-dashboard .mt-text-link{font-size:.79rem}
+.mt-feature{position:relative;overflow:hidden}.mt-feature::after{content:"";position:absolute;width:120px;height:120px;border:1px solid #53856a13;border-radius:50%;right:-58px;top:-35px;pointer-events:none}
+.mt-feature .mt-feature-icon{box-shadow:0 4px 14px #284b3c08}
+.mt-audio-icon{display:flex;gap:3px;align-items:center;justify-content:center;width:30px;height:28px}
+.mt-audio-icon i{display:block;width:3px;background:currentColor;border-radius:4px;height:var(--h,10px)}
+.mt-audio-icon i:nth-child(2),.mt-audio-icon i:nth-child(4){--h:20px}.mt-audio-icon i:nth-child(3){--h:28px}
+.mt-feature .mt-correct-icon{display:grid;place-items:center;width:30px;height:30px;border:2px solid currentColor;border-radius:50%;font-size:1rem}
+.mt-scene-image img{filter:saturate(.88);transition:transform .5s cubic-bezier(.2,.7,.3,1),filter .5s}
+.mt-scene-card:hover img{filter:saturate(1.03);transform:scale(1.055)}
+.mt-scene-play,.mt-level-arrow{transition:transform .25s}.mt-scene-card:hover .mt-scene-play,.track-row:hover .mt-level-arrow{transform:rotate(35deg)}
+.mt-scene-card:focus-within,.mt-feature:focus-within{box-shadow:0 0 0 3px #a0be77}
+.book-cover{position:relative;overflow:hidden;isolation:isolate}.book-cover::after{content:"";position:absolute;right:-10px;top:0;width:36%;height:100%;background:linear-gradient(90deg,#183c38 0,transparent 85%),url('/assets/images/study-desk-v2-640.webp') center/cover;opacity:.45;z-index:-1;pointer-events:none}.book-cover>h1,.book-cover>p:not(.eyebrow){position:relative;max-width:78%}.book-cover .book-badges{position:relative}
+.mt-motion-toggle{border:1px solid #d3dfd5;color:#526b62;background:transparent;border-radius:30px;padding:6px 11px;font:600 .7rem 'Manrope',sans-serif;cursor:pointer;margin-top:12px}
+.mt-motion-toggle:hover{background:#edf3e9}.mt-motion-toggle:focus-visible{outline:3px solid #73924b;outline-offset:3px}
+.mt-topbar-shadow{box-shadow:0 6px 24px #102b320b!important}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){
+  .mt-feature{transition:transform .3s,box-shadow .3s}.mt-feature:hover{transform:translateY(-5px);box-shadow:0 14px 35px #173b340d}
+  .mt-study-image picture img{transition:transform .65s}.mt-study-image:hover img{transform:scale(1.025)}
+  .mt-levels-grid .track-row{transition:transform .3s,box-shadow .3s}.mt-levels-grid .track-row:hover{transform:translateY(-4px);box-shadow:0 12px 25px #173b3410}
+}
+html[data-theme=dark] .mt-study-band{background:#152f31;border-color:#2d4845}html[data-theme=dark] .mt-study-copy>p:not(.eyebrow){color:#bdcec6}html[data-theme=dark] .mt-study-copy h2>span{color:#b7d88c}html[data-theme=dark] .mt-study-points li{background:#213d39;color:#d4e2cc;border-color:#40574b}html[data-theme=dark] .mt-study-image>figcaption{color:#afc4b7}html[data-theme=dark] .mt-study-dashboard{background:#203b38;color:#e9f3e7;border-color:#385149}html[data-theme=dark] .mt-study-dashboard h2{color:inherit}html[data-theme=dark] .mt-motion-toggle{color:#c0d7cb;border-color:#496459}
+@media(max-width:1000px){.mt-study-grid{gap:40px}.mt-study-label{left:-6px}.mt-hero .mt-hero-quiz{left:3%;right:-2%}}
+@media(max-width:640px){.mt-hero .mt-photo-note{max-width:105px;font-size:.5rem;line-height:1.4;right:9px;top:12px}.mt-study-band{padding:48px 0}.mt-study-grid{grid-template-columns:1fr;gap:34px}.mt-study-image{margin:0 10px}.mt-study-image picture{aspect-ratio:1.4;border-radius:18px 65px 18px 18px}.mt-study-label{bottom:40px;left:-10px;padding:13px 16px}.mt-study-copy h2{font-size:2.15rem}.mt-study-dashboard{grid-template-columns:105px 1fr}.mt-study-dashboard-copy{padding:20px 17px}.mt-study-dashboard img{min-height:220px}.mt-study-dashboard h2{font-size:1.2rem}.mt-study-dashboard p{font-size:.75rem}.mt-hero .mt-hero-visual{margin:0 10px 5px;padding-bottom:105px}.mt-hero .mt-photo-frame{height:330px;transform:rotate(1deg)}.mt-hero .mt-lesson-label{top:12px;bottom:auto;padding:12px;left:-11px}.mt-hero .mt-hero-quiz{left:3%;right:-8px;bottom:0;padding:20px}.mt-voice-decoration{right:-6px;bottom:228px}.mt-hero .mt-orbit{display:none}.book-cover>h1,.book-cover>p:not(.eyebrow){max-width:100%}.book-cover::after{opacity:.16;width:55%}.mt-study-dashboard .eyebrow{font-size:.58rem}}
+@media(prefers-reduced-motion:reduce){.mt-hero *,.mt-study-band *,.mt-scene-card,.mt-scene-card *,.mt-feature,.track-row,.track-row *{animation:none!important;transition:none!important}}
+html[data-motion=off] *,html[data-motion=off] *::before,html[data-motion=off] *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+html[data-motion=off] [data-reveal]{opacity:1!important;transform:none!important}
