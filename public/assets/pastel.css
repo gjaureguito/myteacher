@@ -1,5 +1,5 @@
 /* MyTeacher: soft colour, clear contrast, rounded surfaces. */
-:root:not([data-theme=dark]){--paper:#fcfbff;--ink:#323447;--ink-2:#626579;--line:#e8e5ef;--brand:#7563b1;--brand-2:#ddd3fa;--mt-navy:#35334c;--mt-deep:#29283c;--mt-green:#ddd3fa;--mt-mint:#eef7f0;--mt-text:#323447;--mt-muted:#626579;--mt-border:#e8e5ef;--pastel-lilac:#eee8fc;--pastel-mint:#e8f5ee;--pastel-peach:#fff0e6;--pastel-blue:#eaf1fc}
+:root:not([data-theme=dark]){--paper:#fcfbff;--ink:#323447;--ink-2:#494353;--line:#e8e5ef;--brand:#7563b1;--brand-2:#ddd3fa;--mt-navy:#35334c;--mt-deep:#29283c;--mt-green:#ddd3fa;--mt-mint:#eef7f0;--mt-text:#323447;--mt-muted:#494353;--mt-border:#e8e5ef;--pastel-lilac:#eee8fc;--pastel-mint:#e8f5ee;--pastel-peach:#fff0e6;--pastel-blue:#eaf1fc}
 .site-modern h1,.site-modern h2,.site-modern h3{letter-spacing:-.045em}
 .site-modern .btn{border-radius:16px!important;min-height:48px;transition:transform .2s,box-shadow .2s,background .2s}
 .site-modern .btn-sm{min-height:36px;border-radius:12px!important}
@@ -17,17 +17,17 @@ html:not([data-theme=dark]) .site-modern .btn{background:#ded3f8!important;color
 html:not([data-theme=dark]) .site-modern .btn:hover{background:#d2c3f2!important;box-shadow:0 8px 22px #7563b11c}
 html:not([data-theme=dark]) .site-modern .btn-ghost{background:#ffffff80!important;color:#51466a!important;border-color:#d8cfe8!important}
 html:not([data-theme=dark]) .site-modern :focus-visible{outline-color:#7a63aa}
-html:not([data-theme=dark]) .site-modern .eyebrow{color:#79619a;font-weight:800;letter-spacing:.11em}
+html:not([data-theme=dark]) .site-modern .eyebrow{color:#624777;font-weight:800;letter-spacing:.11em}
 html:not([data-theme=dark]) .mt-hero{background:radial-gradient(ellipse at 90% 15%,#e4f3ee 0,transparent 52%),radial-gradient(ellipse at 8% 90%,#fcebdd 0,transparent 48%),#f1ecfc!important;color:#343248;border-bottom:1px solid #e7e0f2}
 html:not([data-theme=dark]) .mt-hero::before{opacity:.3;border-color:#c4b6de!important;background:transparent!important}
 html:not([data-theme=dark]) .mt-hero::after{border-color:#cbbde15c}
 html:not([data-theme=dark]) .site-modern .mt-hero h1{color:#36324a;letter-spacing:-.055em;line-height:1.12}
-html:not([data-theme=dark]) .mt-hero h1>span{color:#8170b4}
+html:not([data-theme=dark]) .mt-hero h1>span{color:#66508c}
 html:not([data-theme=dark]) .mt-hero h1 svg{stroke:#b5a0da}
-html:not([data-theme=dark]) .mt-hero-copy>p:not(.mt-kicker){color:#626174}
-html:not([data-theme=dark]) .mt-kicker{color:#6a5d80}
+html:not([data-theme=dark]) .mt-hero-copy>p:not(.mt-kicker){color:#453f50}
+html:not([data-theme=dark]) .mt-kicker{color:#514163}
 html:not([data-theme=dark]) .mt-kicker>span{background:#9e8ac4}
-html:not([data-theme=dark]) .mt-checks{color:#6d677a}
+html:not([data-theme=dark]) .mt-checks{color:#4c4357}
 html:not([data-theme=dark]) .mt-hero .mt-photo-frame{border:6px solid #ffffffb8;box-shadow:0 20px 60px #6d5c8e14;border-radius:32px 32px 82px 32px;transform:rotate(1deg)}
 html:not([data-theme=dark]) .mt-hero .mt-lesson-label{background:#fffefb;border:1px solid #e9e2ee;box-shadow:0 12px 30px #63537912;border-radius:19px;transform:rotate(-2deg)}
 html:not([data-theme=dark]) .mt-hero .mt-hero-quiz{background:#fffefe;border-color:#e6deed;box-shadow:0 16px 45px #63537916;border-radius:24px;transform:rotate(-1deg)}
@@ -39,7 +39,7 @@ html:not([data-theme=dark]) .mt-orbit svg{stroke:#a18ac4}
 html:not([data-theme=dark]) .mt-voice-decoration{background:#e7f5e9;color:#53775d;border:1px solid #d3e8d7;box-shadow:0 6px 18px #3a6c4a0a}
 html:not([data-theme=dark]) .site-modern .mt-facts{background:#fcfbff;border-bottom:1px solid #eee9f5}
 html:not([data-theme=dark]) .mt-facts p>strong{color:#675783}
-html:not([data-theme=dark]) .mt-facts p>span{color:#736b7d}
+html:not([data-theme=dark]) .mt-facts p>span{color:#4d425a}
 html:not([data-theme=dark]) .mt-feature{border-radius:25px;border-color:#e9e4f0;background:#f4effc}
 html:not([data-theme=dark]) .mt-feature-primary{background:#ebf6ef;border-color:#dcebe0}
 html:not([data-theme=dark]) .mt-feature:nth-child(3){background:#fff1e8;border-color:#f2e3d7}
@@ -47,30 +47,30 @@ html:not([data-theme=dark]) .mt-feature-icon{background:#e5daf6;color:#755d98;bo
 html:not([data-theme=dark]) .mt-feature-primary .mt-feature-icon{background:#d7ecdf;color:#47765b}
 html:not([data-theme=dark]) .mt-feature:nth-child(3) .mt-feature-icon{background:#f7dfce;color:#976946}
 html:not([data-theme=dark]) .mt-feature-foot{background:#ffffffb0;color:#77618d}
-html:not([data-theme=dark]) .mt-section h2>span,html:not([data-theme=dark]) .mt-method h2>span{color:#8b75ac}
+html:not([data-theme=dark]) .mt-section h2>span,html:not([data-theme=dark]) .mt-method h2>span{color:#6b4f8e}
 html:not([data-theme=dark]) .mt-study-band{background:#f9f4ed;border-block-color:#f0e8de}
 html:not([data-theme=dark]) .mt-study-image picture{border:5px solid #fffdf8;border-radius:28px 72px 28px 28px;box-shadow:0 12px 35px #8b765510}
 html:not([data-theme=dark]) .mt-study-label{background:#fffdf8;border-color:#e8ddcf;border-radius:19px;box-shadow:0 8px 22px #7a684914;color:#6c5c73}
-html:not([data-theme=dark]) .mt-study-copy h2>span{color:#9a7d9d}
-html:not([data-theme=dark]) .mt-study-copy>p:not(.eyebrow){color:#776b77}
-html:not([data-theme=dark]) .mt-study-points li{color:#776278;border-color:#e4d7dd;background:#fffdf9}
+html:not([data-theme=dark]) .mt-study-copy h2>span{color:#765379}
+html:not([data-theme=dark]) .mt-study-copy>p:not(.eyebrow){color:#514354}
+html:not([data-theme=dark]) .mt-study-points li{color:#58405d;border-color:#e4d7dd;background:#fffdf9}
 html:not([data-theme=dark]) .mt-situations-band{background:#edf5f9}
-html:not([data-theme=dark]) .mt-filter button{border-color:#d8e1eb;color:#637184;background:#ffffff70}
+html:not([data-theme=dark]) .mt-filter button{border-color:#d8e1eb;color:#435267;background:#ffffff70}
 html:not([data-theme=dark]) .mt-filter button.is-active{background:#dcd5f2;border-color:#cfc3e8;color:#51436b}
 html:not([data-theme=dark]) .mt-scene-card{border:1px solid #e2e7ed;border-radius:24px;box-shadow:0 5px 15px #59698106}
 html:not([data-theme=dark]) .mt-scene-image{margin:9px 9px 0;border-radius:17px}
 html:not([data-theme=dark]) .mt-scene-level{background:#fffaf2;color:#635373;border-radius:9px}
 html:not([data-theme=dark]) .mt-scene-play{background:#eee7fa;color:#6b548b}
-html:not([data-theme=dark]) .mt-scene-copy>p{color:#7d688d}
-html:not([data-theme=dark]) .mt-scene-copy>span{color:#687386}
+html:not([data-theme=dark]) .mt-scene-copy>p{color:#5d426e}
+html:not([data-theme=dark]) .mt-scene-copy>span{color:#465267}
 html:not([data-theme=dark]) .mt-scene-footer{border-color:#eeeaf3}
 html:not([data-theme=dark]) .mt-method-steps li>span{background:#f0e8f9;color:#8a70a5;border-radius:14px}
-html:not([data-theme=dark]) .mt-skill-tags span{background:#f6f1fc;border-color:#e5dced;color:#79638d;border-radius:9px}
+html:not([data-theme=dark]) .mt-skill-tags span{background:#f6f1fc;border-color:#e5dced;color:#5a406e;border-radius:9px}
 html:not([data-theme=dark]) .mt-levels-band{background:#f5f0fb}
 html:not([data-theme=dark]) .site-modern .mt-levels-grid .track-row{background:#fffdfd;border-color:#e8e1f0;border-radius:23px}
 html:not([data-theme=dark]) .mt-levels-grid .track-row:nth-child(3n+2){background:#edf6f0}
 html:not([data-theme=dark]) .mt-levels-grid .track-row:nth-child(3n){background:#fff2e9}
-html:not([data-theme=dark]) .mt-level-code{color:#78618f}
+html:not([data-theme=dark]) .mt-level-code{color:#5b4074}
 html:not([data-theme=dark]) .mt-level-arrow{background:#e9dff7;color:#735b96;border-radius:12px}
 html:not([data-theme=dark]) .mt-plan{border-radius:27px;border-color:#e4ddef;background:#faf7ff}
 html:not([data-theme=dark]) .mt-plan-full{background:#ede7f9;color:#40354e;border-color:#d7cbe9}
@@ -79,9 +79,9 @@ html:not([data-theme=dark]) .mt-plan-ribbon{background:#d9cbed;color:#57416d}
 html:not([data-theme=dark]) .mt-plan-full .mt-badge{background:#ffffffa0;color:#75608d}
 html:not([data-theme=dark]) .mt-closing{background:#eaf4ed;color:#3e5b4b}
 html:not([data-theme=dark]) .mt-closing h2,html:not([data-theme=dark]) .mt-closing p{color:#486653}
-html:not([data-theme=dark]) .mt-closing h2>span{color:#7c9784}
-html:not([data-theme=dark]) .site-modern .footer{background:#f5f1fa;color:#73677e;border-top:1px solid #e7dfed}
-html:not([data-theme=dark]) .site-modern .footer a{color:#73677e}
+html:not([data-theme=dark]) .mt-closing h2>span{color:#466b52}
+html:not([data-theme=dark]) .site-modern .footer{background:#f5f1fa;color:#4f405d;border-top:1px solid #e7dfed}
+html:not([data-theme=dark]) .site-modern .footer a{color:#4f405d}
 html:not([data-theme=dark]) .mt-motion-toggle{background:#fffaff;color:#756184;border-color:#dfd3e9}
 html:not([data-theme=dark]) .site-modern :is(.panel,.auth-card,.resume,.level-card,.unit-row>a,.ex,.reading-question){border-color:#e7e1ef;border-radius:20px;box-shadow:0 5px 18px #71608a05}
 html:not([data-theme=dark]) .site-modern :is(input,select,textarea){border-color:#ded5e9;border-radius:12px;background:#fffefe;color:#443c51}
@@ -90,12 +90,12 @@ html:not([data-theme=dark]) .site-modern .tabs button[aria-selected=true]{backgr
 html:not([data-theme=dark]) .site-modern .admin-nav a{border-radius:12px;background:#f2ebfa;border-color:#e1d4ef;color:#72598d}
 html:not([data-theme=dark]) .mt-start-main{background:linear-gradient(130deg,#eae1f7,#e9effa);color:#4d3f64;border:1px solid #e0d5ee;border-radius:25px}
 html:not([data-theme=dark]) .mt-start-main h2{color:#4d3f64}
-html:not([data-theme=dark]) .mt-start-main p,html:not([data-theme=dark]) .mt-start-main .eyebrow{color:#78658d}
+html:not([data-theme=dark]) .mt-start-main p,html:not([data-theme=dark]) .mt-start-main .eyebrow{color:#584368}
 html:not([data-theme=dark]) .mt-start-side{background:#edf6ef;border-color:#dae9dd;border-radius:25px}
 html:not([data-theme=dark]) .mt-study-dashboard{background:#fcf2e9;border-color:#ecdfd6;border-radius:24px;color:#725a69}
 html:not([data-theme=dark]) .site-modern .level-head{background:linear-gradient(120deg,#f0eafb,#f2f7fb);border-color:#e4dced;border-radius:25px}
 html:not([data-theme=dark]) .book-page .book-cover{background:#eae2f7;color:#4c3d62;border:1px solid #dfd4ee;border-radius:27px}
-html:not([data-theme=dark]) .book-page .book-cover .eyebrow{color:#81659e}
+html:not([data-theme=dark]) .book-page .book-cover .eyebrow{color:#5e407c}
 html:not([data-theme=dark]) .book-cover::after{background:linear-gradient(90deg,#eae2f7 0,transparent 90%),url('/assets/images/study-desk-v2-640.webp') center/cover;opacity:.23}
 html:not([data-theme=dark]) .book-page .book-badges span{border-color:#d4c5e7;color:#705587;background:#fffafa80}
 html:not([data-theme=dark]) .book-page .book-paper{border-color:#e7dff0;background:#fffefd;box-shadow:0 10px 35px #70608006;border-radius:22px}
@@ -103,5 +103,12 @@ html:not([data-theme=dark]) .book-page .book-index{background:#f9f6fd;border-col
 html:not([data-theme=dark]) .book-page .book-index a[aria-current]{background:#e8def6;color:#685084;border-radius:10px}
 html:not([data-theme=dark]) .book-page :is(.book-example,.book-recall,.book-note){background:#f0ebf9;border-color:#cdb9e1;color:#534661;border-radius:15px}
 html:not([data-theme=dark]) .site-modern .bottom-nav{background:#fcfafff5;border-color:#e7dfed}
-html:not([data-theme=dark]) .site-modern .bottom-nav a[aria-current]{color:#8c6caf}
+html:not([data-theme=dark]) .site-modern .bottom-nav a[aria-current]{color:#644387}
 @media(max-width:640px){.site-modern .mt-hero h1{font-size:clamp(2.55rem,10.3vw,3.5rem)}.site-modern .mt-hero-grid{padding-top:32px}.site-modern .mt-study-copy h2{font-size:2rem}.site-modern .mt-section-head h2{font-size:2rem}}
+
+/* Readability: pastel surfaces, dark text, no faded helper labels. */
+html:not([data-theme=dark]) .site-modern :is(.muted,.fine,.mt-feature p,.mt-section-head>p,.mt-method>div>p:not(.eyebrow),.mt-method-steps p,.mt-catalog-count,.mt-scene-footer>span,.mt-start-side p,.book-index small,.book-page .fine){color:#484052!important;opacity:1}
+html:not([data-theme=dark]) .site-modern :is(.mt-feature-foot,.mt-study-points li,.mt-badge,.mt-skill-tags span){color:#514060}
+html:not([data-theme=dark]) .site-modern input::placeholder,html:not([data-theme=dark]) .site-modern textarea::placeholder{color:#655b70;opacity:1}
+html:not([data-theme=dark]) .site-modern :is(.study-feedback,.study-picture figcaption){color:#51405e}
+html:not([data-theme=dark]) .site-modern .study-built{color:#5c4b6c}
