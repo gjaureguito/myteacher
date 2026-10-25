@@ -136,3 +136,12 @@ Validación: `python tests/study_book.py`, `php tests/content_check.php` y `pyth
 Cada capítulo, tanto en el libro como en la teoría de su unidad, ofrece construcción de oraciones, corrección escrita y asociación de forma con función: 30 laboratorios con 90 actividades interactivas. Los seis índices de nivel incorporan un taller de lectura de imágenes, con dificultad y explicación adaptadas al nivel. Los modelos cambian por acción explícita y con animación breve, respetando movimiento reducido y el control del pie.
 
 Estas prácticas comparan con modelos locales, sin calificación docente ni guardado automático; no sustituyen los ejercicios del servidor ni alteran el progreso existente. Se verifican contenido, renderizado, permisos y publicación en `tests/study_book.py`, junto a los flujos generales de `tests/smoke.py`. Las interacciones también se probaron en navegador: construcción, devolución/reinicio, corrección, tres asociaciones, cambio de etapa e interpretación de imagen; vista móvil de 390 px sin desbordes ni imágenes rotas.
+
+
+## Dirección visual de academia
+
+`academy.css` reemplaza la carga de `pastel.css` con blanco/celeste, tipografía azul, textos oscuros y acciones naranjas. La portada presenta foto, mensaje y tarjeta de acceso; la demo se mantiene debajo en una sección propia. La referencia de composición fue https://www.openenglish.com/, conservando identidad, imágenes y contenido propios. No se copian promociones, testimonios, cifras comerciales ni promesas de profesores o clases en vivo. La franja de bienvenida comunica solo el acceso demo gratuito real de MyTeacher.
+
+### Cuadernos de gramática
+
+`/grammar.php` reúne explicación, ejemplos y ejercicios con corrección y progreso compartidos con la unidad. Práctica abierta con respuestas comentadas de autoestudio, sin puntuación ni guardado de borradores. Respeta acceso por suscripción y demo. Contenido propio.

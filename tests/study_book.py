@@ -59,6 +59,7 @@ create_user('demo@example.test','Demo Reader','Local-reader-123');
         else:
             raise AssertionError('PHP server did not start')
         assert request('/book.php?code=a1')[2].endswith('/login.php')
+        assert request('/grammar.php')[2].endswith('/login.php')
         login('reader@example.test')
         for code in ['a1','a2','b1','b2','c1','c2']:
             status, html, _, headers = request('/book.php?code=' + code)
@@ -72,6 +73,12 @@ create_user('demo@example.test','Demo Reader','Local-reader-123');
             assert chapters[slug]['goal'] in html, slug
             assert 'data-study-lab' in html and html.count('data-stage=') == 3, slug
             assert 'Comprobar corrección' in html and 'Relacioná forma y función' in html, slug
+        for uid, slug, code, position in units:
+            status, html, _, headers = request(f'/grammar.php?id={uid}')
+            assert status == 200 and 'grammar-reference' in html and 'grammar-practice' in html, slug
+            assert 'no-store' in headers['Cache-Control'], slug
+        assert request('/grammar.php?id=invalid')[0] == 404
+        assert request('/grammar.php?id[]=1')[0] == 404
         status, html, _, _ = request('/unit.php?id=' + str(units[0][0]))
         assert status == 200 and 'Desarrollo del libro y práctica guiada' in html
         assert request('/book.php?code=invalid')[0] == 404
@@ -82,6 +89,7 @@ create_user('demo@example.test','Demo Reader','Local-reader-123');
         hidden = next(u for u in units if u[3] != 1)
         db.execute('UPDATE units SET is_published=0 WHERE id=?', [hidden[0]]); db.commit()
         assert request(f'/book.php?code={hidden[2]}&chapter={hidden[1]}')[0] == 404
+        assert request(f'/grammar.php?id={hidden[0]}')[0] == 404
         assert hidden[1] not in request('/book.php?code=' + hidden[2])[1]
         db.execute('UPDATE units SET is_published=1 WHERE id=?', [hidden[0]]); db.commit()
         # Fresh session for a demo account.
@@ -89,9 +97,12 @@ create_user('demo@example.test','Demo Reader','Local-reader-123');
         login('demo@example.test')
         for uid, slug, code, position in units:
             status, html, url, _ = request(f'/book.php?code={code}&chapter={slug}')
+            grammar_status, grammar_html, grammar_url, _ = request(f'/grammar.php?id={uid}')
             if position == 1:
+                assert grammar_status == 200 and 'grammar-reference' in grammar_html
                 assert status == 200 and 'Práctica guiada y razonada' in html, slug
             else:
+                assert grammar_url.endswith('/account.php')
                 assert url.endswith('/account.php') and 'Práctica guiada y razonada' not in html, slug
         assert db.execute('SELECT COUNT(*) FROM exercises').fetchone()[0] == before
         assert db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0] == 0

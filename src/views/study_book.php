@@ -18,6 +18,7 @@
     </aside>
     <article class="book-paper">
       <?php if ($chapterUnit): ?>
+        <p><a class="btn" href="/grammar.php?id=<?= (int)$chapterUnit['id'] ?>">Estudiar y practicar gramática</a></p>
         <p class="eyebrow">CAPÍTULO <?= (int) $chapterUnit['position'] ?></p>
         <section class="theory book-theory"><h2>La base del capítulo</h2><?= $chapterUnit['theory_html'] /* trusted published curriculum, same as unit view */ ?></section>
         <?php if ($chapter): require __DIR__ . '/study_chapter.php'; endif; ?>

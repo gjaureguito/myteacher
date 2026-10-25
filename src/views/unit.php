@@ -11,6 +11,7 @@ $total = count($exercises);
   </header>
 
   <a class="book-link" href="/book.php?code=<?= e($unit['level_code']) ?>&amp;chapter=<?= e($unit['slug']) ?>"><strong>Estudiar este capítulo en el libro →</strong><span>Lectura desarrollada, ejemplos paso a paso y práctica con soluciones comentadas.</span></a>
+  <p><a class="btn btn-sm" href="/grammar.php?id=<?= (int)$unit['id'] ?>">Abrir cuaderno de gramática</a></p>
   <div class="unit-progress" aria-hidden="true"><span></span></div>
   <div class="unit-toolbar">
   <div class="tabs" role="tablist">
