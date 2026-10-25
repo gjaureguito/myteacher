@@ -43,7 +43,7 @@ $description = match ($path) {
 <link rel="stylesheet" href="/assets/scenes.css?v=2">
 <link rel="stylesheet" href="/assets/modern.css?v=1">
 <link rel="stylesheet" href="/assets/visual.css?v=1">
-<link rel="stylesheet" href="/assets/pastel.css?v=1">
+<link rel="stylesheet" href="/assets/pastel.css?v=2">
 <link rel="stylesheet" href="/assets/study-lab.css?v=1">
 <meta name="theme-color" content="#f1ecfc">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
