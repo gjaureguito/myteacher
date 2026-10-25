@@ -185,5 +185,11 @@ HTML,
                 ['dictation', 'Escuchá y escribí.', 'While we were having lunch, it started to rain.', 'While + pasado continuo.'],
             ],
         ],
+        // Ampliación original A2: unidades 5–9
+        ['slug' => 'a2-present-perfect-experiences', 'exercises' => []],
+        ['slug' => 'a2-obligations-advice', 'exercises' => []],
+        ['slug' => 'a2-first-conditional-plans', 'exercises' => []],
+        ['slug' => 'a2-relative-clauses-people-places', 'exercises' => []],
+        ['slug' => 'a2-workplace-problem-solving', 'exercises' => []],
     ],
 ];
