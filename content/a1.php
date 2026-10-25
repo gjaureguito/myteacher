@@ -210,6 +210,10 @@ HTML,
                 ['dictation', 'Escuchá y escribí.', 'Their daughter is a nurse.', 'Their = de ellos.'],
             ],
         ],
+        // Nuevas unidades originales: contenido completo en content/units/<slug>.php
+        ['slug' => 'a1-greetings-introductions', 'exercises' => []],
+        ['slug' => 'a1-daily-schedule', 'exercises' => []],
+        ['slug' => 'a1-shopping-requests', 'exercises' => []],
         // Unidades 5–10: definidas por completo en content/units/<slug>.php
         ['slug' => 'a1-present-continuous', 'exercises' => []],
         ['slug' => 'a1-can-ability', 'exercises' => []],
