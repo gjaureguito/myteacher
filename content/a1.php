@@ -221,5 +221,8 @@ HTML,
         ['slug' => 'a1-greetings-introductions', 'exercises' => []],
         ['slug' => 'a1-daily-schedule', 'exercises' => []],
         ['slug' => 'a1-shopping-requests', 'exercises' => []],
+        ['slug' => 'a1-home-descriptions', 'exercises' => []],
+        ['slug' => 'a1-weather-clothes', 'exercises' => []],
+        ['slug' => 'a1-transport-tickets', 'exercises' => []],
     ],
 ];
