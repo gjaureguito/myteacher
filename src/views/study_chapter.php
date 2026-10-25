@@ -1,9 +1,11 @@
+<?php $visualSlug=$chapterUnit['slug'] ?? $unit['slug'] ?? ''; $visual=study_visual($visualSlug); ?>
 <section class="book-section" aria-label="Desarrollo y práctica guiada">
   <p class="eyebrow">COMPRENDER ANTES DE MEMORIZAR</p>
   <h2>Del significado a la estructura</h2>
   <p><?= e($chapter['explain']) ?></p>
   <h3>Contrastes y decisiones de uso</h3>
   <p><?= e($chapter['contrast']) ?></p>
+  <?php if ($visual): ?><h3>El fundamento: por qué funciona así</h3><p><?= e($visual['foundation']) ?></p><?php endif; ?>
   <figure class="book-example">
     <figcaption>Un ejemplo, paso a paso</figcaption>
     <blockquote lang="en"><?= e($chapter['example']) ?></blockquote>
@@ -17,6 +19,7 @@
     <li><p><?= e($prompt) ?></p><details><summary>Ver solución comentada</summary><p class="book-answer"><?= e($answer) ?></p><p><?= e($why) ?></p></details></li>
     <?php endforeach; ?>
   </ol>
+  <?php if ($visual): require __DIR__ . '/study_visual.php'; endif; ?>
   <h2>Escritura: construí tu propia respuesta</h2>
   <p><?= e($chapter['task']) ?></p>
   <p class="fine">Trabajá en tu cuaderno. Estas actividades son de revisión autónoma y no suman puntos al progreso de la plataforma.</p>

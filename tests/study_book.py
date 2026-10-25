@@ -5,6 +5,12 @@ import urllib.request, urllib.parse, urllib.error
 
 ROOT = Path(__file__).resolve().parents[1]
 chapters = json.loads((ROOT / 'content/books/chapters.json').read_text(encoding='utf-8'))
+visuals = json.loads((ROOT / 'content/books/visual.json').read_text(encoding='utf-8'))
+assert set(visuals) == set(chapters)
+for slug, visual in visuals.items():
+    assert len(visual['foundation'].split()) >= 60, slug
+    assert len(visual['steps']) == 3 and all(len(s) == 3 for s in visual['steps']), slug
+    assert len(visual['error']) == 3 and visual['error'][0] != visual['error'][1], slug
 assert len(chapters) == 30
 for slug, chapter in chapters.items():
     assert len(chapter['explain'].split()) >= 55, slug
@@ -58,11 +64,14 @@ create_user('demo@example.test','Demo Reader','Local-reader-123');
             status, html, _, headers = request('/book.php?code=' + code)
             assert status == 200 and 'Proyecto de cierre' in html and 'Qué vas a aprender' in html
             assert 'no-store' in headers['Cache-Control']
+            assert 'data-picture-practice' in html and 'Comprobar interpretación' in html
         for uid, slug, code, position in units:
             status, html, _, _ = request(f'/book.php?code={code}&chapter={slug}')
             assert status == 200 and html.count('Ver solución comentada') == 4, slug
             assert 'Abrir práctica de este capítulo' in html and 'Vocabulario para usar' in html, slug
             assert chapters[slug]['goal'] in html, slug
+            assert 'data-study-lab' in html and html.count('data-stage=') == 3, slug
+            assert 'Comprobar corrección' in html and 'Relacioná forma y función' in html, slug
         status, html, _, _ = request('/unit.php?id=' + str(units[0][0]))
         assert status == 200 and 'Desarrollo del libro y práctica guiada' in html
         assert request('/book.php?code=invalid')[0] == 404
@@ -87,6 +96,6 @@ create_user('demo@example.test','Demo Reader','Local-reader-123');
         assert db.execute('SELECT COUNT(*) FROM exercises').fetchone()[0] == before
         assert db.execute('SELECT COUNT(*) FROM attempts').fetchone()[0] == 0
         assert db.execute('SELECT COUNT(*) FROM exercise_status').fetchone()[0] == 0
-        print('PASS: 6 level books, 30 authored chapters, 120 explained activities; all access and publication checks; unchanged exercises and progress')
+        print('PASS: 6 books and picture workshops, 30 chapters and visual labs, 120 explained paper activities; access and publication checks; unchanged progress')
     finally:
         server.terminate(); server.wait(timeout=10); db.close()
