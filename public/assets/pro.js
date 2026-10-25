@@ -11,7 +11,7 @@
     get: (k, d) => { try { const v = localStorage.getItem(k); return v === null ? d : v; } catch { return d; } },
     set: (k, v) => { try { localStorage.setItem(k, v); } catch {} }
   };
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches || store.get('mt_motion', 'on') === 'off';
   document.documentElement.classList.add('js');
 
   /* ---------- Toasts ---------- */
