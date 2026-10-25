@@ -43,9 +43,9 @@ $description = match ($path) {
 <link rel="stylesheet" href="/assets/scenes.css?v=2">
 <link rel="stylesheet" href="/assets/modern.css?v=1">
 <link rel="stylesheet" href="/assets/visual.css?v=1">
-<link rel="stylesheet" href="/assets/pastel.css?v=2">
 <link rel="stylesheet" href="/assets/study-lab.css?v=1">
-<meta name="theme-color" content="#f1ecfc">
+<link rel="stylesheet" href="/assets/academy.css?v=1">
+<meta name="theme-color" content="#edf7ff">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
 </head>
@@ -59,6 +59,7 @@ $description = match ($path) {
       <?php if ($u): ?>
         <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>>Mis niveles</a>
         <a href="/book.php"<?= $navCur('/book.php') ?>>Libro de estudio</a>
+        <a href="/grammar.php"<?= $navCur('/grammar.php') ?>>Gramática</a>
         <a href="/review.php"<?= $navCur('/review.php') ?>>Repaso</a>
         <a href="/stats.php"<?= $navCur('/stats.php') ?>>Estadísticas</a>
         <a href="/placement.php"<?= $navCur('/placement.php') ?>>Test de nivel</a>
