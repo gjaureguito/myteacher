@@ -118,3 +118,12 @@ Ver [diseño y contrato editorial](docs/EXPERIENCIA-ACADEMICA.md). Ejecutar `pyt
 - Validación sin base de datos: `php tests/content_check.php` (índices, textos, que cada texto modelo cumpla sus propios criterios).
 - `/stats.php`: avance y precisión por habilidad, minutos de práctica, actividad de 12 semanas, avance por nivel y unidades a reforzar.
 - `/review.php`: cuaderno de errores para rehacer lo pendiente y reforzar lo que costó.
+
+
+## Libros de estudio por nivel
+
+`/book.php?code=a1` (hasta `c2`) presenta una guía de estudio, índice de capítulos publicados y proyecto integrador. Cada capítulo reutiliza la teoría vigente de la unidad y agrega contenido original de `content/books/chapters.json`: explicación ampliada, contraste, ejemplo analizado, cuatro actividades con soluciones razonadas, tarea escrita, modelo breve y propuesta oral. La teoría de cada unidad también muestra el desarrollo adicional. El enlace a la práctica interactiva conserva el sistema de ejercicios y progreso.
+
+Se respetan autenticación, publicación y acceso de cada unidad. El primer capítulo publicado en posición 1 de cada nivel es accesible en demo; los demás requieren acceso vigente. No hay migración de tablas ni sustitución de ejercicios. Las actividades del libro son de autoestudio en cuaderno, sin puntuación ni guardado automático. Los libros desarrollan las 30 unidades actuales; no se presentan como cobertura exhaustiva ni certificación del MCER.
+
+Validación: `python tests/study_book.py`, `php tests/content_check.php` y `python tests/smoke.py`.

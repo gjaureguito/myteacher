@@ -2,6 +2,7 @@
 $solved = array_sum(array_map(fn($x) => (int) $x['solved'], $exercises));
 $total = count($exercises);
 ?>
+<link rel="stylesheet" href="/assets/book.css?v=1">
 <section class="wrap page unit-page" style="--lv: <?= e($color) ?>">
   <p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / <a href="/level.php?code=<?= e($unit['level_code']) ?>"><?= e(strtoupper($unit['level_code'])) ?></a> / Unidad <?= (int) $unit['position'] ?></p>
   <header class="unit-head">
@@ -9,6 +10,7 @@ $total = count($exercises);
     <p class="muted"><?= e($unit['summary']) ?></p>
   </header>
 
+  <a class="book-link" href="/book.php?code=<?= e($unit['level_code']) ?>&amp;chapter=<?= e($unit['slug']) ?>"><strong>Estudiar este capítulo en el libro →</strong><span>Lectura desarrollada, ejemplos paso a paso y práctica con soluciones comentadas.</span></a>
   <div class="unit-progress" aria-hidden="true"><span></span></div>
   <div class="unit-toolbar">
   <div class="tabs" role="tablist">
@@ -30,6 +32,9 @@ $total = count($exercises);
 
   <div class="tabpanel theory" id="t-theory" role="tabpanel" aria-labelledby="tab-theory">
     <?= $unit['theory_html'] /* contenido propio cargado por el admin */ ?>
+    <?php require_once ROOT . '/src/study_book.php'; $chapter = study_chapter($unit['slug']); if ($chapter): ?>
+    <details class="book-unit-expansion" open><summary>Desarrollo del libro y práctica guiada</summary><?php require __DIR__ . '/study_chapter.php'; ?></details>
+    <?php endif; ?>
     <p class="tab-next"><button class="btn" data-goto="t-practice">Ir a la práctica</button></p>
   </div>
 

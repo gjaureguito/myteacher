@@ -1,0 +1,962 @@
+{
+  "a1-verb-to-be": {
+    "goal": "Presentarte, preguntar por otra persona y distinguir identidad, origen y estado.",
+    "explain": "Una oración inglesa normalmente necesita un sujeto explícito. Aunque en castellano digamos ‘Soy estudiante’, en inglés construimos I am a student. Primero elegí quién realiza o experimenta lo que contás: I, you, he, she, it, we o they. Después elegí am, is o are. El verbo no depende de si en castellano diríamos ser o estar: depende del sujeto. Con nombres propios usá el pronombre equivalente: Ana = she; Ana and Tom = they.",
+    "contrast": "Para negar, conservá el sujeto y agregá not después del verbo. Para preguntar, mové am/is/are delante del sujeto; no agregues do. Compará You are tired, You aren't tired y Are you tired? En una respuesta corta afirmativa el verbo queda completo: Yes, I am. Cuando mencionás una profesión singular necesitás a/an: She's an engineer. Con el origen usás from; con la edad, un número seguido opcionalmente de years old.",
+    "example": "Is your sister a teacher? — No, she isn't. She's an engineer.",
+    "reason": "Your sister equivale a she, por eso la pregunta empieza con Is. La respuesta negativa usa isn't. Engineer empieza con sonido vocálico, por eso lleva an. No traducimos literalmente ‘ella tiene una profesión’: la identificamos con be.",
+    "practice": [
+      [
+        "Completá: My friends ___ from Chile.",
+        "are",
+        "My friends es plural y equivale a they; corresponde are."
+      ],
+      [
+        "Negá: I am late.",
+        "I'm not late. / I am not late.",
+        "Con I am la contracción negativa habitual es I'm not; no amn't."
+      ],
+      [
+        "Transformá en pregunta: Your brother is at home.",
+        "Is your brother at home?",
+        "Movemos is delante del sujeto completo your brother."
+      ],
+      [
+        "Corregí: Yes, she's. (Respuesta a Is Ana ready?)",
+        "Yes, she is.",
+        "En la respuesta corta afirmativa no contraemos el verbo final."
+      ]
+    ],
+    "task": "Escribí un perfil de 40–60 palabras con nombre, origen, profesión y estado de ánimo. Incluí una negativa y dos preguntas para conocer a un compañero.",
+    "model": "Hi! I'm Elena. I'm from Salta and I'm a student. My brother is a nurse. We aren't in the same English class. Today I'm happy and a little tired. Are you a student too? Where are you from?",
+    "speaking": "Presentate sin leer durante 30 segundos. Después preguntá por origen y profesión. Repetí usando los datos de una persona imaginaria."
+  },
+  "a1-present-simple": {
+    "goal": "Describir una rutina y pedir información sobre hábitos.",
+    "explain": "El presente simple presenta una situación como habitual o estable, aunque no ocurra en este instante. I work in a café no significa que ahora esté trabajando. Elegí un verbo principal que diga qué hacés: work, study, live. En afirmativas con he, she o it agregá la terminación correspondiente: works, watches, studies. Los demás sujetos usan la forma base. Una expresión de tiempo ayuda a situar el hábito: every day, on Mondays, at weekends.",
+    "contrast": "En preguntas y negativas necesitás do o does. Does ya marca la tercera persona, de modo que el verbo principal vuelve a su forma base: Does she study?; She doesn't study. No combines does con studies. Los adverbios de frecuencia suelen ir antes del verbo principal: I usually cook. Con be se colocan después: I am usually tired. Never ya expresa negación: I never smoke, sin don't.",
+    "example": "Maya works at a library, but she doesn't work on Sundays. Does she start at nine?",
+    "reason": "La afirmativa lleva works porque el sujeto es she. En doesn't work y Does she start, does recibe la marca de tercera persona y work/start quedan en forma base. On Sundays indica una costumbre repetida.",
+    "practice": [
+      [
+        "Completá: Leo ___ English every evening. (study)",
+        "studies",
+        "Consonante + y cambia a -ies en tercera persona."
+      ],
+      [
+        "Negá: She works on Saturdays.",
+        "She doesn't work on Saturdays.",
+        "Usamos doesn't + forma base, no doesn't works."
+      ],
+      [
+        "Preguntá si tus amigos viven cerca.",
+        "Do your friends live nearby?",
+        "Your friends es plural; usamos do."
+      ],
+      [
+        "Ordená: always / is / he / busy",
+        "He is always busy.",
+        "Always va después de be."
+      ]
+    ],
+    "task": "Escribí 60–80 palabras sobre tu semana. Usá tres adverbios de frecuencia, una negativa y una comparación entre tu rutina y la de otra persona.",
+    "model": "I usually get up at seven and have breakfast at home. I work in a shop from Monday to Friday. I don't work on Sundays. My sister studies at university and often finishes late. We sometimes cook together. She is always busy, but she never misses our Sunday lunch.",
+    "speaking": "Contá tu rutina sin leer. Luego transformá cinco afirmaciones en preguntas para entrevistar a otra persona."
+  },
+  "a1-there-is-articles": {
+    "goal": "Describir qué hay en un lugar y presentar objetos por primera vez.",
+    "explain": "There is y there are sirven para introducir la existencia de algo, no para decir dónde está una cosa que ya conocemos. There is a bank near here presenta un banco; The bank is near here sitúa uno conocido. Usá there is con singular o incontable y there are con plural. En una pregunta invertí is/are y there: Is there a supermarket? No traduzcas hay con have: have expresa posesión.",
+    "contrast": "A/an introduce un nombre contable singular que todavía no está identificado. La elección depende del sonido, no de la letra: an hour, a university. The señala algo identificable por el contexto. En plurales generales no usamos a/an: Books are useful. Para formar plurales, revisá si se agrega -s, -es o cambia la palabra, como child/children. Some suele acompañar afirmativas plurales y any preguntas o negativas neutrales.",
+    "example": "There's a café opposite the station. The café is small, but there are some tables outside.",
+    "reason": "Primero introducimos a café con a. Después usamos the porque el lector ya sabe cuál. Tables es plural y exige there are. Outside describe la ubicación de esas mesas.",
+    "practice": [
+      [
+        "Completá: There ___ two windows.",
+        "are",
+        "Two windows es plural."
+      ],
+      [
+        "Elegí: a / an university",
+        "a university",
+        "University empieza con el sonido consonántico /j/."
+      ],
+      [
+        "Negá: There are some chairs.",
+        "There aren't any chairs.",
+        "Any es habitual en negativas neutrales."
+      ],
+      [
+        "Corregí: Have a park near my house.",
+        "There is a park near my house.",
+        "La existencia se expresa con there is."
+      ]
+    ],
+    "task": "Describí tu barrio en 60 palabras. Introducí cuatro lugares con a/an y volvé a mencionar dos con the. Incluí una pregunta con Is there…?",
+    "model": "There is a park near my house. The park is small and quiet. There are some shops opposite the park, and there is an old cinema next to a café. The café is very friendly. There aren't any big hotels. Is there a park near your home?",
+    "speaking": "Mirá una habitación y describí seis objetos con there is/are. Tapá la imagen y reconstruí la descripción de memoria."
+  },
+  "a1-possessives-family": {
+    "goal": "Explicar relaciones familiares y distinguir quién posee cada objeto.",
+    "explain": "Los determinantes posesivos van delante de un sustantivo: my sister, your bag, her name. Se eligen según la persona que posee, no según el género del objeto. His sister significa la hermana de él; her brother, el hermano de ella. No agregues the delante del posesivo. Para identificar posesión con un nombre, usá 's: Emma's brother. Con un plural regular terminado en s, agregá solo el apóstrofo: my parents' house.",
+    "contrast": "Un determinante posesivo necesita un sustantivo: This is my book. Un pronombre posesivo lo reemplaza: This book is mine. Diferenciá también its, posesivo de it, de it's, contracción de it is o it has. En una descripción familiar, evitá encadenar muchos posesivos sin contexto: primero presentá a cada persona y después explicá la relación.",
+    "example": "This is my aunt's house. Her daughter is my cousin. The blue bike is hers.",
+    "reason": "My aunt's identifica a la dueña de la casa. Her se refiere a la tía y acompaña daughter. Hers reemplaza her bike, por eso no lleva un sustantivo detrás.",
+    "practice": [
+      [
+        "Completá: Ana has a brother. ___ name is Lucas.",
+        "His",
+        "El poseedor del nombre es Lucas."
+      ],
+      [
+        "Reescribí: the car of my father",
+        "my father's car",
+        "El posesivo 's sigue al nombre del poseedor."
+      ],
+      [
+        "Corregí: This is the my sister.",
+        "This is my sister.",
+        "No combinamos the y my delante del mismo nombre."
+      ],
+      [
+        "Completá: This bag is my bag. It is ___.",
+        "mine",
+        "Mine reemplaza my bag."
+      ]
+    ],
+    "task": "Presentá una familia real o inventada en 60–80 palabras. Incluí cuatro relaciones, dos posesivos con 's y una oración con mine, yours o hers.",
+    "model": "This is my family. My mother's name is Laura and my father's name is Pablo. Their house is near the station. My sister's name is Eva. Her husband is a teacher and their son is my nephew. The little red bicycle is his. The blue bicycle is mine.",
+    "speaking": "Dibujá un árbol familiar de cinco personas y explicalo sin leer. Hacé preguntas con Whose…? sobre tres objetos."
+  },
+  "a1-present-continuous": {
+    "goal": "Contar qué está ocurriendo y diferenciarlo de una rutina.",
+    "explain": "El presente continuo combina dos piezas obligatorias: am/is/are y un verbo en -ing. Be cambia con el sujeto; -ing no: I am working, she is working, they are working. Se usa para acciones en desarrollo o situaciones temporales alrededor del presente. No siempre significa exactamente este segundo: I'm reading a long novel puede describir una actividad de estas semanas.",
+    "contrast": "Compará I work at home, una situación habitual, con I'm working at home this week, una situación temporal. En preguntas mové be delante del sujeto; en negativas agregá not después de be. Revisá la escritura: make → making, run → running, lie → lying. Algunos verbos de estado, como know y want, normalmente van en simple: I know the answer. No decidas el tiempo únicamente porque aparezca now: primero interpretá el significado.",
+    "example": "I usually take the bus, but today I'm walking because the weather is lovely.",
+    "reason": "Usually sitúa una costumbre y pide el presente simple. Today presenta una excepción temporal; I'm walking describe esa actividad en desarrollo. La diferencia es de perspectiva, no solo de duración.",
+    "practice": [
+      [
+        "Completá: They ___ dinner now. (cook)",
+        "are cooking",
+        "El continuo exige be + -ing."
+      ],
+      [
+        "Preguntá: She is studying.",
+        "Is she studying?",
+        "Invertimos is y she."
+      ],
+      [
+        "Corregí: I am know his name.",
+        "I know his name.",
+        "Know suele expresar un estado, no una acción en desarrollo."
+      ],
+      [
+        "Escribí la forma -ing de run.",
+        "running",
+        "Se duplica la consonante final en este verbo."
+      ]
+    ],
+    "task": "Escribí un mensaje de 60 palabras desde un lugar público. Describí qué hacen cuatro personas y contrastá una acción con tu rutina.",
+    "model": "I'm sitting in a café near my office. Two students are talking by the window. A man is reading a newspaper, and the waiter is making coffee. I usually have lunch at work, but today I'm meeting my sister here. She isn't here yet. I'm waiting for her.",
+    "speaking": "Describí una escena durante un minuto usando cinco verbos distintos en continuo. Después explicá dos hábitos con presente simple."
+  },
+  "a1-can-ability": {
+    "goal": "Hablar de capacidades, pedir permiso y formular pedidos sencillos.",
+    "explain": "Can es un verbo modal: va seguido de la forma base y no lleva to. Su forma no cambia con la persona: I can swim, she can swim. Para negar usás cannot o can't. Para preguntar colocás can antes del sujeto. No necesitás do ni does. Una respuesta corta repite el modal: Yes, I can; No, she can't. Una capacidad puede acompañarse con well, very well o a little para expresar grado.",
+    "contrast": "Can puede expresar capacidad, permiso o pedido; el contexto distingue la intención. Can you open the window? normalmente es un pedido, no una pregunta sobre tu fuerza. Could you…? suele suavizar un pedido. Saber una actividad no equivale a conocer un dato: I can drive describe capacidad; I know your address, conocimiento. Evitá traducir ‘sé nadar’ como I know swim.",
+    "example": "I can cook, but I can't bake bread very well. Can you help me?",
+    "reason": "Cook y bake aparecen en forma base después del modal. Very well precisa la habilidad. La última pregunta funciona como pedido de ayuda y no necesita do.",
+    "practice": [
+      [
+        "Corregí: She can to drive.",
+        "She can drive.",
+        "Después de can usamos infinitivo sin to."
+      ],
+      [
+        "Negá: We can come today.",
+        "We can't come today.",
+        "La negativa se forma con can't, sin don't."
+      ],
+      [
+        "Respondé afirmativamente: Can he swim?",
+        "Yes, he can.",
+        "Repetimos el modal en la respuesta corta."
+      ],
+      [
+        "Convertí en pedido: open the door",
+        "Can you open the door, please?",
+        "Can you + verbo base permite formular un pedido sencillo."
+      ]
+    ],
+    "task": "Escribí 50–70 palabras para ofrecer ayuda en un club. Explicá tres habilidades, una limitación y un pedido.",
+    "model": "Hi! I can help at the club on Saturdays. I can cook simple meals and I can speak a little French. I can also use a computer. I can't drive, so I can't collect people from the station. Can you send me the bus timetable, please?",
+    "speaking": "Enumerá tres cosas que podés hacer y dos que no. Pedí ayuda con una de ellas y respondé como si fueras un compañero."
+  },
+  "a1-food-countable": {
+    "goal": "Pedir comida y expresar cantidades con nombres contables e incontables.",
+    "explain": "Un nombre contable puede contarse en unidades: an apple, two apples. Un incontable se trata como una cantidad o sustancia: water, rice, bread. En su uso básico no lleva a/an ni plural. Para contar una sustancia, agregá una unidad o recipiente: a glass of water, two slices of bread. La clasificación pertenece a la palabra en su uso concreto; no siempre coincide con el castellano.",
+    "contrast": "Usá how many con plurales contables y how much con incontables. Some aparece en afirmativas y también en ofrecimientos o pedidos cuando esperamos una respuesta positiva: Would you like some tea? Any es habitual en preguntas neutrales y negativas. A few significa unos pocos con contables; a little, un poco con incontables. A lot of funciona con ambos. Una porción puede convertir una bebida en unidad en un café: two coffees significa dos tazas o servicios.",
+    "example": "We need a little rice, a few tomatoes and two bottles of water. We don't need any bread.",
+    "reason": "Rice es incontable, por eso usamos a little. Tomatoes es contable plural y admite a few. Bottles permite contar recipientes de water. La negativa usa any con bread.",
+    "practice": [
+      [
+        "Elegí: How much / many apples do we need?",
+        "How many apples do we need?",
+        "Apples es contable plural."
+      ],
+      [
+        "Corregí: I need a bread.",
+        "I need some bread. / I need a loaf of bread.",
+        "Bread normalmente es incontable; loaf permite contar una unidad."
+      ],
+      [
+        "Completá: There isn't ___ milk. (some/any)",
+        "any",
+        "Se trata de una negativa neutral."
+      ],
+      [
+        "Elegí: a few / a little sugar",
+        "a little sugar",
+        "Sugar se usa aquí como sustancia incontable."
+      ]
+    ],
+    "task": "Prepará una lista de compras para una cena y un mensaje de 60 palabras que explique qué hay, qué falta y qué cantidades necesitás.",
+    "model": "We have some pasta and a little cheese, but we don't have any tomatoes. We need a few onions, six tomatoes and a bottle of olive oil. There is some water in the fridge. We don't need any bread. How much fruit do we need for dessert?",
+    "speaking": "Simulá una compra: pedí tres productos con cantidades y preguntá el precio. Después ofrecé una bebida a un invitado."
+  },
+  "a1-was-were": {
+    "goal": "Describir lugares, personas y estados en un momento pasado.",
+    "explain": "Was y were son las formas pasadas de be. I, he, she e it usan was; you, we y they usan were. Sirven para describir estados, identidades y ubicaciones del pasado. Agregá un contexto temporal: yesterday, last night, in 2020. La forma depende del sujeto, no de la distancia temporal. Un estado breve o uno de varios años puede expresarse con was/were.",
+    "contrast": "Para negar agregá not: wasn't, weren't. Para preguntar invertí verbo y sujeto: Were you at home? No uses did con be en este tipo de oración. There was/there were describen existencia en el pasado. No confundas una ubicación con una acción: I was at the office indica dónde estaba; I worked at the office indica que trabajé allí.",
+    "example": "The museum was closed yesterday, but the cafés were open. Was the park busy?",
+    "reason": "Museum es singular y lleva was. Cafés es plural y lleva were. La pregunta empieza con was porque park es singular. Busy describe un estado del lugar.",
+    "practice": [
+      [
+        "Completá: We ___ tired last night.",
+        "were",
+        "We usa were."
+      ],
+      [
+        "Negá: She was at school.",
+        "She wasn't at school.",
+        "Agregamos not a was."
+      ],
+      [
+        "Corregí: Did you were at home?",
+        "Were you at home?",
+        "Be forma la pregunta por inversión, sin did."
+      ],
+      [
+        "Completá: There ___ three people in the room.",
+        "were",
+        "Three people es plural."
+      ]
+    ],
+    "task": "Describí tu día de ayer en 60 palabras usando was/were, una negativa y una pregunta. Indicá dónde estaban tres personas.",
+    "model": "Yesterday I was at my grandmother's house. My parents were there too. The weather was cold, but the house was warm. My brother wasn't with us because he was at work. There were six people at lunch. The food was delicious. Were you at home yesterday?",
+    "speaking": "Compará cómo era tu barrio antes y cómo es ahora. Formulá tres preguntas con was/were para entrevistar a alguien."
+  },
+  "a1-directions-imperatives": {
+    "goal": "Dar instrucciones claras y orientar a una persona en la ciudad.",
+    "explain": "El imperativo usa la forma base sin sujeto explícito: Turn left, Open the door. Se entiende que la instrucción se dirige a you. Para negar colocá don't: Don't turn right. Please suaviza el pedido, pero el tono y el contexto también cuentan. Para incluirte en una propuesta usá Let's + verbo: Let's walk to the station. No agregues to después de let's.",
+    "contrast": "Las direcciones combinan acciones en orden y referencias espaciales: go straight, turn left, cross the street. Next to indica al lado; opposite, enfrente; between necesita dos referencias. Diferenciá go past the bank, pasar por delante del banco, de go to the bank, dirigirse al banco. Dividí un recorrido en pasos cortos y verificá que cada giro tenga un punto de referencia.",
+    "example": "Go straight for two blocks. Turn right at the bank. The pharmacy is opposite the station.",
+    "reason": "Primero damos una distancia, después un giro con una referencia y al final la ubicación del destino. Los verbos están en forma base. Opposite relaciona dos lugares sin implicar que estén juntos.",
+    "practice": [
+      [
+        "Negá: Cross the road here.",
+        "Don't cross the road here.",
+        "El imperativo negativo usa don't + verbo base."
+      ],
+      [
+        "Traducí: Girá a la izquierda en el semáforo.",
+        "Turn left at the traffic lights.",
+        "At introduce el punto donde se realiza el giro."
+      ],
+      [
+        "Corregí: Let's to go.",
+        "Let's go.",
+        "Let's va seguido de forma base sin to."
+      ],
+      [
+        "Completá: The café is ___ the bank and the hotel.",
+        "between",
+        "Between relaciona el café con dos referencias."
+      ]
+    ],
+    "task": "Dibujá un mapa con cinco lugares y escribí un recorrido de 60 palabras desde la estación hasta una farmacia. Incluí una advertencia y tres referencias.",
+    "model": "Leave the station and turn left. Go straight for two blocks and cross the road at the traffic lights. Don't cross near the school. Turn right at the supermarket. The pharmacy is between the café and the bank, opposite a small park. You can't miss the green door.",
+    "speaking": "Explicá el recorrido mirando solo el mapa. Pedile a otra persona que lo siga y verificá dónde termina."
+  },
+  "a1-likes-free-time": {
+    "goal": "Expresar gustos y proponer una actividad de tiempo libre.",
+    "explain": "Like, love, enjoy y hate permiten expresar preferencias. Cuando nombrás una actividad después de enjoy, usá -ing: I enjoy reading. Like y love admiten -ing o infinitivo con to en muchos contextos, con diferencias de énfasis; para empezar, practicá like + -ing para gustos generales. Si hablás de una cosa, podés usar un nombre: I like music. En preguntas y negativas siguen las reglas del presente simple.",
+    "contrast": "I like swimming expresa un gusto habitual; I'd like to swim expresa un deseo en una situación concreta. Después de would like usamos to + verbo, no -ing. Para invitar, podés preguntar Would you like to…?; para sugerir una actividad compartida, Let's… o How about + -ing. Diferenciá el gusto de la frecuencia: podés disfrutar algo aunque lo hagas pocas veces.",
+    "example": "I like cooking, but tonight I'd like to eat out. How about trying the new café?",
+    "reason": "Like cooking describe una preferencia general. Would like to eat expresa el deseo para esta noche. How about va seguido de trying y propone una actividad.",
+    "practice": [
+      [
+        "Completá: She enjoys ___ books. (read)",
+        "reading",
+        "Enjoy exige -ing."
+      ],
+      [
+        "Corregí: I'd like going home now.",
+        "I'd like to go home now.",
+        "Would like va seguido de to + infinitivo."
+      ],
+      [
+        "Preguntá si Leo disfruta cocinar.",
+        "Does Leo enjoy cooking?",
+        "Does + sujeto + verbo base; cooking complementa enjoy."
+      ],
+      [
+        "Completá: How about ___ a film? (watch)",
+        "watching",
+        "How about admite una actividad en -ing."
+      ]
+    ],
+    "task": "Escribí una invitación de 60–80 palabras. Mencioná dos gustos, proponé una actividad concreta y explicá cuándo y dónde reunirse.",
+    "model": "Hi Eva! I know you enjoy watching films and I love going to the cinema too. Would you like to see a comedy on Saturday? I'd like to try the new cinema near the station. How about meeting at six? We can have dinner afterwards. Let me know what you think!",
+    "speaking": "Proponé tres planes y respondé aceptando uno y rechazando otro con una razón amable."
+  },
+  "a2-past-simple": {
+    "goal": "Narrar una secuencia de hechos terminados en el pasado.",
+    "explain": "El pasado simple presenta hechos como terminados dentro de un período pasado. A menudo ese marco aparece con yesterday, last week o in 2022, pero también puede quedar claro por la conversación. Los verbos regulares agregan -ed; los irregulares tienen una forma propia que hay que aprender en contexto: go/went, buy/bought. La misma forma sirve para todas las personas, salvo be, que distingue was/were.",
+    "contrast": "Did marca el pasado en preguntas y negativas, por eso el verbo principal vuelve a la forma base: Did you go?; I didn't go. No escribas didn't went. Para contar una historia, elegí acontecimientos y ordenalos con first, then y finally. No todos los pasados se pronuncian con una sílaba extra: -ed suena /t/, /d/ o /ɪd/ según el sonido final del verbo; wanted agrega sílaba, worked no.",
+    "example": "We missed the bus, so we walked to the station and bought tickets there. Did you wait long?",
+    "reason": "Missed y walked son regulares; bought es el pasado irregular de buy. So introduce una consecuencia. En Did you wait no usamos waited porque did ya expresa pasado.",
+    "practice": [
+      [
+        "Completá: Yesterday we ___ to the market. (go)",
+        "went",
+        "Go tiene pasado irregular went."
+      ],
+      [
+        "Negá: She bought a ticket.",
+        "She didn't buy a ticket.",
+        "Después de didn't usamos buy."
+      ],
+      [
+        "Corregí: Did he arrived late?",
+        "Did he arrive late?",
+        "Did exige la forma base."
+      ],
+      [
+        "Escribí el pasado de stop.",
+        "stopped",
+        "Se duplica la consonante final antes de -ed."
+      ]
+    ],
+    "task": "Narrá un viaje o una salida en 90–120 palabras. Incluí un problema, una solución, cinco verbos pasados y tres conectores temporales.",
+    "model": "Last Saturday we visited a small town near the coast. First, we took a train from the city. We arrived at ten and walked to the beach. Then it started to rain, so we went to a museum. We didn't know much about the town, but the guide explained its history. Finally, we had lunch and bought some postcards. The weather wasn't perfect, but we enjoyed the trip.",
+    "speaking": "Contá la salida en un minuto. Después respondé tres preguntas con did sin leer el texto."
+  },
+  "a2-comparatives": {
+    "goal": "Comparar opciones y justificar una elección.",
+    "explain": "Un comparativo relaciona dos elementos: The train is faster than the bus. Un superlativo sitúa un elemento en un grupo: It is the fastest option. Los adjetivos cortos suelen usar -er/-est; los largos, more/most. Hay irregularidades, como good/better/best y bad/worse/worst. Algunos adjetivos de dos sílabas admiten más de una construcción, por eso conviene aprender combinaciones completas.",
+    "contrast": "No combines las dos marcas: more cheaper es incorrecto. Usá than para introducir el segundo término y the con el superlativo cuando corresponde al grupo identificado. As…as expresa igualdad: as comfortable as. Not as…as expresa una diferencia sin elegir un comparativo. Much o a little gradúan la diferencia: much cheaper, a little quieter. La comparación solo resulta útil si mantenés el mismo criterio: precio, tiempo o comodidad.",
+    "example": "The train is more expensive than the bus, but it's much faster. For us, it's the best option.",
+    "reason": "Expensive usa more; fast usa -er. Much intensifica faster, sin cambiar el adjetivo. Best es irregular y evalúa todas las opciones consideradas.",
+    "practice": [
+      [
+        "Comparativo de easy.",
+        "easier",
+        "Consonante + y cambia a -ier."
+      ],
+      [
+        "Corregí: This room is more bigger.",
+        "This room is bigger.",
+        "Bigger ya contiene la marca comparativa."
+      ],
+      [
+        "Completá: It's the ___ restaurant in town. (good)",
+        "best",
+        "Good tiene superlativo irregular best."
+      ],
+      [
+        "Reescribí igualdad: Both journeys take two hours.",
+        "The train journey is as long as the bus journey.",
+        "As + adjetivo + as establece igualdad de duración."
+      ]
+    ],
+    "task": "Compará tres alojamientos en 90 palabras. Usá precio, ubicación y comodidad; cerrá con una recomendación justificada.",
+    "model": "The station hotel is cheaper than the beach hotel, but its rooms are smaller. The beach hotel is the most expensive option and has the best views. The guesthouse is not as modern as the hotels, but it is much quieter. I would choose the guesthouse because it is comfortable and close to the centre. For a short visit, location is more important to me than a swimming pool.",
+    "speaking": "Elegí dos medios de transporte y defendé uno según tres criterios. Cambiá de elección si cambia el presupuesto."
+  },
+  "a2-future-going-to-will": {
+    "goal": "Distinguir planes, decisiones espontáneas y predicciones.",
+    "explain": "Be going to + verbo expresa intenciones ya formadas y predicciones apoyadas en una evidencia presente. Will + verbo es frecuente para decisiones tomadas al hablar, ofrecimientos, promesas y predicciones basadas en lo que creemos. No son etiquetas rígidas: una misma situación puede describirse desde perspectivas distintas. Preguntate si presentás un plan previo, una reacción o una evaluación del futuro.",
+    "contrast": "En going to el verbo be cambia con el sujeto: She's going to travel. En will, la forma es igual para todos y la negativa es won't. Para una organización confirmada con otra persona también podés usar presente continuo: I'm meeting Ana at six. No confundas I'm going to London, movimiento hacia un lugar, con I'm going to study, intención seguida de verbo.",
+    "example": "We've bought the paint. We're going to decorate the room. — I'll help you on Saturday.",
+    "reason": "Comprar la pintura muestra que existe un plan previo; por eso aparece going to. La oferta I'll help nace como respuesta en la conversación. Ambas formas hablan del futuro, pero cumplen funciones distintas.",
+    "practice": [
+      [
+        "Completá una oferta espontánea: Those bags look heavy. I ___ help you.",
+        "will / 'll",
+        "Will presenta una oferta hecha en ese momento."
+      ],
+      [
+        "Corregí: She going to study.",
+        "She is going to study.",
+        "Going to necesita una forma de be."
+      ],
+      [
+        "Negá: We will forget.",
+        "We won't forget.",
+        "La negativa contraída de will es won't."
+      ],
+      [
+        "Elegí para evidencia visible: Look at those clouds! It ___ rain.",
+        "is going to",
+        "La predicción se apoya en señales presentes."
+      ]
+    ],
+    "task": "Escribí 90 palabras sobre tus planes para el fin de semana. Incluí un plan previo, una organización confirmada, una predicción y un ofrecimiento.",
+    "model": "I'm going to visit my cousins this weekend. We've already planned the journey, and I'm meeting them at the station on Saturday morning. We're going to cook lunch together. I think the town will be busy because there is a festival. My cousin needs help with dinner, so I'll bring dessert. If it rains, we'll stay indoors and play board games.",
+    "speaking": "Respondé a tres problemas con una oferta usando will. Después explicá tres intenciones reales usando going to."
+  },
+  "a2-past-continuous": {
+    "goal": "Construir el fondo de una historia y relacionarlo con acontecimientos.",
+    "explain": "El pasado continuo se forma con was/were + -ing y muestra una acción en desarrollo en un momento pasado. El pasado simple presenta el hecho como un evento completo. En una narración, el continuo suele crear el escenario y el simple cuenta lo que sucedió. La elección no depende únicamente de si una acción duró mucho: depende de cómo queremos enfocarla.",
+    "contrast": "While suele introducir una actividad en desarrollo y when puede introducir el acontecimiento que la interrumpe, pero no funcionan como reglas automáticas. While I was cooking, Leo was reading presenta dos acciones simultáneas. I cooked dinner and washed the dishes enumera acciones completas. Una interrupción no significa necesariamente que la primera actividad terminó: solo que otro evento ocurrió durante su desarrollo.",
+    "example": "I was waiting for the bus when I saw an old friend. She was carrying a large suitcase.",
+    "reason": "Was waiting construye el fondo; saw hace avanzar la historia. Was carrying describe cómo aparecía la amiga en ese momento. La combinación organiza la información para el lector.",
+    "practice": [
+      [
+        "Completá: At eight, they ___ dinner. (have)",
+        "were having",
+        "La acción se observa en desarrollo a esa hora."
+      ],
+      [
+        "Completá: I was walking when my phone ___. (ring)",
+        "rang",
+        "Rang presenta el evento que ocurre durante la caminata."
+      ],
+      [
+        "Corregí: She were working.",
+        "She was working.",
+        "She concuerda con was."
+      ],
+      [
+        "Describí dos acciones simultáneas: yo cocinar / él leer.",
+        "While I was cooking, he was reading.",
+        "Ambas acciones se presentan en desarrollo."
+      ]
+    ],
+    "task": "Narrá un incidente de 100 palabras. Escribí primero el escenario y luego tres eventos. Incluí dos actividades simultáneas.",
+    "model": "It was getting dark and we were walking back to the hotel. My sister was checking the map while I was looking for a street sign. Suddenly, we heard music from a small square. We followed the sound and found a local festival. People were dancing and a band was playing near the fountain. We stayed for an hour and then took a taxi home.",
+    "speaking": "Describí qué estabas haciendo ayer a una hora concreta. Agregá un acontecimiento y explicá cómo cambió la situación."
+  },
+  "b1-present-perfect": {
+    "goal": "Relacionar experiencias y resultados presentes con hechos pasados.",
+    "explain": "El presente perfecto combina have/has + participio y presenta una conexión con el presente: experiencia hasta ahora, resultado actual o una situación que continúa. El pasado simple ubica el hecho en un marco pasado terminado. I've lost my keys destaca el problema actual; I lost my keys yesterday sitúa el hecho ayer. No basta con que algo sea reciente para elegir perfecto.",
+    "contrast": "Since indica el punto de inicio y for la duración: since March, for six months. Una situación que sigue vigente puede expresarse con perfecto: I've lived here for years. Con una fecha pasada terminada usamos simple: I moved here in 2020. Been puede indicar una visita completada; gone suele indicar que la persona todavía no volvió. Las preferencias de uso de already/yet varían entre variedades del inglés; aprendé la relación temporal, no una lista mecánica de palabras clave.",
+    "example": "I've visited Lisbon twice. I went there in 2021 and stayed with a friend.",
+    "reason": "La primera oración resume experiencia hasta hoy. La segunda selecciona una visita y la sitúa en un año terminado; por eso cambia a pasado simple. Una conversación natural puede alternar ambos tiempos.",
+    "practice": [
+      [
+        "Completá: She has ___ her homework. (finish)",
+        "finished",
+        "El perfecto necesita el participio."
+      ],
+      [
+        "Elegí: I've met / I met him yesterday.",
+        "I met him yesterday.",
+        "Yesterday delimita un período pasado terminado."
+      ],
+      [
+        "Completá: We've lived here ___ 2019.",
+        "since",
+        "2019 es el inicio, no una duración."
+      ],
+      [
+        "Explicá: Tom has gone to the bank.",
+        "Tom fue al banco y probablemente todavía no volvió.",
+        "Gone suele presentar ausencia actual; been, una visita completada."
+      ]
+    ],
+    "task": "Escribí 120–150 palabras sobre una habilidad que desarrollaste. Combiná experiencia hasta hoy, un episodio fechado y una situación que continúa.",
+    "model": "I've studied English for several years, but I haven't always practised regularly. In 2022, I joined a small conversation group. At first, I was afraid of making mistakes. Then I gave a short presentation about my town, and the group asked me questions. Since that evening, I've felt more confident. I've recently started listening to short interviews, and I keep a notebook of useful expressions. I still make mistakes, but I can now explain an opinion without translating every word.",
+    "speaking": "Preguntá por una experiencia con Have you ever…? y seguí con dos preguntas en pasado simple para conocer los detalles."
+  },
+  "b1-conditionals-0-1": {
+    "goal": "Explicar consecuencias habituales y posibilidades futuras reales.",
+    "explain": "El condicional cero suele unir presente simple con presente simple para relaciones generales: If you heat ice, it melts. El primero presenta una condición futura considerada posible y una consecuencia: If it rains tomorrow, we'll stay home. La condición usa presente aunque se refiera al futuro. La cláusula principal puede expresar una decisión, consejo o posibilidad, no solo llevar will.",
+    "contrast": "If abre una condición; when presenta un momento que el hablante espera que ocurra. Unless significa aproximadamente if…not: Unless you hurry, you'll miss the bus. Evitá agregar una segunda negación que invierta la idea. Si la condición aparece primero, normalmente se separa con coma; si va después, generalmente no. La elección depende de cuán seguro presentás el acontecimiento, no de una predicción objetiva.",
+    "example": "If you finish early, call me. We'll go for a walk if the weather stays dry.",
+    "reason": "Finish y stays están en presente con referencia futura. La primera consecuencia es un imperativo; la segunda usa will. La coma aparece cuando la cláusula condicional va primero.",
+    "practice": [
+      [
+        "Completá: If she ___, we'll start. (arrive)",
+        "arrives",
+        "La condición futura usa presente simple."
+      ],
+      [
+        "Corregí: If it will rain, we'll stay in.",
+        "If it rains, we'll stay in.",
+        "En esta condición futura neutral no usamos will en la cláusula con if."
+      ],
+      [
+        "Reescribí: If you don't study, you won't pass.",
+        "Unless you study, you won't pass.",
+        "Unless incorpora el sentido negativo de if not."
+      ],
+      [
+        "Elegí una regla general: If water freezes, it ___ into ice. (turn)",
+        "turns",
+        "Las dos cláusulas expresan una relación general en presente."
+      ]
+    ],
+    "task": "Redactá un plan de excursión de 120 palabras con tres condiciones y alternativas. Distinguí una regla general de una posibilidad futura.",
+    "model": "If the weather is good on Sunday, we'll walk to the lake. If it rains, we'll visit the history museum instead. Bring some water: if people walk for a long time without drinking, they become thirsty. Unless the bus is delayed, we'll meet outside the station at nine. Call me if you arrive early. When we get back, we'll choose the photos for our class presentation.",
+    "speaking": "Proponé un plan y respondé a tres cambios posibles. Usá una consecuencia con will, otra con can y otra con un imperativo."
+  },
+  "b1-passive-voice": {
+    "goal": "Describir procesos y hechos poniendo el foco en el resultado o receptor.",
+    "explain": "La voz pasiva cambia el foco de una oración: el objeto de la activa pasa a ser sujeto. Workers produce the coffee se convierte en The coffee is produced by workers. La estructura es be + participio. Be expresa tiempo y concordancia; el participio se mantiene: is made, was made, will be made. Solo los verbos con objeto permiten esta transformación de manera habitual.",
+    "contrast": "La pasiva no es simplemente una versión más formal. Conviene cuando el agente es desconocido, evidente o menos relevante que el proceso. Si el agente importa, agregá by. No todas las oraciones mejoran al volverse pasivas: demasiadas pasivas pueden ocultar quién actúa. Revisá el participio irregular y distinguí una acción pasiva de una descripción con adjetivo según el contexto.",
+    "example": "The documents were checked yesterday, and the results will be sent by email tomorrow.",
+    "reason": "Were checked concuerda con documents y sitúa la revisión en pasado. Will be sent contiene will, be y el participio sent. No mencionamos al personal porque el mensaje trata sobre los documentos y los resultados.",
+    "practice": [
+      [
+        "Pasá a pasiva: They make cheese here.",
+        "Cheese is made here.",
+        "Cheese pasa a sujeto; is made expresa presente pasivo."
+      ],
+      [
+        "Completá: The bridge ___ in 1990. (build)",
+        "was built",
+        "Bridge es singular; usamos was y el participio built."
+      ],
+      [
+        "Corregí: The letters were send.",
+        "The letters were sent.",
+        "Después de be se necesita el participio sent."
+      ],
+      [
+        "Pasá a pasiva: They will publish the report.",
+        "The report will be published.",
+        "La pasiva futura usa will be + participio."
+      ]
+    ],
+    "task": "Explicá un proceso de producción en 120–150 palabras. Organizalo en pasos y combiná pasivas con activas donde el agente sea importante.",
+    "model": "The coffee beans are collected when they are ripe. Next, they are washed and dried in a sunny area. The workers check the beans carefully because damaged beans can affect the flavour. After drying, the beans are packed and transported to a roasting facility. There, they are roasted at a controlled temperature. Finally, the coffee is packed again and sent to shops. Customers can find the origin and roasting date on the label.",
+    "speaking": "Explicá cómo se prepara un producto cotidiano. Decidí en cada paso si importa más quién actúa o qué le ocurre al producto."
+  },
+  "b1-modals-obligation": {
+    "goal": "Diferenciar obligación, prohibición, ausencia de obligación y consejo.",
+    "explain": "Must y have to expresan obligación, aunque no son intercambiables en todos los tiempos y contextos. Have to permite hablar del pasado con had to y del futuro con will have to. Must puede expresar una exigencia fuerte del hablante o una regla. Should presenta consejo o una expectativa más suave. Los modales must y should van seguidos de verbo base, sin to ni -s de tercera persona.",
+    "contrast": "La diferencia decisiva está en las negativas. Mustn't significa prohibición: no está permitido. Don't have to significa ausencia de obligación: podés hacerlo si querés. Shouldn't aconseja no hacerlo. En pasado, didn't have to describe que no era necesario, sin afirmar por sí solo si se hizo o no. Elegí según el grado de fuerza y evitá convertir una recomendación en una regla obligatoria.",
+    "example": "You mustn't take photos here. You don't have to leave your bag, but you should keep it closed.",
+    "reason": "La primera oración prohíbe. La segunda permite conservar el bolso sin obligación de dejarlo. La última ofrece un consejo. Las tres usan formas distintas porque comunican relaciones diferentes con la acción.",
+    "practice": [
+      [
+        "Expresá que no es obligatorio reservar.",
+        "You don't have to book.",
+        "Ausencia de obligación, no prohibición."
+      ],
+      [
+        "Expresá que está prohibido fumar.",
+        "You mustn't smoke.",
+        "Mustn't indica prohibición."
+      ],
+      [
+        "Pasá a pasado: I have to work.",
+        "I had to work.",
+        "Had to expresa obligación pasada."
+      ],
+      [
+        "Corregí: She should to rest.",
+        "She should rest.",
+        "Should exige forma base sin to."
+      ]
+    ],
+    "task": "Escribí una guía de 120 palabras para un visitante. Incluí dos reglas, dos consejos y dos cosas opcionales, explicando sus motivos.",
+    "model": "Visitors must show their tickets at the entrance. You mustn't bring food into the exhibition rooms because it can damage the displays. You don't have to book a guided tour, but you should join one if you want to learn about the building. You should wear comfortable shoes. You don't have to leave before lunch: the café is open all day. Children have to stay with an adult during the visit.",
+    "speaking": "Explicá las reglas de un lugar conocido y pedí aclaraciones sobre qué es obligatorio y qué es opcional."
+  },
+  "b2-conditionals-2-3": {
+    "goal": "Explorar situaciones hipotéticas y alternativas a un pasado terminado.",
+    "explain": "El segundo condicional usa una forma pasada para crear distancia respecto de una situación presente o futura: If I had more time, I would travel. Ese pasado no sitúa el hecho ayer; lo presenta como hipotético. El tercero usa past perfect en la condición y would have + participio en el resultado para imaginar un pasado distinto: If I'd left earlier, I would have caught the train.",
+    "contrast": "Elegí primero el período temporal de la hipótesis. Si imaginás una posibilidad actual, usá el segundo; si reconstruís una oportunidad pasada, usá el tercero. Could y might permiten expresar capacidad o menor certeza en el resultado. En situaciones hipotéticas se usa were con todas las personas en un registro formal: If I were you. Was también aparece en usos informales con sujetos singulares.",
+    "example": "If I knew the answer, I would tell you. If I had known yesterday, I would have called you.",
+    "reason": "Knew se refiere a conocimiento actual hipotético; had known se refiere al pasado. El resultado cambia de would tell a would have called para mantener esa relación temporal.",
+    "practice": [
+      [
+        "Completá: If she had a car, she ___ drive to work.",
+        "would / could",
+        "La condición plantea una situación hipotética actual; would expresa resultado y could capacidad."
+      ],
+      [
+        "Completá: If we had left earlier, we ___ the bus. (catch)",
+        "would have caught",
+        "El resultado es una alternativa pasada."
+      ],
+      [
+        "Corregí: If I would know, I'd tell you.",
+        "If I knew, I'd tell you.",
+        "En este patrón, la condición usa pasado simple."
+      ],
+      [
+        "Transformá: I didn't study, so I failed.",
+        "If I had studied, I would have passed.",
+        "El tercero permite imaginar un pasado diferente."
+      ]
+    ],
+    "task": "Escribí una reflexión de 160–200 palabras sobre una decisión. Separá los hechos de lo que habría podido ocurrir y terminá con una hipótesis actual.",
+    "model": "I accepted a job far from home last year. If I had asked more questions during the interview, I would have understood how much travelling it involved. I might have chosen a different position. However, the experience helped me become more independent. If I received a similar offer now, I would check the weekly schedule before making a decision. I would also talk to someone who already worked there.",
+    "speaking": "Discutí dos decisiones imaginarias y una oportunidad pasada. Explicá qué es un hecho y qué parte de tu respuesta es una hipótesis."
+  },
+  "b2-reported-speech": {
+    "goal": "Transmitir declaraciones y preguntas adaptándolas al nuevo contexto.",
+    "explain": "Al transmitir lo que alguien dijo, reconstruimos el mensaje desde nuestra situación. Si el verbo introductorio está en pasado, suele producirse un retroceso temporal: am → was, have done → had done, will → would. También pueden cambiar pronombres y referencias como here/there o tomorrow/the next day. No son sustituciones automáticas: dependen de quién habla, dónde y cuándo se transmite el mensaje.",
+    "contrast": "Say no necesita un destinatario directo; tell suele llevarlo: she said that…, she told me that…. En preguntas indirectas usamos orden de afirmativa, no inversión: She asked where I lived. Para preguntas de sí/no usamos if o whether. Si la información sigue vigente, el hablante puede mantener el presente para destacar esa vigencia. Elegí el tiempo por el significado y el contexto de la reproducción.",
+    "example": "‘I'll send you the file tomorrow,’ Ana said on Monday. On Tuesday I explained that Ana had said she would send me the file that day.",
+    "reason": "Will cambia a would; you se convierte en me porque yo era el destinatario. Tomorrow se transforma en that day al informar el martes. La referencia temporal requiere conocer el día original.",
+    "practice": [
+      [
+        "Reportá: ‘I am tired,’ she said.",
+        "She said that she was tired.",
+        "Con said en pasado, am suele retroceder a was."
+      ],
+      [
+        "Corregí: He told that he was busy.",
+        "He said that he was busy. / He told me that he was busy.",
+        "Tell normalmente requiere un destinatario."
+      ],
+      [
+        "Reportá: ‘Where do you live?’ she asked me.",
+        "She asked me where I lived.",
+        "La pregunta indirecta usa orden sujeto + verbo."
+      ],
+      [
+        "Reportá: ‘Are you ready?’ he asked us.",
+        "He asked us if we were ready.",
+        "If introduce una pregunta de sí/no."
+      ]
+    ],
+    "task": "Redactá un informe de reunión de 160 palabras. Atribuí tres declaraciones, una pregunta y un compromiso, aclarando las fechas pertinentes.",
+    "model": "At Monday's meeting, the coordinator said that the project was progressing well. She told us that the first workshop would take place the following week. A participant asked whether the materials were available online. The coordinator replied that she would send everyone a link that afternoon. She also asked which activities we wanted to practise. I explained that our group needed more time for speaking tasks.",
+    "speaking": "Escuchá tres mensajes breves y transmitilos a una tercera persona. Revisá especialmente pronombres, fechas y destinatarios."
+  },
+  "b2-relative-clauses": {
+    "goal": "Identificar personas o cosas y agregar información sin perder claridad.",
+    "explain": "Una relativa especificativa identifica de quién o de qué hablamos: The student who called yesterday. Una explicativa agrega información sobre una referencia ya identificada: Ana, who lives next door, called yesterday. Las explicativas se separan con comas y no usan that. Who se refiere a personas, which a cosas, whose expresa posesión y where introduce un lugar en usos pertinentes.",
+    "contrast": "En una especificativa podés omitir el relativo cuando funciona como objeto: The book (that) I bought. No podés omitirlo cuando es sujeto: The book that won the prize. Evitá duplicar el objeto: the book that I bought it es incorrecto. Las comas pueden cambiar qué grupo identificás; no son una pausa decorativa. En escritura formal, la preposición puede ir antes de which o whom.",
+    "example": "The colleague who organised the event sent me the photos that you requested. Ana, who works with her, will bring the originals.",
+    "reason": "Who es sujeto de organised y no se puede omitir. That es objeto de requested y podría omitirse. La relativa sobre Ana agrega información y lleva comas.",
+    "practice": [
+      [
+        "Uní: This is the woman. She helped us.",
+        "This is the woman who helped us.",
+        "Who es sujeto de helped."
+      ],
+      [
+        "Corregí: The film that I watched it was excellent.",
+        "The film that I watched was excellent.",
+        "El relativo ya ocupa la función de objeto."
+      ],
+      [
+        "Completá: The man ___ car broke down is here.",
+        "whose",
+        "Whose indica posesión."
+      ],
+      [
+        "¿Se puede omitir who en The teacher who called is here?",
+        "No.",
+        "Who es el sujeto de called."
+      ]
+    ],
+    "task": "Escribí un perfil de 160–200 palabras sobre un lugar y sus habitantes. Usá dos relativas especificativas, dos explicativas y una con whose.",
+    "model": "The community centre, which opened last year, has become a meeting place for local residents. The volunteers who run the reading group meet every Thursday. One participant, whose daughter studies abroad, suggested an exchange of letters with another town. The books that the group selects are available in the small library. Marta, who coordinates the programme, hopes to include more young readers next term.",
+    "speaking": "Describí cinco personas u objetos sin decir sus nombres. Usá relativas para que otra persona pueda identificarlos."
+  },
+  "b2-gerund-infinitive": {
+    "goal": "Elegir patrones verbales y reconocer cambios de significado.",
+    "explain": "La forma que sigue a un verbo depende del patrón completo: enjoy doing, decide to do, make someone do. No existe una traducción única del infinitivo español. Aprendé el verbo con su complemento y un ejemplo. Después de una preposición, cuando usás un verbo, suele aparecer -ing: interested in learning. En look forward to hearing, to es preposición, no marcador de infinitivo.",
+    "contrast": "Algunos verbos cambian de sentido según el complemento. Stop smoking significa dejar de fumar; stop to smoke, detener otra actividad para fumar. Remember doing recuerda una experiencia; remember to do implica no olvidar una tarea. Used to + verbo expresa hábitos o estados pasados que ya no se mantienen; be used to + nombre/-ing expresa familiaridad. Distinguí el pasado de use de estos patrones.",
+    "example": "I used to drive to work, but now I'm used to taking the train. I stopped to buy a ticket.",
+    "reason": "Used to drive describe un hábito pasado. Am used to taking expresa adaptación actual y lleva -ing tras la preposición. Stopped to buy indica la finalidad de una pausa, no abandonar la compra.",
+    "practice": [
+      [
+        "Completá: We decided ___ early. (leave)",
+        "to leave",
+        "Decide admite to + infinitivo."
+      ],
+      [
+        "Completá: I'm looking forward to ___ you. (see)",
+        "seeing",
+        "To es aquí una preposición."
+      ],
+      [
+        "Explicá: She stopped talking.",
+        "Dejó de hablar.",
+        "Stop + -ing expresa el cese de esa actividad."
+      ],
+      [
+        "Corregí: I'm used to wake up early.",
+        "I'm used to waking up early.",
+        "Be used to va seguido de nombre o -ing."
+      ]
+    ],
+    "task": "Describí en 160 palabras una adaptación a un cambio. Incluí un hábito anterior, una costumbre actual, una decisión y dos patrones verbales distintos.",
+    "model": "I used to work in a busy office, so moving to a remote role felt strange. At first, I missed talking to colleagues during breaks. I decided to organise a short online meeting each morning. Now I'm used to planning my day independently. I try to finish demanding tasks before lunch, and I avoid checking messages constantly. I still look forward to seeing the team in person once a month.",
+    "speaking": "Explicá dos pares de oraciones con stop y remember. Inventá un contexto que haga visible cada cambio de significado."
+  },
+  "c1-inversion": {
+    "goal": "Usar inversión para destacar información con control del registro.",
+    "explain": "Cuando una expresión negativa o restrictiva abre determinadas estructuras, el auxiliar suele colocarse antes del sujeto: Rarely have I seen…. Si no hay auxiliar, incorporamos do/does/did y dejamos el verbo principal en forma base: Never did she complain. El resultado es enfático y a menudo formal; no conviene invertir cada oración. El énfasis debe servir a la organización del argumento.",
+    "contrast": "En Only after the meeting did we understand, la inversión está en la cláusula principal, no dentro de after. No toda frase inicial con only la provoca: Only Maria knew the answer tiene un sujeto restringido y orden normal. Not until sigue una lógica similar. Con Hardly…when y No sooner…than, los pares y la secuencia temporal importan tanto como la inversión.",
+    "example": "Only after the results were published did the committee acknowledge the problem.",
+    "reason": "La cláusula after conserva el orden sujeto + verbo. La principal incorpora did delante de the committee; acknowledge queda en forma base. La estructura destaca que el reconocimiento llegó tarde.",
+    "practice": [
+      [
+        "Reescribí con Never: I had never seen such a response.",
+        "Never had I seen such a response.",
+        "Had precede al sujeto tras el adverbio negativo inicial."
+      ],
+      [
+        "Corregí: Rarely she visits us.",
+        "Rarely does she visit us.",
+        "La inversión necesita does; visit queda en forma base."
+      ],
+      [
+        "¿Requiere inversión Only Ana understood the question?",
+        "No.",
+        "Only modifica al sujeto, no una circunstancia restrictiva."
+      ],
+      [
+        "Completá: No sooner had we arrived ___ it began to rain.",
+        "than",
+        "No sooner se combina con than."
+      ]
+    ],
+    "task": "Escribí un comentario de 200–240 palabras sobre una decisión institucional. Usá dos inversiones con una finalidad distinta y justificá por qué no las usarías en todo el texto.",
+    "model": "Rarely has a local consultation attracted so much attention. Residents had raised concerns for months, yet the committee initially treated them as isolated complaints. Only after the survey results were published did officials recognise the scale of the problem. This delay weakened public confidence. The next consultation should therefore include clear deadlines and a published explanation of how responses influence decisions. Greater emphasis in the final report will matter little unless the procedure itself becomes more transparent.",
+    "speaking": "Presentá la misma crítica en una conversación informal y en un discurso formal. Reservá una inversión para el punto que querés destacar."
+  },
+  "c1-mixed-conditionals-wish": {
+    "goal": "Relacionar causas y consecuencias de períodos distintos y expresar deseos irreales.",
+    "explain": "Los condicionales mixtos conectan períodos diferentes. If I had studied medicine, I would be a doctor now combina una causa pasada con un resultado presente. If I were more organised, I would have finished yesterday conecta una característica actual o general con un resultado pasado. Antes de elegir las formas, dibujá mentalmente la línea temporal de cada cláusula.",
+    "contrast": "Wish + pasado suele expresar un deseo contrario a la situación presente: I wish I knew. Wish + past perfect expresa arrepentimiento pasado: I wish I had known. Wish + would puede expresar deseo de cambio, a menudo con molestia, y no reemplaza todos los deseos sobre uno mismo. Para una esperanza posible usá hope: I hope she passes. If only intensifica un deseo irreal.",
+    "example": "If I'd accepted the scholarship, I would be living abroad now. I wish I had considered it more carefully.",
+    "reason": "La decisión pertenece al pasado; vivir en el exterior es la consecuencia imaginada actual. Had considered sitúa el arrepentimiento en aquella evaluación. No se presenta el resultado hipotético como un hecho.",
+    "practice": [
+      [
+        "Completá: If I had saved more, I ___ a car now. (have)",
+        "would have",
+        "El resultado es presente, no would have had."
+      ],
+      [
+        "Expresá arrepentimiento: I didn't call her.",
+        "I wish I had called her.",
+        "Wish + past perfect remite a una acción pasada."
+      ],
+      [
+        "Expresá deseo presente: I don't know the answer.",
+        "I wish I knew the answer.",
+        "El pasado marca irrealidad presente."
+      ],
+      [
+        "Elegí para posibilidad real: I hope / wish you enjoy the trip.",
+        "I hope you enjoy the trip.",
+        "Hope encaja con un resultado todavía posible."
+      ]
+    ],
+    "task": "Escribí una reflexión de 200 palabras con una causa pasada y dos consecuencias actuales. Separá arrepentimiento, deseo presente y esperanza futura.",
+    "model": "If I had continued my music lessons, I would probably feel more confident performing now. I wish I had understood that progress depended on regular practice rather than talent alone. Still, if I were less willing to begin again, I would never have joined the community orchestra last month. I wish I had more time, but I can practise a little each evening. I hope the next concert will show how much the group has improved.",
+    "speaking": "Comentá una decisión imaginaria y sus consecuencias en dos momentos. Hacé explícita la diferencia entre deseo irreal y esperanza posible."
+  },
+  "c1-advanced-passive-causative": {
+    "goal": "Atribuir información y describir servicios realizados por terceros.",
+    "explain": "Las pasivas de reporte permiten atribuir una afirmación sin presentarla directamente como propia: It is believed that…; The company is believed to…. El infinitivo simple suele representar simultaneidad o una situación general; el perfecto to have done sitúa el hecho antes del reporte. La atribución no demuestra que la afirmación sea verdadera: indica cómo se presenta la fuente.",
+    "contrast": "Have/get something done expresa que otra persona realiza un servicio: I had my laptop repaired. No equivale a I repaired my laptop, que me presenta como agente. Get suele ser menos formal. En otros contextos, have something done puede describir una experiencia no deseada: He had his bag stolen. El contexto y el objeto permiten distinguir un encargo de un suceso sufrido.",
+    "example": "The painting is believed to have been restored in the 1980s. The gallery is having its lighting replaced this week.",
+    "reason": "To have been restored es un infinitivo perfecto pasivo: la restauración precede a la creencia actual. Is having…replaced describe un servicio en proceso encargado a terceros; la galería no reemplaza personalmente las luces.",
+    "practice": [
+      [
+        "Reescribí: People say the director lives abroad.",
+        "The director is said to live abroad.",
+        "El infinitivo simple expresa una situación simultánea al reporte."
+      ],
+      [
+        "Reescribí: Someone repaired my phone for me.",
+        "I had my phone repaired.",
+        "Have + objeto + participio presenta un servicio."
+      ],
+      [
+        "Completá: She is believed ___ left yesterday.",
+        "to have",
+        "El hecho es anterior a la creencia actual."
+      ],
+      [
+        "¿I cut my hair y I had my hair cut indican el mismo agente?",
+        "No: en la segunda otra persona realiza el corte.",
+        "El causativo distingue organización del servicio y ejecución."
+      ]
+    ],
+    "task": "Redactá un informe de 200–240 palabras sobre la restauración de un edificio ficticio. Atribuí dos afirmaciones y describí tres servicios encargados.",
+    "model": "The building is thought to have been designed by a local architect, although no signed plans have survived. The council has had the roof repaired and is having the original windows assessed. Several rooms are believed to contain early decorative features. Before further work is commissioned, the conservation team should verify these claims. The council will also have the electrical system replaced, while preserving features that specialists consider historically significant.",
+    "speaking": "Presentá un proyecto distinguiendo lo que se sabe, lo que se atribuye a una fuente y lo que se encargó a un profesional."
+  },
+  "c1-discourse-markers": {
+    "goal": "Construir un argumento coherente sin acumular conectores innecesarios.",
+    "explain": "Un conector hace explícita la relación entre ideas: contraste, consecuencia, concesión o adición. Sin embargo, no crea por sí mismo esa relación. Antes de elegir however o therefore, comprobá qué vínculo lógico existe. La cohesión también depende de referencias claras, repetición controlada de términos y progresión temática: cada oración debe partir de información reconocible y aportar algo nuevo.",
+    "contrast": "Although introduce una cláusula; despite va seguido de nombre o -ing: despite the delay, despite arriving late. However conecta unidades y requiere puntuación adecuada; no une dos oraciones completas con una simple coma. On the contrary refuta una afirmación previa, mientras que on the other hand presenta otra perspectiva. Evitá emplearlos como sinónimos. Un párrafo necesita una idea central, desarrollo y una relación con el argumento global.",
+    "example": "The course is demanding. However, its flexible schedule makes it accessible. Despite the workload, most participants complete it.",
+    "reason": "However introduce un contraste entre exigencia y accesibilidad. Despite lleva el grupo nominal the workload, no una cláusula completa. El pronombre it recupera course y evita una repetición innecesaria.",
+    "practice": [
+      [
+        "Corregí: Despite it was raining, we left.",
+        "Despite the rain, we left. / Although it was raining, we left.",
+        "Despite requiere nombre o -ing; although admite una cláusula."
+      ],
+      [
+        "Elegí para consecuencia: however / therefore",
+        "therefore",
+        "Therefore presenta una conclusión o consecuencia."
+      ],
+      [
+        "Corregí puntuación: It was costly, however, we agreed.",
+        "It was costly; however, we agreed.",
+        "El punto y coma separa dos cláusulas independientes; también sirve un punto."
+      ],
+      [
+        "¿On the contrary solo agrega otra perspectiva?",
+        "No, refuta o corrige una afirmación previa.",
+        "Para una perspectiva alternativa suele servir on the other hand."
+      ]
+    ],
+    "task": "Escribí un ensayo de 220–260 palabras sobre aprendizaje autónomo. Incluí tesis, objeción, respuesta y conclusión. Justificá cada conector y eliminá dos que resulten redundantes.",
+    "model": "Independent study offers flexibility, but flexibility alone does not guarantee progress. Learners also need a sequence of tasks and reliable feedback. Although short exercises can reinforce accuracy, they rarely provide enough space to develop an argument. Longer reading and writing tasks are therefore valuable. On the other hand, an ambitious programme may discourage learners if every activity feels equally demanding. A useful course should combine brief practice with sustained tasks and make the purpose of each stage clear.",
+    "speaking": "Defendé una idea durante dos minutos y respondé una objeción. Usá conectores para hacer audible la estructura, sin anunciar cada oración."
+  },
+  "c2-subjunctive-formal": {
+    "goal": "Elegir estructuras mandativas y formulaciones formales precisas.",
+    "explain": "Después de verbos y expresiones mandativas como recommend, insist o essential, el subjuntivo puede usar la forma base para todas las personas: They recommended that she attend. Be permanece be y una negativa coloca not delante: that he not be excluded. En inglés británico también es frecuente should + forma base. La elección depende de registro, variedad y función de la cláusula.",
+    "contrast": "Diferenciá el sentido de insistir en que algo es un hecho de exigir una acción. He insists that she is right afirma una creencia; he insists that she be present impone una condición. La forma subjuntiva no expresa pasado por sí misma y no cambia automáticamente tras un verbo pasado. Estructuras como Were it not for… o Had it not been for… permiten condiciones formales presentes o pasadas, con relaciones temporales específicas.",
+    "example": "The panel recommended that each applicant be informed and that no personal information be disclosed.",
+    "reason": "Recommended introduce dos mandatos coordinados. Be informed y be disclosed combinan forma base de be con participios pasivos. No personal information funciona como sujeto negativo, de modo que no hace falta un not adicional.",
+    "practice": [
+      [
+        "Completá: It is essential that she ___ present. (be)",
+        "be",
+        "El subjuntivo mandativo usa forma base."
+      ],
+      [
+        "Negá formalmente: that he be excluded",
+        "that he not be excluded",
+        "Not precede a la forma base."
+      ],
+      [
+        "Explicá la diferencia entre insists that he is honest e insists that he be honest.",
+        "La primera afirma una creencia; la segunda exige honestidad.",
+        "La función comunicativa determina la estructura."
+      ],
+      [
+        "Reescribí formalmente: If it had not been for your help…",
+        "Had it not been for your help…",
+        "La inversión con had expresa una condición pasada contrafactual."
+      ]
+    ],
+    "task": "Redactá una propuesta institucional de 250–300 palabras. Incluí tres recomendaciones mandativas, una negativa y condiciones que no dejen ambigua la responsabilidad.",
+    "model": "We recommend that the committee publish its criteria before applications open. It is essential that each candidate be given the same information and that no exception be granted without a written explanation. The proposal does not require that every decision be unanimous; rather, it requires that dissenting views be recorded. Had it not been for earlier inconsistencies, such detailed safeguards might have seemed unnecessary. They now provide a practical basis for restoring confidence.",
+    "speaking": "Presentá la propuesta a dos públicos: un comité formal y un grupo de compañeros. Reformulá las exigencias conservando su alcance."
+  },
+  "c2-cleft-fronting": {
+    "goal": "Controlar el foco y la progresión informativa mediante reformulaciones.",
+    "explain": "Las oraciones hendidas dividen una idea para focalizar un componente: It was the timing that caused concern. Las pseudo-hendidas con what destacan una necesidad o evaluación: What we need is a clear timetable. No agregan necesariamente información nueva; cambian cómo el lector la procesa. Identificá primero la presuposición compartida y luego el elemento que querés contrastar.",
+    "contrast": "Fronting coloca un constituyente al inicio: This proposal I can support. Puede crear contraste o enlazar con información previa, pero no equivale siempre a inversión. Si adelantás un objeto, el orden sujeto-verbo puede mantenerse. Algunas construcciones locativas sí permiten inversión con sujetos nominales. Elegí la estructura según el ritmo, el registro y el contexto, no para adornar una oración sin propósito.",
+    "example": "It wasn't the cost that worried us; it was the lack of a clear plan. What we needed was an explanation.",
+    "reason": "La primera hendida rechaza un foco posible, cost, y lo sustituye por lack of a clear plan. La pseudo-hendida transforma una necesidad en tema y reserva explanation como información focal.",
+    "practice": [
+      [
+        "Focalizá el momento: The timing caused concern.",
+        "It was the timing that caused concern.",
+        "La hendida dirige la atención al momento, no al agente."
+      ],
+      [
+        "Reescribí con What: We need more evidence.",
+        "What we need is more evidence.",
+        "La pseudo-hendida destaca la evidencia requerida."
+      ],
+      [
+        "¿Adelantar un objeto obliga siempre a invertir sujeto y verbo?",
+        "No.",
+        "En This point I accept, el sujeto sigue antes del verbo."
+      ],
+      [
+        "Contrastá la causa: no fue el precio sino la demora.",
+        "It wasn't the price that caused the problem; it was the delay.",
+        "Las hendidas permiten corregir un foco atribuido previamente."
+      ]
+    ],
+    "task": "Reescribí un comentario de 250 palabras en dos versiones: una centrada en responsables y otra en consecuencias. Usá dos hendidas y un fronting solo donde mejoren el foco.",
+    "model": "It was the absence of consultation, rather than the proposal itself, that caused the strongest reaction. Several practical details could have been revised without difficulty. What residents wanted was an opportunity to explain how the changes would affect their daily routines. The financial argument they could understand; the lack of notice they could not. A revised proposal should therefore address both the technical objections and the process through which decisions are communicated.",
+    "speaking": "Respondé a una interpretación equivocada usando una hendida contrastiva. Después reformulá la respuesta con orden neutral y compará el efecto."
+  },
+  "c2-collocations-idioms": {
+    "goal": "Elegir combinaciones naturales y expresiones compatibles con el contexto.",
+    "explain": "Una colocación es una combinación convencional: make a decision, reach a conclusion, strong evidence. Saber el significado de cada palabra no alcanza para producir una combinación natural. Registrá la expresión completa, su patrón gramatical y un contexto. Las expresiones idiomáticas pueden tener un significado poco predecible y restricciones de registro, variedad o situación. Observá además qué preposiciones y tipos de sujeto aparecen con cada combinación.",
+    "contrast": "No traduzcas literalmente combinaciones del castellano ni supongas que los sinónimos aceptan los mismos complementos. Raise awareness y increase awareness pueden funcionar; do awareness no es una alternativa equivalente. Un modismo puede resultar impreciso en un informe técnico aunque sea natural en una conversación. La precisión avanzada incluye saber cuándo una formulación literal comunica mejor que una expresión llamativa.",
+    "example": "The team reached a tentative conclusion, but further evidence is needed before a firm commitment can be made.",
+    "reason": "Reach a conclusion y make a commitment son colocaciones. Tentative limita la fuerza de la conclusión; firm contrasta con ese carácter provisional. Further evidence evita afirmar que la evidencia ya es suficiente.",
+    "practice": [
+      [
+        "Elegí: make / do a decision",
+        "make a decision",
+        "Make a decision es la combinación convencional."
+      ],
+      [
+        "Corregí: We did an important progress.",
+        "We made important progress.",
+        "Make progress es la colocación; progress es incontable en este uso."
+      ],
+      [
+        "Completá: The campaign aims to ___ awareness.",
+        "raise / increase",
+        "Ambos verbos forman combinaciones naturales con awareness."
+      ],
+      [
+        "¿Conviene usar un modismo solo porque es avanzado?",
+        "No: debe ajustarse a propósito, destinatario y registro.",
+        "La adecuación es parte de la competencia léxica."
+      ]
+    ],
+    "task": "Escribí una reseña crítica de 250 palabras con seis colocaciones documentadas en tus lecturas. Justificá un modismo adecuado y reemplazá otro por una expresión literal más precisa.",
+    "model": "The report raises important questions and makes a useful distinction between access and participation. Its authors draw attention to obstacles that are often overlooked. However, the evidence does not fully support the strongest conclusion. A more cautious account would acknowledge the limited sample and make a clear commitment to further investigation. The central argument remains valuable, but its practical implications need closer examination before policy recommendations can be made.",
+    "speaking": "Explicá una idea primero con palabras simples y después con colocaciones más precisas. Conservá el significado y evitá agregar modismos sin función."
+  },
+  "c2-hedging-register": {
+    "goal": "Graduar la certeza de una afirmación y adaptar el estilo al destinatario.",
+    "explain": "Matizar no significa volver vaga una afirmación. Significa ajustar su fuerza a la evidencia disponible. May, might, appears to y tends to expresan relaciones diferentes: posibilidad, apariencia o tendencia. Some, in this sample y under these conditions limitan el alcance. Una afirmación precisa combina qué se observó, dónde se observó y qué inferencia permite. Atribuir la observación a una fuente también ayuda a delimitar la responsabilidad del autor.",
+    "contrast": "This proves… exige más que This suggests…. Correlación no establece por sí sola causalidad. Evitá matizar tanto que el lector no pueda identificar tu postura: it may perhaps possibly suggest acumula reservas sin aclararlas. El registro formal no depende de palabras largas, sino de explicitud, atribución, cohesión y adecuación. Una versión para público general puede simplificar vocabulario sin eliminar las limitaciones de la evidencia.",
+    "example": "In this small sample, regular practice was associated with higher scores. The findings suggest a possible benefit, but do not establish causation.",
+    "reason": "In this small sample limita la población observada. Was associated with describe una relación sin afirmar causa. Suggest y possible gradúan la inferencia; la última cláusula explicita el límite que no debe perderse al resumir.",
+    "practice": [
+      [
+        "Matizá: This proves that the method works for everyone.",
+        "These findings suggest that the method may help some learners.",
+        "Se reduce tanto la certeza como el alcance universal."
+      ],
+      [
+        "¿Associated with equivale a caused by?",
+        "No.",
+        "La asociación no demuestra por sí sola una relación causal."
+      ],
+      [
+        "Eliminá redundancia: It may perhaps possibly improve results.",
+        "It may improve results.",
+        "Un solo modal comunica la reserva sin acumular sinónimos."
+      ],
+      [
+        "Agregá un límite de alcance a The results show an improvement.",
+        "In this sample, the results show an improvement.",
+        "El alcance se restringe a la población estudiada."
+      ]
+    ],
+    "task": "Redactá dos textos a partir de un estudio ficticio: un resumen académico de 200 palabras y una explicación pública de 100. En ambos, distinguí resultado, interpretación y limitación.",
+    "model": "Participants who completed regular practice tasks obtained higher average scores than those who practised less frequently. This association may indicate a benefit from sustained engagement. However, the groups were not randomly assigned, and prior motivation may have influenced both practice time and performance. The findings should therefore be interpreted cautiously. For learners, the practical message is encouraging but limited: regular practice appears useful, although this study alone cannot determine how much improvement it causes.",
+    "speaking": "Presentá un hallazgo y respondé a alguien que lo interpreta como una certeza universal. Aclaralo con precisión sin descalificar a la persona."
+  }
+}

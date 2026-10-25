@@ -55,6 +55,7 @@ $description = match ($path) {
     <nav class="nav" aria-label="Principal">
       <?php if ($u): ?>
         <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>>Mis niveles</a>
+        <a href="/book.php"<?= $navCur('/book.php') ?>>Libro de estudio</a>
         <a href="/review.php"<?= $navCur('/review.php') ?>>Repaso</a>
         <a href="/stats.php"<?= $navCur('/stats.php') ?>>Estadísticas</a>
         <a href="/placement.php"<?= $navCur('/placement.php') ?>>Test de nivel</a>
