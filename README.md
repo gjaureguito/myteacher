@@ -127,3 +127,12 @@ Ver [diseño y contrato editorial](docs/EXPERIENCIA-ACADEMICA.md). Ejecutar `pyt
 Se respetan autenticación, publicación y acceso de cada unidad. El primer capítulo publicado en posición 1 de cada nivel es accesible en demo; los demás requieren acceso vigente. No hay migración de tablas ni sustitución de ejercicios. Las actividades del libro son de autoestudio en cuaderno, sin puntuación ni guardado automático. Los libros desarrollan las 30 unidades actuales; no se presentan como cobertura exhaustiva ni certificación del MCER.
 
 Validación: `python tests/study_book.py`, `php tests/content_check.php` y `python tests/smoke.py`.
+
+
+## Interfaz suave y laboratorios didácticos
+
+`pastel.css` aplica una paleta lavanda, menta, durazno y azul suave al modo claro; se conserva el modo oscuro. `content/books/visual.json` suma un fundamento conceptual específico para las 30 unidades, tres modelos comentados por capítulo y un error con corrección explicada.
+
+Cada capítulo, tanto en el libro como en la teoría de su unidad, ofrece construcción de oraciones, corrección escrita y asociación de forma con función: 30 laboratorios con 90 actividades interactivas. Los seis índices de nivel incorporan un taller de lectura de imágenes, con dificultad y explicación adaptadas al nivel. Los modelos cambian por acción explícita y con animación breve, respetando movimiento reducido y el control del pie.
+
+Estas prácticas comparan con modelos locales, sin calificación docente ni guardado automático; no sustituyen los ejercicios del servidor ni alteran el progreso existente. Se verifican contenido, renderizado, permisos y publicación en `tests/study_book.py`, junto a los flujos generales de `tests/smoke.py`. Las interacciones también se probaron en navegador: construcción, devolución/reinicio, corrección, tres asociaciones, cambio de etapa e interpretación de imagen; vista móvil de 390 px sin desbordes ni imágenes rotas.

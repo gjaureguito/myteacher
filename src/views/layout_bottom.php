@@ -28,5 +28,6 @@
 <script src="/assets/scenes.js?v=1" defer></script>
 <script src="/assets/modern.js?v=1" defer></script>
 <script src="/assets/visual.js?v=1" defer></script>
+<script src="/assets/study-lab.js?v=1" defer></script>
 </body>
 </html>

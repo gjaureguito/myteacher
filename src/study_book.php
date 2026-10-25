@@ -9,6 +9,13 @@ function study_chapter(string $slug): ?array
     return $chapters[$slug] ?? null;
 }
 
+function study_visual(string $slug): ?array
+{
+    static $visuals;
+    $visuals ??= json_decode(file_get_contents(ROOT . '/content/books/visual.json'), true, 512, JSON_THROW_ON_ERROR);
+    return $visuals[$slug] ?? null;
+}
+
 function study_level(string $code): ?array
 {
     static $levels;
