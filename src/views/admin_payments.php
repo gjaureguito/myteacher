@@ -23,6 +23,10 @@
       <?php endif; ?>
       <p>Cobro para alumnos: <strong><?= $cfg['enabled'] && ($cfg['token_panel'] || $cfg['token_env']) ? 'habilitado' : 'deshabilitado' ?></strong></p>
 
+      <form method="post" action="/admin/mp_connect.php" class="inline"><?= csrf_field() ?>
+        <button class="btn" <?= $cfg['oauth_ready'] ? '' : 'disabled' ?>><?= $cfg['oauth_connected'] ? 'Reconectar Mercado Pago' : 'Conectar Mercado Pago' ?></button></form>
+      <p class="fine"><?php if ($cfg['oauth_ready']): ?>Ingresás en Mercado Pago, autorizás tu cuenta y volvés al panel. No tenés que copiar claves.<?php else: ?>Para activar el botón, creá la aplicación en Mercado Pago (Tus integraciones) y cargá <code>MP_CLIENT_ID</code> y <code>MP_CLIENT_SECRET</code> en Railway. En la aplicación, registrá esta URL de redirección: <code><?= e($cfg['redirect_uri']) ?></code><?php endif; ?></p>
+
       <?php if ($cfg['token_panel'] || $cfg['token_env']): ?>
         <form method="post" class="inline"><?= csrf_field() ?><input type="hidden" name="action" value="test">
           <button class="btn btn-ghost btn-sm">Probar conexión</button></form>

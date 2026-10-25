@@ -51,6 +51,9 @@ if (is_post()) {
         }
     } elseif ($action === 'disconnect') {
         setting_set('mp_access_token', null);
+        setting_set('mp_refresh_token', null);
+        setting_set('mp_token_expires', null);
+        setting_set('mp_oauth', null);
         setting_set('mp_account', null);
         flash('ok', 'Quitamos el token guardado en el panel.' . (env('MP_ACCESS_TOKEN') ? ' Queda activo el de la variable MP_ACCESS_TOKEN de Railway.' : ''));
     }
@@ -69,6 +72,9 @@ $cfg = [
     'once_days' => mp_once_days(),
     'enabled' => setting_get('mp_enabled', '1') === '1',
     'test' => mp_test_mode(),
+    'oauth_ready' => mp_oauth_ready(),
+    'oauth_connected' => mp_oauth_connected(),
+    'redirect_uri' => mp_oauth_redirect_uri(),
     'webhook_url' => app_url('/webhook/mercadopago.php'),
 ];
 $payments = q_all('SELECT p.*, u.email FROM mp_payments p LEFT JOIN users u ON u.id = p.user_id ORDER BY p.created_at DESC LIMIT 20');

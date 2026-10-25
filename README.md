@@ -70,6 +70,10 @@ Verificación: `nslookup www.tudominio.com` debe responder con el host de Railwa
 
 Cómo funciona: al suscribirse se crea un `preapproval` en estado `pending` y el usuario paga en Mercado Pago. El webhook (o la vuelta a `/subscription_return.php`) consulta la API y, si está `authorized`, habilita el acceso hasta el próximo cobro + 3 días de gracia. Si cancela, mantiene el acceso hasta el fin del período pago.
 
+### Conectar con un botón (OAuth)
+
+Alternativa a pegar el Access Token: en la misma aplicación de Mercado Pago, cargá **MP_CLIENT_ID** y **MP_CLIENT_SECRET** (Credenciales de producción) en las variables del servicio y registrá como URL de redirección `https://tudominio.com/admin/mp_callback.php`. Después, en Admin → Mercado Pago, tocá **Conectar Mercado Pago**. El token se guarda cifrado y se renueva solo.
+
 ## Google
 
 [console.cloud.google.com](https://console.cloud.google.com) → APIs y servicios → **Pantalla de consentimiento** (externa, con links a `/privacy.php` y `/terms.php`) → **Credenciales → Crear ID de cliente OAuth → Aplicación web**.

@@ -18,6 +18,7 @@ function mp_api(): string
 /** Token del panel de administración; si no hay, el de la variable MP_ACCESS_TOKEN. */
 function mp_token(): string
 {
+    mp_oauth_refresh_if_needed();
     $t = setting_get('mp_access_token') ?: env('MP_ACCESS_TOKEN');
     if (!$t) throw new RuntimeException('Mercado Pago todavía no está configurado.');
     return $t;
@@ -265,4 +266,98 @@ function mp_sync_payment(string $paymentId): ?array
         }
     }
     return ['user_id' => $userId, 'status' => $status];
+}
+
+
+/* ---------- Conexión con un clic (OAuth) ---------- */
+/*
+ * La aplicación de Mercado Pago (MP_CLIENT_ID / MP_CLIENT_SECRET) se crea una sola vez.
+ * Después el administrador toca "Conectar Mercado Pago", autoriza su cuenta y el panel guarda
+ * el token (cifrado) y su refresh token. El token vence: se renueva solo antes de usarlo.
+ */
+
+function mp_oauth_ready(): bool
+{
+    return (bool) (env('MP_CLIENT_ID') && env('MP_CLIENT_SECRET'));
+}
+
+function mp_oauth_connected(): bool
+{
+    return setting_get('mp_oauth', '0') === '1' && (bool) setting_get('mp_refresh_token');
+}
+
+function mp_oauth_redirect_uri(): string
+{
+    return app_url('/admin/mp_callback.php');
+}
+
+/** Redirige a Mercado Pago para autorizar la cuenta (con PKCE y state ligado a la sesión). */
+function mp_oauth_start(): never
+{
+    $state = bin2hex(random_bytes(24));
+    $verifier = rtrim(strtr(base64_encode(random_bytes(48)), '+/', '-_'), '=');
+    $challenge = rtrim(strtr(base64_encode(hash('sha256', $verifier, true)), '+/', '-_'), '=');
+    $_SESSION['mp_oauth'] = ['state' => $state, 'verifier' => $verifier, 'exp' => time() + 600];
+    redirect('https://auth.mercadopago.com/authorization?' . http_build_query([
+        'client_id' => env('MP_CLIENT_ID'),
+        'response_type' => 'code',
+        'platform_id' => 'mp',
+        'state' => $state,
+        'redirect_uri' => mp_oauth_redirect_uri(),
+        'code_challenge' => $challenge,
+        'code_challenge_method' => 'S256',
+    ]));
+}
+
+/** Pide tokens a Mercado Pago. Lanza RuntimeException si no los entrega. */
+function mp_oauth_token(array $body): array
+{
+    $body += ['client_id' => env('MP_CLIENT_ID'), 'client_secret' => env('MP_CLIENT_SECRET')];
+    $res = http_json('POST', mp_api() . '/oauth/token', [], $body);
+    $d = $res['data'];
+    if ($res['code'] !== 200 || empty($d['access_token']) || empty($d['refresh_token'])) {
+        log_line('MP oauth token error ' . $res['code'] . ': ' . substr((string) $res['raw'], 0, 300));
+        throw new RuntimeException('Mercado Pago no completó la autorización.');
+    }
+    return $d;
+}
+
+function mp_oauth_store(array $t): void
+{
+    setting_set('mp_access_token', (string) $t['access_token']);
+    setting_set('mp_refresh_token', (string) $t['refresh_token']);
+    setting_set('mp_token_expires', (string) (time() + (int) ($t['expires_in'] ?? 15552000)));
+    setting_set('mp_oauth', '1');
+}
+
+/** Cierra el flujo: valida state, canjea el código, verifica la cuenta y guarda todo. */
+function mp_oauth_finish(string $state, string $code): array
+{
+    $s = $_SESSION['mp_oauth'] ?? null;
+    unset($_SESSION['mp_oauth']);
+    if (!$s || $s['exp'] < time() || $state === '' || !hash_equals($s['state'], $state) || $code === '') {
+        throw new RuntimeException('La autorización venció o no corresponde a esta sesión. Volvé a intentar.');
+    }
+    $t = mp_oauth_token([
+        'grant_type' => 'authorization_code', 'code' => $code,
+        'redirect_uri' => mp_oauth_redirect_uri(), 'code_verifier' => $s['verifier'],
+    ]);
+    $me = mp_check_token((string) $t['access_token']);
+    mp_oauth_store($t);
+    setting_set('mp_account', trim(($me['nickname'] ?? '') . ' · ' . ($me['email'] ?? ''), ' ·') . ' (ID ' . ($me['id'] ?? '?') . ')');
+    return $me;
+}
+
+/** Renueva el token si vence en menos de 5 minutos. Solo aplica a cuentas conectadas por OAuth. */
+function mp_oauth_refresh_if_needed(): void
+{
+    if (!mp_oauth_ready() || !mp_oauth_connected()) return;
+    $exp = (int) setting_get('mp_token_expires', '0');
+    if ($exp > time() + 300) return;
+    try {
+        $t = mp_oauth_token(['grant_type' => 'refresh_token', 'refresh_token' => (string) setting_get('mp_refresh_token')]);
+        mp_oauth_store($t);
+    } catch (RuntimeException $e) {
+        log_line('MP no pudo renovar el token: ' . $e->getMessage());
+    }
 }

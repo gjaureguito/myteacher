@@ -9,7 +9,7 @@ declare(strict_types=1);
  * Si cambian esas variables, los secretos no se pueden descifrar y hay que volver a cargarlos.
  */
 
-const SECRET_SETTINGS = ['mp_access_token', 'mp_webhook_secret'];
+const SECRET_SETTINGS = ['mp_access_token', 'mp_webhook_secret', 'mp_refresh_token'];
 
 function settings_ensure(): void
 {
@@ -38,9 +38,10 @@ function settings_ensure(): void
     $done = true;
 }
 
-function settings_all(): array
+function settings_all(bool $reset = false): array
 {
     static $cache = null;
+    if ($reset) $cache = null;
     if ($cache !== null) return $cache;
     try {
         settings_ensure();
@@ -77,6 +78,7 @@ function setting_set(string $key, ?string $value): void
     } else {
         q('INSERT INTO settings (k, v, updated_at) VALUES (?, ?, ?)', [$key, $value, now_utc()]);
     }
+    settings_all(true); // que lo guardado se vea en el mismo pedido
 }
 
 /** true si el valor guardado existe pero no se puede descifrar (cambió la clave). */
