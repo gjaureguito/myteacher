@@ -17,6 +17,27 @@ $first = explode(' ', $u['name'])[0];
     foreach ($lp as $p) { $allSolved += $p['solved']; $allTotal += $p['total']; }
     $globalPct = $allTotal ? (int) round($allSolved * 100 / $allTotal) : 0;
   ?>
+  <section class="mt-learning-route" aria-labelledby="mt-route-title">
+    <div class="mt-learning-route-top">
+      <div><p class="eyebrow">TU RUTA PERSONAL DE APRENDIZAJE</p><h2 id="mt-route-title"><?= $routeTarget ? e(strtoupper($routeTarget['level_code']).' · '.$routeTarget['title']) : 'Elegí tu primer capítulo' ?></h2><p>Un camino claro: estudiá, aplicá, evaluá y repasá antes de seguir.</p></div>
+      <a href="/stats.php" class="mt-route-stats-link">Ver estadísticas completas ↗</a>
+    </div>
+    <?php if ($routeTarget): ?>
+    <div class="mt-route-steps">
+      <a href="/book.php?code=<?= e($routeTarget['level_code']) ?>&amp;chapter=<?= e($routeTarget['slug']) ?>"><b>01 · Comprender</b><span>Leer teoría y ejemplos</span></a>
+      <a href="/unit.php?id=<?= (int)$routeTarget['id'] ?>#t-practice"><b>02 · Practicar</b><span>Resolver ejercicios</span></a>
+      <a href="/grammar.php?id=<?= (int)$routeTarget['id'] ?>"><b>03 · Comprobar</b><span>Practicar gramática</span></a>
+      <a href="/review.php"><b>04 · Reforzar</b><span>Revisar los errores</span></a>
+    </div>
+    <div class="mt-route-progress"><div><strong><?= $routeDone ?> de <?= $routeTotal ?></strong> ejercicios resueltos en esta unidad</div><div class="mt-route-track" role="progressbar" aria-label="Avance de la unidad" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<?= $routePct ?>"><span style="width:<?= $routePct ?>%"></span></div><b><?= $routePct ?>%</b></div>
+    <?php endif; ?>
+    <div class="mt-route-metrics">
+      <div><strong><?= $performanceAccuracy===null ? 'Sin datos' : $performanceAccuracy.'%' ?></strong><span>Precisión en intentos evaluados</span></div>
+      <div><strong><?= (int)$solvedTotal ?></strong><span>Ejercicios completados</span></div>
+      <div><strong><?= $pendingReview ?></strong><span>Ejercicios pendientes de refuerzo</span></div>
+    </div>
+    <p class="mt-route-caveat">El avance mide ejercicios resueltos; la precisión mide respuestas correctas sobre intentos, sin contar soluciones reveladas. Ninguna de las dos métricas certifica por sí sola el dominio del nivel.</p>
+  </section>
   <div class="stat-row">
     <div class="stat flame"><span class="stat-ico" aria-hidden="true">🔥</span><div><strong data-count="<?= (int) $streak ?>"><?= (int) $streak ?></strong><span>días de racha</span></div></div>
     <div class="stat"><span class="stat-ico" aria-hidden="true">✅</span><div><strong data-count="<?= (int) $solvedTotal ?>"><?= (int) $solvedTotal ?></strong><span>ejercicios resueltos</span></div></div>
