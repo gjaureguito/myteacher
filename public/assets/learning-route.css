@@ -1,0 +1,25 @@
+/* Student learning route and honest performance metrics. */
+.mt-learning-route{background:var(--surface,#fff);border:1px solid #d7e5f2;border-radius:22px;padding:clamp(20px,3vw,32px);margin:20px 0 30px;box-shadow:0 12px 30px rgba(15,50,89,.055)}
+.mt-learning-route-top{display:flex;align-items:start;justify-content:space-between;gap:18px;margin-bottom:21px}
+.mt-learning-route-top h2{font-size:clamp(1.3rem,2.1vw,1.85rem);letter-spacing:-.03em;margin:6px 0;color:#155998}
+.mt-learning-route-top p:not(.eyebrow){font-size:.92rem;line-height:1.6;margin:0;color:var(--muted,#567)}
+.mt-route-stats-link{font-size:.83rem;font-weight:750;white-space:nowrap;padding:9px;color:#155d9f}
+.mt-route-steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.mt-route-steps>a{display:flex;flex-direction:column;gap:8px;min-width:0;text-decoration:none;color:inherit;background:#f2f8ff;border:1px solid #d9e7f6;border-radius:13px;padding:16px;transition:transform .15s,border-color .15s}
+.mt-route-steps>a:hover{transform:translateY(-2px);border-color:#3681bf}
+.mt-route-steps b{font-size:.86rem;color:#155d9f}
+.mt-route-steps span{font-size:.8rem;color:#40546c;line-height:1.45}
+.mt-route-progress{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:15px;margin:22px 0;font-size:.85rem;color:#354e68}
+.mt-route-progress strong{color:#173f68}
+.mt-route-track{height:10px;border-radius:30px;background:#deebf8;overflow:hidden}
+.mt-route-track span{display:block;height:100%;background:#1682ba;border-radius:30px}
+.mt-route-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.mt-route-metrics>div{display:grid;gap:4px;padding:15px;border:1px solid #e1eaf3;border-radius:13px}
+.mt-route-metrics strong{font-size:1.45rem;color:#155d9f}
+.mt-route-metrics span{color:var(--muted,#52667b);font-size:.77rem;line-height:1.4}
+.mt-route-caveat{font-size:.73rem;line-height:1.55;color:var(--muted,#52667b);margin:15px 0 0}
+html[data-theme=dark] .mt-learning-route{background:#172d42;border-color:#385570}
+html[data-theme=dark] .mt-route-steps>a,html[data-theme=dark] .mt-route-metrics>div{background:#203b52;border-color:#42617a}
+html[data-theme=dark] .mt-route-steps :is(b,span),html[data-theme=dark] .mt-learning-route :is(h2,.mt-route-metrics strong){color:#dceeff}
+@media(max-width:850px){.mt-route-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.mt-learning-route-top{flex-direction:column}.mt-route-progress{grid-template-columns:1fr auto}.mt-route-track{grid-column:1/-1;grid-row:2}}
+@media(max-width:560px){.mt-route-steps{grid-template-columns:1fr 1fr}.mt-route-steps>a{padding:12px}.mt-route-metrics{grid-template-columns:1fr}.mt-route-metrics>div{display:flex;align-items:center;gap:15px}.mt-route-metrics strong{min-width:75px}.mt-route-stats-link{padding:0}}
