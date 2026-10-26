@@ -2,3 +2,17 @@
 html[data-theme=dark] .book-page{--book-paper:#182b2d;--book-ink:#e9eee6;--book-rule:#3d5553;--book-accent:#c6dfa1}html[data-theme=dark] .book-example,html[data-theme=dark] .book-recall,html[data-theme=dark] .book-note{background:#263f3c}html[data-theme=dark] .book-paper h2,html[data-theme=dark] .book-paper h3,html[data-theme=dark] .book-paper .fine{color:var(--book-ink)}
 @media(max-width:850px){.book-layout{grid-template-columns:1fr}.book-index{position:static;max-height:none}.book-index ol{columns:2}.book-cover{padding:1.7rem}.book-paper{padding:1.3rem}.book-paper p,.book-paper li{font-size:1rem}}@media(max-width:480px){.book-index ol{columns:1}.book-glossary{grid-template-columns:1fr}.book-pagination{flex-direction:column}.book-pagination a{max-width:100%}}
 @media print{.topbar,.book-index,.book-badges,.book-practice,.book-pagination,.bottom-nav,.site-footer,.book-example button{display:none!important}.book-layout{display:block}.book-cover,.book-paper{background:white!important;color:black!important;box-shadow:none;border:0;padding:0}.book-cover{margin:0}.book-page details{break-inside:avoid}.book-paper p{font-size:11pt}.book-example{break-inside:avoid}}
+
+/* Lectura editorial: jerarquía de libro, secciones numeradas e índice interno. */
+.book-chapter-meta{font-size:.88rem;font-weight:750;letter-spacing:.04em;opacity:.75;text-transform:uppercase}
+.book-section-lead{font-size:1.04rem!important;line-height:1.8!important;border-left:3px solid var(--book-accent,#57784a);padding:.55rem 1rem;background:rgba(100,130,95,.07);border-radius:0 8px 8px 0}
+.chapter-contents{border:1px solid var(--book-rule,#ccd2cc);border-radius:12px;padding:1.15rem 1.4rem;margin:1rem 0 2rem;background:rgba(120,135,120,.055)}
+.chapter-contents strong{display:block;margin-bottom:.5rem}.chapter-contents ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem 1.5rem;margin:0;padding-left:1.35rem}
+.chapter-contents a{text-decoration:underline;text-underline-offset:3px}
+.book-chapter-developed h2{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--book-rule,#ccd2cc);scroll-margin-top:80px}
+.book-chapter-developed h3{margin-top:1.5rem;line-height:1.4}
+.book-theory{line-height:1.85}.book-theory p,.book-chapter-developed>p{max-width:76ch}
+.book-paper .book-theory h3{margin-top:1.5rem}
+.book-next-actions{display:flex;flex-wrap:wrap;gap:12px;margin:1.2rem 0}
+.book-recall{scroll-margin-top:80px}
+@media(max-width:540px){.chapter-contents ol{grid-template-columns:1fr}.book-section-lead{font-size:1rem!important}}
