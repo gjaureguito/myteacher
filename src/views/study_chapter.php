@@ -1,4 +1,6 @@
 <?php $visualSlug=$chapterUnit['slug'] ?? $unit['slug'] ?? ''; $visual=study_visual($visualSlug); ?>
+<link rel="stylesheet" href="/assets/book-quiz.css?v=1">
+<script src="/assets/book-quiz.js?v=1" defer></script>
 <section class="book-section book-chapter-developed" aria-label="Desarrollo y práctica guiada">
   <p class="eyebrow">COMPRENDER ANTES DE MEMORIZAR</p>
   <h2 id="chapter-foundation">1. Comprender el concepto</h2>
