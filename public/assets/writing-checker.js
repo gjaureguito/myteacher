@@ -38,6 +38,7 @@
    const text=field.value.trim();results.replaceChildren();
    if(!text){results.textContent='Escribí primero una respuesta para analizar.';return;}
    const found=[];
+   const reviewedText=field.value;
    for(const rule of rules){
     rule.re.lastIndex=0;
     const match=rule.re.exec(text);
@@ -45,7 +46,7 @@
      const before=text.slice(Math.max(0,match.index-28),match.index);
      // No marcar preguntas con auxiliar/modal: Could she work? / Does he go?
      if(rule.id==='he-she' && /\b(?:does|did|can|could|will|would|should|may|might|must|let|make)\s*$/i.test(before))continue;
-     found.push({...rule,example:match[0].trim()});
+     found.push({...rule,example:match[0].trim(),index:match.index,matched:match[0]});
     }
    }
    const title=document.createElement('strong');
@@ -62,18 +63,23 @@
     if(replacement){
       const apply=document.createElement('button');apply.type='button';apply.textContent='Aplicar sugerencia';
       apply.addEventListener('click',()=>{
-        const re=rules.find(rule=>rule.id===r.id)?.re;
-        if(!re)return;
-        re.lastIndex=0;
-        const found=re.exec(field.value);
-        if(!found){apply.disabled=true;apply.textContent='El texto cambió; volvé a revisar';return;}
+        // No aplicar recomendaciones obsoletas tras modificaciones del alumno.
+        if(field.value!==reviewedText){apply.disabled=true;apply.textContent='Texto modificado: revisá nuevamente';return;}
         const old=field.value;
-        const proposed=typeof replacement==='function'?replacement(found[0]):replacement;
-        const next=old.slice(0,found.index)+proposed+old.slice(found.index+found[0].length);
+        if(old.slice(r.index,r.index+r.matched.length)!==r.matched)return;
+        const proposed=typeof replacement==='function'?replacement(r.matched):replacement;
+        const next=old.slice(0,r.index)+proposed+old.slice(r.index+r.matched.length);
         if(next===old)return;
         field.value=next;field.dispatchEvent(new Event('input',{bubbles:true}));
+        // Evitar aplicar otra sugerencia calculada para el borrador anterior.
+        results.querySelectorAll('button').forEach(b=>{if(b!==apply)b.disabled=true;});
         const undo=document.createElement('button');undo.type='button';undo.textContent='Deshacer';
-        undo.addEventListener('click',()=>{if(field.value===next){field.value=old;field.dispatchEvent(new Event('input',{bubbles:true}));}undo.remove();});
+        undo.addEventListener('click',()=>{
+          if(field.value!==next){undo.disabled=true;undo.textContent='El texto cambió: no se puede deshacer automáticamente';return;}
+          field.value=old;field.dispatchEvent(new Event('input',{bubbles:true}));undo.remove();
+          results.querySelectorAll('button').forEach(b=>{b.disabled=true;});
+          apply.textContent='Volvé a revisar';
+        });
         li.append(undo);apply.disabled=true;
       });
       li.append(apply);
