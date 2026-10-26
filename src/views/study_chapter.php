@@ -1,6 +1,5 @@
 <?php $visualSlug=$chapterUnit['slug'] ?? $unit['slug'] ?? ''; $visual=study_visual($visualSlug); ?>
 <section class="book-section book-chapter-developed" aria-label="Desarrollo y práctica guiada">
-  <nav class="chapter-contents" aria-label="Secciones del capítulo"><strong>En este capítulo</strong><ol><li><a href="#chapter-foundation">Comprender el concepto</a></li><li><a href="#chapter-example">Analizar un ejemplo</a></li><li><a href="#chapter-practice">Practicar con soluciones</a></li><li><a href="#chapter-writing">Escribir y hablar</a></li><li><a href="#chapter-check">Comprobar lo aprendido</a></li></ol></nav>
   <p class="eyebrow">COMPRENDER ANTES DE MEMORIZAR</p>
   <h2 id="chapter-foundation">1. Comprender el concepto</h2>
   <p class="book-section-lead">Primero identificá qué expresa la estructura, cuándo se utiliza y qué cambia si elegís otra forma.</p>
