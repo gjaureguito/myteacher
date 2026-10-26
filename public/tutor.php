@@ -26,5 +26,5 @@ require ROOT.'/src/views/layout_top.php';
 </section>
 <aside class="tutor-aside"><h2>Tu vocabulario</h2><p>Seleccioná una palabra o frase corta en los textos de MyTeacher. Hacé clic derecho y elegí <strong>Agregar al glosario</strong>.</p><p>Las entradas se ordenan alfabéticamente y quedan asociadas a tu cuenta.</p><p><a href="/glossary.php" class="btn">Abrir mi glosario</a></p><p>Los significados generados por IA pueden requerir revisión según el contexto.</p></aside>
 </div></section>
-<script src="/assets/dictionary.js?v=1" defer></script>
+<script src="/assets/dictionary.js?v=2" defer></script>
 <?php require ROOT.'/src/views/layout_bottom.php'; ?>
