@@ -37,3 +37,21 @@ html[data-theme=dark] body.has-bottom-nav .topbar .mt-sidebar-toggle{background:
  body.has-bottom-nav .bottom-nav{z-index:100}
 }
 @media(prefers-reduced-motion:reduce){.mt-sidebar,body.has-bottom-nav main,body.has-bottom-nav>.footer{transition:none}}
+
+/* Refinamiento visual: navegación de producto con iconografía vectorial homogénea. */
+body.has-bottom-nav{--mt-side-width:252px}
+.mt-sidebar{width:var(--mt-side-width);background:#fbfcff;box-shadow:none}
+.mt-sidebar-links{padding:17px 12px 24px;gap:2px}
+.mt-sidebar-heading{margin:18px 12px 7px!important;font-size:.65rem!important;letter-spacing:.105em;color:#8795a6}
+.mt-sidebar-links a,.mt-sidebar-links form button{min-height:43px;padding:10px 12px;gap:12px;border-radius:10px;color:#3a4e67;font-size:.82rem;font-weight:650;line-height:1.35;transition:background .16s,color .16s}
+.mt-sidebar-links a[aria-current=page]{background:#e9f2ff;color:#155b9e;box-shadow:inset 3px 0 0 #2476c4}
+.mt-sidebar-links a:hover,.mt-sidebar-links form button:hover{background:#eaf2fa}
+.mt-side-icon{display:block;flex:0 0 19px;width:19px;height:19px;stroke:currentColor;opacity:.86}
+.mt-sidebar-links a[aria-current=page] .mt-side-icon{opacity:1}
+.mt-sidebar-links form button{font-family:inherit!important}
+.mt-sidebar-links form{width:100%;padding:0;margin:0}
+.mt-sidebar-heading:not(:first-child){padding-top:13px;border-top:1px solid #e8edf4}
+html[data-theme=dark] .mt-sidebar{background:#152a40}
+html[data-theme=dark] .mt-sidebar-heading:not(:first-child){border-color:#32495e}
+@media(max-width:1000px) and (min-width:761px){body.has-bottom-nav{--mt-side-width:228px}.mt-sidebar{width:var(--mt-side-width)}}
+@media(max-width:760px){.mt-sidebar{width:min(290px,85vw)}.mt-sidebar-links{padding-top:35px}}
