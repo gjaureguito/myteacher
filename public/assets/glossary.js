@@ -10,7 +10,31 @@ const clean=s=>String(s||'').trim(),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&'
 let current='',lastDirection='en-es',reviewIndex=-1,showTranslation=false;
 const status=$('#lex-result');
 function pronounce(t){if(!('speechSynthesis' in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u)}
-function render(){const a=get(),q=clean($('#lex-filter').value).toLowerCase();$('#lex-count').textContent='('+a.length+')';const rows=a.filter(x=>(x.word+' '+x.translation+' '+x.tag+' '+x.context).toLowerCase().includes(q));$('#lex-list').innerHTML=rows.length?rows.map(x=>{const tag=clean(x.tag),note=clean(x.context),showTag=tag&&tag.toLowerCase()!=='general',showNote=note&&!/^selecci[oó]n de texto en myteacher$/i.test(note);return '<article class="lex-entry"><div><strong>'+esc(x.word)+'</strong>'+(showTag?' <small class="lex-tag">'+esc(tag)+'</small>':'')+'<p>'+esc(x.translation)+'</p>'+(showNote?'<small class="lex-context">Ejemplo o nota: '+esc(note)+'</small>':'')+'</div><div><button type="button" data-hear="'+encodeURIComponent(x.word)+'" aria-label="Pronunciar">🔊</button><button type="button" data-remove="'+encodeURIComponent(x.word)+'" aria-label="Eliminar palabra">Eliminar</button></div></article>';}).join(''):'<p class="muted">Todavía no hay palabras guardadas para esta búsqueda.</p>';}
+const alphabet='ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+let activeLetter='Todas';
+const initial=word=>{const first=String(word||'').trim().charAt(0).toLocaleUpperCase('es');if(first==='Ñ')return 'Ñ';return first.normalize('NFD').replace(/[\u0300-\u036f]/g,'');};
+function renderAlphabet(entries){
+ const nav=$('#lex-alphabet');nav.replaceChildren();
+ const counts=new Map();entries.forEach(x=>{const letter=initial(x.word);counts.set(letter,(counts.get(letter)||0)+1);});
+ for(const letter of ['Todas',...alphabet]){
+   const button=document.createElement('button');button.type='button';button.className='lex-letter'+(activeLetter===letter?' is-active':'');
+   button.textContent=letter;button.setAttribute('aria-pressed',String(activeLetter===letter));
+   const count=letter==='Todas'?entries.length:(counts.get(letter)||0);
+   button.setAttribute('aria-label',letter==='Todas'?'Mostrar todas las palabras ('+count+')':'Letra '+letter+': '+count+' palabras');
+   if(letter!=='Todas'&&!count)button.disabled=true;
+   button.addEventListener('click',()=>{activeLetter=letter;render();});
+   nav.append(button);
+ }
+}
+function render(){
+ const a=get(),q=clean($('#lex-filter').value).toLocaleLowerCase('es');
+ $('#lex-count').textContent='('+a.length+')';renderAlphabet(a);
+ const rows=a.filter(x=>(activeLetter==='Todas'||initial(x.word)===activeLetter)&&((x.word+' '+x.translation+' '+x.tag+' '+x.context).toLocaleLowerCase('es').includes(q)));
+ const statusEl=$('#lex-letter-status');
+ statusEl.textContent=activeLetter==='Todas'?'Mostrando '+rows.length+' de '+a.length+' palabras': 'Letra '+activeLetter+' · '+rows.length+' '+(rows.length===1?'palabra':'palabras');
+ $('#lex-list').innerHTML=rows.length?rows.map(x=>{const tag=clean(x.tag),note=clean(x.context),showTag=tag&&tag.toLowerCase()!=='general',showNote=note&&!/^selecci[oó]n de texto en myteacher$/i.test(note);return '<article class="lex-entry"><div><strong>'+esc(x.word)+'</strong>'+(showTag?' <small class="lex-tag">'+esc(tag)+'</small>':'')+'<p>'+esc(x.translation)+'</p>'+(showNote?'<small class="lex-context">Ejemplo o nota: '+esc(note)+'</small>':'')+'</div><div><button type="button" data-hear="'+encodeURIComponent(x.word)+'" aria-label="Pronunciar">🔊</button><button type="button" data-remove="'+encodeURIComponent(x.word)+'" aria-label="Eliminar palabra">Eliminar</button></div></article>';}).join(''):'<p class="muted">No hay palabras para esta letra o búsqueda. Elegí otra pestaña o probá con otro término.</p>';
+}
+
 $('#lex-form').addEventListener('submit',async e=>{e.preventDefault();current=clean($('#lex-word').value);if(!current)return;status.textContent='Consultando traducción…';$('#lex-save-form').hidden=true;
 try{const res=await fetch('/api/translate.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf]')?.content||''},body:JSON.stringify({term:current,direction:$('#lex-direction').value})});const data=await res.json();if(!res.ok||!data.translation)throw Error('No encontramos una traducción confiable');lastDirection=data.direction||$('#lex-direction').value;$('#lex-translation').value=data.translation;status.textContent='Traducción '+(data.direction==='es-en'?'español → inglés':'inglés → español')+'. Revisala antes de guardarla.';}
 catch{status.textContent='No se pudo obtener la traducción. Podés completarla manualmente.';$('#lex-translation').value='';lastDirection='en-es';}
