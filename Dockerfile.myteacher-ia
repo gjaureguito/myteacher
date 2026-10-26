@@ -2,7 +2,8 @@ FROM ollama/ollama:latest AS ollama
 FROM python:3.11-slim
 RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 ca-certificates && rm -rf /var/lib/apt/lists/*
 COPY --from=ollama /bin/ollama /usr/local/bin/ollama
-COPY --from=ollama /lib/ollama /lib/ollama
+COPY --from=ollama /usr/lib/ollama /usr/local/lib/ollama
+RUN test -x /usr/local/lib/ollama/llama-server
 ENV OLLAMA_MODELS=/models OLLAMA_HOST=127.0.0.1:11434
 WORKDIR /app
 COPY requirements-ia.txt .
