@@ -195,6 +195,16 @@
       <p class="eyebrow">MICRÓFONO</p><h2 id="mh-t">Activá tu micrófono</h2>
       <div class="mh-status" aria-live="polite">Probando el micrófono…</div>
       <div class="mh-meter" hidden><i></i></div>
+      <section class="mh-recorder" hidden>
+        <h3>Práctica alternativa: grabá tu voz</h3>
+        <p>Usá el micrófono elegido para grabar y escucharte. No se envía la grabación a MyTeacher.</p>
+        <div class="mh-rec-controls">
+          <button type="button" class="btn btn-sm" data-mh-record>Grabar mi voz</button>
+          <button type="button" class="btn btn-ghost btn-sm" data-mh-stop disabled>Detener grabación</button>
+        </div>
+        <audio controls data-mh-playback hidden></audio>
+        <p class="fine" data-mh-rec-status aria-live="polite"></p>
+      </section>
       <div class="mh-device-box"><label for="mh-device-select">Micrófono disponible</label>
         <select id="mh-device-select" data-mic-select><option value="">Predeterminado</option></select>
         <p class="fine" data-mic-device-status>Comprobando dispositivos de entrada…</p>
@@ -243,6 +253,36 @@
     document.body.append(back);
     const st = back.querySelector('.mh-status'), meter = back.querySelector('.mh-meter'), bar = meter.querySelector('i');
     let live = null;
+    let recorder=null,recordedUrl=null;
+    const recorderBox=back.querySelector('.mh-recorder');
+    const recordBtn=back.querySelector('[data-mh-record]');
+    const stopBtn=back.querySelector('[data-mh-stop]');
+    const playback=back.querySelector('[data-mh-playback]');
+    const recordingStatus=back.querySelector('[data-mh-rec-status]');
+    function releaseRecording(){
+      if(recorder && recorder.state==='recording')recorder.stop();
+      recorder=null;recordBtn.disabled=false;stopBtn.disabled=true;
+    }
+    recordBtn.addEventListener('click',()=>{
+      if(!live?.stream || !window.MediaRecorder){recordingStatus.textContent='La grabación no está disponible con este navegador o dispositivo.';return;}
+      if(recordedUrl){URL.revokeObjectURL(recordedUrl);recordedUrl=null;}
+      playback.hidden=true;playback.removeAttribute('src');
+      try{
+        const chunks=[];
+        recorder=new MediaRecorder(live.stream);
+        recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
+        recorder.onstop=()=>{
+          if(!chunks.length){recordingStatus.textContent='No se recibió audio grabado.';return;}
+          recordedUrl=URL.createObjectURL(new Blob(chunks,{type:recorder.mimeType||'audio/webm'}));
+          playback.src=recordedUrl;playback.hidden=false;
+          recordingStatus.textContent='Grabación lista. Reproducila para escuchar tu pronunciación.';
+        };
+        recorder.start();recordBtn.disabled=true;stopBtn.disabled=false;
+        recordingStatus.textContent='Grabando… Decí una frase y presioná Detener grabación.';
+      }catch{recordingStatus.textContent='No se pudo iniciar la grabación con este dispositivo.';}
+    });
+    stopBtn.addEventListener('click',()=>{if(recorder?.state==='recording')recorder.stop();recordBtn.disabled=false;stopBtn.disabled=true;});
+
     const select=back.querySelector('[data-mic-select]'),deviceStatus=back.querySelector('[data-mic-device-status]');
     async function refreshInputs(){
       if(!navigator.mediaDevices?.enumerateDevices){deviceStatus.textContent='No es posible enumerar los dispositivos en este navegador.';return;}
@@ -256,10 +296,10 @@
       }catch{deviceStatus.textContent='El navegador no permitió consultar la lista de micrófonos.';}
     }
     select.addEventListener('change',()=>run());
-    const stop = () => { if (live) { cancelAnimationFrame(live.raf); live.stream.getTracks().forEach(t => t.stop()); live.ac.close(); live = null; } };
+    const stop = () => { releaseRecording(); if (live) { cancelAnimationFrame(live.raf); live.stream.getTracks().forEach(t => t.stop()); live.ac.close(); live = null; } };
     const show = code => back.querySelectorAll('.mh-step').forEach(sec => { sec.hidden = sec.dataset.for !== code; });
     async function run() {
-      stop(); st.className = 'mh-status'; st.textContent = 'Detectando y probando los micrófonos disponibles… si el navegador te pregunta, tocá Permitir.'; meter.hidden = true; show(null);
+      stop(); recorderBox.hidden=true; st.className = 'mh-status'; st.textContent = 'Detectando y probando los micrófonos disponibles… si el navegador te pregunta, tocá Permitir.'; meter.hidden = true; show(null);
       const perm = await navigator.permissions?.query({ name: 'microphone' }).then(p => p.state).catch(() => null);
       const r = await testMic(select.value);
       await refreshInputs();
@@ -281,7 +321,7 @@
       if(r.attempts?.length)deviceStatus.textContent+=' Intentos: '+r.attempts.join(', ')+'.';
     }
     back.addEventListener('click', async e => {
-      if (e.target === back || e.target.closest('[data-close]')) { stop(); back.remove(); }
+      if (e.target === back || e.target.closest('[data-close]')) { stop(); if(recordedUrl)URL.revokeObjectURL(recordedUrl);back.remove(); }
       if (e.target.closest('[data-retry]')) run();
       if (e.target.closest('[data-copy-audio]')) {
         try { await navigator.clipboard.writeText(PS_AUDIO); ipToast('Copiado. Pegalo en la Terminal (administrador) y apretá Enter.'); }
