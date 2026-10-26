@@ -2,7 +2,9 @@
 'use strict';
 const form=document.querySelector('#tutor-form');if(!form)return;
 const input=document.querySelector('#tutor-question'),chat=document.querySelector('#tutor-chat'),info=document.querySelector('#tutor-remaining'),sendBtn=form.querySelector('[type=submit]'),micBtn=document.querySelector('#tutor-mic'),sayBtn=document.querySelector('#tutor-say'),lang=document.querySelector('#tutor-language'),voiceToggle=document.querySelector('#tutor-auto-voice');
-let active=false,recognition=null,speaking=null,busy=false,lastAnswer='',turns=0;
+let active=false,recognition=null,speaking=null,busy=false,lastAnswer='',turns=0,history=[];
+const level=document.querySelector('#tutor-level');
+level?.addEventListener('change',()=>{history=[];turns=0;});
 const maxTurns=15;
 function message(text,who){const p=document.createElement('p');p.className='tutor-bubble '+(who||'tutor-bot');p.textContent=text;chat.append(p);chat.scrollTop=chat.scrollHeight;return p;}
 function setState(text){info.textContent=text;micBtn.textContent=active?'■ Terminar conversación':'🎙️ Iniciar conversación';micBtn.setAttribute('aria-pressed',String(active));}
@@ -17,16 +19,16 @@ function speak(text,continueAfter){
 async function ask(question,fromVoice){
  if(busy)return;busy=true;sendBtn.disabled=true;message(question,'tutor-user');const pending=message('El profesor está pensando…');
  try{
-  const res=await fetch('/api/tutor.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf]')?.content||''},body:JSON.stringify({question,unit_id:Number(form.dataset.unit||0)})});
+  const res=await fetch('/api/tutor.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf]')?.content||''},body:JSON.stringify({question,unit_id:Number(form.dataset.unit||0),level:level?.value||'A1',history:history.slice(-8)})});
   const data=await res.json();pending.textContent=data.answer||data.error||'No se recibió una respuesta.';
   if(typeof data.remaining==='number')info.textContent='Consultas restantes hoy: '+data.remaining+(data.limit?' / '+data.limit:'');
   if(!res.ok){if(fromVoice)stop();return;}
-  lastAnswer=data.answer||'';turns++;input.value='';
+  lastAnswer=data.answer||'';history.push({role:'user',content:question},{role:'assistant',content:lastAnswer});history=history.slice(-8);turns++;input.value='';
   if(fromVoice&&active){
    if(turns>=maxTurns){stop();info.textContent='Terminó la sesión de práctica (máximo '+maxTurns+' intercambios).';speak(lastAnswer,false);}
    else speak(lastAnswer,true);
   }else if(voiceToggle?.checked)speak(lastAnswer,false);
- }catch{pending.textContent='No fue posible conectar con Gemini.';if(fromVoice)stop();}
+ }catch{pending.textContent='No fue posible conectar con MyTeacher IA.';if(fromVoice)stop();}
  finally{busy=false;sendBtn.disabled=false;}
 }
 function listen(){
@@ -35,7 +37,7 @@ function listen(){
  if(!SR){stop();info.textContent='Este navegador no admite reconocimiento de voz.';return;}
  const r=new SR();recognition=r;r.lang=lang.value||'es-AR';r.continuous=false;r.interimResults=false;
  let received=false,failed=false;
- r.onresult=e=>{const question=(e.results[0]?.[0]?.transcript||'').trim();received=true;if(question){setState('Consulta reconocida. Esperando a Gemini…');ask(question,true);}};
+ r.onresult=e=>{const question=(e.results[0]?.[0]?.transcript||'').trim();received=true;if(question){setState('Consulta reconocida. Esperando a MyTeacher IA…');ask(question,true);}};
  r.onerror=e=>{failed=true;const code=e.error||'error';stop();info.textContent='No se pudo captar el micrófono ('+code+'). El modo oral se detuvo. Podés usar el chat escrito.';};
  r.onend=()=>{if(recognition===r)recognition=null;if(active&&!received&&!failed){setState('No se escuchó ninguna frase. Intentá hablar de nuevo.');stop();}};
  try{r.start();setState('Escuchando en '+(lang.value==='en-US'?'inglés':'español')+'… Hablá ahora.');}catch(e){recognition=null;stop();info.textContent='No se pudo iniciar la escucha ('+(e.name||'Error')+').';}
