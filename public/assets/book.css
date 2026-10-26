@@ -16,3 +16,7 @@ html[data-theme=dark] .book-page{--book-paper:#182b2d;--book-ink:#e9eee6;--book-
 .book-next-actions{display:flex;flex-wrap:wrap;gap:12px;margin:1.2rem 0}
 .book-recall{scroll-margin-top:80px}
 @media(max-width:540px){.chapter-contents ol{grid-template-columns:1fr}.book-section-lead{font-size:1rem!important}}
+
+/* El índice se presenta antes de la teoría; los destinos respetan la cabecera fija. */
+.book-page #chapter-theory,.book-page #chapter-platform-practice,.book-page #chapter-example{scroll-margin-top:100px}
+.book-index a:hover,.chapter-contents a:hover{text-decoration:underline;text-underline-offset:3px}
