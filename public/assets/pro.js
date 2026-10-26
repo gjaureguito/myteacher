@@ -248,6 +248,15 @@
       </section>
       ${window.ipEdgeHelpHTML?.() || ''}
       <p class="fine mh-guide">¿Otro problema? <a href="/microfono.php">Ver todos los comandos para solucionar el micrófono →</a></p>
+      <section class="mh-fallback" style="margin:16px 0;padding:14px;border:1px solid #8aafc8;border-radius:12px">
+        <h3>Continuar sin micrófono</h3>
+        <p>Podés hacer una práctica de escucha y escritura ahora mismo.</p>
+        <button type="button" class="btn btn-sm" data-mh-listen>🔊 Escuchar frase</button>
+        <label for="mh-typed">Escribí lo que escuchaste</label>
+        <input id="mh-typed" data-mh-typed type="text" autocomplete="off" style="width:100%;margin:8px 0;padding:10px">
+        <button type="button" class="btn btn-sm" data-mh-check>Comprobar respuesta</button>
+        <p role="status" aria-live="polite" data-mh-typed-result></p>
+      </section>
       <div class="modal-actions"><button type="button" class="btn" data-retry>Probar de nuevo</button><button type="button" class="btn btn-ghost" data-close>Cerrar</button></div>
     </div>`;
     document.body.append(back);
@@ -322,6 +331,17 @@
       show(code);
       if(r.attempts?.length)deviceStatus.textContent+=' Intentos: '+r.attempts.join(', ')+'.';
     }
+    const fallbackLines=[...document.querySelectorAll('[data-say]')].map(el=>el.getAttribute('data-say')).filter(t=>t && /[a-z]/i.test(t) && t.length<150);
+    const fallbackTarget=fallbackLines.find(t=>/\\s/.test(t))||'I can speak English.';
+    const fallbackNorm=t=>t.toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\\s+/g,' ').trim();
+    back.querySelector('[data-mh-listen]').addEventListener('click',()=>{
+      if(!window.speechSynthesis){back.querySelector('[data-mh-typed-result]').textContent='Audio no disponible. Podés continuar con los otros ejercicios.';return;}
+      const utter=new SpeechSynthesisUtterance(fallbackTarget);utter.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(utter);
+    });
+    back.querySelector('[data-mh-check]').addEventListener('click',()=>{
+      const answer=back.querySelector('[data-mh-typed]').value;
+      back.querySelector('[data-mh-typed-result]').textContent=!answer.trim()?'Escribí la frase que escuchaste.':fallbackNorm(answer)===fallbackNorm(fallbackTarget)?'✓ ¡Correcto! Podés continuar.':'Respuesta de referencia: '+fallbackTarget+'. Escuchala e intentá otra vez.';
+    });
     back.addEventListener('click', async e => {
       if (e.target === back || e.target.closest('[data-close]')) { stop(); if(recordedUrl)URL.revokeObjectURL(recordedUrl);back.remove(); }
       if (e.target.closest('[data-retry]')) run();
