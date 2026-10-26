@@ -40,7 +40,7 @@ $description = match ($path) {
 <link rel="stylesheet" href="/assets/app.css?v=1">
 <link rel="stylesheet" href="/assets/redesign.css?v=6">
 <link rel="stylesheet" href="/assets/pro.css?v=9">
-<link rel="stylesheet" href="/assets/scenes.css?v=2">
+<link rel="stylesheet" href="/assets/scenes.css?v=3">
 <link rel="stylesheet" href="/assets/modern.css?v=1">
 <link rel="stylesheet" href="/assets/visual.css?v=1">
 <link rel="stylesheet" href="/assets/study-lab.css?v=1">
