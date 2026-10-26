@@ -193,15 +193,15 @@
         <p class="fine">Si ya estaba activado, cerrá Zoom, Teams, Discord o WhatsApp (pueden estar ocupando el micrófono) y reiniciá ${browserName}.</p>
       </section>
       <section class="mh-step" data-for="busy">
-        <h3>${isWin ? 'Reiniciá el audio de Windows' : 'Liberá el micrófono'}</h3>
-        <p>El micrófono está detectado, pero no arranca: suele pasar cuando el servicio de audio de ${isWin ? 'Windows' : 'sistema'} quedó trabado o cuando otro programa (Zoom, Teams, Discord, WhatsApp) lo tiene tomado.</p>
-        ${isWin ? `<div class="mh-auto">
-          <h4>⚡ Comando seguro (una línea)</h4>
-          <p>Abrí la Terminal como administrador (<b>Win + X</b> → <b>Terminal (administrador)</b>), pegá esta línea y apretá Enter. Solo reinicia el servicio de audio de Windows; el sonido se corta unos segundos.</p>
-          <div class="mh-copy"><code>${PS_AUDIO}</code><button type="button" class="btn btn-ghost btn-sm" data-copy-audio>Copiar</button></div>
-          <p class="fine">Más soluciones paso a paso en <a href="/microfono.php">Solucionar el micrófono</a>. Después cerrá ${browserName} por completo, volvé a abrirlo y tocá Probar de nuevo.</p>
-        </div>
-        <p class="fine">Si sigue igual: Configuración → Sistema → Sonido → tu micrófono → Propiedades → desmarcá "Permitir que las aplicaciones tomen control exclusivo de este dispositivo", o actualizá el driver de audio (Realtek) desde el Administrador de dispositivos.</p>` : `<p>Cerrá las apps que usan el micrófono y reiniciá ${browserName}. Si sigue igual, reiniciá el equipo.</p>`}
+        <h3>Revisá el acceso al micrófono</h3>
+        <p>El navegador no pudo abrir el dispositivo de entrada. Puede haber un conflicto de dispositivo, permisos, controlador u otra aplicación. No significa necesariamente que Windows esté trabado.</p>
+        <ol>
+          <li>Elegí el micrófono correcto en la configuración del navegador y comprobá que este sitio tenga permiso.</li>
+          <li>Cerrá otras aplicaciones de videollamadas o grabación y las pestañas que usen audio.</li>
+          <li>Cerrá el navegador por completo, volvé a abrirlo y tocá <b>Probar de nuevo</b>.</li>
+          <li>En Windows, comprobá el dispositivo en Configuración → Sistema → Sonido → Entrada.</li>
+        </ol>
+        <p class="fine">Podés continuar sin reconocimiento automático. Consultá <a href="/microfono.php">la guía del micrófono</a>. No es necesario ejecutar comandos de administrador para esta prueba.</p>
       </section>
       <section class="mh-step" data-for="blocked">
         <h3>Permití el micrófono en este sitio</h3>
@@ -242,7 +242,7 @@
       }
       const code = perm === 'denied' ? 'blocked' : r.code;
       st.className = 'mh-status bad';
-      st.textContent = { busy: '⚠️ El micrófono está detectado pero no arranca: el audio de ' + (isWin ? 'Windows' : 'sistema') + ' está trabado o lo está usando otro programa.', system: '⚠️ ' + (isWin ? 'Windows' : 'El sistema') + ' no le da permiso de micrófono a ' + browserName + '.', blocked: '⚠️ Este sitio tiene el micrófono bloqueado en ' + browserName + '.', nodevice: '⚠️ No se encontró ningún micrófono.', unsupported: '⚠️ Este navegador no permite usar el micrófono.' }[code];
+      st.textContent = { busy: '⚠️ El navegador no pudo abrir el micrófono. Revisá el dispositivo seleccionado y otras aplicaciones.', system: '⚠️ ' + (isWin ? 'Windows' : 'El sistema') + ' no le da permiso de micrófono a ' + browserName + '.', blocked: '⚠️ Este sitio tiene el micrófono bloqueado en ' + browserName + '.', nodevice: '⚠️ No se encontró ningún micrófono.', unsupported: '⚠️ Este navegador no permite usar el micrófono.' }[code];
       show(code);
     }
     back.addEventListener('click', async e => {
@@ -275,7 +275,7 @@
   if (diagBtn) {
     const out = document.querySelector('[data-diag-out]'), meter = document.querySelector('[data-diag-meter]');
     const target = { busy: isWin ? 'win-audio' : (navigator.platform.startsWith('Mac') ? 'mac' : 'linux'), system: isWin ? 'win-privacidad' : 'mac', blocked: 'navegador', nodevice: isWin ? 'win-deshabilitado' : 'mac', unsupported: 'android' };
-    const text = { busy: 'El micrófono está detectado pero no arranca: el audio del sistema está trabado o lo usa otro programa.', system: 'El sistema no le da permiso de micrófono al navegador.', blocked: 'Este sitio tiene el micrófono bloqueado en el navegador.', nodevice: 'No se encontró ningún micrófono habilitado.', unsupported: 'Este navegador no permite usar el micrófono.' };
+    const text = { busy: 'El navegador no pudo abrir el micrófono. Comprobá la entrada, los permisos y otras aplicaciones.', system: 'El sistema no le da permiso de micrófono al navegador.', blocked: 'Este sitio tiene el micrófono bloqueado en el navegador.', nodevice: 'No se encontró ningún micrófono habilitado.', unsupported: 'Este navegador no permite usar el micrófono.' };
     diagBtn.addEventListener('click', async () => {
       out.hidden = false; out.className = 'mh-status'; out.textContent = 'Probando… si el navegador pregunta, tocá Permitir.';
       const perm = await navigator.permissions?.query({ name: 'microphone' }).then(p => p.state).catch(() => null);
