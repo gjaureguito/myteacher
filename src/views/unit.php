@@ -12,26 +12,34 @@ $total = count($exercises);
 
   <a class="book-link" href="/book.php?code=<?= e($unit['level_code']) ?>&amp;chapter=<?= e($unit['slug']) ?>"><strong>Estudiar este capítulo en el libro →</strong><span>Lectura desarrollada, ejemplos paso a paso y práctica con soluciones comentadas.</span></a>
   <p><a class="btn btn-sm" href="/grammar.php?id=<?= (int)$unit['id'] ?>">Abrir cuaderno de gramática</a></p>
+  <nav class="learning-route" aria-label="Ruta de esta unidad"><strong>Ruta de aprendizaje</strong><button type="button" data-goto="t-theory">1. Comprender la teoría</button><button type="button" data-goto="t-practice">2. Aplicar lo aprendido</button><button type="button" data-goto="t-extra">3. Ampliar la práctica</button><a href="/glossary.php">4. Mi glosario ↗</a></nav>
   <div class="unit-progress" aria-hidden="true"><span></span></div>
   <div class="unit-toolbar">
   <div class="tabs" role="tablist">
-    <button role="tab" aria-selected="true" aria-controls="t-theory" id="tab-theory">Teoría</button>
+    <button role="tab" aria-selected="true" aria-controls="t-theory" id="tab-theory">1 · Teoría completa</button>
     <?php if ($vocab): ?><button role="tab" aria-selected="false" aria-controls="t-vocab" id="tab-vocab">Vocabulario <span class="count"><?= count($vocab) ?></span></button><?php endif; ?>
-    <button role="tab" aria-selected="false" aria-controls="t-practice" id="tab-practice">Práctica <span class="count" data-progress><?= $solved ?>/<?= $total ?></span></button>
-    <?php if ($lab): ?><button role="tab" aria-selected="false" aria-controls="t-workshop" id="tab-workshop">Taller de aplicación</button><?php endif; ?>
+    <button role="tab" aria-selected="false" aria-controls="t-practice" id="tab-practice">2 · Práctica guiada <span class="count" data-progress><?= $solved ?>/<?= $total ?></span></button>
+    <button role="tab" aria-selected="false" aria-controls="t-extra" id="tab-extra">3 · Práctica complementaria</button>
   </div>
   <label class="voice-ctl">🎙️ Velocidad de voz <input type="range" id="voice-rate" min="0.6" max="1.3" step="0.05" value="1"> <span id="voice-rate-val">1×</span></label>
   <button type="button" class="linkbtn mh-link" data-mic-help>🎙️ Probar micrófono</button> <a class="linkbtn mh-link" href="/microfono.php">Solucionar micrófono</a>
   <span data-edge-shortcut></span>
   </div>
 
-  <?php if ($lab): ?>
-  <div class="tabpanel" id="t-workshop" role="tabpanel" aria-labelledby="tab-workshop" hidden>
-    <?php require __DIR__ . '/learning_lab.php'; ?>
+  <div class="tabpanel" id="t-extra" role="tabpanel" aria-labelledby="tab-extra" hidden>
+    <h2>Prácticas complementarias</h2>
+    <p class="muted">Consolidá lo aprendido mediante distintas actividades: situaciones reales, lectura, escritura y revisión de vocabulario.</p>
+    <?php if ($lab): ?><?php require __DIR__ . '/learning_lab.php'; ?><?php endif; ?>
+    <div class="extra-practice-grid">
+      <a href="/review.php"><strong>Repaso espaciado</strong><span>Revisá los contenidos para fortalecer la memoria.</span></a>
+      <a href="/library.php"><strong>Lectura y comprensión</strong><span>Aplicá la gramática y el vocabulario a textos completos.</span></a>
+      <a href="/situations.php"><strong>Inglés en situaciones reales</strong><span>Practicá contextos cotidianos con escenas y diálogos.</span></a>
+      <a href="/glossary.php"><strong>Mi glosario personal</strong><span>Buscá, guardá y repasá palabras que encontraste en esta unidad.</span></a>
+    </div>
   </div>
-  <?php endif; ?>
 
   <div class="tabpanel theory" id="t-theory" role="tabpanel" aria-labelledby="tab-theory">
+    <h2>Fundamentos y explicación del tema</h2><p class="muted">Estudiá primero las reglas, su uso, ejemplos y excepciones. Después comprobá lo aprendido en la práctica guiada.</p>
     <?= $unit['theory_html'] /* contenido propio cargado por el admin */ ?>
     <?php require_once ROOT . '/src/study_book.php'; $chapter = study_chapter($unit['slug']); if ($chapter): ?>
     <details class="book-unit-expansion" open><summary>Desarrollo del libro y práctica guiada</summary><?php require __DIR__ . '/study_chapter.php'; ?></details>
@@ -55,6 +63,7 @@ $total = count($exercises);
   <?php endif; ?>
 
   <div class="tabpanel" id="t-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+    <h2>Ejercitación interactiva vinculada a la teoría</h2><p class="muted">Aplicá las explicaciones de esta unidad. Consultá la teoría cuando necesites revisar una regla.</p><button type="button" class="btn btn-ghost btn-sm" data-goto="t-theory">← Consultar la teoría</button>
     <?php require __DIR__ . '/scenes.php'; ?>
     <?php
       $bySkill = [];
