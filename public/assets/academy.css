@@ -172,3 +172,14 @@ html[data-theme=dark] .site-modern .mt-academy-hero{background:linear-gradient(1
 @media(max-width:1000px){.site-modern .mt-academy-hero .mt-hero-grid{grid-template-columns:1.05fr .95fr;gap:25px}.site-modern .mt-academy-hero h1{font-size:clamp(2.4rem,4.7vw,3.5rem)}.site-modern .mt-academy-hero .mt-photo-frame{height:390px}.site-modern .mt-academy-hero .mt-enroll-card{display:flex;grid-column:1/-1}}
 @media(max-width:640px){.site-modern .mt-academy-hero .mt-hero-grid{grid-template-columns:1fr;gap:20px;padding:38px 0}.site-modern .mt-academy-hero .mt-hero-copy{order:1}.site-modern .mt-academy-hero .mt-hero-visual{order:2;margin:0}.site-modern .mt-academy-hero .mt-enroll-card{order:3;display:block}.site-modern .mt-academy-hero .mt-enroll-card h2{margin:0 0 8px}.site-modern .mt-academy-hero .mt-enroll-card .btn{width:100%;margin:15px 0}.site-modern .mt-academy-hero .mt-enroll-card .mt-enroll-login{margin:8px 0}.site-modern .mt-academy-hero h1{font-size:clamp(2.45rem,10.5vw,3.4rem)}.site-modern .mt-academy-hero .mt-photo-frame{height:300px;border-radius:28px 75px 28px 28px}.mt-hero-actions{gap:10px}.mt-hero-actions .btn{flex:1;text-align:center}.mt-hero-secondary{justify-content:center;flex:1}.mt-academy-photo-caption{text-align:center}}
 html[data-theme=dark] .mt-hero-secondary{color:#cbe6ff}
+
+/* Revision visual de la portada: fotografia de estudiantes y menor ruido visual. */
+.site-modern .mt-academy-hero{background:linear-gradient(135deg,#f8fbff 0%,#eff6ff 55%,#e9f5ff 100%)!important}
+.site-modern .mt-academy-hero .mt-photo-frame{border:0;border-radius:28px;box-shadow:0 24px 66px rgba(17,53,90,.17);background:#edf3f9}
+.site-modern .mt-academy-hero .mt-photo-frame>img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 48%}
+.mt-academy-photo-caption{text-align:left;padding:17px 5px 0}
+.mt-study-image>img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:center;border-radius:24px}
+.site-modern .mt-welcome-band{background:#124f91;color:#fff}
+.mt-welcome-band a{color:#124f91!important}
+.site-modern .mt-academy-hero .mt-enroll-card{box-shadow:none;border:1px solid #dce9f5;background:#ffffffc9;border-radius:20px}
+@media(max-width:640px){.site-modern .mt-academy-hero .mt-photo-frame{height:320px;border-radius:22px}.mt-academy-photo-caption{text-align:center}.mt-study-image>img{aspect-ratio:4/3}}
