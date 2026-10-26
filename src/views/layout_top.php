@@ -44,7 +44,7 @@ $description = match ($path) {
 <link rel="stylesheet" href="/assets/modern.css?v=1">
 <link rel="stylesheet" href="/assets/visual.css?v=1">
 <link rel="stylesheet" href="/assets/study-lab.css?v=1">
-<link rel="stylesheet" href="/assets/academy.css?v=6">
+<link rel="stylesheet" href="/assets/academy.css?v=7">
 <meta name="theme-color" content="#edf7ff">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
@@ -62,7 +62,7 @@ $description = match ($path) {
         <a href="/grammar.php"<?= $navCur('/grammar.php') ?>>Gramática</a>
         <a href="/review.php"<?= $navCur('/review.php') ?>>Prácticas</a>
         <a href="/glossary.php"<?= $navCur('/glossary.php') ?>>Mi glosario</a>
-        <details class="mt-nav-dropdown"><summary>Más recursos <span aria-hidden="true">⌄</span></summary>
+        <details name="mt-header-menu" class="mt-nav-dropdown"><summary>Más recursos <span aria-hidden="true">⌄</span></summary>
           <div class="mt-nav-dropdown-panel">
             <a href="/life-dialogues.php"<?= $navCur('/life-dialogues.php') ?>>Diálogos reales</a>
             <a href="/tutor.php"<?= $navCur('/tutor.php') ?>>Diccionario</a>
@@ -70,7 +70,7 @@ $description = match ($path) {
             <a href="/placement.php"<?= $navCur('/placement.php') ?>>Test de nivel</a>
           </div>
         </details>
-        <details class="mt-nav-dropdown mt-nav-account"><summary>Mi cuenta <span aria-hidden="true">⌄</span></summary>
+        <details name="mt-header-menu" class="mt-nav-dropdown mt-nav-account"><summary>Mi cuenta <span aria-hidden="true">⌄</span></summary>
           <div class="mt-nav-dropdown-panel">
             <a href="/account.php"<?= $navCur('/account.php') ?>>Mi cuenta</a>
             <?php if (is_admin($u)): ?><a href="/admin/">Administración</a><?php endif; ?>
