@@ -1,0 +1,37 @@
+/* MyTeacher Premium Foundation — scoped tokens and component rules.
+   Only new opt-in classes: no global overrides to existing learning features. */
+.site-modern{
+ --mtp-ink:#172942;--mtp-muted:#566a81;--mtp-blue:#135eaf;--mtp-blue-hover:#0d4f97;
+ --mtp-sky:#eff6fd;--mtp-border:#dae5ef;--mtp-white:#fff;--mtp-bg:#f7fafd;
+ --mtp-radius:18px;--mtp-shadow:0 16px 44px rgba(19,52,89,.09);
+ --mtp-space-1:6px;--mtp-space-2:12px;--mtp-space-3:18px;--mtp-space-4:24px;--mtp-space-5:36px;
+}
+.site-modern .mtp-premium-hero{background:linear-gradient(135deg,#f8fbff 0%,#eaf4ff 100%);border-bottom:1px solid var(--mtp-border)}
+.site-modern .mtp-premium-hero .mt-hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:clamp(28px,5vw,78px);align-items:center;padding:clamp(50px,6vw,92px) 0!important;min-height:0!important}
+.site-modern .mtp-premium-hero .mt-hero-copy{order:1;max-width:635px}
+.site-modern .mtp-premium-hero .mt-hero-copy h1{font-size:clamp(2.6rem,5vw,5rem);line-height:1.07;letter-spacing:-.055em;color:var(--mtp-ink)!important;margin:14px 0 22px}
+.site-modern .mtp-premium-hero .mt-hero-copy h1 span{color:var(--mtp-blue)!important}
+.site-modern .mtp-premium-hero .mt-hero-copy>p:not(.mt-kicker){font-size:clamp(1rem,1.22vw,1.16rem);line-height:1.8;color:var(--mtp-muted)}
+.site-modern .mtp-premium-hero .mt-hero-visual{order:2;position:relative}
+.site-modern .mtp-premium-hero .mt-photo-frame{height:clamp(380px,35vw,515px);border:0!important;border-radius:var(--mtp-radius)!important;box-shadow:var(--mtp-shadow);background:#e7f0f7;overflow:hidden}
+.site-modern .mtp-premium-hero .mt-photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center}
+.site-modern .mtp-premium-hero .mt-academy-photo-caption{margin-top:10px;padding:0 4px;text-align:left}
+.site-modern .mtp-premium-hero .mt-academy-photo-caption strong{font-size:.9rem;font-weight:750}
+.site-modern .mtp-premium-hero .mt-academy-photo-caption span{font-size:.76rem;color:var(--mtp-muted)}
+.site-modern .mtp-premium-hero .mt-hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:15px;margin:24px 0 20px}
+.site-modern .mtp-premium-hero .mt-hero-actions .btn{min-height:50px;padding:14px 26px;border-radius:12px!important;box-shadow:0 8px 24px #ca4f001f}
+.site-modern .mtp-premium-hero .mt-hero-benefits{display:flex;flex-wrap:wrap;gap:9px 18px;line-height:1.55;margin-top:18px}
+.site-modern .mtp-premium-hero .mt-hero-benefits li{font-size:.78rem}
+.site-modern .mtp-premium-hero .mt-enroll-card{grid-column:1/-1;order:3;display:none!important}
+.site-modern .mtp-premium-hero :focus-visible{outline:3px solid #92c4f5;outline-offset:3px}
+html[data-theme=dark] .site-modern .mtp-premium-hero{background:linear-gradient(135deg,#10283d,#17334f)}
+html[data-theme=dark] .site-modern .mtp-premium-hero .mt-hero-copy h1{color:#eef6ff!important}
+html[data-theme=dark] .site-modern .mtp-premium-hero .mt-hero-copy>p:not(.mt-kicker){color:#d2e3f4}
+@media(max-width:800px){
+ .site-modern .mtp-premium-hero .mt-hero-grid{grid-template-columns:1fr;gap:26px;padding:40px 0 50px!important}
+ .site-modern .mtp-premium-hero .mt-hero-copy{order:1}
+ .site-modern .mtp-premium-hero .mt-hero-visual{order:2;margin:0}
+ .site-modern .mtp-premium-hero .mt-photo-frame{height:clamp(245px,65vw,410px)}
+ .site-modern .mtp-premium-hero .mt-hero-copy h1{font-size:clamp(2.5rem,9vw,3.6rem)}
+}
+@media(prefers-reduced-motion:reduce){.mtp-premium-hero *{scroll-behavior:auto!important;transition:none!important}}
