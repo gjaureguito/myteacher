@@ -233,3 +233,23 @@ html[data-theme=dark] .site-modern .mt-nav-dropdown-panel>a,html[data-theme=dark
 .site-modern .topbar .mt-nav-dropdown::after{content:none!important;display:none!important;border:0!important}
 .site-modern .topbar .mt-nav-dropdown>summary{border-bottom:0!important;box-shadow:none!important;text-decoration:none!important}
 .site-modern .topbar .mt-nav-dropdown{border-bottom:0!important;box-shadow:none!important}
+
+/* Correccion definitiva: app.css aplica padding 14px a todos los details. */
+.site-modern .topbar .mt-nav-main > details.mt-nav-dropdown{
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  border-bottom:0!important;
+  border-top:0!important;
+  background:transparent;
+  align-self:center;
+  line-height:normal;
+}
+.site-modern .topbar .mt-nav-main > details.mt-nav-dropdown > summary{
+  margin:0!important;
+  border:0!important;
+  padding:9px 12px!important;
+  line-height:1.4;
+  box-shadow:none!important;
+}
