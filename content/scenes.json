@@ -934,6 +934,27 @@
         ],
         "answer": 0,
         "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "fill",
+        "prompt": "Completá la palabra que falta en una frase del diálogo: The ___ warned us about a possible delay",
+        "answer": "supplier",
+        "explanation": "En el diálogo se dice: The supplier warned us about a possible delay."
+      },
+      {
+        "type": "order",
+        "prompt": "Reconstruí esta intervención del diálogo.",
+        "words": [
+          "schedule",
+          "delivery",
+          "the",
+          "reassess",
+          "to",
+          "need",
+          "We"
+        ],
+        "answer": "We need to reassess the delivery schedule",
+        "explanation": "El orden original es: We need to reassess the delivery schedule."
       }
     ]
   },
@@ -1021,6 +1042,25 @@
         ],
         "answer": 0,
         "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "fill",
+        "prompt": "Completá la palabra que falta en una frase del diálogo: Was there a ___ group",
+        "answer": "control",
+        "explanation": "En el diálogo se dice: Was there a control group."
+      },
+      {
+        "type": "order",
+        "prompt": "Reconstruí esta intervención del diálogo.",
+        "words": [
+          "group",
+          "control",
+          "a",
+          "there",
+          "Was"
+        ],
+        "answer": "Was there a control group",
+        "explanation": "El orden original es: Was there a control group."
       }
     ]
   },
@@ -1109,6 +1149,27 @@
         ],
         "answer": 1,
         "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "fill",
+        "prompt": "Completá la palabra que falta en una frase del diálogo: I ___ the urgency, although our current schedule is already tight",
+        "answer": "understand",
+        "explanation": "En el diálogo se dice: I understand the urgency, although our current schedule is already tight."
+      },
+      {
+        "type": "order",
+        "prompt": "Reconstruí esta intervención del diálogo.",
+        "words": [
+          "date",
+          "delivery",
+          "earlier",
+          "an",
+          "appreciate",
+          "would",
+          "We"
+        ],
+        "answer": "We would appreciate an earlier delivery date",
+        "explanation": "El orden original es: We would appreciate an earlier delivery date."
       }
     ]
   },
@@ -1195,6 +1256,27 @@
         ],
         "answer": 1,
         "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "fill",
+        "prompt": "Completá la palabra que falta en una frase del diálogo: But that ___ alone does not establish causation",
+        "answer": "sequence",
+        "explanation": "En el diálogo se dice: But that sequence alone does not establish causation."
+      },
+      {
+        "type": "order",
+        "prompt": "Reconstruí esta intervención del diálogo.",
+        "words": [
+          "examine",
+          "we",
+          "should",
+          "explanation",
+          "alternative",
+          "What",
+          "Precisely."
+        ],
+        "answer": "Precisely. What alternative explanation should we examine",
+        "explanation": "El orden original es: Precisely. What alternative explanation should we examine."
       }
     ]
   },
@@ -1283,6 +1365,28 @@
         ],
         "answer": 1,
         "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "fill",
+        "prompt": "Completá la palabra que falta en una frase del diálogo: The ___ is worthwhile; the implementation schedule is unrealistic",
+        "answer": "objective",
+        "explanation": "En el diálogo se dice: The objective is worthwhile; the implementation schedule is unrealistic."
+      },
+      {
+        "type": "order",
+        "prompt": "Reconstruí esta intervención del diálogo.",
+        "words": [
+          "ideological",
+          "than",
+          "rather",
+          "practical",
+          "is",
+          "criticism",
+          "your",
+          "So"
+        ],
+        "answer": "So your criticism is practical rather than ideological",
+        "explanation": "El orden original es: So your criticism is practical rather than ideological."
       }
     ]
   },
@@ -1371,6 +1475,26 @@
         ],
         "answer": 0,
         "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "fill",
+        "prompt": "Completá la palabra que falta en una frase del diálogo: Does the ___ also need to notify us",
+        "answer": "supplier",
+        "explanation": "En el diálogo se dice: Does the supplier also need to notify us."
+      },
+      {
+        "type": "order",
+        "prompt": "Reconstruí esta intervención del diálogo.",
+        "words": [
+          "required",
+          "is",
+          "notice",
+          "written",
+          "prompt",
+          "Yes,"
+        ],
+        "answer": "Yes, prompt written notice is required",
+        "explanation": "El orden original es: Yes, prompt written notice is required."
       }
     ]
   }
