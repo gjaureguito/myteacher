@@ -3,7 +3,7 @@ declare(strict_types=1);
 require dirname(__DIR__) . '/src/bootstrap.php';
 $student = require_login();
 $lesson = in_array((string) ($_GET['lesson'] ?? '1'), ['1', '2', '3'], true) ? (int) $_GET['lesson'] : 1;
-$videos = [1 => ['id' => 'U08KdJ52E2M', 'title' => 'The Wrong Coffee'], 2 => ['id' => 'k8PJhpSCiSs', 'title' => 'Listening A1 · Video 02'], 3 => ['id' => 'DuMMG4KKgZ8', 'title' => 'Listening A1 · Video 03']];
+$videos = [1 => ['id' => 'U08KdJ52E2M', 'title' => 'The Wrong Coffee'], 2 => ['id' => 'k8PJhpSCiSs', 'title' => 'Listening A1 · Video 02'], 3 => ['id' => 'DuMMG4KKgZ8', 'title' => 'The Impossible Interview']];
 $videoId = $videos[$lesson]['id'];
 $videoTitle = $videos[$lesson]['title'];
 ?>
@@ -45,7 +45,30 @@ button:disabled{opacity:.48;cursor:not-allowed}
 <div class="player"><iframe title="<?= e($videoTitle) ?> · YouTube Short" src="https://www.youtube-nocookie.com/embed/<?= e($videoId) ?>" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 <p><a class="link" href="https://www.youtube.com/shorts/<?= e($videoId) ?>" target="_blank" rel="noopener noreferrer">Open on YouTube</a></p>
 </section>
-<?php if ($lesson !== 1): ?>
+<?php if ($lesson === 3): ?>
+<section class="card" id="scene-exercise"><div class="bar"><span class="pill">The Impossible Interview · Scene practice</span><label class="toggle"><input type="checkbox" id="scene-translate"> Español / Translate</label></div>
+<h2>What happens in the interview?</h2><p>Watch the interview scene and choose the best answers. <span class="es">Observá la entrevista y seleccioná las respuestas.</span></p>
+<div id="scene-questions"></div>
+<div class="bar" style="margin-top:20px"><button type="button" id="scene-retry">Try again <span class="es">Reintentar</span></button><button type="button" class="primary" id="scene-check">Check answers <span class="es">Comprobar</span></button></div>
+<p class="feedback" id="scene-feedback" role="status" aria-live="polite"></p>
+<div class="info">Visual comprehension based on the scene shown in this video. Dialogue-listening questions will be added only after its spoken words are verified. <span class="es">Comprensión visual basada en la escena. Las preguntas sobre el diálogo se agregarán cuando esté verificada su transcripción.</span></div>
+</section>
+<script>
+(function(){
+const data=[
+{q:"What situation does the video present?",es:"¿Qué situación presenta el video?",options:[["A job interview","Una entrevista laboral"],["A cooking lesson","Una clase de cocina"],["A football match","Un partido de fútbol"]],correct:0},
+{q:"What is the man wearing?",es:"¿Qué lleva puesto el hombre?",options:[["A suit jacket and a white shirt","Saco de vestir y camisa blanca"],["A sports uniform","Uniforme deportivo"],["A winter coat and gloves","Abrigo y guantes"]],correct:0},
+{q:"How is the man positioned during the scene?",es:"¿Cómo está ubicado el hombre en la escena?",options:[["He is sitting","Está sentado"],["He is running","Está corriendo"],["He is swimming","Está nadando"]],correct:0},
+{q:"What does the man appear to be doing?",es:"¿Qué parece estar haciendo el hombre?",options:[["Speaking to someone","Hablando con alguien"],["Sleeping","Durmiendo"],["Cooking food","Cocinando"]],correct:0}
+];
+const root=document.getElementById('scene-exercise'),out=document.getElementById('scene-questions'),answers={};
+document.getElementById('scene-translate').addEventListener('change',e=>root.classList.toggle('translated',e.target.checked));
+data.forEach((item,i)=>{const section=document.createElement('section');section.className='question';const title=document.createElement('h3');title.textContent=(i+1)+'. '+item.q;section.append(title);const tt=document.createElement('span');tt.className='es';tt.textContent=item.es;section.append(tt);item.options.forEach((v,j)=>{const b=document.createElement('button');b.type='button';b.className='choice';b.setAttribute('aria-pressed','false');b.append(document.createTextNode(v[0]));const tr=document.createElement('span');tr.className='es';tr.textContent=v[1];b.append(tr);b.addEventListener('click',()=>{answers[i]=j;section.querySelectorAll('button').forEach(k=>k.setAttribute('aria-pressed',String(k===b)));document.getElementById('scene-feedback').textContent='';});section.append(b)});out.append(section)});
+document.getElementById('scene-check').addEventListener('click',()=>{const result=document.getElementById('scene-feedback');if(Object.keys(answers).length!==data.length){result.textContent=root.classList.contains('translated')?'Respondé todas las preguntas.':'Answer every question.';result.className='feedback bad';return;}const score=data.filter((x,i)=>x.correct===answers[i]).length;result.textContent=(root.classList.contains('translated')?'Correctas: ':'Correct: ')+score+'/'+data.length;result.className='feedback '+(score===data.length?'':'bad');});
+document.getElementById('scene-retry').addEventListener('click',()=>{Object.keys(answers).forEach(k=>delete answers[k]);out.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed','false'));document.getElementById('scene-feedback').textContent='';});
+})();
+</script>
+<?php elseif ($lesson === 2): ?>
 <section class="card" id="lesson2-interactive"><div class="bar"><span class="pill">Interactive video practice · <?= str_pad((string) $lesson, 2, '0', STR_PAD_LEFT) ?></span><label class="toggle"><input id="lesson2-translation" type="checkbox"> Español / Translate</label></div>
 <h2>Watch, choose and practice</h2><p>Answer with a click. You never need to type. <span class="es">Respondé con un clic, sin escribir.</span></p>
 <div class="question"><h3>1. What kind of activity are you doing?</h3><span class="es">¿Qué tipo de actividad estás realizando?</span><div data-choice="1"><button type="button" class="choice">Listening <span class="es">Comprensión auditiva</span></button><button type="button" class="choice">Reading only <span class="es">Solo lectura</span></button><button type="button" class="choice">Writing a long essay <span class="es">Escribir un ensayo largo</span></button></div></div>
