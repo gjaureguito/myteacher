@@ -3,6 +3,7 @@ $solved = array_sum(array_map(fn($x) => (int) $x['solved'], $exercises));
 $total = count($exercises);
 ?>
 <link rel="stylesheet" href="/assets/book.css?v=1">
+<link rel="stylesheet" href="/assets/practice-reference.css?v=1">
 <section class="wrap page unit-page" style="--lv: <?= e($color) ?>">
   <p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / <a href="/level.php?code=<?= e($unit['level_code']) ?>"><?= e(strtoupper($unit['level_code'])) ?></a> / Unidad <?= (int) $unit['position'] ?></p>
   <header class="unit-head">
@@ -64,7 +65,17 @@ $total = count($exercises);
   <?php endif; ?>
 
   <div class="tabpanel" id="t-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
-    <h2>Ejercitación interactiva vinculada a la teoría</h2><p class="muted">Aplicá las explicaciones de esta unidad. Consultá la teoría cuando necesites revisar una regla.</p><button type="button" class="btn btn-ghost btn-sm" data-goto="t-theory">← Consultar la teoría</button>
+    <div class="mt-practice-reference" aria-label="Teoría de consulta durante la práctica">
+      <div class="mt-practice-reference-head">
+        <div><span class="mt-practice-reference-kicker">GUÍA DE CONSULTA</span><h2>Teoría de esta unidad</h2></div>
+        <a href="/book.php?code=<?= e($unit['level_code']) ?>&amp;chapter=<?= e($unit['slug']) ?>">Leer capítulo completo ↗</a>
+      </div>
+      <div class="mt-practice-reference-body theory" tabindex="0" aria-label="Teoría: desplazate aquí para leer más">
+        <?= $unit['theory_html'] /* mismo contenido publicado, solo lectura */ ?>
+      </div>
+      <p class="mt-practice-reference-hint">La teoría permanece visible mientras bajás por los ejercicios. Podés desplazarte dentro del recuadro para consultar otra regla.</p>
+    </div>
+    <div class="mt-practice-start"><h2>Ejercitación interactiva</h2><p class="muted">Resolvé los ejercicios con la explicación siempre a mano.</p></div>
     <?php require __DIR__ . '/scenes.php'; ?>
     <?php
       $bySkill = [];
