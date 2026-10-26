@@ -2,6 +2,9 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/src/bootstrap.php';
 $student = require_login();
+$lesson = (($_GET['lesson'] ?? '1') === '2') ? 2 : 1;
+$videoId = $lesson === 2 ? 'k8PJhpSCiSs' : 'U08KdJ52E2M';
+$videoTitle = $lesson === 2 ? 'New video · Listening A1' : 'The Wrong Coffee';
 ?>
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,12 +37,16 @@ button:disabled{opacity:.48;cursor:not-allowed}
 </style></head><body><main class="wrapper">
 <div class="top"><a class="brand" href="/dashboard.php">MyTeacher</a><a class="link" href="/dashboard.php">← Back to dashboard</a></div>
 <h1>Video Learning · A1</h1><p>Watch, listen and choose. No typing required. <span class="es" style="display:inline">Mirá, escuchá y elegí. Sin escribir.</span></p>
+<nav aria-label="Video lessons" style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0"><a class="pill" href="/video-learning.php?lesson=1" <?= $lesson === 1 ? 'aria-current="page"' : '' ?>>Lesson 01 · The Wrong Coffee</a><a class="pill" href="/video-learning.php?lesson=2" <?= $lesson === 2 ? 'aria-current="page"' : '' ?>>Lesson 02 · New video</a></nav>
 <div class="grid">
-<section class="card"><span class="pill">Lesson 01 · The Wrong Coffee</span><h2>Watch the scene</h2>
+<section class="card"><span class="pill">Lesson <?= $lesson === 2 ? '02' : '01' ?> · <?= e($videoTitle) ?></span><h2>Watch the scene</h2>
 <p>Listen carefully. Replay whenever you need.</p>
-<div class="player"><iframe title="The Wrong Coffee · YouTube Short" src="https://www.youtube-nocookie.com/embed/U08KdJ52E2M" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
-<p><a class="link" href="https://www.youtube.com/shorts/U08KdJ52E2M" target="_blank" rel="noopener noreferrer">Open on YouTube</a></p>
+<div class="player"><iframe title="The Wrong Coffee · YouTube Short" src="https://www.youtube-nocookie.com/embed/<?= e($videoId) ?>" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+<p><a class="link" href="https://www.youtube.com/shorts/<?= e($videoId) ?>" target="_blank" rel="noopener noreferrer">Open on YouTube</a></p>
 </section>
+<?php if ($lesson === 2): ?>
+<section class="card"><span class="pill">Listening · Lesson 02</span><h2>Watch and listen</h2><p>Play the video. Listen once without subtitles, then replay it and identify familiar words.</p><p><strong>Español:</strong> Mirá el video, escuchá una vez sin subtítulos y volvé a reproducirlo para reconocer palabras conocidas.</p><div class="info">Interactive questions for this video are awaiting a verified transcript. No dialogue or answers have been invented.</div><p><a href="/video-learning.php?lesson=1">Practice with Lesson 01 →</a></p></section>
+<?php else: ?>
 <section class="card" id="exercise"><div class="bar"><span class="pill">Interactive practice</span><label class="toggle"><input id="translation" type="checkbox"> Español / Translate</label></div>
 <h2>What do you see?</h2><p>Choose the correct answer for each question. <span class="es">Elegí la respuesta correcta para cada pregunta.</span></p>
 <div id="questions"></div>
@@ -47,7 +54,10 @@ button:disabled{opacity:.48;cursor:not-allowed}
 <div class="bar" style="margin-top:22px"><button id="retry" type="button">Start again <span class="es">Reiniciar</span></button><button id="check" class="primary" type="button">Check answers <span class="es">Comprobar</span></button></div>
 <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
 <div class="info">These questions test visible details and basic café vocabulary, not a verified transcript. Listening-specific dialogue questions will be added after the transcript is reviewed.<span class="es"> Estas preguntas evalúan detalles visibles y vocabulario básico, no una transcripción verificada.</span></div>
-</section></div></main>
+</section>
+<?php endif; ?>
+</div></main>
+<?php if ($lesson === 1): ?>
 <script>
 const items=[
 {q:"Where does the scene take place?",es:"¿Dónde sucede la escena?",options:[["At a coffee shop","En una cafetería"],["At a train station","En una estación de tren"],["At a hospital","En un hospital"]],answer:0},
@@ -62,4 +72,6 @@ document.getElementById('translation').addEventListener('change',draw);
 document.getElementById('check').addEventListener('click',()=>{if(choices.includes(null)||!chosenWord){feedback.className='feedback bad';feedback.textContent='Complete all questions first.'+(document.getElementById('translation').checked?' Completá todas las preguntas.':'');return;}const correct=choices.filter((a,i)=>a===items[i].answer).length+(chosenWord==='café'?1:0);feedback.className='feedback '+(correct===5?'':'bad');feedback.textContent=correct+'/5 correct. '+(correct===5?'Excellent!':'Try again and replay the video.');});
 document.getElementById('retry').onclick=()=>{choices.fill(null);chosenWord=null;document.getElementById('slot').textContent='_____';feedback.textContent='';draw();};
 draw();
-</script></body></html>
+</script>
+<?php endif; ?>
+</body></html>
