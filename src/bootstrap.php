@@ -67,9 +67,13 @@ require ROOT . '/src/scenes.php';
 require_once ROOT . '/src/settings.php';
 
 if (PHP_SAPI !== 'cli') {
+    require_once ROOT . '/src/session_store.php';
+    $sessionLifetime = 7 * 24 * 60 * 60;
+    enable_database_sessions($sessionLifetime);
+    ini_set('session.gc_maxlifetime', (string) $sessionLifetime);
     session_name('ipsess');
     session_set_cookie_params([
-        'lifetime' => 0,
+        'lifetime' => $sessionLifetime,
         'path' => '/',
         'secure' => is_https(),
         'httponly' => true,
