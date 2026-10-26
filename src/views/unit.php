@@ -12,7 +12,7 @@ $total = count($exercises);
 
   <a class="book-link" href="/book.php?code=<?= e($unit['level_code']) ?>&amp;chapter=<?= e($unit['slug']) ?>"><strong>Estudiar este capítulo en el libro →</strong><span>Lectura desarrollada, ejemplos paso a paso y práctica con soluciones comentadas.</span></a>
   <p><a class="btn btn-sm" href="/grammar.php?id=<?= (int)$unit['id'] ?>">Abrir cuaderno de gramática</a></p>
-  <nav class="learning-route" aria-label="Ruta de esta unidad"><strong>Ruta de aprendizaje</strong><button type="button" data-goto="t-theory">1. Comprender la teoría</button><button type="button" data-goto="t-practice">2. Aplicar lo aprendido</button><button type="button" data-goto="t-extra">3. Ampliar la práctica</button><a href="/glossary.php">4. Mi glosario ↗</a><a href="/tutor.php?unit=<?= (int)$unit['id'] ?>">🎓 Consultar a Gemini</a></nav>
+  <nav class="learning-route" aria-label="Ruta de esta unidad"><strong>Ruta de aprendizaje</strong><button type="button" data-goto="t-theory">1. Comprender la teoría</button><button type="button" data-goto="t-practice">2. Aplicar lo aprendido</button><button type="button" data-goto="t-extra">3. Ampliar la práctica</button><a href="/glossary.php">4. Mi glosario ↗</a><a href="/tutor.php?unit=<?= (int)$unit['id'] ?>">Consultar diccionario</a></nav>
   <div class="unit-progress" aria-hidden="true"><span></span></div>
   <div class="unit-toolbar">
   <div class="tabs" role="tablist">
@@ -39,10 +39,10 @@ $total = count($exercises);
   </div>
 
   <div class="tabpanel theory" id="t-theory" role="tabpanel" aria-labelledby="tab-theory">
-    <h2>Fundamentos y explicación del tema</h2><p class="muted">Estudiá primero las reglas, su uso, ejemplos y excepciones. Después comprobá lo aprendido en la práctica guiada.</p>
+    <h2>Teoría de esta unidad</h2><p class="muted">Leé el desarrollo del libro para estudiar el tema de forma ordenada. Este apartado sirve como consulta rápida antes de resolver los ejercicios.</p><p><a class="btn btn-sm" href="/book.php?code=<?= e($unit['level_code']) ?>&amp;chapter=<?= e($unit['slug']) ?>">Leer el capítulo completo en el libro</a></p>
     <?= $unit['theory_html'] /* contenido propio cargado por el admin */ ?>
     <?php require_once ROOT . '/src/study_book.php'; $chapter = study_chapter($unit['slug']); if ($chapter): ?>
-    <details class="book-unit-expansion" open><summary>Desarrollo del libro y práctica guiada</summary><?php require __DIR__ . '/study_chapter.php'; ?></details>
+    <details class="book-unit-expansion"><summary>Ampliar explicación y ver ejemplos resueltos</summary><?php require __DIR__ . '/study_chapter.php'; ?></details>
     <?php endif; ?>
     <p class="tab-next"><button class="btn" data-goto="t-practice">Ir a la práctica</button></p>
   </div>
