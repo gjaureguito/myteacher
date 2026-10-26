@@ -8,7 +8,7 @@ RUN apt-get update \
 
 RUN a2enmod rewrite headers remoteip \
  && sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
- && printf '<Directory /var/www/html/public>\n  AllowOverride All\n  Require all granted\n</Directory>\nServerTokens Prod\nServerSignature Off\n' > /etc/apache2/conf-available/app.conf \
+ && printf '<Directory /var/www/html/public>\n  AllowOverride All\n  Require all granted\n</Directory>\nServerTokens Prod\nServerSignature Off\nServerName localhost\n' > /etc/apache2/conf-available/app.conf \
  && a2enconf app
 
 COPY docker/php.ini /usr/local/etc/php/conf.d/app.ini
