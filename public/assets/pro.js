@@ -234,6 +234,7 @@
           <li>Cerrá otras aplicaciones de videollamadas o grabación y las pestañas que usen audio.</li>
           <li>Cerrá el navegador por completo, volvé a abrirlo y tocá <b>Probar de nuevo</b>.</li>
           <li>En Windows, comprobá el dispositivo en Configuración → Sistema → Sonido → Entrada.</li>
+          <li><b>Antivirus y herramientas de privacidad:</b> algunos programas de seguridad bloquean el uso del micrófono por parte del navegador. Revisá su sección de privacidad, protección de micrófono o control de aplicaciones y autorizá Chrome para este sitio si aparece bloqueado. No desactives el antivirus completo.</li>
         </ol>
         <p class="fine">Podés continuar sin reconocimiento automático. Consultá <a href="/microfono.php">la guía del micrófono</a>. No es necesario ejecutar comandos de administrador para esta prueba.</p>
       </section>
@@ -322,7 +323,7 @@
         fullTestResult.textContent=amplitude>3?'2/3 Hay señal de audio. 3/3 Probando reconocimiento de voz…':'2/3 Captura abierta, pero no detecté señal suficiente. Hablá más cerca y repetí la prueba. No se puede confirmar la pronunciación.';
         if(amplitude<=3)return;
       }catch(e){
-        fullTestResult.textContent='1/3 Falló la captura: '+(e.name||'Error desconocido')+'. Chrome no permite abrir el micrófono; el reconocimiento no podrá funcionar hasta resolver ese acceso.';
+        fullTestResult.textContent='1/3 Falló la captura: '+(e.name||'Error desconocido')+'. Chrome no pudo abrir el micrófono. También puede intervenir un antivirus o una protección de privacidad que bloquee el acceso. Revisá su configuración antes de volver a probar.';
         return;
       }finally{stream?.getTracks().forEach(t=>t.stop());if(ctx)await ctx.close().catch(()=>{});fullTestBtn.disabled=false;}
       const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;
