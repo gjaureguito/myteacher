@@ -165,13 +165,34 @@
   const PS_AUDIO = 'Restart-Service -Name AudioEndpointBuilder -Force; Start-Service -Name Audiosrv';
   async function testMic() {
     if (!navigator.mediaDevices?.getUserMedia) return { code: 'unsupported' };
+    const devices = navigator.mediaDevices;
+    let lastError = null;
+    // Primer intento: la entrada predeterminada del navegador.
+    const choices = [{ audio: true }];
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      return { code: 'ok', stream };
-    } catch (e) {
-      if (e.name === 'NotAllowedError') return { code: /system/i.test(e.message) ? 'system' : 'blocked', err: e.name };
-      return { code: { NotReadableError: 'busy', SecurityError: 'blocked', NotFoundError: 'nodevice', OverconstrainedError: 'nodevice' }[e.name] || 'busy', err: e.name };
+      // enumerateDevices no solicita permisos; los IDs pueden venir vacíos.
+      const available = await devices.enumerateDevices();
+      for (const d of available.filter(d => d.kind === 'audioinput' && d.deviceId && d.deviceId !== 'default' && d.deviceId !== 'communications').slice(0, 4)) {
+        choices.push({ audio: { deviceId: { exact: d.deviceId } } });
+      }
+    } catch (_) { /* Seguimos con la entrada predeterminada. */ }
+    for (const constraints of choices) {
+      try {
+        const stream = await devices.getUserMedia(constraints);
+        return { code: 'ok', stream };
+      } catch (e) {
+        lastError = e;
+        // No insistir si el usuario denegó el permiso o el navegador lo bloqueó.
+        if (e.name === 'NotAllowedError' || e.name === 'SecurityError') break;
+      }
     }
+    const name = lastError?.name || 'UnknownError';
+    return {
+      code: name === 'NotAllowedError' ? 'blocked' :
+        name === 'SecurityError' ? 'blocked' :
+        name === 'NotFoundError' || name === 'OverconstrainedError' ? 'nodevice' : 'busy',
+      err: name
+    };
   }
   function micHelp() {
     document.querySelector('.mic-help')?.remove();
@@ -227,7 +248,7 @@
     const stop = () => { if (live) { cancelAnimationFrame(live.raf); live.stream.getTracks().forEach(t => t.stop()); live.ac.close(); live = null; } };
     const show = code => back.querySelectorAll('.mh-step').forEach(sec => { sec.hidden = sec.dataset.for !== code; });
     async function run() {
-      stop(); st.className = 'mh-status'; st.textContent = 'Probando el micrófono… si el navegador te pregunta, tocá Permitir.'; meter.hidden = true; show(null);
+      stop(); st.className = 'mh-status'; st.textContent = 'Detectando y probando los micrófonos disponibles… si el navegador te pregunta, tocá Permitir.'; meter.hidden = true; show(null);
       const perm = await navigator.permissions?.query({ name: 'microphone' }).then(p => p.state).catch(() => null);
       const r = await testMic();
       if (r.code === 'ok') {
