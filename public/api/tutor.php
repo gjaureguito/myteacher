@@ -41,7 +41,17 @@ $payload=json_encode([
 $ch=curl_init('https://generativelanguage.googleapis.com/v1beta/models/'.rawurlencode($model).':generateContent');
 curl_setopt_array($ch,[CURLOPT_POST=>true,CURLOPT_HTTPHEADER=>['Content-Type: application/json','x-goog-api-key: '.$geminiKey],CURLOPT_POSTFIELDS=>$payload,CURLOPT_CONNECTTIMEOUT=>6,CURLOPT_TIMEOUT=>40,CURLOPT_RETURNTRANSFER=>true,CURLOPT_FOLLOWLOCATION=>false]);
 $response=curl_exec($ch);$status=(int)curl_getinfo($ch,CURLINFO_HTTP_CODE);$error=curl_error($ch);curl_close($ch);
-if($response===false || $status!==200){q('UPDATE tutor_usage SET used=CASE WHEN used>0 THEN used-1 ELSE 0 END WHERE user_id=? AND usage_day=?',[(int)$u['id'],$day]);error_log('Gemini tutor error HTTP '.$status.' '.substr($error,0,150));json_out(['error'=>'El profesor virtual no pudo responder. Verificá la configuración de Gemini o el cupo disponible. No se descontó la consulta.'],503);}
+if($response===false || $status!==200){q('UPDATE tutor_usage SET used=CASE WHEN used>0 THEN used-1 ELSE 0 END WHERE user_id=? AND usage_day=?',[(int)$u['id'],$day]);error_log('Gemini tutor error HTTP '.$status.' '.substr($error,0,150));$provider=json_decode((string)$response,true);
+$providerMessage=strtolower((string)($provider['error']['message']??''));
+$hint=match(true){
+ $status===429=>'Gemini agotó temporalmente su cuota o límite de solicitudes. Revisá las cuotas del proyecto en Google AI Studio.',
+ $status===400=>'Gemini rechazó la solicitud o el identificador del modelo. Revisá GEMINI_MODEL y la compatibilidad del modelo.',
+ $status===401 || $status===403=>'Gemini rechazó las credenciales o los permisos. Revisá GEMINI_API_KEY y la configuración de la API.',
+ $status===404=>'No se encontró el modelo de Gemini configurado. Revisá GEMINI_MODEL.',
+ default=>'No fue posible conectar con Gemini. Revisá los registros del servicio web en Railway.'
+};
+error_log('Gemini status '.$status.' provider: '.substr($providerMessage,0,250));
+json_out(['error'=>$hint.' No se descontó esta consulta.','provider_status'=>$status],503);}
 $result=json_decode((string)$response,true);
 $answer=trim(implode("\n",array_map(static fn($p)=>(string)($p['text']??''),$result['candidates'][0]['content']['parts']??[])));
 if($answer===''){q('UPDATE tutor_usage SET used=CASE WHEN used>0 THEN used-1 ELSE 0 END WHERE user_id=? AND usage_day=?',[(int)$u['id'],$day]);json_out(['error'=>'El profesor no devolvió texto. No se descontó esta consulta.'],503);}
