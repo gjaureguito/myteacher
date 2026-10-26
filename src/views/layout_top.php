@@ -48,7 +48,7 @@ $description = match ($path) {
 <meta name="theme-color" content="#edf7ff">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
-</head>
+<style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style></head>
 <body class="site-modern<?= $u ? ' has-bottom-nav' : '' ?>">
 <a class="skip" href="#main">Saltar al contenido</a>
 <header class="topbar">
@@ -63,7 +63,7 @@ $description = match ($path) {
         <a href="/review.php"<?= $navCur('/review.php') ?>>Prácticas extra</a>
         <a href="/glossary.php"<?= $navCur('/glossary.php') ?>>Mi glosario</a>
         <a href="/life-dialogues.php"<?= $navCur("/life-dialogues.php") ?>>Diálogos reales</a>
-        <a href="/tutor.php"<?= $navCur("/tutor.php") ?>>Profesor virtual</a>
+        <a href="/tutor.php"<?= $navCur("/tutor.php") ?>>Diccionario con IA</a>
         <a href="/stats.php"<?= $navCur('/stats.php') ?>>Estadísticas</a>
         <a href="/placement.php"<?= $navCur('/placement.php') ?>>Test de nivel</a>
         <a href="/account.php"<?= $navCur('/account.php') ?>>Mi cuenta</a>
