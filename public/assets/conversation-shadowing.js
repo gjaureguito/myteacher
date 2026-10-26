@@ -7,11 +7,34 @@
     const container = document.createElement('section');
     container.className = 'shadow-lab';
     container.setAttribute('aria-label','Laboratorio de conversación');
-    container.innerHTML = '<h3>🎙️ Repetí el diálogo</h3><p>Escuchá una frase y repetila en inglés. Podés mostrar u ocultar el texto para practicar memoria auditiva.</p><div class="shadow-controls"><button type="button" data-shadow="prev">← Frase anterior</button><button type="button" data-shadow="listen">🔊 Escuchar</button><button type="button" data-shadow="record">🎤 Practicar pronunciación</button><button type="button" data-shadow="next">Siguiente →</button><label><input type="checkbox" data-shadow="hide"> Ocultar texto inglés</label></div><p class="shadow-position" aria-live="polite"></p><p class="shadow-reference" lang="en"></p><p class="shadow-result" role="status" aria-live="polite"></p><p class="shadow-note">El reconocimiento de voz depende del navegador y puede utilizar su servicio de procesamiento de voz. No se envía una grabación al servidor de MyTeacher mediante este ejercicio.</p>';
+    container.innerHTML = '<h3>🎙️ Repetí el diálogo</h3><p>Escuchá una frase y repetila en inglés. Podés mostrar u ocultar el texto para practicar memoria auditiva.</p><div class="shadow-controls"><button type="button" data-shadow="prev">← Frase anterior</button><button type="button" data-shadow="listen">🔊 Escuchar</button><button type="button" data-shadow="record">🎤 Practicar pronunciación</button><button type="button" data-shadow="next">Siguiente →</button><label><input type="checkbox" data-shadow="hide"> Ocultar texto inglés</label></div><p class="shadow-position" aria-live="polite"></p><p class="shadow-reference" lang="en"></p><p class="shadow-result" role="status" aria-live="polite"></p><details class="shadow-help" hidden><summary>¿Problemas con el micrófono?</summary><p data-shadow-help-text></p><button type="button" data-shadow="testmic">Probar micrófono</button><p data-shadow-test-result role="status" aria-live="polite"></p><p>También podés escuchar y repetir por tu cuenta, y seguir con los ejercicios sin usar el micrófono.</p></details><p class="shadow-note">El reconocimiento de voz depende del navegador y puede utilizar su servicio de procesamiento de voz. No se envía una grabación al servidor de MyTeacher mediante este ejercicio.</p>';
     const reference = scene.querySelector('.scene-transcript');
     reference.after(container);
     const $ = name => container.querySelector('[data-shadow="'+name+'"]');
     let current=0,rec=null;
+    const help=container.querySelector('.shadow-help');
+    const errorAdvice={
+      'audio-capture':'El navegador no logra abrir el micrófono. Comprobá el dispositivo de entrada en la configuración del navegador, cerrá aplicaciones de audio y volvé a intentar.',
+      'not-allowed':'El navegador no tiene permiso para grabar. Abrí los permisos del sitio desde el ícono junto a la dirección y permití el micrófono.',
+      'service-not-allowed':'El servicio de reconocimiento de voz está bloqueado. Podés continuar sin dictado o probar otro navegador compatible.',
+      'no-speech':'No se detectó voz. Acercate al micrófono, comprobá que no esté silenciado y probá otra vez.',
+      'network':'El servicio de reconocimiento de voz no respondió. Revisá tu conexión y reintentá; podés continuar sin reconocimiento.',
+      'language-not-supported':'El idioma de reconocimiento no está disponible en este navegador. Podés practicar escuchando y repitiendo sin evaluación automática.'
+    };
+    function showHelp(message){help.hidden=false;help.open=true;help.querySelector('[data-shadow-help-text]').textContent=message;}
+    $('testmic').addEventListener('click',async()=>{
+      const status=help.querySelector('[data-shadow-test-result]');
+      if(!navigator.mediaDevices?.getUserMedia){status.textContent='Este navegador no admite la prueba de audio. Podés continuar sin usar el micrófono.';return;}
+      status.textContent='Comprobando acceso al micrófono…';
+      let stream;
+      try{
+        stream=await navigator.mediaDevices.getUserMedia({audio:true});
+        status.textContent='✓ El navegador puede abrir el micrófono. Si el dictado falla, puede ser el servicio de reconocimiento de voz.';
+      }catch(err){
+        const names={NotAllowedError:'Permiso denegado: revisá los permisos del sitio.',NotFoundError:'No se encontró un micrófono disponible.',NotReadableError:'El micrófono existe, pero otra aplicación o el controlador podría impedir la captura.',OverconstrainedError:'El dispositivo no admite la configuración solicitada.'};
+        status.textContent=names[err.name]||'No se pudo acceder al micrófono ('+err.name+').';
+      }finally{stream?.getTracks().forEach(track=>track.stop());}
+    });
     const normalize=s=>(s||'').toLocaleLowerCase('en').replace(/[^a-z0-9\s']/g,' ').replace(/\s+/g,' ').trim();
     const words=s=>normalize(s).split(' ').filter(Boolean);
     const clamp=n=>Math.max(0,Math.min(lines.length-1,n));
@@ -38,7 +61,7 @@
       if(button)button.click();
       else if(window.speechSynthesis){const u=new SpeechSynthesisUtterance(lines[current].querySelector('[data-en]')?.textContent||'');u.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(u);}
     });
-    if(!SpeechRecognition){$('record').disabled=true;container.querySelector('.shadow-result').textContent='El reconocimiento de voz no está disponible en este navegador. Podés practicar escuchando y repitiendo sin evaluación automática.';}
+    if(!SpeechRecognition){$('record').disabled=true;container.querySelector('.shadow-result').textContent='El reconocimiento automático no está disponible. Podés escuchar y repetir sin evaluación automática.';showHelp('Este navegador no ofrece reconocimiento de voz compatible. La práctica de escucha sigue disponible.');}
     $('record').addEventListener('click',()=>{
       if(!SpeechRecognition)return;
       stopRecognition();
@@ -59,10 +82,10 @@
           result.textContent='Escuché: “'+spoken+'”. Coincidencia aproximada de palabras: '+pct+'%. '+(pct>=80?'¡Muy bien!':'Escuchá de nuevo y probá otra vez.');
           // Coincidencia de transcripción, no calificación fonética.
         };
-        engine.onerror=e=>{if(rec===engine)result.textContent='No se pudo reconocer la voz ('+e.error+'). Revisá el permiso del micrófono y probá nuevamente.';};
+        engine.onerror=e=>{if(rec===engine){result.textContent='No se pudo completar el reconocimiento de voz ('+e.error+').';showHelp(errorAdvice[e.error]||'El reconocimiento de voz no pudo completarse. Podés reintentar o seguir sin micrófono.');}};
         engine.onend=()=>{if(rec===engine){rec=null;$('record').disabled=false;}};
         engine.start();
-      }catch{rec=null;$('record').disabled=false;result.textContent='El navegador no pudo iniciar el reconocimiento de voz.';}
+      }catch{rec=null;$('record').disabled=false;result.textContent='El navegador no pudo iniciar el reconocimiento de voz.';showHelp('Revisá el micrófono en los ajustes del navegador o utilizá la práctica sin reconocimiento automático.');}
     });
     const styleId='shadow-lab-styles';
     if(!document.getElementById(styleId)){
@@ -71,5 +94,6 @@
       document.head.append(css);
     }
     refresh();
+    const hintStyle=document.createElement('style');hintStyle.textContent='.shadow-help{margin:12px 0;padding:12px;border:1px solid #9ab7aa;border-radius:10px}.shadow-help summary{cursor:pointer;font-weight:700}.shadow-help p{margin:8px 0}.shadow-help button{padding:8px 12px;border-radius:8px;border:1px solid #8199b4;background:transparent;color:inherit;cursor:pointer}';container.append(hintStyle);
   });
 })();
