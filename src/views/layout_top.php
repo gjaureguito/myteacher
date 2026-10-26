@@ -48,44 +48,24 @@ $description = match ($path) {
 <meta name="theme-color" content="#edf7ff">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
-<style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style></head>
+<style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style><link rel="stylesheet" href="/assets/sidebar.css?v=1">
+</head>
 <body class="site-modern<?= $u ? ' has-bottom-nav' : '' ?>">
 <a class="skip" href="#main">Saltar al contenido</a>
 <header class="topbar">
   <div class="wrap topbar-in">
     <a class="brand" href="<?= $u ? '/dashboard.php' : '/' ?>"><span class="brand-mark" aria-hidden="true">m<span>t</span></span><?= e(app_name()) ?></a>
 <?php $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : ''; ?>
+    <?php if ($u): ?><button type="button" class="mt-sidebar-toggle" aria-label="Mostrar u ocultar menú de navegación" aria-controls="mt-sidebar" aria-expanded="true"><span aria-hidden="true">☰</span><span class="mt-sidebar-toggle-label">Menú</span></button><?php else: ?>
     <nav class="nav mt-nav-main" aria-label="Principal">
-      <?php if ($u): ?>
-        <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>>Mis niveles</a>
-        <a href="/book.php"<?= $navCur('/book.php') ?>>Libros</a>
-        <a href="/grammar.php"<?= $navCur('/grammar.php') ?>>Gramática</a>
-        <a href="/review.php"<?= $navCur('/review.php') ?>>Prácticas</a>
-        <a href="/glossary.php"<?= $navCur('/glossary.php') ?>>Mi glosario</a>
-        <details name="mt-header-menu" class="mt-nav-dropdown"><summary>Más recursos <span aria-hidden="true">⌄</span></summary>
-          <div class="mt-nav-dropdown-panel">
-            <a href="/life-dialogues.php"<?= $navCur('/life-dialogues.php') ?>>Diálogos reales</a>
-            <a href="/tutor.php"<?= $navCur('/tutor.php') ?>>Diccionario</a>
-            <a href="/stats.php"<?= $navCur('/stats.php') ?>>Estadísticas</a>
-            <a href="/placement.php"<?= $navCur('/placement.php') ?>>Test de nivel</a>
-          </div>
-        </details>
-        <details name="mt-header-menu" class="mt-nav-dropdown mt-nav-account"><summary>Mi cuenta <span aria-hidden="true">⌄</span></summary>
-          <div class="mt-nav-dropdown-panel">
-            <a href="/account.php"<?= $navCur('/account.php') ?>>Mi cuenta</a>
-            <?php if (is_admin($u)): ?><a href="/admin/">Administración</a><?php endif; ?>
-            <form method="post" action="/logout.php" class="inline"><?= csrf_field() ?><button class="linkbtn" type="submit">Cerrar sesión</button></form>
-          </div>
-        </details>
-      <?php else: ?>
-        <a href="/program.php"<?= $navCur('/program.php') ?>>El programa</a>
-        <a href="/library.php"<?= $navCur('/library.php') ?>>Biblioteca</a>
-        <a href="/situations.php"<?= $navCur('/situations.php') ?>>Situaciones</a>
-        <a href="/#precio">Precio</a>
-        <a href="/login.php">Ingresar</a>
-        <a class="btn btn-sm" href="/register.php">Empezar gratis <span aria-hidden="true">↗</span></a>
-      <?php endif; ?>
+      <a href="/program.php"<?= $navCur('/program.php') ?>>El programa</a>
+      <a href="/library.php"<?= $navCur('/library.php') ?>>Biblioteca</a>
+      <a href="/situations.php"<?= $navCur('/situations.php') ?>>Situaciones</a>
+      <a href="/#precio">Precio</a>
+      <a href="/login.php">Ingresar</a>
+      <a class="btn btn-sm" href="/register.php">Empezar gratis <span aria-hidden="true">↗</span></a>
     </nav>
+    <?php endif; ?>
       <span class="tools">
         <button type="button" class="tool-btn" id="tool-sound" aria-pressed="true" aria-label="Efectos de sonido" title="Efectos de sonido">
           <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>
@@ -98,6 +78,28 @@ $description = match ($path) {
       </span>
   </div>
 </header>
+<?php if ($u): ?>
+<div class="mt-sidebar-backdrop" data-sidebar-close hidden></div>
+<aside id="mt-sidebar" class="mt-sidebar" aria-label="Navegación de estudiante">
+  <nav class="mt-sidebar-links" aria-label="Secciones de MyTeacher">
+    <p class="mt-sidebar-heading">APRENDIZAJE</p>
+    <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>>▦ <span>Mis niveles</span></a>
+    <a href="/book.php"<?= $navCur('/book.php') ?>>▤ <span>Libros de estudio</span></a>
+    <a href="/grammar.php"<?= $navCur('/grammar.php') ?>>Aa <span>Gramática</span></a>
+    <a href="/review.php"<?= $navCur('/review.php') ?>>✓ <span>Prácticas</span></a>
+    <a href="/glossary.php"<?= $navCur('/glossary.php') ?>>◇ <span>Mi glosario</span></a>
+    <p class="mt-sidebar-heading">RECURSOS</p>
+    <a href="/life-dialogues.php"<?= $navCur('/life-dialogues.php') ?>>◉ <span>Diálogos reales</span></a>
+    <a href="/tutor.php"<?= $navCur('/tutor.php') ?>>文 <span>Diccionario</span></a>
+    <a href="/stats.php"<?= $navCur('/stats.php') ?>>▥ <span>Estadísticas</span></a>
+    <a href="/placement.php"<?= $navCur('/placement.php') ?>>◎ <span>Test de nivel</span></a>
+    <p class="mt-sidebar-heading">CUENTA</p>
+    <a href="/account.php"<?= $navCur('/account.php') ?>>⚙ <span>Mi cuenta</span></a>
+    <?php if (is_admin($u)): ?><a href="/admin/">▣ <span>Administración</span></a><?php endif; ?>
+    <form method="post" action="/logout.php"><?= csrf_field() ?><button type="submit">↪ <span>Cerrar sesión</span></button></form>
+  </nav>
+</aside>
+<?php endif; ?>
 <main id="main">
 <?php if ($flashes): ?>
   <div class="wrap flashes">
