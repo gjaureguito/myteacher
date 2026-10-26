@@ -13,7 +13,7 @@ lock=Lock()
 whisper=None
 piper=None
 TOKEN=os.environ.get("MYTEACHER_IA_TOKEN","")
-MODEL=os.environ.get("MYTEACHER_MODEL","llama3.2:3b")
+MODEL=os.environ.get("MYTEACHER_CHAT_MODEL","llama3.2:1b")
 LEVELS={
 "A1":"Beginner: basic vocabulary, very short simple sentences.",
 "A2":"Elementary: everyday situations, familiar grammar.",
