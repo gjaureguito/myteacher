@@ -59,6 +59,7 @@ $total = count($exercises);
         </div>
       <?php endforeach; ?>
     </div>
+    <p><a class="btn btn-ghost" href="/glossary.php">Buscar y guardar nuevas palabras en mi glosario →</a></p>
   </div>
   <?php endif; ?>
 
