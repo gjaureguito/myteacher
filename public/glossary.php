@@ -9,10 +9,10 @@ require ROOT . '/src/views/layout_top.php';
   <header class="lex-head"><p class="eyebrow">VOCABULARIO PERSONAL</p><h1 id="lex-title">Mi glosario de inglés</h1><p>Buscá traducciones, guardá palabras con contexto y repasá el vocabulario que necesitás recordar.</p></header>
   <div class="lex-layout">
     <section class="lex-panel"><h2>Buscar y agregar palabras</h2>
-      <form id="lex-form" class="lex-form"><label for="lex-word">Palabra o expresión en inglés</label><input id="lex-word" maxlength="120" required placeholder="Ej.: maintenance, look after"><button class="btn" type="submit">Buscar traducción</button></form>
+      <form id="lex-form" class="lex-form"><label for="lex-word">Palabra o expresión en inglés o español</label><input id="lex-word" maxlength="120" required placeholder="Ej.: maintenance, look after"><label for="lex-direction">Dirección de traducción</label><select id="lex-direction"><option value="auto">Automática</option><option value="es-en">Español → Inglés</option><option value="en-es">Inglés → Español</option></select><button class="btn" type="submit">Buscar traducción</button></form>
       <p id="lex-result" role="status" aria-live="polite"></p>
       <form id="lex-save-form" hidden>
-        <label for="lex-translation">Traducción al español (podés corregirla)</label><input id="lex-translation" maxlength="220" required>
+        <label for="lex-translation">Traducción (podés corregirla)</label><input id="lex-translation" maxlength="220" required>
         <label for="lex-context">Ejemplo o frase de contexto (opcional)</label><textarea id="lex-context" maxlength="500" rows="3" placeholder="Ej.: The maintenance team checks the equipment."></textarea>
         <label for="lex-tag">Categoría</label><select id="lex-tag"><option>General</option><option>Trabajo</option><option>Viajes</option><option>Vida cotidiana</option><option>Gramática</option></select>
         <button type="submit" class="btn">Guardar en mi glosario</button>
@@ -28,5 +28,5 @@ require ROOT . '/src/views/layout_top.php';
   </div>
 </section>
 <link rel="stylesheet" href="/assets/glossary.css?v=1">
-<script src="/assets/glossary.js?v=3" defer></script>
+<script src="/assets/glossary.js?v=4" defer></script>
 <?php require ROOT . '/src/views/layout_bottom.php'; ?>
