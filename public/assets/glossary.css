@@ -1,1 +1,13 @@
 .lex-page{padding-block:30px 70px}.lex-head{max-width:800px;margin-bottom:26px}.lex-head h1{font-size:clamp(2rem,4vw,3rem)}.lex-layout{display:grid;grid-template-columns:1fr 1.1fr;gap:22px;align-items:start}.lex-panel{background:var(--surface,#fff);border:1px solid #cddae4;border-radius:18px;padding:25px;box-shadow:0 8px 28px #2342  }.lex-panel h2{margin-top:0}.lex-panel label{display:block;font-weight:700;margin:16px 0 6px}.lex-panel input,.lex-panel textarea,.lex-panel select{width:100%;box-sizing:border-box;border:1px solid #9daebd;border-radius:9px;padding:11px;background:var(--surface,#fff);color:inherit;font:inherit}.lex-form .btn{margin-top:12px}.lex-panel button{cursor:pointer}.lex-note{font-size:.85rem;opacity:.8;margin-top:20px}.lex-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.lex-entry{display:flex;align-items:start;justify-content:space-between;padding:14px 0;border-bottom:1px solid #dae2e8;gap:12px}.lex-entry p{margin:5px 0}.lex-entry button{margin:2px;padding:6px;border:1px solid #acbac8;background:transparent;color:inherit;border-radius:7px}.lex-list{max-height:540px;overflow:auto}.lex-panel h3{margin-top:30px}#lex-card{margin:12px 0;padding:22px;background:rgba(113,143,179,.10);border-radius:10px;font-size:1.13rem;min-height:52px}#lex-reveal{margin-left:8px}@media(max-width:760px){.lex-layout{grid-template-columns:1fr}.lex-panel{padding:17px}}
+/* Navegación alfabética del glosario */
+.lex-alphabet{display:flex;flex-wrap:wrap;gap:5px;padding:13px 0 9px;margin-top:10px;border-bottom:1px solid #e0e9f1}
+.lex-alphabet .lex-letter{min-width:32px;min-height:36px;padding:6px 9px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #d8e4ee;border-radius:9px;background:#f6f9fc;color:#365674;font:700 .78rem/1.2 inherit;cursor:pointer}
+.lex-alphabet .lex-letter:first-child{padding-inline:13px}
+.lex-alphabet .lex-letter.is-active{background:#155fa7;color:#fff;border-color:#155fa7}
+.lex-alphabet .lex-letter:disabled{color:#a5b2bd;background:#fafbfc;opacity:.6;cursor:not-allowed}
+.lex-alphabet .lex-letter:not(:disabled):hover{border-color:#155fa7}
+.lex-alphabet .lex-letter:focus-visible{outline:3px solid #89c0f5;outline-offset:2px}
+.lex-letter-status{margin:10px 0 5px;font-size:.79rem;color:var(--muted,#5e7184)}
+html[data-theme=dark] .lex-alphabet .lex-letter{background:#1a344b;color:#ecf6ff;border-color:#3d5a72}
+html[data-theme=dark] .lex-alphabet .lex-letter.is-active{background:#2d78bd;border-color:#2d78bd}
+@media(max-width:560px){.lex-alphabet{gap:4px}.lex-alphabet .lex-letter{min-height:38px;min-width:35px}}
