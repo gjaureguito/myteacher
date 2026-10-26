@@ -1,14 +1,14 @@
-<link rel="stylesheet" href="/assets/grammar.css?v=1">
+<link rel="stylesheet" href="/assets/grammar.css?v=2">
 <section class="wrap page grammar-page">
  <p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / <a href="/level.php?code=<?= e($unit['level_code']) ?>"><?= e(strtoupper($unit['level_code'])) ?></a> / Cuaderno de gramática</p>
- <header class="grammar-heading"><p class="eyebrow">MYTEACHER · COMPRENDER Y PRACTICAR</p><h1><?= e($unit['title']) ?></h1><p>Estudiá el concepto a la izquierda y resolvé a la derecha. Si una respuesta falla, volvé al ejemplo que explica esa regla.</p></header>
+ <header class="grammar-heading"><p class="eyebrow">MYTEACHER · COMPRENDER Y PRACTICAR</p><h1><?= e($unit['title']) ?></h1><p>Leé primero la teoría completa y luego resolvé los ejercicios que aparecen debajo. Podés volver a consultar cualquier regla cuando lo necesites.</p></header>
  <form method="get" class="grammar-selector"><label>Elegí un tema<select name="id"><?php foreach ($units as $item): ?><option value="<?= (int)$item['id'] ?>" <?= $item['id']===$unit['id']?'selected':'' ?>><?= e(strtoupper($item['level_code']).' · '.$item['title']) ?></option><?php endforeach; ?></select></label><button class="btn btn-sm">Abrir tema</button><a href="/book.php?code=<?= e($unit['level_code']) ?>&amp;chapter=<?= e($unit['slug']) ?>">Leer el capítulo completo →</a></form>
  <div class="grammar-spread">
   <aside class="grammar-reference" aria-label="Explicación y ejemplos">
    <div class="grammar-label">A · ESTUDIÁ EL CONCEPTO</div>
    <?php if ($chapter): ?><h2>Qué vas a poder expresar</h2><p><?= e($chapter['goal']) ?></p><p><?= e($chapter['explain']) ?></p><h3>La diferencia que importa</h3><p><?= e($chapter['contrast']) ?></p><?php endif; ?>
    <?php if ($visual): ?><h3>Por qué funciona</h3><p><?= e($visual['foundation']) ?></p><div class="grammar-models"><?php foreach ($visual['steps'] as [$sentence,$label,$reason]): ?><section><h4><?= e($label) ?></h4><p lang="en"><?= e($sentence) ?></p><p><?= e($reason) ?></p></section><?php endforeach; ?></div><?php endif; ?>
-   <details class="theory"><summary>Consultar reglas y tablas del capítulo</summary><?= $unit['theory_html'] ?></details>
+   <section class="theory grammar-full-theory" aria-label="Reglas y tablas del capítulo"><h3>Reglas, ejemplos y tablas del capítulo</h3><?= $unit['theory_html'] ?></section>
   </aside>
   <article class="grammar-practice" aria-label="Ejercicios de gramática">
    <div class="grammar-label">B · PONÉ LA REGLA A PRUEBA</div>
