@@ -848,5 +848,530 @@
         "explanation": "Owen estaba comprando un café, no un sándwich."
       }
     ]
+  },
+  {
+    "id": "project-review",
+    "unit": "b2-project-risks",
+    "level": "B2",
+    "title": "Project risk review",
+    "category": "Trabajo",
+    "goal": "Discutir riesgos y próximos pasos.",
+    "visual": "📋",
+    "alt": "Reunión de revisión de riesgos.",
+    "lines": [
+      {
+        "speaker": "Maya",
+        "en": "We need to reassess the delivery schedule.",
+        "es": "Tenemos que reevaluar el cronograma de entrega."
+      },
+      {
+        "speaker": "Leo",
+        "en": "The supplier warned us about a possible delay.",
+        "es": "El proveedor nos advirtió sobre un posible retraso."
+      },
+      {
+        "speaker": "Maya",
+        "en": "Could we identify the tasks most likely to be affected?",
+        "es": "¿Podríamos identificar las tareas con más probabilidades de verse afectadas?"
+      },
+      {
+        "speaker": "Leo",
+        "en": "Yes. I suggest preparing a contingency plan by Friday.",
+        "es": "Sí. Sugiero preparar un plan de contingencia para el viernes."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What did the supplier warn about?",
+        "options": [
+          "A possible delay",
+          "A lower price",
+          "A new office"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Who suggests a contingency plan?",
+        "options": [
+          "Maya",
+          "Leo",
+          "The supplier"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is the deadline for the plan?",
+        "options": [
+          "Monday",
+          "Wednesday",
+          "Friday"
+        ],
+        "answer": 2,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Which word best describes the plan?",
+        "options": [
+          "Contingency",
+          "Vacation",
+          "Decoration"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Does Maya want to identify affected tasks?",
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      }
+    ]
+  },
+  {
+    "id": "research-brief",
+    "unit": "c1-evaluating-methodology",
+    "level": "C1",
+    "title": "Discussing research limitations",
+    "category": "Académico",
+    "goal": "Evaluar evidencia y limitaciones.",
+    "visual": "🔬",
+    "alt": "Conversación sobre un estudio.",
+    "lines": [
+      {
+        "speaker": "Researcher",
+        "en": "The results are promising, but the sample was relatively small.",
+        "es": "Los resultados son alentadores, pero la muestra fue relativamente pequeña."
+      },
+      {
+        "speaker": "Editor",
+        "en": "Was there a control group?",
+        "es": "¿Hubo un grupo de control?"
+      },
+      {
+        "speaker": "Researcher",
+        "en": "No, which limits our ability to draw causal conclusions.",
+        "es": "No, lo cual limita nuestra capacidad de extraer conclusiones causales."
+      },
+      {
+        "speaker": "Editor",
+        "en": "Then we should describe the findings as preliminary.",
+        "es": "Entonces deberíamos describir los hallazgos como preliminares."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "How large was the sample?",
+        "options": [
+          "Relatively small",
+          "Very large",
+          "Not discussed"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Was there a control group?",
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What kind of conclusions are limited?",
+        "options": [
+          "Causal conclusions",
+          "Grammar conclusions",
+          "Financial statements"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How should the findings be described?",
+        "options": [
+          "Definitive",
+          "Preliminary",
+          "Irrelevant"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Who asks about the control group?",
+        "options": [
+          "The editor",
+          "The researcher"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      }
+    ]
+  },
+  {
+    "id": "diplomatic-meeting",
+    "unit": "c1-register-diplomacy",
+    "level": "C1",
+    "title": "A diplomatic disagreement",
+    "category": "Trabajo",
+    "goal": "Discrepar con tacto.",
+    "visual": "🤝",
+    "alt": "Conversación profesional diplomática.",
+    "lines": [
+      {
+        "speaker": "Client",
+        "en": "We would appreciate an earlier delivery date.",
+        "es": "Agradeceríamos una fecha de entrega anterior."
+      },
+      {
+        "speaker": "Manager",
+        "en": "I understand the urgency, although our current schedule is already tight.",
+        "es": "Comprendo la urgencia, aunque nuestro cronograma actual ya está ajustado."
+      },
+      {
+        "speaker": "Client",
+        "en": "Might it be possible to prioritise the critical components?",
+        "es": "¿Sería posible priorizar los componentes críticos?"
+      },
+      {
+        "speaker": "Manager",
+        "en": "That could be feasible, provided we agree on the revised scope.",
+        "es": "Eso podría ser viable, siempre que acordemos el alcance revisado."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What does the client request?",
+        "options": [
+          "An earlier delivery",
+          "A cheaper lunch",
+          "A refund"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How does the manager describe the schedule?",
+        "options": [
+          "Flexible",
+          "Tight",
+          "Cancelled"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What might be prioritised?",
+        "options": [
+          "Critical components",
+          "Office furniture",
+          "Holidays"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What is needed to proceed?",
+        "options": [
+          "An agreed revised scope",
+          "A new building",
+          "A public speech"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Does the manager reject every possibility?",
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      }
+    ]
+  },
+  {
+    "id": "evidence-debate",
+    "unit": "c2-epistemic-responsibility",
+    "level": "C2",
+    "title": "Evidence under scrutiny",
+    "category": "Académico",
+    "goal": "Distinguir hechos e hipótesis.",
+    "visual": "⚖️",
+    "alt": "Debate sobre evidencia.",
+    "lines": [
+      {
+        "speaker": "Chair",
+        "en": "We can confirm that the figures changed after the policy was introduced.",
+        "es": "Podemos confirmar que las cifras cambiaron después de introducir la política."
+      },
+      {
+        "speaker": "Analyst",
+        "en": "But that sequence alone does not establish causation.",
+        "es": "Pero esa secuencia por sí sola no establece causalidad."
+      },
+      {
+        "speaker": "Chair",
+        "en": "Precisely. What alternative explanation should we examine?",
+        "es": "Exactamente. ¿Qué explicación alternativa deberíamos examinar?"
+      },
+      {
+        "speaker": "Analyst",
+        "en": "Changes in reporting practices may account for part of the difference.",
+        "es": "Los cambios en las prácticas de reporte podrían explicar parte de la diferencia."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What is confirmed?",
+        "options": [
+          "The figures changed",
+          "Causation was proved",
+          "The policy was cancelled"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Does sequence prove causation?",
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What explanation is proposed?",
+        "options": [
+          "Reporting changes",
+          "Weather forecasts",
+          "Office rent"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Who raises the possibility of reporting changes?",
+        "options": [
+          "The analyst",
+          "The chair"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Are the conclusions definitive?",
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      }
+    ]
+  },
+  {
+    "id": "editorial-interview",
+    "unit": "c2-editorial-tone",
+    "level": "C2",
+    "title": "An editorial interview",
+    "category": "Medios",
+    "goal": "Interpretar el tono crítico.",
+    "visual": "📰",
+    "alt": "Entrevista sobre un artículo editorial.",
+    "lines": [
+      {
+        "speaker": "Host",
+        "en": "Your editorial calls the plan ambitious, yet you question its timetable.",
+        "es": "Su editorial califica el plan de ambicioso, pero cuestiona sus plazos."
+      },
+      {
+        "speaker": "Writer",
+        "en": "The objective is worthwhile; the implementation schedule is unrealistic.",
+        "es": "El objetivo vale la pena; el cronograma de ejecución no es realista."
+      },
+      {
+        "speaker": "Host",
+        "en": "So your criticism is practical rather than ideological?",
+        "es": "¿Entonces su crítica es práctica más que ideológica?"
+      },
+      {
+        "speaker": "Writer",
+        "en": "Exactly. Without sufficient preparation, even a sound idea can fail.",
+        "es": "Exactamente. Sin preparación suficiente, incluso una buena idea puede fracasar."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What does the writer support?",
+        "options": [
+          "The objective",
+          "The timetable",
+          "Neither"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does the writer criticise?",
+        "options": [
+          "The schedule",
+          "The topic",
+          "The host"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What kind of criticism is it?",
+        "options": [
+          "Practical",
+          "Personal",
+          "Unrelated"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "What does the writer say is necessary?",
+        "options": [
+          "Preparation",
+          "Advertising",
+          "A larger studio"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Does the writer regard the idea itself as worthless?",
+        "options": [
+          "Yes",
+          "No"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      }
+    ]
+  },
+  {
+    "id": "contract-meeting",
+    "unit": "c2-legal-interpretation",
+    "level": "C2",
+    "title": "Clarifying a contract clause",
+    "category": "Trabajo",
+    "goal": "Precisar condiciones contractuales.",
+    "visual": "📄",
+    "alt": "Revisión de un contrato.",
+    "lines": [
+      {
+        "speaker": "Lawyer",
+        "en": "The exception applies only when the delay is outside the supplier's reasonable control.",
+        "es": "La excepción se aplica solo cuando el retraso está fuera del control razonable del proveedor."
+      },
+      {
+        "speaker": "Director",
+        "en": "Does the supplier also need to notify us?",
+        "es": "¿El proveedor también tiene que notificarnos?"
+      },
+      {
+        "speaker": "Lawyer",
+        "en": "Yes, prompt written notice is required.",
+        "es": "Sí, se exige una notificación escrita oportuna."
+      },
+      {
+        "speaker": "Director",
+        "en": "Then we should make both conditions explicit in the revised clause.",
+        "es": "Entonces deberíamos explicitar ambas condiciones en la cláusula revisada."
+      }
+    ],
+    "questions": [
+      {
+        "type": "mcq",
+        "prompt": "What kind of delay can qualify?",
+        "options": [
+          "Beyond reasonable control",
+          "Any delay",
+          "A planned delay"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How must notice be given?",
+        "options": [
+          "In writing",
+          "By gesture",
+          "No notice needed"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How soon must notice be given?",
+        "options": [
+          "Promptly",
+          "After a year",
+          "Never"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "How many conditions should be explicit?",
+        "options": [
+          "One",
+          "Two",
+          "Five"
+        ],
+        "answer": 1,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Who explains the clause?",
+        "options": [
+          "The lawyer",
+          "The director"
+        ],
+        "answer": 0,
+        "explanation": "Revisá el diálogo para identificar la información precisa."
+      }
+    ]
   }
 ]
