@@ -257,7 +257,8 @@
     async function run() {
       stop(); st.className = 'mh-status'; st.textContent = 'Detectando y probando los micrófonos disponibles… si el navegador te pregunta, tocá Permitir.'; meter.hidden = true; show(null);
       const perm = await navigator.permissions?.query({ name: 'microphone' }).then(p => p.state).catch(() => null);
-      const r = await testMic();
+      const r = await testMic(select.value);
+      await refreshInputs();
       if (r.code === 'ok') {
         st.className = 'mh-status ok'; st.textContent = '✅ ¡El micrófono funciona! Hablá y mirá cómo se mueve la barra. Ya podés cerrar y usar "Decilo vos".';
         meter.hidden = false;
@@ -290,7 +291,7 @@
       }
     });
     document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { stop(); back.remove(); document.removeEventListener('keydown', k); } });
-    run();
+    refreshInputs().then(run);
   }
   window.ipMicHelp = micHelp;
   document.addEventListener('click', async e => {
