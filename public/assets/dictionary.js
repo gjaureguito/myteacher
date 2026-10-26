@@ -1,0 +1,12 @@
+(()=>{'use strict';
+const form=document.getElementById('dictionary-form');if(!form)return;
+const term=document.getElementById('dictionary-term'),result=document.getElementById('dictionary-result'),status=document.getElementById('dictionary-status'),heading=document.getElementById('dictionary-heading'),definition=document.getElementById('dictionary-definition'),translation=document.getElementById('dictionary-translation'),context=document.getElementById('dictionary-context'),save=document.getElementById('dictionary-save'),hear=document.getElementById('dictionary-hear');let current='';
+const csrf=()=>document.querySelector('meta[name=csrf]')?.content||'';
+function speak(t){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.85;speechSynthesis.speak(u);}
+function setTerm(t){const cleaned=String(t||'').trim().replace(/\s+/g,' ').slice(0,220);if(!cleaned)return;term.value=cleaned;term.focus();}
+const incoming=new URLSearchParams(location.search).get('term');if(incoming)setTerm(incoming);
+form.addEventListener('submit',async e=>{e.preventDefault();current=term.value.trim();if(!current)return;result.hidden=true;status.textContent='Buscando significado con IA…';const btn=form.querySelector('[type=submit]');btn.disabled=true;
+try{const r=await fetch('/api/dictionary.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf()},body:JSON.stringify({term:current})});const data=await r.json();if(!r.ok)throw Error(data.error||'No se pudo consultar');heading.textContent=current;definition.textContent=data.definition;translation.value='';context.value=data.definition;result.hidden=false;status.textContent='Podés editar la traducción y guardar este término.';}catch(err){status.textContent=err.message||'Error de conexión.';}finally{btn.disabled=false;}});
+hear.addEventListener('click',()=>speak(current));
+save.addEventListener('click',async()=>{const word=current,meaning=translation.value.trim()||prompt('Escribí una traducción breve para guardar en tu glosario:','');if(!meaning)return;const r=await fetch('/api/glossary.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf()},body:JSON.stringify({term:word,translation:meaning,context:context.value.slice(0,1000),category:document.getElementById('dictionary-category').value})});const data=await r.json().catch(()=>({}));status.textContent=r.ok?'Guardado en tu glosario personal.':(data.error||'No se pudo guardar.');});
+})();
