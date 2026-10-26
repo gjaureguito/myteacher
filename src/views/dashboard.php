@@ -3,6 +3,7 @@ $full = has_full_access($u);
 $colors = level_colors();
 $first = explode(' ', $u['name'])[0];
 ?>
+<link rel="stylesheet" href="/assets/learning-route.css?v=1">
 <section class="wrap page learning-dashboard">
   <p class="eyebrow">MYTEACHER / TU PRÓXIMO PASO</p>
   <div class="dash-head">
