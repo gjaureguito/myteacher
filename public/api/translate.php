@@ -8,9 +8,14 @@ csrf_check();
 $input=json_decode((string)file_get_contents('php://input'),true)?:[];
 $term=trim(preg_replace('/\s+/u',' ',(string)($input['term']??'')));
 if($term===''||mb_strlen($term)>220)json_out(['error'=>'Seleccioná una palabra o frase corta de hasta 220 caracteres.'],422);
+$direction=(string)($input['direction']??'auto');
+if(!in_array($direction,['auto','en-es','es-en'],true))json_out(['error'=>'Dirección de traducción inválida.'],422);
+$spanishHint=(bool)preg_match('/[áéíóúñü¿¡]/iu',$term);
+$target=$direction==='es-en'||($direction==='auto'&&$spanishHint)?'EN':'ES';
+$source=$target==='EN'?'ES':'EN';
 $apiKey=(string)env('DEEPL_API_KEY','');
 $provider=$apiKey!==''?'deepl':'mymemory';
-$key=hash('sha256',$provider.':en-es:'.mb_strtolower($term));
+$key=hash('sha256',$provider.':'.strtolower($source).'-'.strtolower($target).':'.mb_strtolower($term));
 try {
  $pdo=db();
  $pdo->exec(db_is_sqlite()?
@@ -27,20 +32,29 @@ if($apiKey!==''){
  curl_setopt_array($ch,[
   CURLOPT_POST=>true,
   CURLOPT_HTTPHEADER=>['Authorization: DeepL-Auth-Key '.$apiKey,'Content-Type: application/json'],
-  CURLOPT_POSTFIELDS=>json_encode(['text'=>[$term],'source_lang'=>'EN','target_lang'=>'ES'],JSON_UNESCAPED_UNICODE),
+  CURLOPT_POSTFIELDS=>json_encode(['text'=>[$term],'source_lang'=>$source,'target_lang'=>$target],JSON_UNESCAPED_UNICODE),
   CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>15,CURLOPT_FOLLOWLOCATION=>false
  ]);
  $body=curl_exec($ch);$http=(int)curl_getinfo($ch,CURLINFO_HTTP_CODE);curl_close($ch);
  $response=json_decode((string)$body,true);
  if($http===200)$translation=trim((string)($response['translations'][0]['text']??''));
+ if($direction==='auto'&&$translation!==''&&mb_strtolower($translation)===mb_strtolower($term)){
+  $reverseTarget=$target==='ES'?'EN':'ES';
+  $retry=curl_init($host.'/v2/translate');
+  curl_setopt_array($retry,[CURLOPT_POST=>true,CURLOPT_HTTPHEADER=>['Authorization: DeepL-Auth-Key '.$apiKey,'Content-Type: application/json'],CURLOPT_POSTFIELDS=>json_encode(['text'=>[$term],'source_lang'=>$target,'target_lang'=>$reverseTarget],JSON_UNESCAPED_UNICODE),CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>15,CURLOPT_FOLLOWLOCATION=>false]);
+  $retryBody=curl_exec($retry);$retryHttp=(int)curl_getinfo($retry,CURLINFO_HTTP_CODE);curl_close($retry);
+  $retryData=json_decode((string)$retryBody,true);
+  $reversed=trim((string)($retryData['translations'][0]['text']??''));
+  if($retryHttp===200&&$reversed!==''&&mb_strtolower($reversed)!==mb_strtolower($term)){$translation=$reversed;$source=$target;$target=$reverseTarget;$key=hash('sha256','deepl:'.strtolower($source).'-'.strtolower($target).':'.mb_strtolower($term));}
+ }
  else error_log('DeepL translation HTTP '.$http);
 }
 if($translation===''){
  $usedProvider='mymemory';
- $key=hash('sha256','mymemory:en-es:'.mb_strtolower($term));
+ $key=hash('sha256','mymemory:'.strtolower($source).'-'.strtolower($target).':'.mb_strtolower($term));
  $cached=q_one('SELECT translation FROM translation_cache WHERE term_key=?',[$key]);
  if($cached && trim((string)$cached['translation'])!=='')json_out(['term'=>$term,'translation'=>$cached['translation'],'cached'=>true,'provider'=>'mymemory']);
- $url='https://api.mymemory.translated.net/get?q='.rawurlencode($term).'&langpair=en%7Ces';
+ $url='https://api.mymemory.translated.net/get?q='.rawurlencode($term).'&langpair='.strtolower($source).'%7C'.strtolower($target);
  $email=(string)env('MYMEMORY_CONTACT_EMAIL','');
  if($email!==''&&filter_var($email,FILTER_VALIDATE_EMAIL))$url.='&de='.rawurlencode($email);
  $ch=curl_init($url);
@@ -50,9 +64,10 @@ if($translation===''){
  $translation=trim(html_entity_decode((string)($response['responseData']['translatedText']??''),ENT_QUOTES|ENT_HTML5,'UTF-8'));
  if($http!==200||(int)($response['responseStatus']??0)!==200||$translation===''||mb_stripos($translation,'MYMEMORY WARNING')!==false)json_out(['error'=>'Los servicios de traducción no están disponibles. Intentá más tarde.'],503);
 }
+if($direction==='auto'&&mb_strtolower($translation)===mb_strtolower($term))json_out(['error'=>'No se pudo determinar el idioma. Elegí explícitamente Inglés → Español o Español → Inglés.'],422);
 $translation=mb_substr($translation,0,800);
 try{
  if(db_is_sqlite())q('INSERT OR IGNORE INTO translation_cache(term_key,translation,created_at) VALUES (?,?,?)',[$key,$translation,gmdate('Y-m-d H:i:s')]);
  else q('INSERT IGNORE INTO translation_cache(term_key,translation,created_at) VALUES (?,?,UTC_TIMESTAMP())',[$key,$translation]);
 }catch(Throwable $e){error_log('Translation cache insert: '.$e->getMessage());}
-json_out(['term'=>$term,'translation'=>$translation,'cached'=>false,'provider'=>$usedProvider]);
+json_out(['term'=>$term,'translation'=>$translation,'cached'=>false,'provider'=>$usedProvider,'direction'=>strtolower($source).'-'.strtolower($target)]);
