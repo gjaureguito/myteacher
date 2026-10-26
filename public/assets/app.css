@@ -296,3 +296,9 @@ details p { margin: 10px 0 0; color: var(--ink-2); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+
+/* Secuencia pedagógica de la unidad */
+.learning-route{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin:22px 0;padding:15px;background:rgba(80,127,164,.09);border:1px solid rgba(90,135,168,.32);border-radius:14px}
+.learning-route strong{margin-right:8px}.learning-route button,.learning-route a{color:inherit;background:var(--surface,#fff);font:inherit;text-decoration:none;border:1px solid #93b0c3;border-radius:9px;padding:9px 12px;cursor:pointer}.learning-route button:hover,.learning-route a:hover{border-color:#385f84;box-shadow:0 2px 8px #0002}
+.extra-practice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:24px 0}.extra-practice-grid a{display:flex;flex-direction:column;gap:9px;padding:22px;border:1px solid #b6c9da;background:rgba(105,145,173,.08);border-radius:14px;color:inherit;text-decoration:none}.extra-practice-grid span{font-size:.92rem;opacity:.75}
