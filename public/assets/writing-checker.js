@@ -35,8 +35,8 @@
   const results=document.createElement('div');results.className='sw-grammar-results';results.setAttribute('aria-live','polite');
   actions.append(button);lab.querySelector('.sw-feedback')?.after(results);
   button.addEventListener('click',()=>{
-   const text=field.value.trim();results.replaceChildren();
-   if(!text){results.textContent='Escribí primero una respuesta para analizar.';return;}
+   const text=field.value;results.replaceChildren();
+   if(!text.trim()){results.textContent='Escribí primero una respuesta para analizar.';return;}
    const found=[];
    const reviewedText=field.value;
    for(const rule of rules){
