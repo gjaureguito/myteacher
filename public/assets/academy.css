@@ -253,3 +253,11 @@ html[data-theme=dark] .site-modern .mt-nav-dropdown-panel>a,html[data-theme=dark
   line-height:1.4;
   box-shadow:none!important;
 }
+
+/* Header dropdown isolation: one menu open at a time and anchored panels. */
+.site-modern .topbar .mt-nav-dropdown[open]{z-index:500}
+.site-modern .topbar .mt-nav-dropdown:not([open]) .mt-nav-dropdown-panel{display:none!important}
+.site-modern .topbar .mt-nav-dropdown-panel{left:auto;right:0;top:calc(100% + 8px);width:max-content;min-width:220px;max-width:min(300px,calc(100vw - 24px));box-sizing:border-box}
+.site-modern .topbar .mt-nav-dropdown>summary:focus-visible{outline:3px solid #7bb2f2;outline-offset:3px}
+@media(max-width:900px){.site-modern .topbar .mt-nav-dropdown-panel{position:fixed;top:92px;right:16px;left:auto}}
+@media(max-width:760px){.site-modern .topbar .mt-nav-dropdown-panel{top:120px;right:12px}}
