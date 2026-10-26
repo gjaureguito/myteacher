@@ -63,7 +63,7 @@ $description = match ($path) {
         <a href="/review.php"<?= $navCur('/review.php') ?>>Prácticas extra</a>
         <a href="/glossary.php"<?= $navCur('/glossary.php') ?>>Mi glosario</a>
         <a href="/life-dialogues.php"<?= $navCur("/life-dialogues.php") ?>>Diálogos reales</a>
-        <a href="/tutor.php"<?= $navCur("/tutor.php") ?>>Diccionario con IA</a>
+        <a href="/tutor.php"<?= $navCur("/tutor.php") ?>>Diccionario</a>
         <a href="/stats.php"<?= $navCur('/stats.php') ?>>Estadísticas</a>
         <a href="/placement.php"<?= $navCur('/placement.php') ?>>Test de nivel</a>
         <a href="/account.php"<?= $navCur('/account.php') ?>>Mi cuenta</a>
