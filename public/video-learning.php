@@ -2,8 +2,8 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/src/bootstrap.php';
 $student = require_login();
-$lesson = in_array((string) ($_GET['lesson'] ?? '1'), ['1', '2', '3', '4'], true) ? (int) $_GET['lesson'] : 1;
-$videos = [1 => ['id' => 'U08KdJ52E2M', 'title' => 'The Wrong Coffee'], 2 => ['id' => 'k8PJhpSCiSs', 'title' => 'Listening A1 · Video 02'], 3 => ['id' => 'DuMMG4KKgZ8', 'title' => 'The Impossible Interview'], 4 => ['id' => 'yQ-V-MQlKUA', 'title' => 'Listening A1 · Video 04']];
+$lesson = in_array((string) ($_GET['lesson'] ?? '1'), ['1', '2', '3', '4', '5'], true) ? (int) $_GET['lesson'] : 1;
+$videos = [1 => ['id' => 'U08KdJ52E2M', 'title' => 'The Wrong Coffee'], 2 => ['id' => 'k8PJhpSCiSs', 'title' => 'Listening A1 · Video 02'], 3 => ['id' => 'DuMMG4KKgZ8', 'title' => 'The Impossible Interview'], 4 => ['id' => 'yQ-V-MQlKUA', 'title' => 'Listening A1 · Video 04'], 5 => ['id' => 'g8s7tA42laQ', 'title' => 'Listening A1 · Video 05']];
 $videoId = $videos[$lesson]['id'];
 $videoTitle = $videos[$lesson]['title'];
 ?>
@@ -38,14 +38,16 @@ button:disabled{opacity:.48;cursor:not-allowed}
 </style></head><body><main class="wrapper">
 <div class="top"><a class="brand" href="/dashboard.php">MyTeacher</a><a class="link" href="/dashboard.php">← Back to dashboard</a></div>
 <h1>Video Learning · A1</h1><p>Watch, listen and choose. No typing required. <span class="es" style="display:inline">Mirá, escuchá y elegí. Sin escribir.</span></p>
-<nav aria-label="Video lessons" style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0"><a class="pill" href="/video-learning.php?lesson=1" <?= $lesson === 1 ? 'aria-current="page"' : '' ?>>Lesson 01 · The Wrong Coffee</a><a class="pill" href="/video-learning.php?lesson=2" <?= $lesson === 2 ? 'aria-current="page"' : '' ?>>Lesson 02 · Listening A1</a><a class="pill" href="/video-learning.php?lesson=3" <?= $lesson === 3 ? 'aria-current="page"' : '' ?>>Lesson 03 · The Impossible Interview</a><a class="pill" href="/video-learning.php?lesson=4" <?= $lesson === 4 ? 'aria-current="page"' : '' ?>>Lesson 04 · Video</a></nav>
+<nav aria-label="Video lessons" style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0"><a class="pill" href="/video-learning.php?lesson=1" <?= $lesson === 1 ? 'aria-current="page"' : '' ?>>Lesson 01 · The Wrong Coffee</a><a class="pill" href="/video-learning.php?lesson=2" <?= $lesson === 2 ? 'aria-current="page"' : '' ?>>Lesson 02 · Listening A1</a><a class="pill" href="/video-learning.php?lesson=3" <?= $lesson === 3 ? 'aria-current="page"' : '' ?>>Lesson 03 · The Impossible Interview</a><a class="pill" href="/video-learning.php?lesson=4" <?= $lesson === 4 ? 'aria-current="page"' : '' ?>>Lesson 04 · Video</a><a class="pill" href="/video-learning.php?lesson=5" <?= $lesson === 5 ? 'aria-current="page"' : '' ?>>Lesson 05 · Video</a></nav>
 <div class="grid">
 <section class="card"><span class="pill">Lesson <?= str_pad((string) $lesson, 2, '0', STR_PAD_LEFT) ?> · <?= e($videoTitle) ?></span><h2>Watch the scene</h2>
 <p>Listen carefully. Replay whenever you need.</p>
 <div class="player"><iframe title="<?= e($videoTitle) ?> · YouTube Short" src="https://www.youtube-nocookie.com/embed/<?= e($videoId) ?>" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 <p><a class="link" href="https://www.youtube.com/shorts/<?= e($videoId) ?>" target="_blank" rel="noopener noreferrer">Open on YouTube</a></p>
 </section>
-<?php if ($lesson === 4): ?>
+<?php if ($lesson === 5): ?>
+<section class="card"><span class="pill">Lesson 05 · Listening A1</span><h2>Watch the new scene</h2><p>Listen to the English conversation and replay the video when needed.</p><div class="info">Scene-specific interactive questions are not published until the video's content has been verified. This avoids unrelated or invented exercises.</div></section>
+<?php elseif ($lesson === 4): ?>
 <section class="card"><span class="pill">Lesson 04 · Video practice</span><h2>Listen and notice</h2>
 <p>Watch the video and listen for familiar expressions.</p>
 <div class="info">Questions specifically about this short require reviewing its dialogue first. No unrelated or invented questions are presented.</div>
