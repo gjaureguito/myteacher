@@ -1,4 +1,4 @@
-import os, json, hmac, tempfile, wave
+import os, json, hmac, tempfile, wave, time
 from io import BytesIO
 from pathlib import Path
 from threading import Lock
@@ -77,12 +77,15 @@ def conversar():
                 "Never speak Spanish. Keep answers under 55 words, ask exactly one question at a time. "
                 "Correct mistakes briefly and politely. Never adopt the student's identity. "
                 "Use no Markdown or emoji. Student level "+level+": "+LEVELS[level])
+        started=time.monotonic()
         response=requests.post("http://127.0.0.1:11434/api/chat",json={
           "model":MODEL,"stream":False,
           "messages":[{"role":"system","content":system},*history,{"role":"user","content":question}],
           "options":{"num_predict":160,"temperature":0.6}},timeout=240)
         response.raise_for_status()
-        answer=response.json().get("message",{}).get("content","").strip()
+        data=response.json()
+        app.logger.info("OLLAMA_TIMING model=%s wall_sec=%.2f load_sec=%.2f prompt_sec=%.2f generate_sec=%.2f tokens=%s",MODEL,time.monotonic()-started,data.get("load_duration",0)/1e9,data.get("prompt_eval_duration",0)/1e9,data.get("eval_duration",0)/1e9,data.get("eval_count",0))
+        answer=data.get("message",{}).get("content","").strip()
         if not answer:raise RuntimeError("Empty model reply")
         return jsonify(question=question,answer=answer)
     except Exception:
