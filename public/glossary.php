@@ -22,11 +22,13 @@ require ROOT . '/src/views/layout_top.php';
     </section>
     <section class="lex-panel"><div class="lex-row"><h2>Mis palabras <small id="lex-count"></small></h2><button class="btn btn-ghost btn-sm" id="lex-export">Exportar CSV</button></div>
       <label for="lex-filter">Filtrar mi vocabulario</label><input id="lex-filter" placeholder="Buscar palabra, traducción o tema">
+      <nav id="lex-alphabet" class="lex-alphabet" aria-label="Filtrar palabras por letra"></nav>
+      <p id="lex-letter-status" class="lex-letter-status" aria-live="polite"></p>
       <div id="lex-list" class="lex-list"></div>
       <h3>Repaso con tarjetas</h3><button class="btn btn-sm" id="lex-next">Mostrar palabra</button><div id="lex-card" aria-live="polite">Guardá palabras para empezar a practicar.</div><button class="btn btn-ghost btn-sm" id="lex-reveal">Mostrar traducción</button>
     </section>
   </div>
 </section>
-<link rel="stylesheet" href="/assets/glossary.css?v=1">
-<script src="/assets/glossary.js?v=5" defer></script>
+<link rel="stylesheet" href="/assets/glossary.css?v=2">
+<script src="/assets/glossary.js?v=6" defer></script>
 <?php require ROOT . '/src/views/layout_bottom.php'; ?>
