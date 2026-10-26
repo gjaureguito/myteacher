@@ -4,6 +4,7 @@ $colors = level_colors();
 $first = explode(' ', $u['name'])[0];
 ?>
 <link rel="stylesheet" href="/assets/learning-route.css?v=1">
+<link rel="stylesheet" href="/assets/roadmap.css?v=1">
 <section class="wrap page learning-dashboard">
   <p class="eyebrow">MYTEACHER / TU PRÓXIMO PASO</p>
   <div class="dash-head">
@@ -18,6 +19,30 @@ $first = explode(' ', $u['name'])[0];
     foreach ($lp as $p) { $allSolved += $p['solved']; $allTotal += $p['total']; }
     $globalPct = $allTotal ? (int) round($allSolved * 100 / $allTotal) : 0;
   ?>
+  <section class="mt-roadmap" aria-labelledby="roadmap-heading">
+    <p class="eyebrow">TU MAPA DE APRENDIZAJE</p>
+    <h2 id="roadmap-heading">Tu recorrido de A1 a C2</h2>
+    <p class="mt-roadmap-subtitle">Seguís un camino progresivo. Los porcentajes reflejan ejercicios resueltos, no una certificación de dominio del idioma.</p>
+    <?php
+      $currentCode = $routeTarget['level_code'] ?? ($placement['level_code'] ?? 'a1');
+      $hasCurrent = false;
+      foreach ($levels as $levelRow) {
+        if ($levelRow['code'] === $currentCode) { $hasCurrent = true; break; }
+      }
+      if (!$hasCurrent && $levels) $currentCode = $levels[0]['code'];
+    ?>
+    <ol class="mt-roadmap-levels">
+      <?php foreach ($levels as $lv):
+        $rp = $lp[$lv['code']] ?? ['total'=>0,'solved'=>0];
+        $pc = pct($rp);
+        $state = $pc >= 100 && $rp['total']>0 ? 'is-complete' : ($lv['code'] === $currentCode ? 'is-current' : ($pc>0 ? 'is-start' : 'is-pending'));
+        $stateLabel = $pc>=100 && $rp['total']>0 ? 'Completado' : ($lv['code'] === $currentCode ? 'En curso' : ($pc>0 ? 'Iniciado' : 'Por explorar'));
+      ?>
+      <li class="<?= $state ?>"><a href="/level.php?code=<?= e($lv['code']) ?>" aria-label="Nivel <?= e(strtoupper($lv['code'])) ?>: <?= $pc ?>% de ejercicios resueltos, <?= e($stateLabel) ?>"><span class="mt-roadmap-code"><?= e(strtoupper($lv['code'])) ?></span><small><?= e($stateLabel) ?></small><small><?= $pc ?>% completado</small></a></li>
+      <?php endforeach; ?>
+    </ol>
+    <div class="mt-roadmap-legend"><span><i class="mt-roadmap-dot current"></i> Nivel actual</span><span><i class="mt-roadmap-dot complete"></i> Ejercicios completados</span><span><i class="mt-roadmap-dot progress"></i> Nivel iniciado</span><span><i class="mt-roadmap-dot"></i> Por explorar</span></div>
+  </section>
   <section class="mt-learning-route" aria-labelledby="mt-route-title">
     <div class="mt-learning-route-top">
       <div><p class="eyebrow">TU RUTA PERSONAL DE APRENDIZAJE</p><h2 id="mt-route-title"><?= $routeTarget ? e(strtoupper($routeTarget['level_code']).' · '.$routeTarget['title']) : 'Elegí tu primer capítulo' ?></h2><p>Un camino claro: estudiá, aplicá, evaluá y repasá antes de seguir.</p></div>
