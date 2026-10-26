@@ -28,5 +28,5 @@ require ROOT . '/src/views/layout_top.php';
   </div>
 </section>
 <link rel="stylesheet" href="/assets/glossary.css?v=1">
-<script src="/assets/glossary.js?v=4" defer></script>
+<script src="/assets/glossary.js?v=5" defer></script>
 <?php require ROOT . '/src/views/layout_bottom.php'; ?>
