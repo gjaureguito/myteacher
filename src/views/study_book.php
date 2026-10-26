@@ -18,14 +18,14 @@
     </aside>
     <article class="book-paper">
       <?php if ($chapterUnit): ?>
-        <p><a class="btn" href="/grammar.php?id=<?= (int)$chapterUnit['id'] ?>">Estudiar y practicar gramática</a></p>
+        <p class="book-chapter-meta">Nivel <?= e(strtoupper($code)) ?> · Capítulo <?= (int)$chapterUnit['position'] ?> · Lectura y aplicación</p>
         <p class="eyebrow">CAPÍTULO <?= (int) $chapterUnit['position'] ?></p>
-        <section class="theory book-theory"><h2>La base del capítulo</h2><?= $chapterUnit['theory_html'] /* trusted published curriculum, same as unit view */ ?></section>
-        <?php if ($chapter): require __DIR__ . '/study_chapter.php'; endif; ?>
+        <section class="theory book-theory" id="chapter-theory"><h2>Fundamentos: qué significa y cómo se utiliza</h2><p class="book-section-lead">Leé las explicaciones en orden. Identificá la regla, observá la estructura y compará los ejemplos antes de pasar a los ejercicios.</p><?= $chapterUnit['theory_html'] /* trusted published curriculum */ ?></section>
+        <?php if ($chapter): require __DIR__ . '/study_chapter.php'; else: ?><section class="book-section"><h2>Comprobá lo aprendido</h2><p>Explicá con tus palabras cuándo se utiliza la estructura de este capítulo. Creá dos ejemplos propios y luego resolvé la práctica de la unidad.</p></section><?php endif; ?>
         <?php $words = json_decode($chapterUnit['vocab_json'], true) ?: []; if ($words): ?>
         <section class="book-section"><h2>Vocabulario para usar en contexto</h2><p>Elegí cinco expresiones e inventá una oración que las conecte con tu vida o con el tema del capítulo.</p><dl class="book-glossary"><?php foreach ($words as $word): ?><div><dt lang="en"><?= e($word[0]) ?></dt><dd><?= e($word[1]) ?></dd></div><?php endforeach; ?></dl></section>
         <?php endif; ?>
-        <section class="book-section book-practice"><h2>Aplicá lo aprendido en la plataforma</h2><p>Ahora resolvé la práctica de la unidad: gramática, vocabulario, comprensión, escritura y expresión oral. Los ejercicios de la unidad conservan tu progreso y sus correcciones.</p><a class="btn" href="/unit.php?id=<?= (int) $chapterUnit['id'] ?>#t-practice">Abrir práctica de este capítulo</a></section>
+        <section class="book-section book-practice"><h2>Aplicá lo aprendido en la plataforma</h2><p>Ahora resolvé la práctica de la unidad: gramática, vocabulario, comprensión, escritura y expresión oral. Los ejercicios de la unidad conservan tu progreso y sus correcciones.</p><div class="book-next-actions"><a class="btn" href="/unit.php?id=<?= (int) $chapterUnit['id'] ?>#t-practice">Resolver ejercicios del capítulo</a><a class="btn btn-ghost" href="/grammar.php?id=<?= (int) $chapterUnit['id'] ?>">Consultar gramática</a></div></section>
         <nav class="book-pagination" aria-label="Capítulos"><?php if ($previous): ?><a href="/book.php?code=<?= e($code) ?>&amp;chapter=<?= e($previous['slug']) ?>">← <?= e($previous['title']) ?></a><?php endif; ?><?php if ($next): ?><a href="/book.php?code=<?= e($code) ?>&amp;chapter=<?= e($next['slug']) ?>"><?= e($next['title']) ?> →</a><?php else: ?><a href="/book.php?code=<?= e($code) ?>#project">Proyecto de cierre →</a><?php endif; ?></nav>
       <?php else: ?>
         <h2>Qué vas a aprender</h2><ul><?php foreach ($book['outcomes'] as $outcome): ?><li><?= e($outcome) ?></li><?php endforeach; ?></ul>
