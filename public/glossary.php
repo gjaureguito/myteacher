@@ -18,7 +18,7 @@ require ROOT . '/src/views/layout_top.php';
         <button type="submit" class="btn">Guardar en mi glosario</button>
         <button type="button" class="btn btn-ghost" id="lex-pronounce">🔊 Pronunciar</button>
       </form>
-      <p class="lex-note">La traducción automática es orientativa. Comprobá el sentido según el contexto antes de guardarla. Las palabras se guardan en este navegador, no en tu cuenta. Podés exportarlas como copia de seguridad.</p>
+      <p class="lex-note">La traducción automática es orientativa. Comprobá el sentido según el contexto antes de guardarla. Las palabras y frases se guardan en tu cuenta y se muestran por orden alfabético. El glosario anterior del navegador se importará automáticamente si existe. También podés exportar una copia de seguridad.</p>
     </section>
     <section class="lex-panel"><div class="lex-row"><h2>Mis palabras <small id="lex-count"></small></h2><button class="btn btn-ghost btn-sm" id="lex-export">Exportar CSV</button></div>
       <label for="lex-filter">Filtrar mi vocabulario</label><input id="lex-filter" placeholder="Buscar palabra, traducción o tema">
@@ -28,5 +28,5 @@ require ROOT . '/src/views/layout_top.php';
   </div>
 </section>
 <link rel="stylesheet" href="/assets/glossary.css?v=1">
-<script src="/assets/glossary.js?v=1" defer></script>
+<script src="/assets/glossary.js?v=2" defer></script>
 <?php require ROOT . '/src/views/layout_bottom.php'; ?>
