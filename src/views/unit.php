@@ -78,4 +78,5 @@ $total = count($exercises);
     </div>
   </div>
 </section>
+<script src="/assets/guided-practice.js?v=1" defer></script>
 <div class="xp-hud" aria-live="polite"><span aria-hidden="true">⭐</span><span class="xp-val">0 XP</span><span class="combo"></span></div>
