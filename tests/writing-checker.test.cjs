@@ -47,12 +47,12 @@ function replacePrecisely(original, regex, replacement, reviewedText) {
  const next=typeof replacement==='function'?replacement(match[0]):replacement;
  return original.slice(0,match.index)+next+original.slice(match.index+match[0].length);
 }
-assert.equal(replacePrecisely('  I dont know.', /\\bdont\\b/gi, 'don’t', '  I dont know.'), '  I don’t know.');
-assert.equal(replacePrecisely('I dont know.', /\\bdont\\b/gi, 'don’t', 'I dont know.'), 'I don’t know.');
-assert.equal(replacePrecisely('I dont know. I dont agree.', /\\bdont\\b/gi, 'don’t', 'I dont know. I dont agree.'), 'I don’t know. I dont agree.');
-assert.equal(replacePrecisely('I dont know. I dont agree.', /\\bdont\\b/gi, 'don’t', 'I dont know.'), 'I dont know. I dont agree.');
+assert.equal(replacePrecisely('  I dont know.', /\bdont\b/gi, 'don’t', '  I dont know.'), '  I don’t know.');
+assert.equal(replacePrecisely('I dont know.', /\bdont\b/gi, 'don’t', 'I dont know.'), 'I don’t know.');
+assert.equal(replacePrecisely('I dont know. I dont agree.', /\bdont\b/gi, 'don’t', 'I dont know. I dont agree.'), 'I don’t know. I dont agree.');
+assert.equal(replacePrecisely('I dont know. I dont agree.', /\bdont\b/gi, 'don’t', 'I dont know.'), 'I dont know. I dont agree.');
 const draft='She did not went.';
-const corrected=replacePrecisely(draft,/\\bdid\\s+not\\s+went\\b/gi,m=>m.replace('went','go'),draft);
+const corrected=replacePrecisely(draft,/\bdid\s+not\s+went\b/gi,m=>m.replace('went','go'),draft);
 assert.equal(corrected,'She did not go.');
 assert.equal(corrected=== 'She did not go.' ? draft : corrected,draft,'El deshacer restaura solo la versión exacta');
 
