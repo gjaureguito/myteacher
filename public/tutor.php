@@ -14,14 +14,14 @@ require ROOT.'/src/views/layout_top.php';
 <?php if($unit): ?><p class="tutor-context">Lección: <strong><?=e($unit['title'])?></strong> · <a href="/unit.php?id=<?=(int)$unit['id']?>">Volver a la teoría</a></p><?php endif; ?>
 <div class="tutor-layout">
 <div class="tutor-panel">
-<h2>Hacé tu consulta a Gemini</h2>
+<h2>Conversá con tu profesor de inglés</h2>
 <div class="tutor-examples"><button type="button" data-tutor-prompt="Explicame la regla principal de esta lección, con excepciones.">Explicar la regla</button><button type="button" data-tutor-prompt="Dame tres ejemplos cotidianos en inglés y su traducción.">Ver ejemplos</button><button type="button" data-tutor-prompt="Prepará un ejercicio breve sobre este tema y explicá su respuesta.">Ejercicio personalizado</button></div>
 <div id="tutor-chat" class="tutor-chat" role="log" aria-live="polite"><p class="tutor-bubble">¡Hola! Soy el profesor virtual. ¿Qué tema de inglés querés estudiar?</p></div>
 <form id="tutor-form" data-unit="<?=(int)($unit['id']??0)?>">
 <label for="tutor-question">Tu pregunta</label>
 <textarea id="tutor-question" rows="3" maxlength="700" required placeholder="Ej.: ¿Cuándo uso present perfect y cuándo past simple?"></textarea>
-<div class="tutor-actions"><span id="tutor-remaining" role="status">Consultas diarias limitadas</span><button class="btn" type="submit">Preguntar</button></div><div class="tutor-examples"><label for="tutor-language">Idioma del dictado</label><select id="tutor-language"><option value="es-AR">Español</option><option value="en-US">English</option></select><button type="button" id="tutor-mic">🎙️ Hablar y preguntar</button><button type="button" id="tutor-say">🔊 Escuchar respuesta</button><label><input type="checkbox" id="tutor-auto-voice" checked> Leer respuestas en voz alta</label></div><p class="muted" style="font-size:.88rem">Tocá «Hablar y preguntar», dictá una frase y se enviará a Gemini automáticamente. Si Chrome no puede abrir tu micrófono, también podés escribir.</p></form></div>
+<div class="tutor-actions"><span id="tutor-remaining" role="status">Consultas diarias limitadas</span><button class="btn" type="submit">Preguntar</button></div><div class="tutor-examples"><label for="tutor-language">Idioma del dictado</label><select id="tutor-language"><option value="es-AR">Español</option><option value="en-US">English</option></select><button type="button" id="tutor-mic">🎙️ Iniciar conversación</button><button type="button" id="tutor-say">🔊 Escuchar respuesta</button><label><input type="checkbox" id="tutor-auto-voice" checked> Leer respuestas en voz alta</label></div><p class="muted" style="font-size:.88rem">Presioná «Iniciar conversación» una vez. Hablá, escuchá al profesor y volvé a responder. «Terminar conversación» detiene el diálogo. El micrófono debe funcionar en el navegador; si Chrome lo bloquea, podés usar el chat escrito.</p></form></div>
 <aside class="tutor-aside"><h2>Cómo aprovecharlo</h2><p>Primero estudiá el capítulo y después preguntá sobre las reglas o solicitá ejemplos.</p><p>El profesor virtual es un complemento y puede equivocarse. Compará sus respuestas con el material de la unidad.</p><p>Gemini se activa cuando el administrador configura GEMINI_API_KEY en Railway.</p><p>No compartas datos personales o contraseñas.</p></aside>
 </div></section>
-<script src="/assets/tutor.js?v=3" defer></script>
+<script src="/assets/tutor.js?v=4" defer></script>
 <?php require ROOT.'/src/views/layout_bottom.php'; ?>
