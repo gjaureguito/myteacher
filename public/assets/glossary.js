@@ -19,7 +19,22 @@ $('#lex-save-form').addEventListener('submit',async e=>{e.preventDefault();const
 $('#lex-pronounce').addEventListener('click',()=>pronounce(current));
 $('#lex-filter').addEventListener('input',render);
 $('#lex-list').addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.hear)pronounce(decodeURIComponent(b.dataset.hear));if(b.dataset.remove){const w=decodeURIComponent(b.dataset.remove);if(confirm('¿Eliminar «'+w+'» del glosario?')){try{await remove(w);await sync();}catch{status.textContent='No se pudo eliminar.';}}}});
-function card(){const a=get();if(!a.length){$('#lex-card').textContent='Primero guardá una palabra.';return;}const x=a[reviewIndex%a.length];$('#lex-card').textContent=showTranslation?x.word+' → '+x.translation+(x.context?' | '+x.context:''):x.word;}
+function card(){
+ const container=$('#lex-card'),a=get();
+ container.replaceChildren();
+ if(!a.length){container.textContent='Primero guardá una palabra.';return;}
+ if(reviewIndex<0)reviewIndex=0;
+ const x=a[reviewIndex%a.length];
+ const word=document.createElement('strong');word.textContent=x.word;container.append(word);
+ if(showTranslation){
+  const meaning=document.createElement('p');meaning.textContent=x.translation;meaning.className='lex-card-meaning';container.append(meaning);
+  const note=String(x.context||'').trim();
+  if(note&&!/^selecci[oó]n de texto en myteacher$/i.test(note)){
+   const context=document.createElement('small');context.textContent='Ejemplo o nota: '+note;context.className='lex-card-context';container.append(context);
+  }
+ }
+ $('#lex-reveal').disabled=showTranslation;
+}
 $('#lex-next').addEventListener('click',()=>{const a=get();if(!a.length)return;reviewIndex=(reviewIndex+1)%a.length;showTranslation=false;card()});
 $('#lex-reveal').addEventListener('click',()=>{if(reviewIndex<0)reviewIndex=0;showTranslation=true;card()});
 $('#lex-export').addEventListener('click',()=>{const a=get();const quote=x=>'"'+String(x||'').replace(/"/g,'""')+'"';const csv='\uFEFF'+[['Palabra','Traducción','Contexto','Categoría'],...a.map(x=>[x.word,x.translation,x.context,x.tag])].map(r=>r.map(quote).join(',')).join('\r\n');const url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download='myteacher-glosario.csv';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
