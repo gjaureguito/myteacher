@@ -22,6 +22,7 @@
   <a href="/account.php"<?= $cur('/account.php') ?>><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-3.33 0-10 1.67-10 5v3h20v-3c0-3.33-6.67-5-10-5z"/></svg>Cuenta</a>
 </nav>
 <?php endif; ?>
+<script src="/assets/header-nav.js?v=1" defer></script>
 <script src="/assets/edge-access.js?v=1" defer></script>
 <script src="/assets/app.js?v=11" defer></script>
 <script src="/assets/learning.js?v=1" defer></script>
