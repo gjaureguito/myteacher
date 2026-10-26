@@ -1,6 +1,7 @@
 <?php foreach (scenes() as $scene): if ($scene['unit'] !== $unit['slug']) continue;
 $states = scene_progress((int)$u['id'],$scene['id']);
 $done = array_sum(array_column($states,'solved'));
+$questionTotal = count($scene['questions']);
 $solvedIds = array_column(array_filter($states,fn($s)=>(int)$s['solved']===1),'question_id'); ?>
 <article class="scene" data-scene="<?= e($scene['id']) ?>">
   <header class="scene-heading"><p><?= e($scene['level']) ?> · REAL LIFE ENGLISH</p><h2><?= e($scene['title']) ?></h2><p>Escuchá, seguí el diálogo y practicá con la misma situación.</p></header>
@@ -17,9 +18,9 @@ $solvedIds = array_column(array_filter($states,fn($s)=>(int)$s['solved']===1),'q
   <div class="scene-practice" role="region" aria-label="Ejercicios de la escena" tabindex="0">
   <h3 class="scene-practice-title">Practicá con el diálogo</h3>
   <p class="scene-practice-hint">Avanzá con los ejercicios; la conversación queda a tu izquierda.</p>
-  <p class="scene-score" aria-live="polite">Dominio de la escena: <strong data-scene-score><?= (int)$done ?>/5 · <?= (int)$done*20 ?>/100 puntos</strong></p>
-  <progress data-scene-progress max="5" value="<?= (int)$done ?>" aria-label="Ejercicios multimedia resueltos"></progress>
-  <p class="fine">Cada ejercicio resuelto suma 20 puntos una sola vez. Podés reintentar; tus aciertos se guardan en tu cuenta.</p>
+  <p class="scene-score" aria-live="polite">Dominio de la escena: <strong data-scene-score><?= (int)$done ?>/<?= (int)$questionTotal ?> · <?= $questionTotal ? (int)round($done*100/$questionTotal) : 0 ?>/100 puntos</strong></p>
+  <progress data-scene-progress max="<?= (int)$questionTotal ?>" value="<?= (int)$done ?>" aria-label="Ejercicios multimedia resueltos"></progress>
+  <p class="fine">Cada acierto contribuye proporcionalmente a una puntuación máxima de 100 puntos. Podés reintentar; tus aciertos se guardan en tu cuenta.</p>
   <div class="scene-questions">
   <?php foreach ($scene['questions'] as $i=>$question): ?><form data-scene-question="<?= $i ?>" class="scene-question">
     <h3><?= $i+1 ?>. <?= e($question['prompt']) ?></h3>
