@@ -8,14 +8,15 @@ function bubble(text,kind){const p=document.createElement('p');p.className='tuto
 function speak(t){if(!window.speechSynthesis){info.textContent='Este navegador no permite reproducir voz.';return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=/[¿¡áéíóúñ]/i.test(t)?'es-AR':'en-US';u.rate=.9;speechSynthesis.speak(u);}
 document.querySelectorAll('[data-tutor-prompt]').forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.tutorPrompt;input.focus();}));
 if(sayButton)sayButton.addEventListener('click',()=>{if(lastAnswer)speak(lastAnswer);else info.textContent='Primero hacé una pregunta.';});
-if(micButton)micButton.addEventListener('click',()=>{
+if(micButton)micButton.addEventListener('click',async()=>{
  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
  if(!SR){info.textContent='El navegador no admite reconocimiento de voz. Podés escribir tu consulta.';return;}
  if(recognition){try{recognition.stop();}catch{}recognition=null;return;}
+ if(navigator.mediaDevices?.getUserMedia){try{const test=await navigator.mediaDevices.getUserMedia({audio:true});test.getTracks().forEach(track=>track.stop());}catch(e){info.textContent='No se pudo abrir el micrófono ('+(e.name||'Error')+'). Esta falla es del acceso de Chrome al audio, antes de Gemini. Usá la pregunta escrita mientras lo resolvemos.';return;}}
  const r=new SR();recognition=r;r.lang=document.querySelector('#tutor-language')?.value||'es-AR';r.interimResults=false;r.continuous=false;
  micButton.textContent='Detener';info.textContent='Escuchando...';
- r.onresult=e=>{input.value=(e.results[0]?.[0]?.transcript||'').trim();info.textContent='Voz reconocida. Revisá la pregunta y presioná Preguntar.';};
- r.onerror=e=>{info.textContent='No se pudo captar voz ('+e.error+'). Podés escribir tu consulta.';};
+ r.onresult=e=>{input.value=(e.results[0]?.[0]?.transcript||'').trim();info.textContent='Pregunta capturada. Consultando a Gemini…';if(input.value.length>=3)form.requestSubmit();};;
+ r.onerror=e=>{const code=e.error||'desconocido';info.textContent=code==='audio-capture'?'Chrome no puede abrir el micrófono (audio-capture). Revisá permisos, programas de seguridad y el dispositivo; podés preguntar por escrito.':code==='not-allowed'?'El navegador bloqueó el micrófono. Autorizá este sitio y reintentá.':'No se pudo reconocer la voz ('+code+'). Probá otra vez o escribí la pregunta.';};;
  r.onend=()=>{recognition=null;micButton.textContent='🎙️ Dictar pregunta';};
  try{r.start();}catch{recognition=null;micButton.textContent='🎙️ Dictar pregunta';info.textContent='No se pudo iniciar la captura de voz.';}
 });
