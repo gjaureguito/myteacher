@@ -270,10 +270,12 @@
       try{
         const chunks=[];
         recorder=new MediaRecorder(live.stream);
+        const currentRecorder=recorder;
         recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data);};
         recorder.onstop=()=>{
           if(!chunks.length){recordingStatus.textContent='No se recibió audio grabado.';return;}
-          recordedUrl=URL.createObjectURL(new Blob(chunks,{type:recorder.mimeType||'audio/webm'}));
+          if(!back.isConnected)return;
+          recordedUrl=URL.createObjectURL(new Blob(chunks,{type:currentRecorder.mimeType||'audio/webm'}));
           playback.src=recordedUrl;playback.hidden=false;
           recordingStatus.textContent='Grabación lista. Reproducila para escuchar tu pronunciación.';
         };
