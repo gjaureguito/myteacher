@@ -1,35 +1,55 @@
-(()=>{'use strict';
-const root=document.querySelector('.tutor-page');if(!root)return;
-const form=document.querySelector('#tutor-form'),input=document.querySelector('#tutor-question'),chat=document.querySelector('#tutor-chat'),info=document.querySelector('#tutor-remaining'),button=form.querySelector('button[type=submit]');
-const sayButton=document.querySelector('#tutor-say'),micButton=document.querySelector('#tutor-mic');
-const voiceToggle=document.querySelector('#tutor-auto-voice');
-let lastAnswer='',recognition=null;
-function bubble(text,kind){const p=document.createElement('p');p.className='tutor-bubble '+kind;p.textContent=text;chat.append(p);chat.scrollTop=chat.scrollHeight;return p;}
-function speak(t){if(!window.speechSynthesis){info.textContent='Este navegador no permite reproducir voz.';return;}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang=/[¿¡áéíóúñ]/i.test(t)?'es-AR':'en-US';u.rate=.9;speechSynthesis.speak(u);}
-document.querySelectorAll('[data-tutor-prompt]').forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.tutorPrompt;input.focus();}));
-if(sayButton)sayButton.addEventListener('click',()=>{if(lastAnswer)speak(lastAnswer);else info.textContent='Primero hacé una pregunta.';});
-if(micButton)micButton.addEventListener('click',async()=>{
- const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!SR){info.textContent='El navegador no admite reconocimiento de voz. Podés escribir tu consulta.';return;}
- if(recognition){try{recognition.stop();}catch{}recognition=null;return;}
- if(navigator.mediaDevices?.getUserMedia){try{const test=await navigator.mediaDevices.getUserMedia({audio:true});test.getTracks().forEach(track=>track.stop());}catch(e){info.textContent='No se pudo abrir el micrófono ('+(e.name||'Error')+'). Esta falla es del acceso de Chrome al audio, antes de Gemini. Usá la pregunta escrita mientras lo resolvemos.';return;}}
- const r=new SR();recognition=r;r.lang=document.querySelector('#tutor-language')?.value||'es-AR';r.interimResults=false;r.continuous=false;
- micButton.textContent='Detener';info.textContent='Escuchando...';
- r.onresult=e=>{input.value=(e.results[0]?.[0]?.transcript||'').trim();info.textContent='Pregunta capturada. Consultando a Gemini…';if(input.value.length>=3)form.requestSubmit();};;
- r.onerror=e=>{const code=e.error||'desconocido';info.textContent=code==='audio-capture'?'Chrome no puede abrir el micrófono (audio-capture). Revisá permisos, programas de seguridad y el dispositivo; podés preguntar por escrito.':code==='not-allowed'?'El navegador bloqueó el micrófono. Autorizá este sitio y reintentá.':'No se pudo reconocer la voz ('+code+'). Probá otra vez o escribí la pregunta.';};;
- r.onend=()=>{recognition=null;micButton.textContent='🎙️ Dictar pregunta';};
- try{r.start();}catch{recognition=null;micButton.textContent='🎙️ Dictar pregunta';info.textContent='No se pudo iniciar la captura de voz.';}
-});
-form.addEventListener('submit',async e=>{
- e.preventDefault();const question=input.value.trim();if(question.length<3)return;
- button.disabled=true;bubble(question,'tutor-user');const pending=bubble('Preparando una explicación...','tutor-bot');
+(()=>{
+'use strict';
+const form=document.querySelector('#tutor-form');if(!form)return;
+const input=document.querySelector('#tutor-question'),chat=document.querySelector('#tutor-chat'),info=document.querySelector('#tutor-remaining'),sendBtn=form.querySelector('[type=submit]'),micBtn=document.querySelector('#tutor-mic'),sayBtn=document.querySelector('#tutor-say'),lang=document.querySelector('#tutor-language'),voiceToggle=document.querySelector('#tutor-auto-voice');
+let active=false,recognition=null,speaking=null,busy=false,lastAnswer='',turns=0;
+const maxTurns=15;
+function message(text,who){const p=document.createElement('p');p.className='tutor-bubble '+(who||'tutor-bot');p.textContent=text;chat.append(p);chat.scrollTop=chat.scrollHeight;return p;}
+function setState(text){info.textContent=text;micBtn.textContent=active?'■ Terminar conversación':'🎙️ Iniciar conversación';micBtn.setAttribute('aria-pressed',String(active));}
+function stop(){active=false;if(recognition){const r=recognition;recognition=null;try{r.abort();}catch{}}if(speaking){speaking.onend=null;speaking.onerror=null;speaking=null;}if(window.speechSynthesis)speechSynthesis.cancel();setState('Conversación detenida. Podés escribir una consulta si lo preferís.');}
+function speak(text,continueAfter){
+ if(!window.speechSynthesis){setState('Tu navegador no permite reproducir la voz.');if(continueAfter)stop();return;}
+ speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);speaking=u;u.lang=lang.value==='en-US'?'en-US':'es-AR';u.rate=.92;
+ u.onend=()=>{if(speaking!==u)return;speaking=null;if(continueAfter&&active)listen();};
+ u.onerror=()=>{if(speaking!==u)return;speaking=null;if(continueAfter)stop();};
+ speechSynthesis.speak(u);
+}
+async function ask(question,fromVoice){
+ if(busy)return;busy=true;sendBtn.disabled=true;message(question,'tutor-user');const pending=message('El profesor está pensando…');
  try{
-  const response=await fetch('/api/tutor.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf]')?.content||''},body:JSON.stringify({question,unit_id:Number(form.dataset.unit||0)})});
-  const result=await response.json();
-  pending.textContent=result.answer||result.error||'Sin respuesta.';
-  if(typeof result.remaining==='number')info.textContent='Consultas disponibles hoy: '+result.remaining+(result.limit?' de '+result.limit:'');
-  if(response.ok){lastAnswer=result.answer||'';input.value='';if(voiceToggle?.checked)speak(lastAnswer);}
- }catch{pending.textContent='No se pudo conectar. Probá de nuevo.';}
- finally{button.disabled=false;}
+  const res=await fetch('/api/tutor.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name=csrf]')?.content||''},body:JSON.stringify({question,unit_id:Number(form.dataset.unit||0)})});
+  const data=await res.json();pending.textContent=data.answer||data.error||'No se recibió una respuesta.';
+  if(typeof data.remaining==='number')info.textContent='Consultas restantes hoy: '+data.remaining+(data.limit?' / '+data.limit:'');
+  if(!res.ok){if(fromVoice)stop();return;}
+  lastAnswer=data.answer||'';turns++;input.value='';
+  if(fromVoice&&active){
+   if(turns>=maxTurns){stop();info.textContent='Terminó la sesión de práctica (máximo '+maxTurns+' intercambios).';speak(lastAnswer,false);}
+   else speak(lastAnswer,true);
+  }else if(voiceToggle?.checked)speak(lastAnswer,false);
+ }catch{pending.textContent='No fue posible conectar con Gemini.';if(fromVoice)stop();}
+ finally{busy=false;sendBtn.disabled=false;}
+}
+function listen(){
+ if(!active||busy||recognition)return;
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){stop();info.textContent='Este navegador no admite reconocimiento de voz.';return;}
+ const r=new SR();recognition=r;r.lang=lang.value||'es-AR';r.continuous=false;r.interimResults=false;
+ let received=false,failed=false;
+ r.onresult=e=>{const question=(e.results[0]?.[0]?.transcript||'').trim();received=true;if(question){setState('Consulta reconocida. Esperando a Gemini…');ask(question,true);}};
+ r.onerror=e=>{failed=true;const code=e.error||'error';stop();info.textContent='No se pudo captar el micrófono ('+code+'). El modo oral se detuvo. Podés usar el chat escrito.';};
+ r.onend=()=>{if(recognition===r)recognition=null;if(active&&!received&&!failed){setState('No se escuchó ninguna frase. Intentá hablar de nuevo.');stop();}};
+ try{r.start();setState('Escuchando en '+(lang.value==='en-US'?'inglés':'español')+'… Hablá ahora.');}catch(e){recognition=null;stop();info.textContent='No se pudo iniciar la escucha ('+(e.name||'Error')+').';}
+}
+micBtn.addEventListener('click',async()=>{
+ if(active){stop();return;}
+ if(!navigator.mediaDevices?.getUserMedia){info.textContent='El navegador no admite captura de audio.';return;}
+ micBtn.disabled=true;
+ try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});stream.getTracks().forEach(t=>t.stop());active=true;turns=0;setState('Conversación iniciada. Preparando escucha…');listen();}
+ catch(e){info.textContent='Chrome no puede abrir el micrófono: '+(e.name||'Error')+'. Revisá la protección de privacidad o usá texto.';}
+ finally{micBtn.disabled=false;}
 });
+sayBtn.addEventListener('click',()=>{if(lastAnswer)speak(lastAnswer,false);else info.textContent='Primero necesitás una respuesta del profesor.';});
+document.querySelectorAll('[data-tutor-prompt]').forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.tutorPrompt;input.focus();}));
+form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q.length>=3)ask(q,false);});
+window.addEventListener('pagehide',stop);
 })();
