@@ -26,7 +26,18 @@ def check():
     return bool(TOKEN) and hmac.compare_digest(request.headers.get("X-MyTeacher-Token",""),TOKEN)
 @app.before_request
 def authenticate():
+    if request.path == "/healthz" and request.method == "GET":
+        return None
     if not check(): return jsonify(error="Unauthorized"),401
+@app.get("/healthz")
+def readiness():
+    try:
+        response = requests.get("http://127.0.0.1:11434/api/tags", timeout=3)
+        response.raise_for_status()
+        ready = bool(TOKEN) and any(m.get("name") == MODEL for m in response.json().get("models", []))
+        return jsonify(ok=ready), 200 if ready else 503
+    except (requests.RequestException, ValueError):
+        return jsonify(ok=False), 503
 @app.get("/salud")
 def health():
     return jsonify(ok=True,model=MODEL)
