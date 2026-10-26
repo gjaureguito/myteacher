@@ -48,6 +48,11 @@ function load_level(string $file): array
 {
     $lv = require $file;
     foreach ($lv['units'] as &$u) {
+        // Some complete units declare their lesson under theory_extra in the level file.
+        // Normalize it before the optional per-unit extension (including units without one).
+        if (!empty($u['theory_extra'])) {
+            $u['theory'] = ($u['theory'] ?? '') . "\n" . $u['theory_extra'];
+        }
         $extra = ROOT . '/content/units/' . $u['slug'] . '.php';
         if (!is_file($extra)) continue;
         $x = require $extra;
@@ -69,8 +74,8 @@ function load_level(string $file): array
 function content_signature(): string
 {
     $parts = [];
-    foreach ([...content_files(), ...unit_files()] as $f) $parts[] = basename($f) . ':' . filesize($f) . ':' . filemtime($f);
-    return md5(implode('|', $parts) . '|seed-v2');
+    foreach ([...content_files(), ...unit_files()] as $f) $parts[] = basename($f) . ':' . hash_file('sha256', $f);
+    return hash('sha256', implode('|', $parts) . '|seed-v3');
 }
 
 function default_skill(string $type): string
