@@ -57,6 +57,8 @@ $hint=match(true){
  $status===400=>'Gemini rechazó la solicitud o el identificador del modelo. Revisá GEMINI_MODEL y la compatibilidad del modelo.',
  $status===401 || $status===403=>'Gemini rechazó las credenciales o los permisos. Revisá GEMINI_API_KEY y la configuración de la API.',
  $status===404=>'No se encontró el modelo de Gemini configurado. Revisá GEMINI_MODEL.',
+ $status===0=>'El servidor no logró conectarse a Google. Puede ser un problema de DNS, TLS o salida a Internet desde Railway.',
+ $status>=500=>'Google respondió con un error de servidor (HTTP '.$status.'). Probá nuevamente.',
  default=>'No fue posible conectar con Gemini. Revisá los registros del servicio web en Railway.'
 };
 error_log('Gemini status '.$status.' provider: '.substr($providerMessage,0,250));
