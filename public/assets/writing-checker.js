@@ -8,6 +8,11 @@
  {id:'im',re:/\bim\b/gi,label:'Contracción I’m',why:'I am se puede contraer a I’m.',suggest:'Escribí I’m.'},
  {id:'he-she',re:/\b(he|she|it)\s+(?:go|work|want|need|think|have)\b/gi,label:'Tercera persona singular',why:'En presente simple la tercera persona singular cambia la forma verbal. Hay excepciones y otros tiempos verbales.',suggest:'Revisá la concordancia (goes, works, wants, needs, thinks, has).'},
  {id:'there',re:/\bthere\s+is\s+(?:many|several|two|three|four|five)\b/gi,label:'There are con plural',why:'Con un sustantivo plural suele usarse there are.',suggest:'Revisá si corresponde there are.'},
+ {id:'a-vowel',re:/\ba\s+(?:apple|orange|umbrella|egg|idea|answer|example|office)\b/gi,label:'Artículo a / an',why:'Ante palabras que comienzan con sonido vocálico suele utilizarse an.',suggest:'Revisá si corresponde an apple, an idea o an example.',good:'an apple'},
+ {id:'an-consonant',re:/\ban\s+(?:book|car|dog|house|student|teacher|project)\b/gi,label:'Artículo an / a',why:'Ante estas palabras, que comienzan con sonido consonántico, se utiliza a.',suggest:'Revisá a book, a car o a student.',good:'a student'},
+ {id:'did-past',re:/\bdid\s+(?:went|saw|bought|took|wrote|made|had|said)\b/gi,label:'Did + verbo base',why:'En preguntas o negaciones con did se utiliza la forma base del verbo.',suggest:'Ejemplo: Did you go? (no Did you went?).',good:'Did you go?'},
+ {id:'more-better',re:/\bmore\s+better\b/gi,label:'Comparativo duplicado',why:'Better ya es el comparativo de good; normalmente no lleva more.',suggest:'Escribí better.',good:'a better solution'},
+ {id:'much-many',re:/\bmuch\s+(?:people|books|students|problems|questions)\b/gi,label:'Much / many',why:'Con sustantivos contables plurales se suele utilizar many.',suggest:'Ejemplo: many questions.',good:'many questions'},
  {id:'double-space',re:/ {2,}/g,label:'Espacios repetidos',why:'En textos formales se recomienda un solo espacio entre palabras.',suggest:'Eliminá los espacios duplicados.'}
  ];
  const cap=14;
@@ -37,7 +42,9 @@
     const li=document.createElement('li');const heading=document.createElement('strong');heading.textContent=r.label+' · «'+r.example+'»';
     const why=document.createElement('p');why.textContent=r.why;
     const suggestion=document.createElement('p');suggestion.textContent='Sugerencia: '+r.suggest;
-    li.append(heading,why,suggestion);list.append(li);
+    li.append(heading,why,suggestion);
+    if(r.good){const good=document.createElement('p');good.textContent='Ejemplo correcto: '+r.good;li.append(good);}
+    list.append(li);
    });results.append(list);
    const note=document.createElement('p');note.textContent='Estas sugerencias son orientativas: algunas coincidencias pueden ser válidas según el contexto. Revisá antes de modificar tu texto.';results.append(note);
   });
