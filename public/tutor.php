@@ -1,27 +1,30 @@
 <?php
 require dirname(__DIR__).'/src/bootstrap.php';
-$u=require_login();
-$pageTitle='Profesor virtual';
-$unitId=(int)($_GET['unit']??0);
-$unit=$unitId?q_one('SELECT id,title,summary,level_code,position FROM units WHERE id=? AND is_published=1',[$unitId]):null;
-if($unit && !can_access_unit($u,$unit))$unit=null;
+require_login();
+$pageTitle='Diccionario con IA';
 require ROOT.'/src/views/layout_top.php';
 ?>
-<link rel="stylesheet" href="/assets/tutor.css?v=2">
+<link rel="stylesheet" href="/assets/tutor.css?v=3">
 <section class="wrap tutor-page">
-<p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / Profesor virtual</p>
-<header><p class="eyebrow">ASISTENCIA PERSONALIZADA</p><h1>Profesor virtual de inglés</h1><p>Preguntá sobre gramática, vocabulario y ejemplos de la lección. Las explicaciones de IA complementan la teoría y pueden contener errores.</p></header>
-<?php if($unit): ?><p class="tutor-context">Lección: <strong><?=e($unit['title'])?></strong> · <a href="/unit.php?id=<?=(int)$unit['id']?>">Volver a la teoría</a></p><?php endif; ?>
+<p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / Diccionario con IA</p>
+<header><p class="eyebrow">DICCIONARIO PERSONAL · INGLÉS Y ESPAÑOL</p><h1>Diccionario con IA</h1><p>Consultá palabras y expresiones breves. Escuchá su pronunciación, entendé su significado y guardalas en tu glosario personal para repasarlas cuando quieras.</p></header>
 <div class="tutor-layout">
-<div class="tutor-panel">
-<h2>Conversá con tu profesor de inglés</h2>
-<div class="tutor-examples"><button type="button" data-tutor-prompt="Explicame la regla principal de esta lección, con excepciones.">Explicar la regla</button><button type="button" data-tutor-prompt="Dame tres ejemplos cotidianos en inglés y su traducción.">Ver ejemplos</button><button type="button" data-tutor-prompt="Prepará un ejercicio breve sobre este tema y explicá su respuesta.">Ejercicio personalizado</button></div>
-<section class="tutor-suggestions" aria-labelledby="tutor-suggestions-title"><div class="tutor-suggestions-head"><div><h3 id="tutor-suggestions-title">Preguntas sugeridas <span id="tutor-suggestions-level">A1</span></h3><p>Elegí una frase en inglés. Debajo encontrarás su traducción.</p></div><button type="button" id="tutor-refresh-suggestions" class="tutor-outline">Otras preguntas</button></div><div id="tutor-suggested-questions" class="tutor-suggested-list"></div></section><div class="tutor-export-tools"><button type="button" id="tutor-save-dialog" class="tutor-outline" disabled>↓ Descargar diálogo (.txt)</button><span id="tutor-dialog-count" aria-live="polite">0 intercambios guardados en esta sesión</span></div><div id="tutor-chat" class="tutor-chat" role="log" aria-live="polite"><p class="tutor-bubble">¡Hola! Soy el profesor virtual. ¿Qué tema de inglés querés estudiar?</p></div>
-<form id="tutor-form" data-unit="<?=(int)($unit['id']??0)?>">
-<label for="tutor-question">Tu pregunta</label>
-<textarea id="tutor-question" rows="3" maxlength="700" required placeholder="Ej.: ¿Cuándo uso present perfect y cuándo past simple?"></textarea>
-<div class="tutor-actions"><span id="tutor-remaining" role="status">Consultas diarias limitadas</span><button class="btn" type="submit">Preguntar</button></div><div class="tutor-examples"><label for="tutor-language">Idioma del dictado</label><select id="tutor-language"><option value="en-US" selected>English</option><option value="es-AR">Español</option></select><label for="tutor-level">Nivel</label><select id="tutor-level"><option>A1</option><option>A2</option><option>B1</option><option>B2</option><option>C1</option><option>C2</option></select><button type="button" id="tutor-mic">🎙️ Iniciar conversación</button><button type="button" id="tutor-say">🔊 Escuchar respuesta</button><label><input type="checkbox" id="tutor-auto-voice" checked> Leer respuestas en voz alta</label></div><p class="muted" style="font-size:.88rem">Presioná «Iniciar conversación» una vez. Hablá, escuchá al profesor y volvé a responder. «Terminar conversación» detiene el diálogo. El micrófono debe funcionar en el navegador; si Chrome lo bloquea, podés usar el chat escrito.</p></form></div>
-<aside class="tutor-aside"><h2>Cómo aprovecharlo</h2><p>Primero estudiá el capítulo y después preguntá sobre las reglas o solicitá ejemplos.</p><p>El profesor virtual es un complemento y puede equivocarse. Compará sus respuestas con el material de la unidad.</p><p>El profesor usa la IA privada alojada en Railway cuando está configurada; la primera respuesta puede demorar si el modelo está iniciando.</p><p>No compartas datos personales o contraseñas.</p></aside>
+<section class="tutor-panel">
+<h2>¿Qué significa?</h2>
+<form id="dictionary-form">
+<label for="dictionary-term">Palabra o frase corta</label><textarea id="dictionary-term" maxlength="220" rows="3" placeholder="Ej.: look after, get along, maintenance"></textarea>
+<div class="tutor-actions"><span>Hasta 220 caracteres por búsqueda</span><button type="submit" class="btn">Buscar significado con IA</button></div>
+</form>
+<p id="dictionary-status" role="status"></p>
+<div id="dictionary-result" hidden class="dictionary-result">
+<h3 id="dictionary-heading"></h3><div id="dictionary-definition" class="dictionary-definition"></div>
+<div class="tutor-export-tools"><button type="button" class="tutor-outline" id="dictionary-hear">🔊 Escuchar término</button><button type="button" class="tutor-outline" id="dictionary-save">＋ Guardar en mi glosario</button></div>
+<label for="dictionary-translation">Traducción breve para el glosario (editable)</label><input id="dictionary-translation" maxlength="800" placeholder="Traducción al español">
+<label for="dictionary-context">Notas o ejemplo (opcional)</label><textarea id="dictionary-context" rows="3" maxlength="1000"></textarea>
+<label for="dictionary-category">Categoría</label><select id="dictionary-category"><option>General</option><option>Trabajo</option><option>Viajes</option><option>Vida cotidiana</option><option>Gramática</option></select>
+</div>
+</section>
+<aside class="tutor-aside"><h2>Tu vocabulario</h2><p>Seleccioná una palabra o frase corta en los textos de MyTeacher. Hacé clic derecho y elegí <strong>Agregar al glosario</strong>.</p><p>Las entradas se ordenan alfabéticamente y quedan asociadas a tu cuenta.</p><p><a href="/glossary.php" class="btn">Abrir mi glosario</a></p><p>Los significados generados por IA pueden requerir revisión según el contexto.</p></aside>
 </div></section>
-<script src="/assets/tutor.js?v=6" defer></script>
+<script src="/assets/dictionary.js?v=1" defer></script>
 <?php require ROOT.'/src/views/layout_bottom.php'; ?>
