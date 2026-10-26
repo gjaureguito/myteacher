@@ -14,10 +14,16 @@
     <p><?= e($chapter['reason']) ?></p>
   </figure>
   <h2 id="chapter-practice">3. Práctica guiada y razonada</h2>
-  <p>Resolvé cada actividad en tu cuaderno antes de desplegar la solución. Compará tanto la forma como la explicación. Puede haber otras formulaciones válidas.</p>
-  <ol class="book-activities">
+  <p>Elegí la respuesta que corresponde, comprobá tu elección y leé la explicación. También podés abrir la solución comentada. Estas actividades son de autoestudio y no modifican las calificaciones de la unidad.</p>
+  <ol class="book-activities" data-book-quiz>
     <?php foreach ($chapter['practice'] as [$prompt, $answer, $why]): ?>
-    <li><p><?= e($prompt) ?></p><details><summary>Ver solución comentada</summary><p class="book-answer"><?= e($answer) ?></p><p><?= e($why) ?></p></details></li>
+    <li class="book-quiz-question" data-prompt="<?= e($prompt) ?>" data-answer="<?= e($answer) ?>">
+      <p><?= e($prompt) ?></p>
+      <div class="book-quiz-options" role="group" aria-label="Elegí una respuesta"></div>
+      <div class="book-quiz-actions"><button type="button" class="btn btn-sm book-quiz-check" disabled>Comprobar respuesta</button><button type="button" class="linkbtn book-quiz-retry" hidden>Intentar otra vez</button></div>
+      <p class="book-quiz-feedback" role="status" aria-live="polite"></p>
+      <details><summary>Ver solución comentada</summary><p class="book-answer"><?= e($answer) ?></p><p><?= e($why) ?></p></details>
+    </li>
     <?php endforeach; ?>
   </ol>
   <?php if ($visual): require __DIR__ . '/study_visual.php'; endif; ?>
