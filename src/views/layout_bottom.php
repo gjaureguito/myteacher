@@ -30,6 +30,6 @@
 <script src="/assets/modern.js?v=1" defer></script>
 <script src="/assets/visual.js?v=1" defer></script>
 <script src="/assets/study-lab.js?v=1" defer></script>
-<?php if (current_user()): ?><script src="/assets/selection-glossary.js?v=1" defer></script><?php endif; ?>
+<?php if (current_user()): ?><script src="/assets/selection-glossary.js?v=2" defer></script><?php endif; ?>
 </body>
 </html>
