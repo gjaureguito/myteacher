@@ -164,25 +164,29 @@
   ].join('\n');
   const PS_AUDIO = 'Restart-Service -Name AudioEndpointBuilder -Force; Start-Service -Name Audiosrv';
   async function testMic(preferredId) {
-    if (!navigator.mediaDevices?.getUserMedia) return { code: 'unsupported' };
-    const media = navigator.mediaDevices;
-    const choices = preferredId ? [{ audio: { deviceId: { exact: preferredId } } }] : [{ audio: true }];
-    if (!preferredId) {
-      try {
-        const inputs = (await media.enumerateDevices()).filter(d => d.kind === 'audioinput' && d.deviceId && !['default','communications'].includes(d.deviceId));
-        choices.push(...inputs.slice(0, 6).map(d => ({ audio: { deviceId: { exact: d.deviceId } } })));
-      } catch (_) {}
+    if (!navigator.mediaDevices?.getUserMedia) return { code:'unsupported' };
+    const media=navigator.mediaDevices;
+    const choices=preferredId?[{audio:{deviceId:{exact:preferredId}}}]:[{audio:true}];
+    if(!preferredId){
+      try{
+        const devices=(await media.enumerateDevices()).filter(d=>d.kind==='audioinput'&&d.deviceId&&!['default','communications'].includes(d.deviceId));
+        choices.push(...devices.slice(0,8).map(d=>({audio:{deviceId:{exact:d.deviceId}}})));
+      }catch{}
     }
-    let lastError;
-    for (const c of choices) {
-      try { return { code:'ok', stream:await media.getUserMedia(c) }; }
-      catch(e) {
-        lastError=e;
-        if (['NotAllowedError','SecurityError'].includes(e.name)) break;
+    const attempts=[];
+    for(const choice of choices){
+      try{
+        const stream=await media.getUserMedia(choice);
+        return {code:'ok',stream,attempts,deviceId:stream.getAudioTracks()[0]?.getSettings()?.deviceId||''};
+      }catch(e){
+        attempts.push(e.name||'UnknownError');
+        if(['NotAllowedError','SecurityError'].includes(e.name))break;
       }
     }
-    const name=lastError?.name||'UnknownError';
-    return { code:['NotAllowedError','SecurityError'].includes(name)?'blocked': ['NotFoundError','OverconstrainedError'].includes(name)?'nodevice':'busy', err:name };
+    const errors=attempts;
+    const code=errors.some(e=>['NotAllowedError','SecurityError'].includes(e))?'blocked':
+      errors.length&&errors.every(e=>['NotFoundError','OverconstrainedError'].includes(e))?'nodevice':'busy';
+    return {code,attempts};
   }
   function micHelp() {
     document.querySelector('.mic-help')?.remove();
@@ -259,8 +263,9 @@
       const perm = await navigator.permissions?.query({ name: 'microphone' }).then(p => p.state).catch(() => null);
       const r = await testMic(select.value);
       await refreshInputs();
+      if(r.code==='ok' && r.deviceId && [...select.options].some(o=>o.value===r.deviceId))select.value=r.deviceId;
       if (r.code === 'ok') {
-        st.className = 'mh-status ok'; st.textContent = '✅ ¡El micrófono funciona! Hablá y mirá cómo se mueve la barra. Ya podés cerrar y usar "Decilo vos".';
+        st.className = 'mh-status ok'; st.textContent = '✅ El navegador abrió el micrófono. Hablá para comprobar la señal; después cerrá esta ventana y usá "Decilo vos".';
         meter.hidden = false;
         const ac = new AudioContext(), an = ac.createAnalyser(); ac.createMediaStreamSource(r.stream).connect(an);
         const buf = new Uint8Array(an.fftSize);
@@ -273,6 +278,7 @@
       st.className = 'mh-status bad';
       st.textContent = { busy: '⚠️ El navegador no pudo abrir el micrófono. Revisá el dispositivo seleccionado y otras aplicaciones.', system: '⚠️ ' + (isWin ? 'Windows' : 'El sistema') + ' no le da permiso de micrófono a ' + browserName + '.', blocked: '⚠️ Este sitio tiene el micrófono bloqueado en ' + browserName + '.', nodevice: '⚠️ No se encontró ningún micrófono.', unsupported: '⚠️ Este navegador no permite usar el micrófono.' }[code];
       show(code);
+      if(r.attempts?.length)deviceStatus.textContent+=' Intentos: '+r.attempts.join(', ')+'.';
     }
     back.addEventListener('click', async e => {
       if (e.target === back || e.target.closest('[data-close]')) { stop(); back.remove(); }
