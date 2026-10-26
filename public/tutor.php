@@ -4,7 +4,7 @@ require_login();
 $pageTitle='Diccionario y glosario';
 require ROOT.'/src/views/layout_top.php';
 ?>
-<link rel="stylesheet" href="/assets/tutor.css?v=3">
+<link rel="stylesheet" href="/assets/tutor.css?v=4">
 <section class="wrap tutor-page">
 <p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / Diccionario con IA</p>
 <header><p class="eyebrow">DICCIONARIO PERSONAL · INGLÉS Y ESPAÑOL</p><h1>Diccionario con IA</h1><p>Traducí automáticamente palabras y expresiones breves y guardalas en tu glosario personal. La traducción se puede editar.</p></header>
@@ -12,7 +12,7 @@ require ROOT.'/src/views/layout_top.php';
 <section class="tutor-panel">
 <h2>¿Qué significa?</h2>
 <form id="dictionary-form">
-<label for="dictionary-term">Palabra o frase corta</label><textarea id="dictionary-term" maxlength="220" rows="3" placeholder="Ej.: look after, get along, maintenance"></textarea>
+<div class="tutor-input-group"><label for="dictionary-term">Palabra o frase corta</label><textarea id="dictionary-term" maxlength="220" rows="3" placeholder="Escribí una palabra o expresión en inglés, por ejemplo: look after"></textarea></div>
 <div class="tutor-actions"><span>Hasta 220 caracteres por búsqueda</span><button type="submit" class="btn">Traducir y guardar</button></div>
 </form>
 <p id="dictionary-status" role="status"></p>
