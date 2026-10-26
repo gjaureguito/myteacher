@@ -163,36 +163,26 @@
     "Write-Host 'Listo: cerrá Chrome por completo y volvé a abrirlo.'",
   ].join('\n');
   const PS_AUDIO = 'Restart-Service -Name AudioEndpointBuilder -Force; Start-Service -Name Audiosrv';
-  async function testMic() {
+  async function testMic(preferredId) {
     if (!navigator.mediaDevices?.getUserMedia) return { code: 'unsupported' };
-    const devices = navigator.mediaDevices;
-    let lastError = null;
-    // Primer intento: la entrada predeterminada del navegador.
-    const choices = [{ audio: true }];
-    try {
-      // enumerateDevices no solicita permisos; los IDs pueden venir vacíos.
-      const available = await devices.enumerateDevices();
-      for (const d of available.filter(d => d.kind === 'audioinput' && d.deviceId && d.deviceId !== 'default' && d.deviceId !== 'communications').slice(0, 4)) {
-        choices.push({ audio: { deviceId: { exact: d.deviceId } } });
-      }
-    } catch (_) { /* Seguimos con la entrada predeterminada. */ }
-    for (const constraints of choices) {
+    const media = navigator.mediaDevices;
+    const choices = preferredId ? [{ audio: { deviceId: { exact: preferredId } } }] : [{ audio: true }];
+    if (!preferredId) {
       try {
-        const stream = await devices.getUserMedia(constraints);
-        return { code: 'ok', stream };
-      } catch (e) {
-        lastError = e;
-        // No insistir si el usuario denegó el permiso o el navegador lo bloqueó.
-        if (e.name === 'NotAllowedError' || e.name === 'SecurityError') break;
+        const inputs = (await media.enumerateDevices()).filter(d => d.kind === 'audioinput' && d.deviceId && !['default','communications'].includes(d.deviceId));
+        choices.push(...inputs.slice(0, 6).map(d => ({ audio: { deviceId: { exact: d.deviceId } } })));
+      } catch (_) {}
+    }
+    let lastError;
+    for (const c of choices) {
+      try { return { code:'ok', stream:await media.getUserMedia(c) }; }
+      catch(e) {
+        lastError=e;
+        if (['NotAllowedError','SecurityError'].includes(e.name)) break;
       }
     }
-    const name = lastError?.name || 'UnknownError';
-    return {
-      code: name === 'NotAllowedError' ? 'blocked' :
-        name === 'SecurityError' ? 'blocked' :
-        name === 'NotFoundError' || name === 'OverconstrainedError' ? 'nodevice' : 'busy',
-      err: name
-    };
+    const name=lastError?.name||'UnknownError';
+    return { code:['NotAllowedError','SecurityError'].includes(name)?'blocked': ['NotFoundError','OverconstrainedError'].includes(name)?'nodevice':'busy', err:name };
   }
   function micHelp() {
     document.querySelector('.mic-help')?.remove();
@@ -201,6 +191,10 @@
       <p class="eyebrow">MICRÓFONO</p><h2 id="mh-t">Activá tu micrófono</h2>
       <div class="mh-status" aria-live="polite">Probando el micrófono…</div>
       <div class="mh-meter" hidden><i></i></div>
+      <div class="mh-device-box"><label for="mh-device-select">Micrófono disponible</label>
+        <select id="mh-device-select" data-mic-select><option value="">Predeterminado</option></select>
+        <p class="fine" data-mic-device-status>Comprobando dispositivos de entrada…</p>
+      </div>
       <section class="mh-step" data-for="system">
         <h3>${isWin ? 'Permití el micrófono en Windows' : 'Permití el micrófono en el sistema'}</h3>
         ${isWin ? `<p>Windows está bloqueando el micrófono para ${browserName}. Tocá el botón, aceptá cuando el navegador pregunte si querés abrir Configuración, y activá <b>Acceso al micrófono</b> y <b>Permitir que las aplicaciones de escritorio accedan al micrófono</b>.</p>
@@ -245,6 +239,19 @@
     document.body.append(back);
     const st = back.querySelector('.mh-status'), meter = back.querySelector('.mh-meter'), bar = meter.querySelector('i');
     let live = null;
+    const select=back.querySelector('[data-mic-select]'),deviceStatus=back.querySelector('[data-mic-device-status]');
+    async function refreshInputs(){
+      if(!navigator.mediaDevices?.enumerateDevices){deviceStatus.textContent='No es posible enumerar los dispositivos en este navegador.';return;}
+      try{
+        const original=select.value;
+        const inputs=(await navigator.mediaDevices.enumerateDevices()).filter(d=>d.kind==='audioinput');
+        select.replaceChildren(new Option('Predeterminado',''));
+        inputs.filter(d=>d.deviceId && !['default','communications'].includes(d.deviceId)).forEach((d,i)=>select.add(new Option(d.label||'Micrófono '+(i+1),d.deviceId)));
+        if([...select.options].some(o=>o.value===original))select.value=original;
+        deviceStatus.textContent=inputs.length?inputs.length+' entrada(s) detectada(s). Elegí otra si la predeterminada falla.':'No se encontraron entradas de audio.';
+      }catch{deviceStatus.textContent='El navegador no permitió consultar la lista de micrófonos.';}
+    }
+    select.addEventListener('change',()=>run());
     const stop = () => { if (live) { cancelAnimationFrame(live.raf); live.stream.getTracks().forEach(t => t.stop()); live.ac.close(); live = null; } };
     const show = code => back.querySelectorAll('.mh-step').forEach(sec => { sec.hidden = sec.dataset.for !== code; });
     async function run() {
