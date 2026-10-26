@@ -66,7 +66,14 @@ html:not([data-theme=dark]) .mt-scene-copy>span{color:#465267}
 html:not([data-theme=dark]) .mt-scene-footer{border-color:#eeeaf3}
 html:not([data-theme=dark]) .mt-method-steps li>span{background:#e4f2ff;color:#8a70a5;border-radius:14px}
 html:not([data-theme=dark]) .mt-skill-tags span{background:#f6f1fc;border-color:#e5dced;color:#5a406e;border-radius:9px}
-html:not([data-theme=dark]) .mt-levels-band{background:#eef7ff}
+html:not([data-theme=dark]) .mt-levels-band{background:#eef7ff;color:#203e59}
+html:not([data-theme=dark]) .site-modern .mt-levels-band h2{color:#123f70}
+html:not([data-theme=dark]) .site-modern .mt-levels-band .mt-text-link{color:#155da8}
+html:not([data-theme=dark]) .mt-levels-grid h3{color:#173d62}
+html:not([data-theme=dark]) .mt-levels-grid p{color:#3d566c}
+html:not([data-theme=dark]) .mt-levels-band .mt-level-code{background:#e3effb;color:#174f86}
+html:not([data-theme=dark]) .mt-levels-band .mt-level-arrow{background:#e2edf8;color:#174f86}
+.mt-levels-grid .track-row:focus-visible{outline:3px solid #1264bc;outline-offset:4px}
 html:not([data-theme=dark]) .site-modern .mt-levels-grid .track-row{background:#fffdfd;border-color:#e8e1f0;border-radius:23px}
 html:not([data-theme=dark]) .mt-levels-grid .track-row:nth-child(3n+2){background:#edf6f0}
 html:not([data-theme=dark]) .mt-levels-grid .track-row:nth-child(3n){background:#fff2e9}
@@ -134,3 +141,5 @@ html:not([data-theme=dark]) .site-modern :is(.study-playground,.study-picture){b
 html[data-theme=dark] .site-modern .mt-academy-hero{background:linear-gradient(180deg,#10273d,#17364f)!important}html[data-theme=dark] .site-modern .mt-academy-hero :is(h1,h1>span,.mt-kicker,.mt-hero-copy>p,.mt-hero-benefits,.mt-text-link,.mt-academy-photo-caption){color:#dceeff}html[data-theme=dark] .mt-enroll-card{background:#19354d;border-color:#3d5b74}html[data-theme=dark] .site-modern .mt-enroll-card :is(h2,p,ol,.mt-enroll-login){color:#dceeff!important}html[data-theme=dark] .mt-demo-band{background:#102b40;border-color:#36536a}html[data-theme=dark] .site-modern .mt-demo-band .mt-hero-quiz{background:#1d3a52;border-color:#43617a}html[data-theme=dark] .mt-demo-band :is(h2,p){color:#d5e8f8}html[data-theme=dark] .mt-course-strip{background:#163650;color:#daeafb}
 @media(max-width:1000px){.site-modern .mt-academy-hero .mt-hero-grid{grid-template-columns:.9fr 1.1fr;gap:28px;padding:40px 0}.mt-academy-hero .mt-enroll-card{grid-column:1/-1;max-width:none;display:grid;grid-template-columns:1fr 1fr;column-gap:25px}.mt-enroll-card .mt-badge,.mt-enroll-card h2,.mt-enroll-card>p:not(.fine){grid-column:1}.mt-enroll-card ol{grid-column:2;grid-row:1/4}.mt-enroll-card .btn,.mt-enroll-card .mt-enroll-login,.mt-enroll-card .fine{grid-column:1/-1}.site-modern .mt-academy-hero h1{font-size:2.6rem}}
 @media(max-width:640px){.mt-course-strip>.wrap{font-size:.61rem}.mt-welcome-band>.wrap{gap:7px 12px;text-align:center;font-size:.72rem;padding:12px 0}.mt-welcome-band span{width:100%;font-size:.68rem}.site-modern .mt-academy-hero .mt-hero-grid{grid-template-columns:1fr;gap:27px;padding:30px 0 40px}.site-modern .mt-academy-hero .mt-hero-copy{order:1}.site-modern .mt-academy-hero .mt-hero-visual{order:2;margin:0 16px}.mt-academy-hero .mt-enroll-card{order:3;display:block}.site-modern .mt-academy-hero .mt-photo-frame{height:270px;border-radius:70px 20px 20px 20px}.site-modern .mt-academy-hero h1{font-size:2.65rem;line-height:1.1;margin:18px 0}.mt-hero-benefits{font-size:.82rem}.mt-academy-photo-caption{padding-top:12px}.mt-demo-band>.wrap{grid-template-columns:1fr;gap:17px}.site-modern .mt-demo-band .mt-hero-quiz{padding:18px}.site-modern .mt-demo-band h2{font-size:1.4rem}.mt-enroll-card{padding:24px}.mt-enroll-card ol{margin:20px 0}.site-modern .mt-academy-hero .mt-photo-note{max-width:none;font-size:.5rem;bottom:10px;top:auto}}
+
+.mt-scene-illustration{display:grid;place-items:center;width:100%;height:100%;min-height:170px;background:#e7eff8;font-size:4rem}

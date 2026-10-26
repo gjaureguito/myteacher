@@ -1,0 +1,9 @@
+# Auditoría Railway y catálogo
+
+Base revisada: f43ee7d0cbbd0cedaacb8219f78ba003b867dabf, rama main. Railway deployment ee97c50e-d64f-467c-b93f-9f8985f3a37c activo y compilación exitosa. Los registros de ejecución confirman `Undefined array key "theory"` y `Column theory_html cannot be null`; la transacción de sincronización se revierte y conserva el catálogo anterior de 129 publicadas.
+
+La corrección normaliza theory_extra declarado en el propio nivel incluso cuando no hay archivo de ampliación. La firma usa hashes de contenido y una nueva versión del cargador. El healthcheck exige que esa firma esté sincronizada para evitar aprobar un despliegue con importación fallida. No usa force, no reinicia tablas ni modifica cuentas. Conserva la lógica existente de publicación y ediciones del administrador. Se reparan ocho consignas fill sin huecos manteniendo las claves de respuesta, las tarjetas de seis escenas avanzadas y el contraste de niveles.
+
+Pruebas: catalog_sync.php usa una SQLite nueva y descartable; simula el catálogo de 129 y verifica la importación de 216 unidades, idempotencia, identificadores, intentos, progreso, publicaciones y ediciones admin. scenes.py verifica salud, páginas de las 345 unidades, 16 escenas/98 preguntas, respuestas incorrectas/correctas, persistencia, CSRF, autenticación, suscripción y aislamiento. writing-checker.test.cjs pasa 19 casos de reglas y seis de reemplazo/deshacer; probado además en navegador local, incluyendo espacios iniciales, aplicación y deshacer.
+
+Limitación editorial preexistente: content_check.php aún falla con 418 hallazgos: 270 respuestas modelo por debajo del mínimo de palabras del propio ejercicio y 148 lecturas cortas. No se rebajaron esos criterios ni se alteraron masivamente las claves de respuesta. Esos hallazgos requieren revisión del contenido; el corrector gramatical es orientativo y limitado a patrones, no una evaluación integral.

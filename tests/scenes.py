@@ -3,10 +3,10 @@ from pathlib import Path
 import os, json, subprocess, tempfile, socket, time, urllib.request, urllib.parse, urllib.error, http.cookiejar, re, sqlite3
 ROOT = Path(__file__).resolve().parents[1]
 scenes = json.loads((ROOT/'content/scenes.json').read_text(encoding='utf-8'))
-assert len(scenes)==10 and {s['level'] for s in scenes}=={'A1','A2'}
+assert len(scenes)==16 and {'A1','A2','B2','C1','C2'} == {s['level'] for s in scenes}
 for scene in scenes:
-    assert len(scene['questions'])==5 and len(scene['lines'])==4
-    assert (ROOT/f"public/assets/images/scene-{scene['id']}.jpg").stat().st_size>10000
+    assert len(scene['questions']) in (5,8) and len(scene['lines'])==4
+    if not scene.get('visual'): assert (ROOT/f"public/assets/images/scene-{scene['id']}.jpg").stat().st_size>10000
 with tempfile.TemporaryDirectory() as td:
     database=Path(td)/'test.sqlite'
     env=dict(os.environ,DB_DRIVER='sqlite',SQLITE_PATH=str(database),ADMIN_EMAILS='')
@@ -47,14 +47,25 @@ q("UPDATE meta SET v='3' WHERE k='schema_version'");
         assert answer('cafe',99,1,token)[0]==404
         db=sqlite3.connect(database)
         assert db.execute("SELECT v FROM meta WHERE k='schema_version'").fetchone()[0]=='4'
-        for scene in scenes:
+        assert request('/health.php') == (200, 'ok')
+        units = db.execute('SELECT id FROM units WHERE is_published=1').fetchall()
+        assert len(units) == 345
+        for (unit_id,) in units:
+            status,html = request(f'/unit.php?id={unit_id}')
+            assert status == 200 and 'unit-page' in html, unit_id
+            assert 'Fatal error' not in html and 'Warning:' not in html, unit_id
+        print('PASS: healthcheck and all 345 published unit pages render')
+        for scene_number,scene in enumerate(scenes):
+            if scene_number and scene_number % 4 == 0:
+                client=urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
+                token=login('one@example.test')
             unit_id=db.execute('SELECT id FROM units WHERE slug=?',(scene['unit'],)).fetchone()[0]
             status,html=request(f'/unit.php?id={unit_id}')
             assert status==200 and f'data-scene="{scene["id"]}"' in html
             assert 'data-es hidden' in html and 'data-scene-play' in html
             assert 'scene-reference' in html and 'scene-workspace' in html
             assert 'data-edge-shortcut' in html and 'edge-access.js' in html
-            assert request(f'/assets/images/scene-{scene["id"]}.jpg')[0]==200
+            if not scene.get('visual'): assert request(f'/assets/images/scene-{scene["id"]}.jpg')[0]==200
             for i,q in enumerate(scene['questions']):
                 status,body=answer(scene['id'],i,-99 if q['type']=='mcq' else 'wrong',token)
                 d=json.loads(body);assert status==200 and not d['correct'] and d['answer'] is None
@@ -62,14 +73,14 @@ q("UPDATE meta SET v='3' WHERE k='schema_version'");
                 d=json.loads(body);assert status==200 and d['correct'] and d['solved']==i+1, (scene['id'],i,status,d)
             _,body=answer(scene['id'],0,scene['questions'][0]['answer'],token)
             assert json.loads(body)['score']==100
-            assert '5/5 · 100/100 puntos' in request(f'/unit.php?id={unit_id}')[1]
-        print('PASS: 10 photographs, 50 exercises, wrong/correct answers, retry scoring, reload persistence, migration 3 to 4')
+            assert f"{len(scene['questions'])}/{len(scene['questions'])} · 100/100 puntos" in request(f'/unit.php?id={unit_id}')[1]
+        print('PASS: 16 scenes, 98 exercises, wrong/correct answers, retry scoring, reload persistence, migration 3 to 4')
         request('/logout.php',{'csrf':token})
         token=login('two@example.test')
         assert answer('shopping',0,1,token)[0]==403
         status,body=answer('cafe',0,0,token)
         assert status==200 and json.loads(body)['score']==0
-        assert db.execute('SELECT COUNT(*) FROM scene_status WHERE user_id=1 AND solved=1').fetchone()[0]==len(scenes)*5
+        assert db.execute('SELECT COUNT(*) FROM scene_status WHERE user_id=1 AND solved=1').fetchone()[0]==sum(len(s['questions']) for s in scenes)
         db.execute("UPDATE units SET is_published=0 WHERE slug='a1-verb-to-be'");db.commit()
         assert answer('cafe',0,1,token)[0]==404
         print('PASS: authentication, CSRF, subscription, unpublished lessons, user isolation; existing accounts retained')
