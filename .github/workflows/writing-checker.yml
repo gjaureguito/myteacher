@@ -1,0 +1,26 @@
+name: Validar corrector de inglés
+on:
+  push:
+    paths:
+      - 'public/assets/writing-checker.js'
+      - 'tests/writing-checker.test.cjs'
+      - '.github/workflows/writing-checker.yml'
+  pull_request:
+    paths:
+      - 'public/assets/writing-checker.js'
+      - 'tests/writing-checker.test.cjs'
+      - '.github/workflows/writing-checker.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Comprobar sintaxis
+        run: node --check public/assets/writing-checker.js
+      - name: Ejecutar pruebas de gramática
+        run: node tests/writing-checker.test.cjs
