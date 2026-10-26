@@ -225,3 +225,11 @@ html[data-theme=dark] .site-modern .mt-nav-dropdown-panel{background:#1a324a;bor
 html[data-theme=dark] .site-modern .mt-nav-dropdown-panel>a,html[data-theme=dark] .site-modern .mt-nav-dropdown-panel .linkbtn{color:#ecf5ff!important}
 @media(max-width:900px){.site-modern .topbar .mt-nav-main{flex-wrap:nowrap;overflow-x:auto;overflow-y:visible;justify-content:flex-start}.site-modern .topbar .mt-nav-dropdown-panel{position:fixed;top:auto;right:14px;left:auto}.site-modern .topbar .topbar-in{align-items:center}}
 @media(max-width:760px){.site-modern .topbar .mt-nav-main{grid-column:1/-1;overflow-x:auto;overflow-y:visible}.site-modern .topbar .mt-nav-dropdown-panel{top:110px;right:12px}.site-modern .topbar .mt-nav-dropdown>summary{font-size:.8rem}}
+
+/* Eliminar pseudo-subrayados heredados en menus desplegables. */
+.site-modern .topbar .mt-nav-dropdown>summary::before,
+.site-modern .topbar .mt-nav-dropdown>summary::after,
+.site-modern .topbar .mt-nav-dropdown::before,
+.site-modern .topbar .mt-nav-dropdown::after{content:none!important;display:none!important;border:0!important}
+.site-modern .topbar .mt-nav-dropdown>summary{border-bottom:0!important;box-shadow:none!important;text-decoration:none!important}
+.site-modern .topbar .mt-nav-dropdown{border-bottom:0!important;box-shadow:none!important}
