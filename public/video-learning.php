@@ -2,9 +2,10 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/src/bootstrap.php';
 $student = require_login();
-$lesson = (($_GET['lesson'] ?? '1') === '2') ? 2 : 1;
-$videoId = $lesson === 2 ? 'k8PJhpSCiSs' : 'U08KdJ52E2M';
-$videoTitle = $lesson === 2 ? 'New video · Listening A1' : 'The Wrong Coffee';
+$lesson = in_array((string) ($_GET['lesson'] ?? '1'), ['1', '2', '3'], true) ? (int) $_GET['lesson'] : 1;
+$videos = [1 => ['id' => 'U08KdJ52E2M', 'title' => 'The Wrong Coffee'], 2 => ['id' => 'k8PJhpSCiSs', 'title' => 'Listening A1 · Video 02'], 3 => ['id' => 'DuMMG4KKgZ8', 'title' => 'Listening A1 · Video 03']];
+$videoId = $videos[$lesson]['id'];
+$videoTitle = $videos[$lesson]['title'];
 ?>
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,15 +38,15 @@ button:disabled{opacity:.48;cursor:not-allowed}
 </style></head><body><main class="wrapper">
 <div class="top"><a class="brand" href="/dashboard.php">MyTeacher</a><a class="link" href="/dashboard.php">← Back to dashboard</a></div>
 <h1>Video Learning · A1</h1><p>Watch, listen and choose. No typing required. <span class="es" style="display:inline">Mirá, escuchá y elegí. Sin escribir.</span></p>
-<nav aria-label="Video lessons" style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0"><a class="pill" href="/video-learning.php?lesson=1" <?= $lesson === 1 ? 'aria-current="page"' : '' ?>>Lesson 01 · The Wrong Coffee</a><a class="pill" href="/video-learning.php?lesson=2" <?= $lesson === 2 ? 'aria-current="page"' : '' ?>>Lesson 02 · New video</a></nav>
+<nav aria-label="Video lessons" style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0"><a class="pill" href="/video-learning.php?lesson=1" <?= $lesson === 1 ? 'aria-current="page"' : '' ?>>Lesson 01 · The Wrong Coffee</a><a class="pill" href="/video-learning.php?lesson=2" <?= $lesson === 2 ? 'aria-current="page"' : '' ?>>Lesson 02 · Listening A1</a><a class="pill" href="/video-learning.php?lesson=3" <?= $lesson === 3 ? 'aria-current="page"' : '' ?>>Lesson 03 · Listening A1</a></nav>
 <div class="grid">
-<section class="card"><span class="pill">Lesson <?= $lesson === 2 ? '02' : '01' ?> · <?= e($videoTitle) ?></span><h2>Watch the scene</h2>
+<section class="card"><span class="pill">Lesson <?= str_pad((string) $lesson, 2, '0', STR_PAD_LEFT) ?> · <?= e($videoTitle) ?></span><h2>Watch the scene</h2>
 <p>Listen carefully. Replay whenever you need.</p>
-<div class="player"><iframe title="The Wrong Coffee · YouTube Short" src="https://www.youtube-nocookie.com/embed/<?= e($videoId) ?>" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+<div class="player"><iframe title="<?= e($videoTitle) ?> · YouTube Short" src="https://www.youtube-nocookie.com/embed/<?= e($videoId) ?>" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 <p><a class="link" href="https://www.youtube.com/shorts/<?= e($videoId) ?>" target="_blank" rel="noopener noreferrer">Open on YouTube</a></p>
 </section>
-<?php if ($lesson === 2): ?>
-<section class="card" id="lesson2-interactive"><div class="bar"><span class="pill">Interactive video practice · 02</span><label class="toggle"><input id="lesson2-translation" type="checkbox"> Español / Translate</label></div>
+<?php if ($lesson !== 1): ?>
+<section class="card" id="lesson2-interactive"><div class="bar"><span class="pill">Interactive video practice · <?= str_pad((string) $lesson, 2, '0', STR_PAD_LEFT) ?></span><label class="toggle"><input id="lesson2-translation" type="checkbox"> Español / Translate</label></div>
 <h2>Watch, choose and practice</h2><p>Answer with a click. You never need to type. <span class="es">Respondé con un clic, sin escribir.</span></p>
 <div class="question"><h3>1. What kind of activity are you doing?</h3><span class="es">¿Qué tipo de actividad estás realizando?</span><div data-choice="1"><button type="button" class="choice">Listening <span class="es">Comprensión auditiva</span></button><button type="button" class="choice">Reading only <span class="es">Solo lectura</span></button><button type="button" class="choice">Writing a long essay <span class="es">Escribir un ensayo largo</span></button></div></div>
 <div class="question"><h3>2. Which button can help you understand the conversation?</h3><span class="es">¿Qué botón puede ayudarte a comprender la conversación?</span><div data-choice="2"><button type="button" class="choice">Replay the video <span class="es">Repetir el video</span></button><button type="button" class="choice">Close the video <span class="es">Cerrar el video</span></button><button type="button" class="choice">Skip listening <span class="es">Omitir la escucha</span></button></div></div>
