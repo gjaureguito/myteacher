@@ -183,3 +183,27 @@ html[data-theme=dark] .mt-hero-secondary{color:#cbe6ff}
 .mt-welcome-band a{color:#124f91!important}
 .site-modern .mt-academy-hero .mt-enroll-card{box-shadow:none;border:1px solid #dce9f5;background:#ffffffc9;border-radius:20px}
 @media(max-width:640px){.site-modern .mt-academy-hero .mt-photo-frame{height:320px;border-radius:22px}.mt-academy-photo-caption{text-align:center}.mt-study-image>img{aspect-ratio:4/3}}
+
+/* Encabezado premium MyTeacher · version 2026-10 */
+.site-modern .topbar{position:relative;z-index:100;background:#fff!important;border-bottom:1px solid #e8edf4!important;box-shadow:0 5px 28px rgba(20,50,83,.055)!important}
+.site-modern .topbar .topbar-in{display:flex;align-items:center;justify-content:space-between;gap:clamp(14px,2vw,35px);min-height:83px;padding-top:8px;padding-bottom:8px;flex-wrap:nowrap}
+.site-modern .topbar .brand{display:inline-flex;flex-shrink:0;align-items:center;gap:11px;font-weight:800;font-size:1.36rem;letter-spacing:-.065em;color:#152d4a!important;text-decoration:none}
+.site-modern .topbar .brand-mark{width:43px;height:43px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 6px 15px #0c65ba20;border-radius:13px!important}
+.site-modern .topbar .nav{display:flex;align-items:center;justify-content:flex-end;flex:1 1 auto;flex-wrap:wrap;column-gap:4px;row-gap:5px;min-width:0}
+.site-modern .topbar .nav>a:not(.btn),.site-modern .topbar .nav .linkbtn{display:inline-flex;align-items:center;min-height:39px;padding:9px 12px;border-radius:12px!important;font-size:.82rem;line-height:1.2;font-weight:750;color:#354862!important;text-decoration:none;white-space:nowrap;transition:background .18s,color .18s,transform .18s}
+.site-modern .topbar .nav>a:not(.btn):hover,.site-modern .topbar .nav>a[aria-current=page]{background:#ebf4ff!important;color:#095baa!important}
+.site-modern .topbar .nav>a[aria-current]::after{display:none}
+.site-modern .topbar .nav .btn{display:inline-flex;align-items:center;justify-content:center;margin-left:11px;padding:11px 20px;min-height:43px;white-space:nowrap;border-radius:12px!important;box-shadow:0 6px 16px #be48001b!important;font-weight:800;font-size:.82rem}
+.site-modern .topbar .tools{display:flex;gap:7px;flex:0 0 auto;margin-left:7px;padding-left:15px;border-left:1px solid #e0e9f2}
+.site-modern .topbar .tool-btn{width:39px;height:39px;border:1px solid #e1eaf2;border-radius:12px;background:#f7faff;transition:background .18s}
+.site-modern .topbar .tool-btn:hover{background:#e9f3ff}
+.site-modern .mt-welcome-band{background:#0f4581!important}
+.site-modern .mt-welcome-band>.wrap{min-height:48px;gap:18px;padding:8px 0;font-size:.79rem}
+.site-modern .mt-welcome-band strong{font-size:.8rem}
+.site-modern .mt-welcome-band a{background:#fff!important;color:#104b88!important;border-radius:11px!important;padding:8px 16px}
+html[data-theme=dark] .site-modern .topbar{background:#102439!important;border-bottom-color:#30465e!important}
+html[data-theme=dark] .site-modern .topbar .brand,html[data-theme=dark] .site-modern .topbar .nav>a:not(.btn){color:#ecf5ff!important}
+html[data-theme=dark] .site-modern .topbar .nav>a:not(.btn):hover{background:#284863!important}
+html[data-theme=dark] .site-modern .topbar .tool-btn{background:#1e354d;border-color:#38516b}
+@media(max-width:1100px){.site-modern .topbar .topbar-in{gap:12px}.site-modern .topbar .brand{font-size:1.17rem}.site-modern .topbar .nav>a:not(.btn){padding:8px!important;font-size:.76rem}.site-modern .topbar .nav .btn{margin-left:3px;padding:10px 14px}.site-modern .topbar .tools{padding-left:9px;margin-left:0}}
+@media(max-width:760px){.site-modern .topbar .topbar-in{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;min-height:0;padding:11px 0}.site-modern .topbar .brand{grid-column:1;grid-row:1}.site-modern .topbar .tools{grid-column:2;grid-row:1}.site-modern .topbar .nav{grid-column:1/-1;grid-row:2;display:flex;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;max-width:100%;gap:3px;padding:5px 0 7px;scrollbar-width:thin;scroll-snap-type:x proximity}.site-modern .topbar .nav>*{flex:0 0 auto;scroll-snap-align:start}.site-modern .topbar .nav>a:not(.btn){font-size:.79rem!important;padding:10px!important}.site-modern .topbar .nav .btn{margin-left:3px}.site-modern .mt-welcome-band>.wrap{justify-content:center;text-align:center;gap:7px 13px}}
