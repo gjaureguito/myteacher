@@ -9,6 +9,31 @@
     </div>
   </header>
 
+  <link rel="stylesheet" href="/assets/roadmap.css?v=1">
+  <section class="mt-roadmap" aria-labelledby="unit-roadmap-heading">
+    <p class="eyebrow">RUTA DE APRENDIZAJE · <?= e(strtoupper($level['code'])) ?></p>
+    <h2 id="unit-roadmap-heading">Tu recorrido por las unidades</h2>
+    <p class="mt-roadmap-subtitle">Cada parada lleva a su unidad de estudio. El estado se basa en ejercicios resueltos y se actualiza con tu práctica.</p>
+    <ol class="mt-unit-roadmap">
+    <?php $nextOpenFound=false; foreach ($units as $un):
+      $open=can_access_unit($u,$un);
+      $p=$up[(int)$un['id']]??['total'=>0,'solved'=>0];
+      $pc=pct($p);
+      $done=$p['total']>0&&$pc===100;
+      $active=$open&&!$done&&!$nextOpenFound;
+      if($active)$nextOpenFound=true;
+      $state=!$open?'is-locked':($done?'is-done':($active?'is-current':'is-next'));
+      $status=!$open?'Con suscripción':($done?'Completada':($active?'Siguiente paso':'Por estudiar'));
+    ?>
+      <li class="<?= $state ?>"><a href="<?= $open?'/unit.php?id='.(int)$un['id']:'/account.php' ?>">
+        <span class="mt-unit-node"><?= $done?'✓':(int)$un['position'] ?></span>
+        <span class="mt-unit-copy"><strong><?= e($un['title']) ?></strong><small><?= $p['solved'] ?>/<?= $p['total'] ?> ejercicios · <?= $pc ?>% completado</small><span class="mt-unit-bar" aria-hidden="true"><i style="width:<?= $pc ?>%"></i></span></span>
+        <span class="mt-unit-status"><?= e($status) ?></span>
+      </a></li>
+    <?php endforeach; ?>
+    </ol>
+    <p class="mt-roadmap-subtitle"><a href="/stats.php">Ver estadísticas y temas para reforzar ↗</a></p>
+  </section>
   <a class="book-link panel" href="/book.php?code=<?= e($level['code']) ?>"><strong>Leer el libro de estudio <?= e(strtoupper($level['code'])) ?> →</strong><span>Capítulos con teoría desarrollada, ejemplos analizados, práctica guiada y un proyecto de cierre.</span></a>
   <ol class="units">
     <?php foreach ($units as $un):
