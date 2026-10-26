@@ -82,5 +82,5 @@ $total = count($exercises);
 <script src="/assets/vocab-challenge.js?v=1" defer></script>
 <script src="/assets/conversation-shadowing.js?v=1" defer></script>
 <script src="/assets/scene-writing.js?v=2" defer></script>
-<script src="/assets/writing-checker.js?v=2" defer></script>
+<script src="/assets/writing-checker.js?v=3" defer></script>
 <div class="xp-hud" aria-live="polite"><span aria-hidden="true">⭐</span><span class="xp-val">0 XP</span><span class="combo"></span></div>
