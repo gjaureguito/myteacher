@@ -195,6 +195,11 @@
       <p class="eyebrow">MICRÓFONO</p><h2 id="mh-t">Activá tu micrófono</h2>
       <div class="mh-status" aria-live="polite">Probando el micrófono…</div>
       <div class="mh-meter" hidden><i></i></div>
+      <section class="mh-diagnostic" style="padding:12px;margin:12px 0;border:1px solid #91acc8;border-radius:10px">
+        <h3>Prueba completa del micrófono</h3>
+        <button type="button" class="btn btn-sm" data-mh-fulltest>Iniciar prueba de captura y voz</button>
+        <p role="status" aria-live="polite" data-mh-diagnostic-result>Esta prueba comprueba el dispositivo, la señal y el reconocimiento por separado.</p>
+      </section>
       <section class="mh-recorder" hidden>
         <h3>Práctica alternativa: grabá tu voz</h3>
         <p>Usá el micrófono elegido para grabar y escucharte. No se envía la grabación a MyTeacher.</p>
@@ -294,6 +299,45 @@
     });
     stopBtn.addEventListener('click',()=>{if(recorder?.state==='recording')recorder.stop();recordBtn.disabled=false;stopBtn.disabled=true;});
 
+    const fullTestBtn=back.querySelector('[data-mh-fulltest]');
+    const fullTestResult=back.querySelector('[data-mh-diagnostic-result]');
+    fullTestBtn.addEventListener('click',async()=>{
+      fullTestBtn.disabled=true;
+      fullTestResult.textContent='1/3 Comprobando acceso al micrófono…';
+      let stream,ctx;
+      try{
+        const constraints=back.querySelector('[data-mic-select]').value;
+        stream=await navigator.mediaDevices.getUserMedia({audio:constraints?{deviceId:{exact:constraints}}:true});
+        const track=stream.getAudioTracks()[0];
+        fullTestResult.textContent='1/3 Captura disponible: '+(track.label||'micrófono activo')+'. 2/3 Medí la señal hablando durante unos segundos…';
+        ctx=new AudioContext();
+        const analyser=ctx.createAnalyser();ctx.createMediaStreamSource(stream).connect(analyser);
+        const buf=new Uint8Array(analyser.fftSize);
+        let amplitude=0;
+        for(let i=0;i<12;i++){
+          analyser.getByteTimeDomainData(buf);
+          for(const x of buf)amplitude=Math.max(amplitude,Math.abs(x-128));
+          await new Promise(resolve=>setTimeout(resolve,200));
+        }
+        fullTestResult.textContent=amplitude>3?'2/3 Hay señal de audio. 3/3 Probando reconocimiento de voz…':'2/3 Captura abierta, pero no detecté señal suficiente. Hablá más cerca y repetí la prueba. No se puede confirmar la pronunciación.';
+        if(amplitude<=3)return;
+      }catch(e){
+        fullTestResult.textContent='1/3 Falló la captura: '+(e.name||'Error desconocido')+'. Chrome no permite abrir el micrófono; el reconocimiento no podrá funcionar hasta resolver ese acceso.';
+        return;
+      }finally{stream?.getTracks().forEach(t=>t.stop());if(ctx)await ctx.close().catch(()=>{});fullTestBtn.disabled=false;}
+      const Speech=window.SpeechRecognition||window.webkitSpeechRecognition;
+      if(!Speech){fullTestResult.textContent='2/3 La captura y la señal funcionaron, pero este navegador no ofrece reconocimiento de voz.';return;}
+      fullTestBtn.disabled=true;
+      try{
+        const rec=new Speech();rec.lang='en-US';rec.interimResults=false;
+        let completed=false;
+        const finish=message=>{if(completed)return;completed=true;fullTestResult.textContent=message;fullTestBtn.disabled=false;};
+        rec.onresult=e=>finish('3/3 Reconocimiento correcto. Chrome escuchó: “'+(e.results[0]?.[0]?.transcript||'')+'”.');
+        rec.onerror=e=>finish('3/3 Falló el reconocimiento ('+e.error+'), aunque el micrófono sí capturó sonido. El problema está en el acceso del servicio de voz.');
+        rec.onend=()=>finish('3/3 No llegó una transcripción. Repetí la prueba hablando apenas comience.');
+        rec.start();
+      }catch(e){fullTestResult.textContent='3/3 No se pudo iniciar el reconocimiento: '+e.name;fullTestBtn.disabled=false;}
+    });
     const select=back.querySelector('[data-mic-select]'),deviceStatus=back.querySelector('[data-mic-device-status]');
     async function refreshInputs(){
       if(!navigator.mediaDevices?.enumerateDevices){deviceStatus.textContent='No es posible enumerar los dispositivos en este navegador.';return;}
