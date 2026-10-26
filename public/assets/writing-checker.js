@@ -13,16 +13,16 @@
  {id:'did-past',re:/\bdid\s+(?:went|saw|bought|took|wrote|made|had|said)\b/gi,label:'Did + verbo base',why:'En preguntas o negaciones con did se utiliza la forma base del verbo.',suggest:'Ejemplo: Did you go? (no Did you went?).',good:'Did you go?'},
  {id:'more-better',re:/\bmore\s+better\b/gi,label:'Comparativo duplicado',why:'Better ya es el comparativo de good; normalmente no lleva more.',suggest:'Escribí better.',good:'a better solution'},
  {id:'much-many',re:/\bmuch\s+(?:people|books|students|problems|questions)\b/gi,label:'Much / many',why:'Con sustantivos contables plurales se suele utilizar many.',suggest:'Ejemplo: many questions.',good:'many questions'},
- {id:'did-not',re:/\\bdid\\s+not\\s+(?:went|saw|bought|took|wrote|made|had|said)\\b/gi,label:'Did not + infinitivo',why:'Después de did not, el verbo permanece en su forma base.',suggest:'Ejemplo: did not go, no did not went.',good:'She did not go.'},
- {id:'advices',re:/\\b(?:an|many|several|two|three)\\s+advices\\b/gi,label:'Advice es incontable',why:'En inglés general advice es incontable. Para contar recomendaciones puede usarse pieces of advice.',suggest:'Ejemplo: some advice o two pieces of advice.',good:'She gave me some advice.'},
- {id:'informations',re:/\\b(?:many|several|two|three|an)\\s+informations?\\b/gi,label:'Information es incontable',why:'Information normalmente no tiene plural contable en inglés general.',suggest:'Ejemplo: some information o two pieces of information.',good:'We need more information.'},
+ {id:'did-not',re:/\bdid\s+not\s+(?:went|saw|bought|took|wrote|made|had|said)\b/gi,label:'Did not + infinitivo',why:'Después de did not, el verbo permanece en su forma base.',suggest:'Ejemplo: did not go, no did not went.',good:'She did not go.'},
+ {id:'advices',re:/\b(?:an|many|several|two|three)\s+advices\b/gi,label:'Advice es incontable',why:'En inglés general advice es incontable. Para contar recomendaciones puede usarse pieces of advice.',suggest:'Ejemplo: some advice o two pieces of advice.',good:'She gave me some advice.'},
+ {id:'informations',re:/\b(?:many|several|two|three|an)\s+informations?\b/gi,label:'Information es incontable',why:'Information normalmente no tiene plural contable en inglés general.',suggest:'Ejemplo: some information o two pieces of information.',good:'We need more information.'},
  {id:'double-space',re:/ {2,}/g,label:'Espacios repetidos',why:'En textos formales se recomienda un solo espacio entre palabras.',suggest:'Eliminá los espacios duplicados.'}
  ];
  const replacements={
  'dont':'don’t','doesnt':'doesn’t','cant':'can’t','im':'I’m','more-better':'better',
- 'a-vowel':m=>m.replace(/^a\\s+/i,'an '),'an-consonant':m=>m.replace(/^an\\s+/i,'a '),
- 'did-past':m=>m.replace(/\\b(went|saw|bought|took|wrote|made|had|said)\\b/i,w=>({went:'go',saw:'see',bought:'buy',took:'take',wrote:'write',made:'make',had:'have',said:'say'})[w.toLowerCase()]||w),
- 'did-not':m=>m.replace(/\\b(went|saw|bought|took|wrote|made|had|said)\\b/i,w=>({went:'go',saw:'see',bought:'buy',took:'take',wrote:'write',made:'make',had:'have',said:'say'})[w.toLowerCase()]||w),
+ 'a-vowel':m=>m.replace(/^a\s+/i,'an '),'an-consonant':m=>m.replace(/^an\s+/i,'a '),
+ 'did-past':m=>m.replace(/\b(went|saw|bought|took|wrote|made|had|said)\b/i,w=>({went:'go',saw:'see',bought:'buy',took:'take',wrote:'write',made:'make',had:'have',said:'say'})[w.toLowerCase()]||w),
+ 'did-not':m=>m.replace(/\b(went|saw|bought|took|wrote|made|had|said)\b/i,w=>({went:'go',saw:'see',bought:'buy',took:'take',wrote:'write',made:'make',had:'have',said:'say'})[w.toLowerCase()]||w),
  'double-space':' '
  };
  const cap=14;
@@ -44,7 +44,7 @@
     if(match){
      const before=text.slice(Math.max(0,match.index-28),match.index);
      // No marcar preguntas con auxiliar/modal: Could she work? / Does he go?
-     if(rule.id==='he-she' && /\\b(?:does|did|can|could|will|would|should|may|might|must|let|make)\\s*$/i.test(before))continue;
+     if(rule.id==='he-she' && /\b(?:does|did|can|could|will|would|should|may|might|must|let|make)\s*$/i.test(before))continue;
      found.push({...rule,example:match[0].trim()});
     }
    }
