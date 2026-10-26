@@ -955,6 +955,17 @@
         ],
         "answer": "We need to reassess the delivery schedule",
         "explanation": "El orden original es: We need to reassess the delivery schedule."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Deducción: Why does Maya ask about affected tasks?",
+        "options": [
+          "To prioritise planning for possible disruption",
+          "To cancel every delivery",
+          "To avoid discussing the supplier"
+        ],
+        "answer": 0,
+        "explanation": "Maya conecta el aviso de demora con la necesidad de identificar tareas en riesgo."
       }
     ]
   },
@@ -1061,6 +1072,17 @@
         ],
         "answer": "Was there a control group",
         "explanation": "El orden original es: Was there a control group."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Deducción: Why does the editor recommend a preliminary conclusion?",
+        "options": [
+          "Because the study has no control group",
+          "Because the results were deliberately hidden",
+          "Because the sample includes everyone"
+        ],
+        "answer": 0,
+        "explanation": "Sin grupo de control no se puede atribuir causalidad de forma sólida."
       }
     ]
   },
@@ -1170,6 +1192,17 @@
         ],
         "answer": "We would appreciate an earlier delivery date",
         "explanation": "El orden original es: We would appreciate an earlier delivery date."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Deducción: What can be inferred about the manager's response?",
+        "options": [
+          "An agreement may be possible if the scope changes",
+          "The manager accepted the original deadline",
+          "The meeting is cancelled"
+        ],
+        "answer": 0,
+        "explanation": "La aceptación es condicional: ambas partes deben acordar el alcance."
       }
     ]
   },
@@ -1277,6 +1310,17 @@
         ],
         "answer": "Precisely. What alternative explanation should we examine",
         "explanation": "El orden original es: Precisely. What alternative explanation should we examine."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Deducción: Why might the reported figures be misleading?",
+        "options": [
+          "Changes in reporting could affect the numbers",
+          "Every figure is necessarily false",
+          "A causal mechanism has been proved"
+        ],
+        "answer": 0,
+        "explanation": "Una variación en el modo de registrar datos puede afectar la serie."
       }
     ]
   },
@@ -1387,6 +1431,17 @@
         ],
         "answer": "So your criticism is practical rather than ideological",
         "explanation": "El orden original es: So your criticism is practical rather than ideological."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Deducción: Does the writer oppose the goal itself?",
+        "options": [
+          "No, the main concern is implementation",
+          "Yes, the goal is described as worthless",
+          "The goal was not mentioned"
+        ],
+        "answer": 0,
+        "explanation": "Reconoce que la meta vale la pena y cuestiona el cronograma."
       }
     ]
   },
@@ -1495,6 +1550,17 @@
         ],
         "answer": "Yes, prompt written notice is required",
         "explanation": "El orden original es: Yes, prompt written notice is required."
+      },
+      {
+        "type": "mcq",
+        "prompt": "Deducción: Why does the director want to revise the clause?",
+        "options": [
+          "To remove ambiguity about two conditions",
+          "To remove all supplier obligations",
+          "To avoid written notification"
+        ],
+        "answer": 0,
+        "explanation": "Aclarar control razonable y notificación escrita reduce ambigüedad."
       }
     ]
   }
