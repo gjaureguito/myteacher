@@ -33,4 +33,4 @@ try {
     $pdo->commit();
 } catch (Throwable $e) { $pdo->rollBack(); throw $e; }
 $solved = array_sum(array_column($state,'solved'));
-json_out(['correct'=>$correct,'explanation'=>$question['explanation'],'answer'=>$correct ? ($question['type']==='mcq' ? $question['options'][$question['answer']] : $question['answer']) : null,'solved'=>$solved,'total'=>count($scene['questions']),'score'=>$solved*20]);
+json_out(['correct'=>$correct,'explanation'=>$question['explanation'],'answer'=>$correct ? ($question['type']==='mcq' ? $question['options'][$question['answer']] : $question['answer']) : null,'solved'=>$solved,'total'=>count($scene['questions']),'score'=>count($scene['questions']) ? (int) round($solved*100/count($scene['questions'])) : 0]);
