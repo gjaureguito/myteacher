@@ -18,6 +18,13 @@
  {id:'informations',re:/\\b(?:many|several|two|three|an)\\s+informations?\\b/gi,label:'Information es incontable',why:'Information normalmente no tiene plural contable en inglés general.',suggest:'Ejemplo: some information o two pieces of information.',good:'We need more information.'},
  {id:'double-space',re:/ {2,}/g,label:'Espacios repetidos',why:'En textos formales se recomienda un solo espacio entre palabras.',suggest:'Eliminá los espacios duplicados.'}
  ];
+ const replacements={
+ 'dont':'don’t','doesnt':'doesn’t','cant':'can’t','im':'I’m','more-better':'better',
+ 'a-vowel':m=>m.replace(/^a\\s+/i,'an '),'an-consonant':m=>m.replace(/^an\\s+/i,'a '),
+ 'did-past':m=>m.replace(/\\b(went|saw|bought|took|wrote|made|had|said)\\b/i,w=>({went:'go',saw:'see',bought:'buy',took:'take',wrote:'write',made:'make',had:'have',said:'say'})[w.toLowerCase()]||w),
+ 'did-not':m=>m.replace(/\\b(went|saw|bought|took|wrote|made|had|said)\\b/i,w=>({went:'go',saw:'see',bought:'buy',took:'take',wrote:'write',made:'make',had:'have',said:'say'})[w.toLowerCase()]||w),
+ 'double-space':' '
+ };
  const cap=14;
  document.querySelectorAll('.scene-writing-lab').forEach(lab=>{
   const field=lab.querySelector('textarea');
@@ -51,6 +58,26 @@
     const why=document.createElement('p');why.textContent=r.why;
     const suggestion=document.createElement('p');suggestion.textContent='Sugerencia: '+r.suggest;
     li.append(heading,why,suggestion);
+    const replacement=replacements[r.id];
+    if(replacement){
+      const apply=document.createElement('button');apply.type='button';apply.textContent='Aplicar sugerencia';
+      apply.addEventListener('click',()=>{
+        const re=rules.find(rule=>rule.id===r.id)?.re;
+        if(!re)return;
+        re.lastIndex=0;
+        const found=re.exec(field.value);
+        if(!found){apply.disabled=true;apply.textContent='El texto cambió; volvé a revisar';return;}
+        const old=field.value;
+        const proposed=typeof replacement==='function'?replacement(found[0]):replacement;
+        const next=old.slice(0,found.index)+proposed+old.slice(found.index+found[0].length);
+        if(next===old)return;
+        field.value=next;field.dispatchEvent(new Event('input',{bubbles:true}));
+        const undo=document.createElement('button');undo.type='button';undo.textContent='Deshacer';
+        undo.addEventListener('click',()=>{if(field.value===next){field.value=old;field.dispatchEvent(new Event('input',{bubbles:true}));}undo.remove();});
+        li.append(undo);apply.disabled=true;
+      });
+      li.append(apply);
+    }
     if(r.good){const good=document.createElement('p');good.textContent='Ejemplo correcto: '+r.good;li.append(good);}
     list.append(li);
    });results.append(list);
