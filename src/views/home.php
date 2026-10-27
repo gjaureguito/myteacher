@@ -1,28 +1,201 @@
 <?php
-$tracks=learning_tracks(); $liveScenes=[];
-foreach(scenes() as $item){$su=q_one('SELECT id FROM units WHERE slug=? AND is_published=1',[$item['unit']]);if($su)$liveScenes[]=$item+['unit_id'=>(int)$su['id']];}
-$sceneCount=count($liveScenes);
+$tracks = learning_tracks();
+$liveScenes = [];
+foreach (scenes() as $item) {
+    $su = q_one('SELECT id FROM units WHERE slug=? AND is_published=1', [$item['unit']]);
+    if ($su) $liveScenes[] = $item + ['unit_id' => (int) $su['id']];
+}
+$sceneCount = count($liveScenes);
+$sceneActivities = array_sum(array_map(fn($s) => count($s['questions']), $liveScenes));
+
+// En la portada mostramos dos situaciones por categoría principal; el catálogo completo vive en /situations.php.
+$featuredScenes = [];
+$perCategory = [];
+foreach ($liveScenes as $item) {
+    $cat = $item['category'] ?? 'Vida diaria';
+    if (!in_array($cat, ['Vida diaria', 'Viajes', 'Trabajo'], true)) continue;
+    if (($perCategory[$cat] ?? 0) >= 2) continue;
+    $perCategory[$cat] = ($perCategory[$cat] ?? 0) + 1;
+    $featuredScenes[] = $item;
+}
+
+$user = current_user();
+$startUrl = $user ? '/dashboard.php' : '/register.php';
+$startLabel = $user ? 'Ir a mis niveles' : 'Empezar gratis';
 ?>
-<div class="mt-welcome-band"><div class="wrap"><strong>Empezá a aprender hoy</strong><span>Probá la primera unidad de cada nivel sin pagar ni ingresar una tarjeta.</span><a href="/register.php">Explorar gratis <span aria-hidden="true">↗</span></a></div></div>
-<section class="mt-hero mt-academy-hero mtp-premium-hero"><div class="wrap mt-hero-grid">
-<div class="mt-hero-visual"><div class="mt-photo-frame"><img src="https://images.pexels.com/photos/3807755/pexels-photo-3807755.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1280" width="1280" height="853" alt="Estudiante concentrada escribiendo en un cuaderno junto a su computadora en un espacio luminoso." fetchpriority="high" decoding="async"></div><div class="mt-academy-photo-caption"><strong>Tu próximo logro empieza estudiando.</strong><span>Aprendé desde donde estés, a tu propio ritmo.</span></div></div>
-<div class="mt-hero-copy"><p class="mt-kicker"><span></span>INGLÉS PARA TUS PRÓXIMAS OPORTUNIDADES</p><h1>Aprender inglés puede ser<br><span>mucho más simple.</span></h1><p>Contenidos organizados, explicaciones claras como en un libro, ejercicios interactivos y audio para practicar listening. Todo en un mismo lugar.</p><div class="mt-hero-actions"><a class="btn btn-lg" href="/register.php">Probar gratis →</a><a class="mt-hero-secondary" href="/program.php">Conocer el programa ↗</a></div><ul class="mt-hero-benefits"><li>Libros y contenidos organizados de A1 a C2</li><li>Correcciones explicadas, no solo respuestas</li><li>Audio, situaciones reales y práctica interactiva</li></ul><p class="mt-hero-reassurance">Cuenta gratuita sin tarjeta · Estudiá desde tu celular o computadora</p></div>
-<aside class="mt-enroll-card" aria-label="Empezar en MyTeacher"><span class="mt-badge">TU ESPACIO DE ESTUDIO</span><h2>Empezá a aprender<br>con MyTeacher</h2><p>No necesitás saber inglés para dar el primer paso.</p><ol><li><b>1</b><span>Creá tu cuenta gratis.</span></li><li><b>2</b><span>Elegí un nivel o hacé el test orientativo.</span></li><li><b>3</b><span>Leé, practicá y retomá tu avance.</span></li></ol><a class="btn btn-lg" href="/register.php">Empezar gratis →</a><a class="mt-enroll-login" href="/login.php">Ya tengo cuenta · Ingresar</a><p class="fine">Sin tarjeta. Programa de estudio autónomo.</p></aside>
-</div></section>
-<section class="mt-demo-band" aria-label="Ejercicio de prueba"><div class="wrap"><div><p class="eyebrow">PROBÁ UNA ACTIVIDAD</p><h2>Probá cómo se aprende en MyTeacher.</h2><p>Elegí una respuesta y descubrí por qué es correcta. La práctica empieza acá.</p></div><div class="mt-hero-quiz"><div class="mt-quiz-header"><span class="mt-badge">PRÁCTICA RÁPIDA · A1</span></div><p lang="en">My brother <span id="demo-gap">___</span> to work by bus.</p><div class="options" id="demo-opts"><button class="opt" data-ok="0">go</button><button class="opt" data-ok="1">goes</button><button class="opt" data-ok="0">going</button></div><p id="demo-fb" aria-live="polite">Probá una respuesta. Así empieza tu práctica.</p></div></div></section>
-<section class="academic-facts mt-facts" aria-label="Lo que podés explorar"><div class="wrap"><p><strong><?= count($levels) ?></strong><span>Niveles de práctica</span></p><p><strong><?= (int)$counts['units'] ?></strong><span>Unidades publicadas</span></p><p><strong><?= (int)$workshopCount ?></strong><span>Talleres de aplicación</span></p><p><strong><?= (int)$sampleCount ?></strong><span>Lecturas abiertas</span></p><p class="mt-facts-note"><span class="mt-dot"></span>Un recorrido que conecta<br><strong>aprender con hacer.</strong></p></div></section>
-<section class="wrap mt-section" id="experiencia"><div class="mt-section-head"><div><p class="eyebrow">MÁS QUE ESTUDIAR UNA REGLA</p><h2>Practicá lo que vas<br>a <span>usar de verdad.</span></h2></div><p>Escuchá cómo suena. Entendé qué significa. Ponelo a prueba. Cada actividad tiene un propósito y una próxima acción clara.</p></div><div class="mt-feature-grid"><article class="mt-feature mt-feature-primary"><span class="mt-feature-icon" aria-hidden="true">Aa</span><span class="mt-badge">CONTEXTO PRIMERO</span><h3>Situaciones que<br>te resultan familiares.</h3><p>Pedí un café, encontrá una estación o hablá de tu trabajo. Trabajá con fotos, diálogos y traducción opcional al español.</p><a href="/situations.php">Encontrar mi primera situación ↗</a></article><article class="mt-feature"><span class="mt-feature-icon" aria-hidden="true"><span class="mt-audio-icon"><i></i><i></i><i></i><i></i><i></i></span></span><h3>Escuchá. Repetí.<br>Ganá confianza.</h3><p>Audio en inglés a dos velocidades, transcripción por frase y práctica de pronunciación en navegadores compatibles.</p><span class="mt-feature-foot">Listening + speaking</span></article><article class="mt-feature"><span class="mt-feature-icon" aria-hidden="true"><span class="mt-correct-icon">✓</span></span><h3>Entendé el error.<br>Probá otra vez.</h3><p>Comprobá tus respuestas, leé la explicación y volvé a intentarlo. Los aciertos y el progreso se guardan en tu cuenta.</p><span class="mt-feature-foot">Corrección + seguimiento</span></article></div></section>
-<section class="mt-study-band" aria-labelledby="study-title"><div class="wrap mt-study-grid">
-  <figure class="mt-study-image"><img src="https://images.pexels.com/photos/5554242/pexels-photo-5554242.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1100" width="1100" height="733" alt="Estudiante universitario repasando apuntes junto a su computadora portátil al aire libre." loading="lazy" decoding="async"><div class="mt-study-label"><span aria-hidden="true">Aa</span><div><strong>Tu espacio para aprender.</strong><small>Leé · escuchá · ponelo en práctica</small></div></div><figcaption>Fotografía ilustrativa de estudiantes.</figcaption></figure>
-  <div class="mt-study-copy"><p class="eyebrow">UN LIBRO. MUCHAS FORMAS DE AVANZAR.</p><h2 id="study-title">La teoría que entendés.<br><span>La práctica que necesitás.</span></h2><p>Sentate a estudiar con una explicación que podés seguir. Explorá ejemplos paso a paso, resolvé las actividades y llevá lo aprendido a tus propias conversaciones.</p><ul class="mt-study-points"><li>Teoría en castellano</li><li>Soluciones comentadas</li><li>Práctica a tu ritmo</li></ul><a class="btn" href="/book.php">Explorar los libros de estudio ↗</a><p class="fine">Con tu cuenta gratuita podés leer el primer capítulo de cada nivel.</p></div>
-</div></section>
-<section class="mt-situations-band"><div class="wrap mt-section" id="situaciones"><div class="mt-section-head"><div><p class="eyebrow">REAL LIFE ENGLISH / A1–C2</p><h2>Tu próximo «I can»<br><span>empieza acá.</span></h2></div><a class="mt-text-link" href="/situations.php">Ver las <?= $sceneCount ?> situaciones ↗</a></div><div class="mt-filter" role="group" aria-label="Elegí una situación"><button type="button" class="is-active" aria-pressed="true" data-goal="all">Explorar todo</button><button type="button" aria-pressed="false" data-goal="Vida diaria">Mi día a día</button><button type="button" aria-pressed="false" data-goal="Viajes">Viajes</button><button type="button" aria-pressed="false" data-goal="Trabajo">Trabajo</button></div><div class="mt-scene-grid" data-scene-catalog>
-<?php foreach($liveScenes as $item): ?>
-<article class="mt-scene-card" data-category="<?= e($item['category']??'Vida diaria') ?>"><a href="<?= current_user()?'/unit.php?id='.$item['unit_id'].'#t-practice':'/situations.php#lesson-'.e($item['id']) ?>"><div class="mt-scene-image"><?php if (!empty($item['visual'])): ?><span class="mt-scene-illustration" role="img" aria-label="<?= e($item['alt']) ?>"><?= e($item['visual']) ?></span><?php else: ?><img src="/assets/images/scene-<?= e($item['id']) ?><?php endif; ?>.jpg" alt="<?= e($item['alt']) ?>" width="1000" height="667" loading="lazy"><span class="mt-scene-level"><?= e($item['level']) ?></span><span class="mt-scene-play" aria-hidden="true">↗</span></div><div class="mt-scene-copy"><p><?= e($item['category']??'Vida diaria') ?> · <?= count($item['questions']) ?> actividades</p><h3><?= e($item['title']) ?></h3><span><?= e($item['goal']??'Escuchar, comprender y responder en inglés.') ?></span><div class="mt-scene-footer"><span>Diálogo + audio + práctica</span><b aria-hidden="true">→</b></div></div></a></article>
+<div class="mh">
+
+<section class="mh-hero" aria-labelledby="mh-title">
+  <div class="wrap mh-hero-grid">
+    <div class="mh-hero-copy">
+      <p class="mh-eyebrow">Inglés para la vida real · A1 a C2</p>
+      <h1 id="mh-title">Aprendé el inglés que <span class="mh-hl">vas a usar</span>.</h1>
+      <p class="mh-lead">Teoría clara en castellano, situaciones reales con audio y ejercicios que te explican por qué te equivocaste. Todo en un mismo lugar, a tu ritmo.</p>
+      <div class="mh-actions">
+        <a class="mh-btn mh-btn-primary" href="<?= $startUrl ?>"><?= $startLabel ?> <span aria-hidden="true">→</span></a>
+        <a class="mh-btn mh-btn-ghost" href="#como-funciona">Ver cómo funciona</a>
+      </div>
+      <p class="mh-note">Cuenta gratuita sin tarjeta · Desde el celular o la computadora</p>
+    </div>
+
+    <div class="mh-practice" data-mh-practice>
+      <div class="mh-practice-top">
+        <span class="mh-chip" data-mh-level>Práctica · A1</span>
+        <span class="mh-dots" aria-hidden="true"><i class="on"></i><i></i><i></i></span>
+      </div>
+      <p class="mh-sentence" lang="en" data-mh-sentence>My brother <span class="mh-blank">___</span> to work by bus.</p>
+      <div class="mh-options" data-mh-options role="group" aria-label="Opciones de respuesta">
+        <button type="button" class="mh-opt">go</button><button type="button" class="mh-opt">goes</button><button type="button" class="mh-opt">going</button>
+      </div>
+      <div class="mh-feedback" data-mh-feedback aria-live="polite"><strong>Elegí una respuesta.</strong> Así se practica en MyTeacher: respondés y ves la explicación.</div>
+      <div class="mh-practice-foot">
+        <span>Probalo acá, sin registrarte</span>
+        <button type="button" class="mh-next" data-mh-next hidden>Siguiente pregunta →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mh-stats" aria-label="MyTeacher en números">
+  <div class="wrap mh-stats-row">
+    <p><strong><?= (int) $counts['units'] ?></strong><span>unidades publicadas</span></p>
+    <p><strong><?= number_format((int) $counts['exercises'], 0, ',', '.') ?></strong><span>ejercicios con corrección</span></p>
+    <p><strong><?= $sceneCount ?></strong><span>situaciones con audio</span></p>
+    <p><strong><?= count($levels) ?></strong><span>niveles, de A1 a C2</span></p>
+  </div>
+</section>
+
+<section class="mh-band" id="como-funciona" aria-labelledby="mh-how">
+  <div class="wrap">
+    <div class="mh-head">
+      <p class="mh-eyebrow">Cómo funciona</p>
+      <h2 id="mh-how">De «lo entiendo» a «lo puedo usar».</h2>
+      <p class="mh-lead">No necesitás saber inglés para dar el primer paso. Trabajás una habilidad a la vez, con explicaciones en castellano y práctica en inglés.</p>
+    </div>
+    <ol class="mh-steps">
+      <li><span class="mh-step-n">Paso 1</span><h3>Encontrá tu punto de partida</h3><p>Creá tu cuenta gratis y empezá desde A1 o hacé el test orientativo.</p></li>
+      <li><span class="mh-step-n">Paso 2</span><h3>Practicá con una situación</h3><p>Leé el diálogo, escuchá el audio y consultá la traducción cuando la necesites.</p></li>
+      <li><span class="mh-step-n">Paso 3</span><h3>Comprobá y seguí avanzando</h3><p>Resolvé, revisá la explicación y retomá tu progreso donde lo dejaste.</p></li>
+    </ol>
+    <div class="mh-features">
+      <article><span class="mh-tag">Listening + speaking</span><h3>Escuchá. Repetí. Ganá confianza.</h3><p>Audio a dos velocidades, transcripción por frase y práctica de pronunciación en navegadores compatibles.</p></article>
+      <article><span class="mh-tag">Corrección explicada</span><h3>Entendé el error y probá otra vez.</h3><p>Cada respuesta muestra por qué es correcta. Tus aciertos y tu progreso quedan guardados en tu cuenta.</p></article>
+      <article><span class="mh-tag">Libros de estudio</span><h3>Teoría que podés seguir.</h3><p>Explicaciones en castellano, ejemplos paso a paso y soluciones comentadas. <a href="/book.php">Ver los libros →</a></p></article>
+    </div>
+  </div>
+</section>
+
+<section class="mh-band mh-alt" id="situaciones" aria-labelledby="mh-sit">
+  <div class="wrap">
+    <div class="mh-head">
+      <p class="mh-eyebrow">Real Life English</p>
+      <h2 id="mh-sit">Tu próximo «I can» empieza acá.</h2>
+      <p class="mh-lead">Pedí un café, encontrá la estación o discutí un proyecto. Cada situación trae diálogo, audio y actividades.</p>
+    </div>
+    <div class="mh-filters" role="group" aria-label="Filtrar situaciones">
+      <button type="button" class="is-active" aria-pressed="true" data-goal="all">Todas</button>
+      <button type="button" aria-pressed="false" data-goal="Vida diaria">Mi día a día</button>
+      <button type="button" aria-pressed="false" data-goal="Viajes">Viajes</button>
+      <button type="button" aria-pressed="false" data-goal="Trabajo">Trabajo</button>
+    </div>
+    <div class="mh-scenes" data-scene-catalog>
+<?php foreach ($featuredScenes as $item): $lines = array_slice($item['lines'] ?? [], 0, 2); ?>
+      <a class="mh-scene" data-category="<?= e($item['category'] ?? 'Vida diaria') ?>" href="<?= $user ? '/unit.php?id=' . $item['unit_id'] . '#t-practice' : '/situations.php#lesson-' . e($item['id']) ?>">
+        <span class="mh-scene-meta"><span class="mh-chip"><?= e($item['level']) ?></span><span><?= e($item['category'] ?? 'Vida diaria') ?> · <?= count($item['questions']) ?> actividades</span></span>
+        <span class="mh-bubbles" lang="en">
+<?php foreach ($lines as $i => $line): ?>
+          <span class="mh-bubble<?= $i % 2 ? ' me' : '' ?>"><b><?= e($line['speaker'] ?? '') ?></b><?= e($line['en'] ?? '') ?></span>
 <?php endforeach; ?>
-</div><p class="mt-catalog-count" data-catalog-count aria-live="polite"><?= $sceneCount ?> situaciones para explorar.</p></div></section>
-<section class="wrap mt-section mt-method" id="metodo"><div><p class="eyebrow">UN MÉTODO QUE PODÉS HACER TUYO</p><h2>De «lo entiendo»<br>a <span>«lo puedo usar».</span></h2><p>No necesitás resolver todo de una vez. Elegí una unidad y trabajá una habilidad a la vez, con explicaciones en castellano y práctica en inglés.</p><a class="btn" href="/program.php">Conocer el programa ↗</a><div class="mt-skill-tags"><span>Grammar</span><span>Vocabulary</span><span>Listening</span><span>Reading</span><span>Speaking</span><span>Writing</span></div></div><ol class="mt-method-steps"><li><span>01</span><div><h3>Encontrá tu punto de partida.</h3><p>Empezá desde A1 o hacé el test orientativo al crear tu cuenta.</p></div></li><li><span>02</span><div><h3>Practicá con una situación.</h3><p>Explorá el diálogo, escuchá el audio y consultá la traducción cuando la necesites.</p></div></li><li><span>03</span><div><h3>Comprobá y seguí avanzando.</h3><p>Comprensión, completar, ordenar y vocabulario: resolvé, revisá y retomá tu progreso.</p></div></li></ol></section>
-<section class="mt-levels-band"><div class="wrap mt-section"><div class="mt-section-head"><div><p class="eyebrow">UN RECORRIDO, DISTINTOS PUNTOS DE PARTIDA</p><h2>Hay un próximo paso<br><span>para tu inglés.</span></h2></div><a class="mt-text-link" href="/program.php">Explorar los niveles ↗</a></div><div class="mt-levels-grid"><?php foreach($levels as $lv): $track=$tracks[$lv['code']]; ?><a class="track-row" href="/program.php#program-<?= e($lv['code']) ?>"><span class="mt-level-code"><?= e(strtoupper($lv['code'])) ?></span><h3><?= e($lv['name']) ?></h3><p><?= e($track[1]) ?></p><span class="mt-level-arrow" aria-hidden="true">↗</span></a><?php endforeach; ?></div><p class="fine">Los niveles organizan el catálogo de práctica A1–C2. El recorrido no es una certificación de dominio del idioma.</p></div></section>
-<section class="wrap mt-section" id="precio"><div class="mt-section-head"><div><p class="eyebrow">UNA DECISIÓN SIMPLE</p><h2>Probalo primero.<br><span>Elegí cómo seguir.</span></h2></div><p>Creá tu cuenta sin tarjeta y conocé la experiencia antes de contratar. El precio del programa completo está siempre a la vista.</p></div><div class="mt-pricing-grid"><article class="mt-plan mt-plan-free"><span class="mt-badge">PARA DAR EL PRIMER PASO</span><h3>Empezá gratis.</h3><p>Conocé el método y encontrá tu punto de partida.</p><p class="mt-price">$0<span>Sin tarjeta</span></p><ul><li>Primera unidad de cada nivel</li><li>Test de nivel orientativo</li><li><?= (int)$sampleCount ?> lecturas abiertas</li><li>Práctica y seguimiento en la demo</li></ul><a class="btn btn-ghost" href="/register.php">Crear cuenta gratis ↗</a></article><article class="mt-plan mt-plan-full"><div class="mt-plan-ribbon">EL RECORRIDO COMPLETO</div><span class="mt-badge">MYTEACHER COMPLETO</span><h3>Hacé lugar a tu inglés.</h3><p>Un solo plan, para aprender y practicar a tu ritmo.</p><p class="mt-price"><?= money_ars(plan_price()) ?><span>ARS / mes</span></p><ul><li><?= (int)$counts['units'] ?> unidades · <?= (int)$counts['exercises'] ?> ejercicios de base</li><li><?= $sceneCount ?> situaciones multimedia · <?= $sceneCount*5 ?> actividades</li><li><?= (int)$workshopCount ?> talleres de lectura y escritura</li><li>Audio, pronunciación y soluciones explicadas</li><li>Progreso y estadísticas en tu cuenta</li></ul><a class="btn" href="<?= current_user()?'/account.php':'/register.php' ?>">Quiero el programa completo ↗</a><p class="fine">Cobro mensual por Mercado Pago. Podés cancelar desde Mi cuenta. El acceso continúa hasta el final del período pago.</p></article></div></section>
-<section class="wrap mt-section mt-faq" id="preguntas"><div><p class="eyebrow">ANTES DE EMPEZAR</p><h2>Todo claro.<br><span>Desde el principio.</span></h2><p>Una experiencia de práctica autónoma, con herramientas concretas para avanzar.</p></div><div><details><summary>¿Puedo empezar si no sé nada de inglés?</summary><p>Sí. A1 comienza con presentaciones, rutinas y situaciones simples. Las explicaciones están en castellano y podés activar la traducción en los diálogos multimedia.</p></details><details><summary>¿Qué incluye la cuenta gratuita?</summary><p>La primera unidad de cada nivel, el test orientativo y las lecturas abiertas de la biblioteca. No necesitás tarjeta ni se inicia una suscripción al registrarte.</p></details><details><summary>¿Cómo se corrigen los ejercicios?</summary><p>Las preguntas cerradas se corrigen automáticamente y muestran explicaciones. La escritura guiada usa modelos y listas de revisión; no equivale a una corrección docente.</p></details><details><summary>¿Hay clases en vivo o profesores particulares?</summary><p>El programa actual es de estudio autónomo. Incluye práctica con audio, pronunciación en navegadores compatibles y actividades con corrección. No incluye clases en vivo ni tutoría docente.</p></details><details><summary>¿Puedo practicar desde el celular?</summary><p>Sí. La página se adapta a tu pantalla. El audio y el reconocimiento de voz dependen de las funciones y permisos del navegador. En Chrome para Windows, la ayuda del micrófono ofrece abrir la misma página en Edge.</p></details><details><summary>¿Cómo cancelo la suscripción?</summary><p>Desde Mi cuenta. Conservás el acceso hasta terminar el período ya pagado.</p></details></div></section>
-<section class="mt-closing"><div class="wrap"><span class="mt-kicker">TU PRÓXIMA CONVERSACIÓN EMPIEZA HOY</span><h2>Más oportunidades.<br><span>Más vos, en inglés.</span></h2><a class="btn btn-lg" href="/register.php">Empezar gratis ↗</a><p>Sin tarjeta. Con un próximo paso claro.</p></div></section>
+        </span>
+        <span class="mh-scene-title"><?= e($item['title']) ?></span>
+        <span class="mh-scene-goal"><?= e($item['goal'] ?? 'Escuchar, comprender y responder en inglés.') ?></span>
+        <span class="mh-scene-foot">Diálogo + audio + práctica <span aria-hidden="true">→</span></span>
+      </a>
+<?php endforeach; ?>
+    </div>
+    <div class="mh-more">
+      <p data-catalog-count aria-live="polite"><?= count($featuredScenes) ?> situaciones destacadas de <?= $sceneCount ?>.</p>
+      <a class="mh-btn mh-btn-ghost" href="/situations.php">Ver las <?= $sceneCount ?> situaciones →</a>
+    </div>
+  </div>
+</section>
+
+<section class="mh-band" id="niveles" aria-labelledby="mh-lv">
+  <div class="wrap">
+    <div class="mh-head">
+      <p class="mh-eyebrow">Un recorrido, distintos puntos de partida</p>
+      <h2 id="mh-lv">Hay un próximo paso para tu inglés.</h2>
+    </div>
+    <div class="mh-ladder">
+<?php foreach ($levels as $lv): $track = $tracks[$lv['code']] ?? ['', '']; ?>
+      <a class="mh-rung" href="/program.php#program-<?= e($lv['code']) ?>"><code><?= e(strtoupper($lv['code'])) ?></code><b><?= e($lv['name']) ?></b><span><?= e($track[1]) ?></span></a>
+<?php endforeach; ?>
+    </div>
+    <p class="mh-small">Los niveles organizan el catálogo de práctica A1–C2. El recorrido no es una certificación de dominio del idioma.</p>
+  </div>
+</section>
+
+<section class="mh-band mh-alt" id="precio" aria-labelledby="mh-price">
+  <div class="wrap">
+    <div class="mh-head">
+      <p class="mh-eyebrow">Precio</p>
+      <h2 id="mh-price">Probalo primero. Elegí cómo seguir.</h2>
+      <p class="mh-lead">Creá tu cuenta sin tarjeta y conocé la experiencia antes de contratar.</p>
+    </div>
+    <div class="mh-plans">
+      <article class="mh-plan">
+        <p class="mh-eyebrow">Para dar el primer paso</p>
+        <h3>Cuenta gratuita</h3>
+        <p class="mh-price">$0 <small>sin tarjeta</small></p>
+        <ul>
+          <li>Primera unidad de cada nivel</li>
+          <li>Test de nivel orientativo</li>
+          <li><?= (int) $sampleCount ?> lecturas abiertas de la biblioteca</li>
+          <li>Práctica y seguimiento en la demo</li>
+        </ul>
+        <a class="mh-btn mh-btn-ghost" href="<?= $startUrl ?>"><?= $user ? 'Ir a mis niveles' : 'Crear cuenta gratis' ?></a>
+      </article>
+      <article class="mh-plan mh-plan-pro">
+        <p class="mh-eyebrow">El recorrido completo</p>
+        <h3>MyTeacher Completo</h3>
+        <p class="mh-price"><?= money_ars(plan_price()) ?> <small>ARS / mes</small></p>
+        <ul>
+          <li><?= (int) $counts['units'] ?> unidades y <?= number_format((int) $counts['exercises'], 0, ',', '.') ?> ejercicios de base</li>
+          <li><?= $sceneCount ?> situaciones multimedia con <?= $sceneActivities ?> actividades</li>
+          <li><?= (int) $workshopCount ?> talleres de lectura y escritura</li>
+          <li>Audio, pronunciación y soluciones explicadas</li>
+          <li>Progreso y estadísticas en tu cuenta</li>
+        </ul>
+        <a class="mh-btn mh-btn-primary" href="<?= $user ? '/account.php' : '/register.php' ?>">Quiero el programa completo →</a>
+        <p class="mh-small">Cobro mensual por Mercado Pago. Cancelás desde Mi cuenta y conservás el acceso hasta el final del período pago.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="mh-band" id="preguntas" aria-labelledby="mh-faq">
+  <div class="wrap mh-faq">
+    <div class="mh-head">
+      <p class="mh-eyebrow">Preguntas frecuentes</p>
+      <h2 id="mh-faq">Todo claro desde el principio.</h2>
+    </div>
+    <div>
+      <details open><summary>¿Puedo empezar si no sé nada de inglés?</summary><p>Sí. A1 comienza con presentaciones, rutinas y situaciones simples. Las explicaciones están en castellano y podés activar la traducción en los diálogos multimedia.</p></details>
+      <details><summary>¿Qué incluye la cuenta gratuita?</summary><p>La primera unidad de cada nivel, el test orientativo y las lecturas abiertas de la biblioteca. No necesitás tarjeta ni se inicia una suscripción al registrarte.</p></details>
+      <details><summary>¿Cómo se corrigen los ejercicios?</summary><p>Las preguntas cerradas se corrigen automáticamente y muestran explicaciones. La escritura guiada usa modelos y listas de revisión; no equivale a una corrección docente.</p></details>
+      <details><summary>¿Hay clases en vivo o profesores particulares?</summary><p>El programa actual es de estudio autónomo. Incluye práctica con audio, pronunciación en navegadores compatibles y actividades con corrección. No incluye clases en vivo ni tutoría docente.</p></details>
+      <details><summary>¿Puedo practicar desde el celular?</summary><p>Sí. La página se adapta a tu pantalla. El audio y el reconocimiento de voz dependen de las funciones y permisos del navegador. En Chrome para Windows, la ayuda del micrófono ofrece abrir la misma página en Edge.</p></details>
+      <details><summary>¿Cómo cancelo la suscripción?</summary><p>Desde Mi cuenta. Conservás el acceso hasta terminar el período ya pagado.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="mh-closing">
+  <div class="wrap mh-closing-in">
+    <h2>Tu próxima conversación en inglés empieza hoy.</h2>
+    <a class="mh-btn mh-btn-light" href="<?= $startUrl ?>"><?= $startLabel ?> →</a>
+  </div>
+</section>
+
+</div>
+<script src="/assets/home.js?v=1" defer></script>
