@@ -47,6 +47,14 @@
             <input type="number" name="days" value="30" min="1" max="365" style="width:70px" aria-label="Días">
             <button class="btn btn-sm btn-ghost">Dar acceso</button>
           </form>
+          <form method="post" class="inline" onsubmit="return confirm('¿Generar una contraseña nueva para <?= e($x['email']) ?>? La actual deja de funcionar.')"><?= csrf_field() ?>
+            <input type="hidden" name="user_id" value="<?= (int) $x['id'] ?>"><input type="hidden" name="action" value="newpass">
+            <button class="linkbtn">Nueva contraseña</button>
+          </form>
+          <form method="post" class="inline"><?= csrf_field() ?>
+            <input type="hidden" name="user_id" value="<?= (int) $x['id'] ?>"><input type="hidden" name="action" value="sendlink">
+            <button class="linkbtn">Enviar enlace de recuperación</button>
+          </form>
           <?php if ($x['access_until']): ?>
           <form method="post" class="inline" onsubmit="return confirm('¿Quitar el acceso?')"><?= csrf_field() ?>
             <input type="hidden" name="user_id" value="<?= (int) $x['id'] ?>"><input type="hidden" name="action" value="revoke">

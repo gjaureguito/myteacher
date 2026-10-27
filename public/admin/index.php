@@ -43,6 +43,27 @@ if (is_post()) {
             redirect('/admin/?s=' . urlencode($email));
         }
         redirect('/admin/');
+    } elseif ($action === 'newpass' || $action === 'sendlink') {
+        require_once ROOT . '/src/mailer.php';
+        require_once ROOT . '/src/password_reset.php';
+        $target = q_one('SELECT * FROM users WHERE id = ?', [$uid]);
+        if (!$target) {
+            flash('error', 'No encontramos ese usuario.');
+        } elseif ($action === 'sendlink') {
+            $ok = mail_configured() && pr_send_email($target, pr_create($uid));
+            flash($ok ? 'ok' : 'error', $ok
+                ? "Le enviamos a {$target['email']} un enlace para elegir una contraseña nueva (vence en 60 minutos)."
+                : 'No pudimos enviar el email. Revisá BREVO_API_KEY o RESEND_API_KEY y MAIL_FROM en Railway, o usá «Nueva contraseña».');
+            log_line("Admin {$admin['email']} envió enlace de recuperación a {$target['email']}");
+        } else {
+            $password = rtrim(strtr(base64_encode(random_bytes(9)), '+/', 'kq'), '=');
+            pr_table();
+            q('UPDATE users SET password_hash = ? WHERE id = ?', [password_hash($password, PASSWORD_DEFAULT), $uid]);
+            q('UPDATE password_resets SET used_at = ? WHERE user_id = ? AND used_at IS NULL', [now_utc(), $uid]);
+            throttle_clear((string) $target['email']);
+            log_line("Admin {$admin['email']} generó una contraseña nueva para {$target['email']}");
+            flash('ok', "Contraseña nueva para {$target['email']}: $password — compartila ahora, no se vuelve a mostrar. El alumno puede cambiarla después con «¿Olvidaste tu contraseña?».");
+        }
     } elseif ($action === 'revoke') {
         q("UPDATE users SET access_until = NULL, sub_status = 'none' WHERE id = ?", [$uid]);
         flash('ok', 'Acceso quitado.');
