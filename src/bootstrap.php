@@ -27,7 +27,7 @@ if (is_file(ROOT . '/.env')) {
     }
 }
 
-const PLAN_PRICE = 50000;
+const PLAN_PRICE = 30000;
 
 function app_name(): string { $name = env('APP_NAME', 'MyTeacher'); return $name === 'InglésPro' ? 'MyTeacher' : $name; }
 function plan_price(): float
