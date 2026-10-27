@@ -509,7 +509,7 @@
     status('wait', 'Preparando el micrófono…');
     play('mic');
     recognize(target, {
-      onStart: () => { setLab(' Te escucho'); status('wait', 'Decí la frase en inglés. Cuando termines, se corta solo.'); },
+      onStart: () => { btn.classList.remove('is-busy'); btn.classList.add('is-listening'); setLab(' Te escucho'); status('wait', 'Decí la frase en inglés. Cuando termines, se corta solo.'); },
       onSearching: () => status('wait', 'Buscando un micrófono que funcione…'),
       onLevel: v => btn.style.setProperty('--mic-level', v.toFixed(2)),
       onProcessing: () => { btn.classList.remove('is-listening'); btn.classList.add('is-busy'); setLab(' Analizando…'); status('wait', 'Analizando tu pronunciación…'); },

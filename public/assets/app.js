@@ -362,7 +362,7 @@
         rec.classList.add('is-listening'); rec.textContent = '🎙️ Preparando…';
         window.ipPlay && ipPlay('mic');
         window.ipRecognize(li.querySelector('.say-target')?.textContent || '', {
-          onStart: () => { rec.textContent = '🔴 Te escucho… (tocá para terminar)'; },
+          onStart: () => { rec.classList.remove('is-busy'); rec.classList.add('is-listening'); rec.textContent = '🔴 Te escucho… (tocá para terminar)'; },
           onSearching: () => { rec.textContent = '🔎 Buscando micrófono…'; },
           onLevel: v => rec.style.setProperty('--mic-level', v.toFixed(2)),
           onProcessing: () => { rec.classList.remove('is-listening'); rec.classList.add('is-busy'); rec.textContent = '⏳ Analizando…'; },
