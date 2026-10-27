@@ -283,10 +283,10 @@
   function showRescue() {
     if (rescue) { rescue.box.hidden = false; rescue.watch(); return; }
     const steps = isWindows ? [
-      'Tocá el botón azul. Se abre la configuración de Windows (si el navegador pregunta, elegí «Abrir»).',
-      'Activá «Acceso al micrófono».',
-      'Más abajo, activá «Permitir que las aplicaciones de escritorio accedan al micrófono».',
-      'Volvé a esta página: te avisamos solos cuando funcione.',
+      'Tocá «Descargar el reparador». Si el navegador pregunta si querés conservar el archivo, elegí «Conservar».',
+      'Abrí el archivo descargado. Si aparece «Windows protegió tu PC», tocá «Más información» y después «Ejecutar de todas formas».',
+      'Seguí los mensajes y tocá «Sí». Tarda menos de un minuto.',
+      'Cerrá el navegador, abrilo de nuevo y volvé a esta página.',
     ] : isMac ? [
       'Tocá el botón azul. Se abre Privacidad y seguridad › Micrófono.',
       'Activá el interruptor de ' + browser + '.',
@@ -295,19 +295,24 @@
       'Revisá que el micrófono esté conectado y que ningún otro programa lo esté usando.',
       'Volvé a esta página: te avisamos solos cuando funcione.',
     ];
-    const settingsUrl = isWindows ? 'ms-settings:privacy-microphone'
-      : isMac ? 'x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone' : '';
+    const settingsUrl = isMac ? 'x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone' : '';
 
     const status = el('p', { class: 'mtv-status', role: 'status' }, 'Esperando que habilites el micrófono…');
     const close = el('button', { type: 'button', class: 'mtv-close', 'aria-label': 'Cerrar' }, '×');
     const list = el('ol', {}, ...steps.map(t => el('li', {}, t)));
     const actions = el('div', { class: 'mtv-actions' });
-    if (settingsUrl) actions.append(el('a', { class: 'mtv-btn', href: settingsUrl }, isWindows ? 'Abrir el ajuste de Windows' : 'Abrir el ajuste del Mac'));
+    if (isWindows) {
+      actions.append(
+        el('a', { class: 'mtv-btn', href: '/descargas/Activar-microfono-MyTeacher.cmd', download: 'Activar-microfono-MyTeacher.cmd' }, 'Descargar el reparador'),
+        el('a', { class: 'mtv-link', href: 'ms-settings:privacy-microphone' }, 'Prefiero hacerlo a mano'));
+    } else if (settingsUrl) {
+      actions.append(el('a', { class: 'mtv-btn', href: settingsUrl }, 'Abrir el ajuste del Mac'));
+    }
     const tip = el('div', { class: 'mtv-tip' },
-      el('p', {}, el('b', {}, '¿Sigue sin funcionar? '), 'Tu antivirus puede estar bloqueando el micrófono. Abrí el antivirus (Kaspersky, ESET, Avast, AVG, Norton, Bitdefender, McAfee…), buscá «micrófono» y permití que ' + browser + ' lo use.'),
+      el('p', {}, el('b', {}, '¿Sigue sin funcionar? '), 'Tu antivirus puede estar bloqueando el micrófono' + (isWindows ? ' (el reparador te dice cuál tenés)' : '') + '. Abrí el antivirus (Kaspersky, ESET, Avast, AVG, Norton, Bitdefender, McAfee…), buscá «micrófono» y permití que ' + browser + ' lo use.'),
       el('p', {}, 'Si tenés abierto Zoom, Teams, Meet o Discord, cerralos: a veces se quedan con el micrófono.'));
     const box = el('section', { class: 'mtv-rescue', role: 'dialog', 'aria-live': 'polite', 'aria-label': 'Activar el micrófono' },
-      close, el('h3', {}, 'Activá el micrófono de tu computadora'), list, actions, tip, status);
+      close, el('h3', {}, isWindows ? 'Reparemos el micrófono de tu computadora' : 'Activá el micrófono de tu computadora'), list, actions, tip, status);
     document.body.append(box);
 
     let timer = null, until = 0, checking = false;
