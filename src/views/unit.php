@@ -25,6 +25,7 @@ $total = count($exercises);
   <label class="voice-ctl">🎙️ Velocidad de voz <input type="range" id="voice-rate" min="0.6" max="1.3" step="0.05" value="1"> <span id="voice-rate-val">1×</span></label>
   </div>
 
+<?php require __DIR__ . '/_mic_notice.php'; ?>
   <div class="tabpanel" id="t-extra" role="tabpanel" aria-labelledby="tab-extra" hidden>
     <h2>Prácticas complementarias</h2>
     <p class="muted">Consolidá lo aprendido mediante distintas actividades: situaciones reales, lectura, escritura y revisión de vocabulario.</p>

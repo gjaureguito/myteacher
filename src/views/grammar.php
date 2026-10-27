@@ -8,7 +8,8 @@
    <div class="grammar-label">A · ESTUDIÁ EL CONCEPTO</div>
    <?php if ($chapter): ?><h2>Qué vas a poder expresar</h2><p><?= e($chapter['goal']) ?></p><p><?= e($chapter['explain']) ?></p><h3>La diferencia que importa</h3><p><?= e($chapter['contrast']) ?></p><?php endif; ?>
    <?php if ($visual): ?><h3>Por qué funciona</h3><p><?= e($visual['foundation']) ?></p><div class="grammar-models"><?php foreach ($visual['steps'] as [$sentence,$label,$reason]): ?><section><h4><?= e($label) ?></h4><p lang="en"><?= e($sentence) ?></p><p><?= e($reason) ?></p></section><?php endforeach; ?></div><?php endif; ?>
-   <section class="theory grammar-full-theory" aria-label="Reglas y tablas del capítulo"><h3>Reglas, ejemplos y tablas del capítulo</h3><?= $unit['theory_html'] ?></section>
+   <?php require __DIR__ . '/_mic_notice.php'; ?>
+<section class="theory grammar-full-theory" aria-label="Reglas y tablas del capítulo"><h3>Reglas, ejemplos y tablas del capítulo</h3><?= $unit['theory_html'] ?></section>
   </aside>
   <article class="grammar-practice" aria-label="Ejercicios de gramática">
    <div class="grammar-label">B · PONÉ LA REGLA A PRUEBA</div>
