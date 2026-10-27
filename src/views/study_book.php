@@ -37,7 +37,8 @@
             <li><a href="#chapter-platform-practice">Práctica interactiva</a></li>
           </ol>
         </nav>
-        <section class="theory book-theory" id="chapter-theory"><h2>Fundamentos: qué significa y cómo se utiliza</h2><p class="book-section-lead">Leé las explicaciones en orden. Identificá la regla, observá la estructura y compará los ejemplos antes de pasar a los ejercicios.</p><?= $chapterUnit['theory_html'] /* trusted published curriculum */ ?></section>
+        <?php require __DIR__ . '/_mic_notice.php'; ?>
+<section class="theory book-theory" id="chapter-theory"><h2>Fundamentos: qué significa y cómo se utiliza</h2><p class="book-section-lead">Leé las explicaciones en orden. Identificá la regla, observá la estructura y compará los ejemplos antes de pasar a los ejercicios.</p><?= $chapterUnit['theory_html'] /* trusted published curriculum */ ?></section>
         <?php if ($chapter): require __DIR__ . '/study_chapter.php'; else: ?><section class="book-section"><h2>Comprobá lo aprendido</h2><p>Explicá con tus palabras cuándo se utiliza la estructura de este capítulo. Creá dos ejemplos propios y luego resolvé la práctica de la unidad.</p></section><?php endif; ?>
         <?php $words = json_decode($chapterUnit['vocab_json'], true) ?: []; if ($words): ?>
         <section class="book-section"><h2>Vocabulario para usar en contexto</h2><p>Elegí cinco expresiones e inventá una oración que las conecte con tu vida o con el tema del capítulo.</p><dl class="book-glossary"><?php foreach ($words as $word): ?><div><dt lang="en"><?= e($word[0]) ?></dt><dd><?= e($word[1]) ?></dd></div><?php endforeach; ?></dl></section>

@@ -487,3 +487,16 @@ html[data-theme=dark] .mtv-status{background:#17304a}
 html[data-theme=dark] .mtv-rescue.is-ok .mtv-status{background:#123a2d;color:#53d3a2}
 body.has-bottom-nav .mtv-rescue{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 @media (min-width:761px){body.has-bottom-nav .mtv-rescue{bottom:calc(16px + env(safe-area-inset-bottom,0px))}}
+
+/* Aviso plegable: bloqueos del micrófono por antivirus, firewall o Windows */
+.mic-notice{margin:14px 0 18px;border:1px solid #d6e3f0;border-radius:12px;background:#f6faff;color:#142c49;font-size:.93rem;line-height:1.5}
+.mic-notice summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:11px 14px;font-weight:700}
+.mic-notice summary::-webkit-details-marker{display:none}
+.mic-notice summary::after{content:"+";margin-left:auto;font-size:1.2rem;line-height:1;color:#1264c7}
+.mic-notice[open] summary::after{content:"–"}
+.mic-notice-body{padding:0 16px 14px}
+.mic-notice-body p{margin:0 0 10px}
+.mic-notice-body ul{margin:0 0 10px;padding-left:20px;display:grid;gap:8px}
+.mic-notice-body a{color:#1264c7;font-weight:700;white-space:nowrap}
+html[data-theme=dark] .mic-notice{background:#13263b;border-color:#26405b;color:#e9f2fb}
+html[data-theme=dark] .mic-notice summary::after,html[data-theme=dark] .mic-notice-body a{color:#7fb0ff}

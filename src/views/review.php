@@ -20,6 +20,7 @@
     </div>
   <?php else: ?>
     <div class="tabpanel" id="t-practice">
+<?php require __DIR__ . '/_mic_notice.php'; ?>
       <?php $exList = $rows; $groupBySkill = false; require __DIR__ . '/_exercise.php'; ?>
     </div>
   <?php endif; ?>
