@@ -473,7 +473,9 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .mtv-actions{margin-bottom:12px}
 .mtv-btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;background:#1264c7;color:#fff!important;font-weight:750;text-decoration:none}
 .mtv-btn:hover{background:#0d4f9e}
-.mtv-tip{margin:0 0 10px;font-size:.85rem;color:#55697f}
+.mtv-tip{margin:0 0 10px;font-size:.85rem;line-height:1.45;color:#55697f}
+.mtv-tip p{margin:0 0 6px}
+.mtv-tip b{color:inherit}
 .mtv-status{margin:0;padding:10px 12px;border-radius:10px;background:#edf5fd;font-size:.9rem;font-weight:650}
 .mtv-rescue.is-ok .mtv-status{background:#e2f5ec;color:#11845b}
 .mtv-close{position:absolute;top:10px;right:10px;width:36px;height:36px;border:0;border-radius:8px;background:transparent;color:#55697f;font-size:1.5rem;line-height:1;cursor:pointer}

@@ -303,7 +303,9 @@
     const list = el('ol', {}, ...steps.map(t => el('li', {}, t)));
     const actions = el('div', { class: 'mtv-actions' });
     if (settingsUrl) actions.append(el('a', { class: 'mtv-btn', href: settingsUrl }, isWindows ? 'Abrir el ajuste de Windows' : 'Abrir el ajuste del Mac'));
-    const tip = el('p', { class: 'mtv-tip' }, 'Si tenés abierto Zoom, Teams, Meet o Discord, cerralos: a veces se quedan con el micrófono.');
+    const tip = el('div', { class: 'mtv-tip' },
+      el('p', {}, el('b', {}, '¿Sigue sin funcionar? '), 'Tu antivirus puede estar bloqueando el micrófono. Abrí el antivirus (Kaspersky, ESET, Avast, AVG, Norton, Bitdefender, McAfee…), buscá «micrófono» y permití que ' + browser + ' lo use.'),
+      el('p', {}, 'Si tenés abierto Zoom, Teams, Meet o Discord, cerralos: a veces se quedan con el micrófono.'));
     const box = el('section', { class: 'mtv-rescue', role: 'dialog', 'aria-live': 'polite', 'aria-label': 'Activar el micrófono' },
       close, el('h3', {}, 'Activá el micrófono de tu computadora'), list, actions, tip, status);
     document.body.append(box);
