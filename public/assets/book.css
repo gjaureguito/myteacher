@@ -20,3 +20,12 @@ html[data-theme=dark] .book-page{--book-paper:#182b2d;--book-ink:#e9eee6;--book-
 /* El índice se presenta antes de la teoría; los destinos respetan la cabecera fija. */
 .book-page #chapter-theory,.book-page #chapter-platform-practice,.book-page #chapter-example{scroll-margin-top:100px}
 .book-index a:hover,.chapter-contents a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* Selector de libros visible al principio, antes de la portada y del índice. */
+.book-top-levels{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem 1.25rem;margin:1rem 0 0;padding:1rem 1.2rem;border:1px solid var(--book-rule);border-radius:12px;background:var(--book-paper);color:var(--book-ink)}
+.book-top-levels-label{font-weight:800}
+.book-top-levels .book-levels{gap:.45rem}
+.book-top-levels .book-levels a{display:inline-block;padding:.5rem .85rem;border:1px solid var(--book-rule);border-radius:8px;color:inherit;text-decoration:none;font-weight:750;min-width:3rem;text-align:center}
+.book-top-levels .book-levels a:hover,.book-top-levels .book-levels a:focus-visible{border-color:var(--book-accent);text-decoration:underline}
+.book-top-levels .book-levels a[aria-current="page"]{background:var(--book-accent);color:var(--book-paper);border-color:var(--book-accent)}
+@media print{.book-top-levels{display:none!important}}
