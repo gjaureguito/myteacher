@@ -45,18 +45,33 @@ button:disabled{opacity:.48;cursor:not-allowed}
 <div class="player"><iframe title="<?= e($videoTitle) ?> · YouTube Short" src="https://www.youtube-nocookie.com/embed/<?= e($videoId) ?>" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 <p><a class="link" href="https://www.youtube.com/shorts/<?= e($videoId) ?>" target="_blank" rel="noopener noreferrer">Open on YouTube</a></p>
 </section>
-<?php if ($lesson === 7): ?>
-<section class="card"><span class="pill">Lesson 07 · Listening A1</span><h2>Watch the new scene</h2><p>Listen to the conversation and replay it as often as you need.</p><div class="info">Content-specific interactive exercises will be added once this video's dialogue is verified. Questions from other lessons are not reused.</div></section>
-<?php elseif ($lesson === 6): ?>
-<section class="card"><span class="pill">Lesson 06 · Listening A1</span><h2>Watch and listen</h2><p>Replay the scene and pay attention to the spoken English.</p><div class="info">Interactive questions specific to this video require its verified transcript. No questions from other lessons will be reused.</div></section>
-<?php elseif ($lesson === 5): ?>
-<section class="card"><span class="pill">Lesson 05 · Listening A1</span><h2>Watch the new scene</h2><p>Listen to the English conversation and replay the video when needed.</p><div class="info">Scene-specific interactive questions are not published until the video's content has been verified. This avoids unrelated or invented exercises.</div></section>
-<?php elseif ($lesson === 4): ?>
-<section class="card"><span class="pill">Lesson 04 · Video practice</span><h2>Listen and notice</h2>
-<p>Watch the video and listen for familiar expressions.</p>
-<div class="info">Questions specifically about this short require reviewing its dialogue first. No unrelated or invented questions are presented.</div>
-<p><a class="link" href="https://www.youtube.com/shorts/yQ-V-MQlKUA" target="_blank" rel="noopener noreferrer">Watch the original video</a></p>
+<?php if ($lesson >= 4 && $lesson <= 7): ?>
+<section class="card" id="video-observation">
+<div class="bar"><span class="pill">Interactive scene study · <?= str_pad((string)$lesson,2,'0',STR_PAD_LEFT) ?></span><label class="toggle"><input type="checkbox" id="observation-translate"> Español / Translate</label></div>
+<h2>Watch and explore the scene</h2><p>Watch the short and select what you notice. You don't have to type. <span class="es">Mirá el video y seleccioná lo que observás. No hace falta escribir.</span></p>
+<div id="observation-questions"></div>
+<div class="bar" style="margin-top:20px"><button type="button" id="observation-again">Start again <span class="es">Reiniciar</span></button><button type="button" class="primary" id="observation-done">Finish observation <span class="es">Terminar observación</span></button></div>
+<p id="observation-feedback" class="feedback" role="status" aria-live="polite"></p>
+<div class="info">Observation activity: your choices describe what you saw and heard. This isn't a graded comprehension test. Questions with objectively correct answers require verified video content. <span class="es">Actividad de observación: tus elecciones describen lo que viste y escuchaste. No es una prueba calificada. Las preguntas con respuestas correctas requieren verificar el contenido.</span></div>
 </section>
+<script>
+(function(){
+const prompts=[
+{en:"How many people appear to speak?",es:"¿Cuántas personas parecen hablar?",options:[["One","Una"],["Two","Dos"],["Three or more","Tres o más"],["I am not sure","No estoy seguro"]]},
+{en:"Where does the scene seem to take place?",es:"¿Dónde parece transcurrir la escena?",options:[["Indoors","En un interior"],["Outdoors","Al aire libre"],["Different places","En distintos lugares"],["I am not sure","No estoy seguro"]]},
+{en:"Which emotion or tone stands out?",es:"¿Qué emoción o tono se destaca?",options:[["Surprise","Sorpresa"],["Humor","Humor"],["Confusion","Confusión"],["Seriousness","Seriedad"]]},
+{en:"What did you understand best?",es:"¿Qué comprendiste mejor?",options:[["The spoken words","Las palabras pronunciadas"],["The gestures","Los gestos"],["The situation","La situación"],["A little of everything","Un poco de todo"]]}
+];
+const root=document.getElementById('video-observation'),target=document.getElementById('observation-questions'),selected={};
+document.getElementById('observation-translate').addEventListener('change',e=>root.classList.toggle('translated',e.target.checked));
+prompts.forEach((item,i)=>{const section=document.createElement('section');section.className='question';
+const header=document.createElement('h3');header.textContent=(i+1)+'. '+item.en;section.append(header);
+const qTrans=document.createElement('span');qTrans.className='es';qTrans.textContent=item.es;section.append(qTrans);
+item.options.forEach((v,j)=>{const button=document.createElement('button');button.type='button';button.className='choice';button.setAttribute('aria-pressed','false');button.append(document.createTextNode(v[0]));const span=document.createElement('span');span.className='es';span.textContent=v[1];button.append(span);button.addEventListener('click',()=>{selected[i]=j;section.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.getElementById('observation-feedback').textContent='';});section.append(button);});target.append(section);});
+document.getElementById('observation-done').addEventListener('click',()=>{const done=Object.keys(selected).length===prompts.length;document.getElementById('observation-feedback').textContent=done?(root.classList.contains('translated')?'¡Bien! Completaste tu observación. Repetí el video para reconocer más expresiones.':'Great! Observation complete. Replay to notice more expressions.'):(root.classList.contains('translated')?'Seleccioná una opción en cada pregunta.':'Select one answer for each question.');});
+document.getElementById('observation-again').addEventListener('click',()=>{Object.keys(selected).forEach(k=>delete selected[k]);target.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed','false'));document.getElementById('observation-feedback').textContent='';});
+})();
+</script>
 <?php elseif ($lesson === 3): ?>
 <section class="card" id="scene-exercise"><div class="bar"><span class="pill">The Impossible Interview · Scene practice</span><label class="toggle"><input type="checkbox" id="scene-translate"> Español / Translate</label></div>
 <h2>What happens in the interview?</h2><p>Watch the interview scene and choose the best answers. <span class="es">Observá la entrevista y seleccioná las respuestas.</span></p>
