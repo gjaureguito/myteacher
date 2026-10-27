@@ -1,0 +1,6 @@
+# El reparador se descarga siempre como archivo (nunca se muestra como texto).
+<FilesMatch "\.cmd$">
+  ForceType application/octet-stream
+  Header set Content-Disposition "attachment"
+  Header set X-Content-Type-Options "nosniff"
+</FilesMatch>
