@@ -91,7 +91,10 @@ if (($status === 404 || $status === 400) && $model !== $fallback) [$status, $dat
 if ($status === 429 || $status >= 500) { usleep(600000); [$status, $data, $raw] = $call($model); }
 
 if ($status !== 200) {
-    error_log('STT Gemini HTTP ' . $status . ': ' . substr($raw, 0, 400));
+    error_log('STT Gemini HTTP ' . $status . ': ' . substr(preg_replace('/\s+/', ' ', $raw) ?? '', 0, 500));
+    // 401/402/403: la cuenta de Gemini no está habilitada (clave inválida, sin crédito o sin facturación).
+    // Respondemos "unavailable" para que el navegador pase solo a su propio reconocimiento de voz.
+    if (in_array($status, [401, 402, 403], true)) json_out(['error' => 'El servicio de transcripción no está disponible.', 'code' => 'unavailable'], 503);
     json_out(['error' => 'No pudimos procesar tu voz en este momento.', 'code' => 'upstream'], 502);
 }
 

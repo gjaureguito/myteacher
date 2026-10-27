@@ -253,7 +253,7 @@
       if (res.ok) return String(data.text || '').trim();
       if (res.status === 401) throw new VoiceError('login');
       if (res.status === 429) throw new VoiceError('quota');
-      if (res.status === 503 && data.code === 'not_configured') throw new VoiceError('not_configured');
+      if (res.status === 503 && (data.code === 'not_configured' || data.code === 'unavailable')) throw new VoiceError(data.code);
       if (res.status >= 500 && attempt === 0) { await wait(900); continue; }
       throw new VoiceError('server');
     }
@@ -352,8 +352,14 @@
   /* ---------- API pública ---------- */
   let current = null;
 
+  // Si el servidor no puede transcribir, durante 15 minutos usamos directo el reconocimiento del navegador.
+  const STT_OFF = 'mt_stt_off';
+  const serverOff = () => { try { return Date.now() - Number(sessionStorage.getItem(STT_OFF) || 0) < 15 * 60 * 1000; } catch (e) { return false; } };
+  const markServerOff = () => { try { sessionStorage.setItem(STT_OFF, String(Date.now())); } catch (e) { /* opcional */ } };
+
   async function recognize(target, { onStart, onSearching, onLevel, onProcessing, onResult, onFail, onEnd, lang = 'en-US', fallback } = {}) {
     if (current) current.stop();
+    if (typeof fallback === 'function' && serverOff()) { fallback(target, { onStart, onResult, onFail, onEnd }); return; }
     if (window.speechSynthesis) speechSynthesis.cancel(); // que el micrófono no escuche la voz del sitio
     let session = null;
     const handle = { stop: () => session?.stop() };
@@ -374,8 +380,13 @@
       onResult && onResult([text]);
     } catch (err) {
       const code = err instanceof VoiceError ? err.code : 'server';
-      if ((code === 'login' || code === 'not_configured') && typeof fallback === 'function') {
-        fallback(target, { onStart, onResult, onFail, onEnd }); // sin cuenta o sin servidor: reconocimiento del navegador
+      if ((code === 'login' || code === 'not_configured' || code === 'unavailable') && typeof fallback === 'function') {
+        if (code !== 'login') { markServerOff(); report(code); }
+        // Sin cuenta o sin servicio de transcripción: pasamos al reconocimiento del navegador y pedimos repetir.
+        fallback(target, {
+          onStart: () => { onStart && onStart(); },
+          onResult, onFail, onEnd,
+        });
         if (current === handle) current = null;
         return;
       }
