@@ -39,7 +39,7 @@ $description = match ($path) {
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;650;700;750;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css?v=1">
 <link rel="stylesheet" href="/assets/redesign.css?v=6">
-<link rel="stylesheet" href="/assets/pro.css?v=9">
+<link rel="stylesheet" href="/assets/pro.css?v=10">
 <link rel="stylesheet" href="/assets/scenes.css?v=3">
 <link rel="stylesheet" href="/assets/modern.css?v=1">
 <link rel="stylesheet" href="/assets/visual.css?v=1">

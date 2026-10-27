@@ -42,7 +42,7 @@ renderSuggestions();updateExport();
 
 function message(text,who){const p=document.createElement('p');p.className='tutor-bubble '+(who||'tutor-bot');p.textContent=text;chat.append(p);chat.scrollTop=chat.scrollHeight;return p;}
 function setState(text){info.textContent=text;micBtn.textContent=active?'■ Terminar conversación':'🎙️ Iniciar conversación';micBtn.setAttribute('aria-pressed',String(active));}
-function stop(){active=false;if(recognition){const r=recognition;recognition=null;try{r.abort();}catch{}}if(speaking){speaking.onend=null;speaking.onerror=null;speaking=null;}if(window.speechSynthesis)speechSynthesis.cancel();setState('Conversación detenida. Podés escribir una consulta si lo preferís.');}
+function stop(){active=false;if(recognition){const r=recognition;recognition=null;window.ipVoice?.stop();try{r.abort?.();}catch{}}if(speaking){speaking.onend=null;speaking.onerror=null;speaking=null;}if(window.speechSynthesis)speechSynthesis.cancel();setState('Conversación detenida. Podés escribir una consulta si lo preferís.');}
 function speak(text,continueAfter){
  if(!window.speechSynthesis){setState('Tu navegador no permite reproducir la voz.');if(continueAfter)stop();return;}
  speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);speaking=u;u.lang=lang.value==='en-US'?'en-US':'es-AR';u.rate=.92;
@@ -67,22 +67,21 @@ async function ask(question,fromVoice){
 }
 function listen(){
  if(!active||busy||recognition)return;
- const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
- if(!SR){stop();info.textContent='Este navegador no admite reconocimiento de voz.';return;}
- const r=new SR();recognition=r;r.lang=lang.value||'es-AR';r.continuous=false;r.interimResults=false;
- let received=false,failed=false;
- r.onresult=e=>{const question=(e.results[0]?.[0]?.transcript||'').trim();received=true;if(question){setState('Consulta reconocida. Esperando a MyTeacher IA…');ask(question,true);}};
- r.onerror=e=>{failed=true;const code=e.error||'error';stop();info.textContent='No se pudo captar el micrófono ('+code+'). El modo oral se detuvo. Podés usar el chat escrito.';};
- r.onend=()=>{if(recognition===r)recognition=null;if(active&&!received&&!failed){setState('No se escuchó ninguna frase. Intentá hablar de nuevo.');stop();}};
- try{r.start();setState('Escuchando en '+(lang.value==='en-US'?'inglés':'español')+'… Hablá ahora.');}catch(e){recognition=null;stop();info.textContent='No se pudo iniciar la escucha ('+(e.name||'Error')+').';}
+ if(!window.ipRecognize){stop();info.textContent='Este navegador no permite grabar audio. Podés usar el chat escrito.';return;}
+ const token={};recognition=token;
+ const voiceLang=lang.value==='en-US'?'en-US':'es-AR';
+ setState('Preparando el micrófono…');
+ window.ipRecognize('',{lang:voiceLang,
+  onStart:()=>{if(recognition===token)setState('Te escucho en '+(voiceLang==='en-US'?'inglés':'español')+'… Hablá ahora.');},
+  onProcessing:()=>{if(recognition===token)setState('Entendiendo tu consulta…');},
+  onResult:alts=>{if(recognition!==token)return;const question=(alts[0]||'').trim();if(question){setState('Consulta reconocida. Esperando a MyTeacher IA…');recognition=null;ask(question,true);}},
+  onFail:msg=>{if(recognition!==token)return;recognition=null;stop();info.textContent=msg+' El modo oral se detuvo; podés usar el chat escrito.';},
+  onEnd:()=>{if(recognition===token)recognition=null;}
+ });
 }
-micBtn.addEventListener('click',async()=>{
+micBtn.addEventListener('click',()=>{
  if(active){stop();return;}
- if(!navigator.mediaDevices?.getUserMedia){info.textContent='El navegador no admite captura de audio.';return;}
- micBtn.disabled=true;
- try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});stream.getTracks().forEach(t=>t.stop());active=true;turns=0;setState('Conversación iniciada. Preparando escucha…');listen();}
- catch(e){info.textContent='Chrome no puede abrir el micrófono: '+(e.name||'Error')+'. Revisá la protección de privacidad o usá texto.';}
- finally{micBtn.disabled=false;}
+ active=true;turns=0;setState('Conversación iniciada.');listen();
 });
 sayBtn.addEventListener('click',()=>{if(lastAnswer)speak(lastAnswer,false);else info.textContent='Primero necesitás una respuesta del profesor.';});
 document.querySelectorAll('[data-tutor-prompt]').forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.tutorPrompt;input.focus();}));

@@ -49,7 +49,7 @@
       container.querySelector('.shadow-result').textContent='';
     }
     function stopRecognition(){
-      if(rec){try{rec.abort();}catch{}rec=null;}
+      if(rec){window.ipVoice?.stop();try{rec.abort?.();}catch{}rec=null;}
       $('record').disabled=false;
     }
     function move(n){stopRecognition();current=clamp(current+n);refresh();}
@@ -61,31 +61,34 @@
       if(button)button.click();
       else if(window.speechSynthesis){const u=new SpeechSynthesisUtterance(lines[current].querySelector('[data-en]')?.textContent||'');u.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(u);}
     });
-    if(!SpeechRecognition){$('record').disabled=true;container.querySelector('.shadow-result').textContent='El reconocimiento automático no está disponible. Podés escuchar y repetir sin evaluación automática.';showHelp('Este navegador no ofrece reconocimiento de voz compatible. La práctica de escucha sigue disponible.');}
+    // Este script carga antes que el motor de voz, así que se consulta al tocar el botón.
+    const canListen=()=>!!(window.ipRecognize&&(window.ipVoice?.supported||SpeechRecognition));
+    if(!navigator.mediaDevices?.getUserMedia&&!SpeechRecognition){$('record').disabled=true;container.querySelector('.shadow-result').textContent='Este navegador no permite grabar audio. Podés escuchar y repetir en voz alta.';}
     $('record').addEventListener('click',()=>{
-      if(!SpeechRecognition)return;
-      stopRecognition();
+      if(!canListen())return;
+      if(rec){window.ipVoice?.stop();return;}
       const target=lines[current].querySelector('[data-en]')?.textContent?.trim()||'';
       const expected=words(target);
       const result=container.querySelector('.shadow-result');
-      let engine;
-      try{
-        engine=new SpeechRecognition();rec=engine;engine.lang='en-US';engine.interimResults=false;engine.maxAlternatives=1;
-        $('record').disabled=true;result.textContent='Escuchando… pronunciá la frase completa.';
-        engine.onresult=e=>{
-          if(rec!==engine)return;
-          const spoken=e.results[0][0].transcript||'';
+      const button=$('record');
+      rec={};
+      result.textContent='Preparando el micrófono…';
+      window.ipRecognize(target,{
+        onStart:()=>{result.textContent='Te escucho… pronunciá la frase completa. Se corta solo cuando terminás.';},
+        onSearching:()=>{result.textContent='Buscando un micrófono que funcione…';},
+        onProcessing:()=>{button.disabled=true;result.textContent='Analizando tu pronunciación…';},
+        onResult:alts=>{
+          const spoken=alts[0]||'';
           const heard=words(spoken),remaining=[...expected];
           let hits=0;
           heard.forEach(token=>{const i=remaining.indexOf(token);if(i!==-1){hits++;remaining.splice(i,1);}});
           const pct=expected.length?Math.round(100*hits/Math.max(expected.length,heard.length)):0;
           result.textContent='Escuché: “'+spoken+'”. Coincidencia aproximada de palabras: '+pct+'%. '+(pct>=80?'¡Muy bien!':'Escuchá de nuevo y probá otra vez.');
           // Coincidencia de transcripción, no calificación fonética.
-        };
-        engine.onerror=e=>{if(rec===engine){result.textContent='No se pudo completar el reconocimiento de voz ('+e.error+').';showHelp(errorAdvice[e.error]||'El reconocimiento de voz no pudo completarse. Podés reintentar o seguir sin micrófono.');}};
-        engine.onend=()=>{if(rec===engine){rec=null;$('record').disabled=false;}};
-        engine.start();
-      }catch{rec=null;$('record').disabled=false;result.textContent='El navegador no pudo iniciar el reconocimiento de voz.';showHelp('Revisá el micrófono en los ajustes del navegador o utilizá la práctica sin reconocimiento automático.');}
+        },
+        onFail:msg=>{result.textContent=msg;},
+        onEnd:()=>{rec=null;button.disabled=false;},
+      });
     });
     const styleId='shadow-lab-styles';
     if(!document.getElementById(styleId)){

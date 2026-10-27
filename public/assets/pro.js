@@ -462,7 +462,7 @@
       return SR_ERRORS['audio-capture'];
     }
   }
-  function recognize(target, { onStart, onResult, onFail, onEnd }) {
+  function nativeRecognize(target, { onStart, onResult, onFail, onEnd }) {
     if (!SR) { onFail('Tu navegador no permite el reconocimiento de voz. Probá con Chrome o Edge en la compu o en Android.'); onEnd && onEnd(); return; }
     if (window.speechSynthesis) speechSynthesis.cancel(); // que el micrófono no escuche la voz del sitio
     const rec = new SR(); rec.lang = 'en-US'; rec.interimResults = false; rec.continuous = false; rec.maxAlternatives = 3;
@@ -492,17 +492,27 @@
     };
     try { rec.start(); } catch (err) { clearTimeout(safety); onFail('El micrófono ya está en uso. Esperá un segundo y probá de nuevo.'); onEnd && onEnd(); }
   }
+  /* Motor principal: grabación propia + transcripción en el servidor (voice.js). El del navegador queda de respaldo. */
+  function recognize(target, cbs) {
+    if (window.ipVoice?.supported) return window.ipVoice.recognize(target, { ...cbs, fallback: nativeRecognize });
+    return nativeRecognize(target, cbs);
+  }
   window.ipRecognize = recognize;
 
   function listen(btn, target, outEl) {
-    if (btn.classList.contains('is-listening')) return;
+    if (btn.classList.contains('is-busy')) return;
+    if (btn.classList.contains('is-listening')) { window.ipVoice?.stop(); return; }
     const lab = btn.querySelector('.lab');
-    const status = (cls, html) => { outEl.className = 'pron-result ' + cls; outEl.innerHTML = html; };
-    btn.classList.add('is-listening'); if (lab) lab.textContent = ' Escuchando…';
-    status('wait', '🎙️ Preparando el micrófono…');
+    const status = (cls, text) => { outEl.className = 'pron-result ' + cls; outEl.textContent = text; };
+    const setLab = t => { if (lab) lab.textContent = t; };
+    btn.classList.add('is-listening'); setLab(' Preparando…');
+    status('wait', 'Preparando el micrófono…');
     play('mic');
     recognize(target, {
-      onStart: () => status('wait', '🔴 Escuchando… decí la frase en inglés.'),
+      onStart: () => { setLab(' Te escucho'); status('wait', 'Decí la frase en inglés. Cuando termines, se corta solo.'); },
+      onSearching: () => status('wait', 'Buscando un micrófono que funcione…'),
+      onLevel: v => btn.style.setProperty('--mic-level', v.toFixed(2)),
+      onProcessing: () => { btn.classList.remove('is-listening'); btn.classList.add('is-busy'); setLab(' Analizando…'); status('wait', 'Analizando tu pronunciación…'); },
       onResult: alts => {
         const best = alts.map(t => ({ t, ...similarity(target, t) })).sort((x, y) => y.score - x.score)[0];
         const cls = best.score >= 85 ? 'good' : best.score >= 55 ? 'mid' : 'low';
@@ -514,8 +524,8 @@
         play(cls === 'good' ? 'ok' : cls === 'mid' ? 'tap' : 'bad');
         if (cls === 'good') { addXP(5, btn); burst(btn, 26); }
       },
-      onFail: msg => { status('low', '⚠️ ' + msg.replace(/[<>&]/g, '') + ' <button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button>' + (window.ipEdgeHelpHTML?.() || '')); play('bad'); },
-      onEnd: () => { btn.classList.remove('is-listening'); if (lab) lab.textContent = ' Decilo vos'; },
+      onFail: msg => { status('low', msg); play('bad'); },
+      onEnd: () => { btn.classList.remove('is-listening', 'is-busy'); btn.style.removeProperty('--mic-level'); setLab(' Decilo vos'); },
     });
   }
   function micButton(target, label = true) {

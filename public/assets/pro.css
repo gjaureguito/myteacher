@@ -459,3 +459,8 @@ html[data-theme="dark"] .weak-acc.mid{background:#3a3020;color:#f0c060}
 .dict-diff .dw.ok{background:var(--ok-bg);color:var(--ok)}
 .dict-diff .dw.bad{background:var(--bad-bg);color:var(--bad);text-decoration:line-through;text-decoration-thickness:2px}
 .dict-diff .dw.miss{border:2px dashed var(--bad);color:var(--bad);background:transparent;min-width:3em;text-align:center}
+
+/* Motor de voz propio: el botón late con el nivel de la voz y muestra cuándo analiza */
+.mic-btn.is-listening,.ex .record.is-listening{box-shadow:0 0 0 calc(3px + var(--mic-level,0) * 12px) rgba(214,64,64,.22)!important;transition:box-shadow .08s linear}
+.mic-btn.is-busy,.ex .record.is-busy{opacity:.75;cursor:progress}
+@media (prefers-reduced-motion:reduce){.mic-btn.is-listening,.ex .record.is-listening{box-shadow:0 0 0 4px rgba(214,64,64,.3)!important}}
