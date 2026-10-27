@@ -24,7 +24,7 @@ if (is_post()) {
         throttle_fail($email);
         $errors[] = ($u && !$u['password_hash'])
             ? 'Esta cuenta se creó con Google o Microsoft. Ingresá con ese botón.'
-            : 'El email o la contraseña no coinciden.';
+            : 'El email o la contraseña no coinciden. Si no la recordás, tocá «¿Olvidaste tu contraseña?».';
     }
 }
 

@@ -13,6 +13,7 @@
       <label>Contraseña<input type="password" name="password" autocomplete="current-password" required></label>
       <button class="btn btn-block">Ingresar</button>
     </form>
+    <p class="muted center"><a href="/forgot.php<?= $email ? '?email=' . e(rawurlencode($email)) : '' ?>">¿Olvidaste tu contraseña?</a></p>
     <p class="muted center">¿No tenés cuenta? <a href="/register.php">Creala gratis</a></p>
   </div>
 </section>
