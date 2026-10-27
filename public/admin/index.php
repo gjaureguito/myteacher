@@ -53,7 +53,7 @@ if (is_post()) {
             $ok = mail_configured() && pr_send_email($target, pr_create($uid));
             flash($ok ? 'ok' : 'error', $ok
                 ? "Le enviamos a {$target['email']} un enlace para elegir una contraseña nueva (vence en 60 minutos)."
-                : 'No pudimos enviar el email. Revisá BREVO_API_KEY o RESEND_API_KEY y MAIL_FROM en Railway, o usá «Nueva contraseña».');
+                : 'No pudimos enviar el email. Revisá en Railway SMTP_HOST, SMTP_USER y SMTP_PASS (y los logs «MAIL»), o usá «Nueva contraseña».');
             log_line("Admin {$admin['email']} envió enlace de recuperación a {$target['email']}");
         } else {
             $password = rtrim(strtr(base64_encode(random_bytes(9)), '+/', 'kq'), '=');
