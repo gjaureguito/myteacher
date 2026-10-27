@@ -46,6 +46,7 @@ $description = match ($path) {
 <link rel="stylesheet" href="/assets/study-lab.css?v=1">
 <link rel="stylesheet" href="/assets/academy.css?v=7">
 <link rel="stylesheet" href="/assets/premium-foundation.css?v=1">
+<?php if ($path === '/' || $path === '/index.php'): ?><link rel="stylesheet" href="/assets/home.css?v=1"><?php endif; ?>
 <meta name="theme-color" content="#edf7ff">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
