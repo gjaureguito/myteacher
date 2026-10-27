@@ -51,38 +51,68 @@ $description = match ($path) {
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
 <style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style><link rel="stylesheet" href="/assets/sidebar.css?v=2">
+<link rel="stylesheet" href="/assets/nav.css?v=1">
 </head>
 <body class="site-modern<?= $u ? ' has-bottom-nav' : '' ?>">
 <a class="skip" href="#main">Saltar al contenido</a>
-<header class="topbar">
-  <div class="wrap topbar-in">
-    <a class="brand" href="<?= $u ? '/dashboard.php' : '/' ?>"><span class="brand-mark" aria-hidden="true">m<span>t</span></span><?= e(app_name()) ?></a>
-<?php $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : ''; ?>
-    <?php if ($u): ?><button type="button" class="mt-sidebar-toggle" aria-label="Mostrar u ocultar menú de navegación" aria-controls="mt-sidebar" aria-expanded="true"><span aria-hidden="true">☰</span><span class="mt-sidebar-toggle-label">Menú</span></button><?php else: ?>
-    <nav class="nav mt-nav-main" aria-label="Principal">
+<?php
+$initials = '';
+if ($u) {
+    foreach (preg_split('/\s+/', trim((string) $u['name'])) ?: [] as $part) {
+        if ($part !== '' && mb_strlen($initials) < 2) $initials .= mb_strtoupper(mb_substr($part, 0, 1));
+    }
+    if ($initials === '') $initials = mb_strtoupper(mb_substr((string) $u['email'], 0, 1));
+    $firstName = explode(' ', trim((string) $u['name']))[0] ?: 'Mi cuenta';
+    $fullAccess = has_full_access($u);
+}
+$navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
+?>
+<header class="mtn-header<?= $u ? ' is-app' : '' ?>">
+  <div class="mtn-bar">
+<?php if ($u): ?>
+    <button type="button" class="mt-sidebar-toggle mtn-icon-btn" aria-label="Mostrar u ocultar el menú" aria-controls="mt-sidebar" aria-expanded="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<?php endif; ?>
+    <a class="mtn-brand" href="<?= $u ? '/dashboard.php' : '/' ?>"><span class="mtn-brand-mark" aria-hidden="true">mt</span><span><?= e(app_name()) ?></span></a>
+<?php if (!$u): ?>
+    <nav class="mtn-nav" id="mtn-nav" aria-label="Principal">
       <a href="/program.php"<?= $navCur('/program.php') ?>>El programa</a>
       <a href="/library.php"<?= $navCur('/library.php') ?>>Biblioteca</a>
       <a href="/situations.php"<?= $navCur('/situations.php') ?>>Situaciones</a>
       <a href="/#precio">Precio</a>
-      <a href="/login.php">Ingresar</a>
-      <a class="btn btn-sm" href="/register.php">Empezar gratis <span aria-hidden="true">↗</span></a>
+      <span class="mtn-nav-sep" aria-hidden="true"></span>
+      <a class="mtn-login" href="/login.php"<?= $navCur('/login.php') ?>>Ingresar</a>
     </nav>
-    <?php endif; ?>
-      <span class="tools">
-        <button type="button" class="tool-btn" id="tool-sound" aria-pressed="true" aria-label="Efectos de sonido" title="Efectos de sonido">
-          <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06A9 9 0 0 0 14 3.23z"/></svg>
-          <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.5 12A4.5 4.5 0 0 0 14 7.97v2.21l2.45 2.45c.03-.2.05-.41.05-.63zM19 12c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.8 8.8 0 0 0 21 12a9 9 0 0 0-7-8.77v2.06A7 7 0 0 1 19 12zM4.27 3 3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a9 9 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4 9.91 6.09 12 8.18V4z"/></svg>
+<?php endif; ?>
+    <div class="mtn-end">
+      <span class="tools mtn-tools">
+        <button type="button" class="tool-btn mtn-icon-btn mtn-sound" id="tool-sound" aria-pressed="true" aria-label="Efectos de sonido" title="Efectos de sonido">
+          <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+          <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="m17 9 5 6M22 9l-5 6"/></svg>
         </button>
-        <button type="button" class="tool-btn" id="tool-theme" aria-pressed="false" aria-label="Modo oscuro" title="Modo claro / oscuro">
-          <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
-          <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM2 13h2a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2zm18 0h2a1 1 0 0 0 0-2h-2a1 1 0 0 0 0 2zM11 2v2a1 1 0 0 0 2 0V2a1 1 0 0 0-2 0zm0 18v2a1 1 0 0 0 2 0v-2a1 1 0 0 0-2 0zM5.99 4.58a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41L5.99 4.58zm12.37 12.37a1 1 0 0 0-1.41 1.41l1.06 1.06a1 1 0 0 0 1.41-1.41l-1.06-1.06zm1.06-10.96a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06zM7.05 18.36a1 1 0 0 0-1.41-1.41l-1.06 1.06a1 1 0 0 0 1.41 1.41l1.06-1.06z"/></svg>
+        <button type="button" class="tool-btn mtn-icon-btn" id="tool-theme" aria-pressed="false" aria-label="Modo oscuro" title="Modo claro / oscuro">
+          <svg class="off" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+          <svg class="on" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         </button>
       </span>
+<?php if ($u): ?>
+      <a class="mtn-user" href="/account.php" aria-label="Mi cuenta: <?= e($u['name']) ?>"<?= $navCur('/account.php') ?>>
+        <span class="mtn-avatar" aria-hidden="true"><?= e($initials) ?></span>
+        <span class="mtn-user-text"><b><?= e($firstName) ?></b><small><?= $fullAccess ? (is_admin($u) ? 'Administrador' : 'Plan completo') : 'Demo gratuita' ?></small></span>
+      </a>
+<?php else: ?>
+      <a class="mtn-cta" href="/register.php">Empezar<span class="mtn-cta-long">&nbsp;gratis</span></a>
+      <button type="button" class="mtn-icon-btn mtn-menu-btn" aria-label="Abrir menú" aria-controls="mtn-nav" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+<?php endif; ?>
+    </div>
   </div>
 </header>
 <?php if ($u): ?>
 <div class="mt-sidebar-backdrop" data-sidebar-close hidden></div>
-<aside id="mt-sidebar" class="mt-sidebar" aria-label="Navegación de estudiante">
+<aside id="mt-sidebar" class="mt-sidebar mtn-sidebar" aria-label="Navegación de estudiante">
+  <a class="mtn-side-user" href="/account.php">
+    <span class="mtn-avatar" aria-hidden="true"><?= e($initials) ?></span>
+    <span><b><?= e($u['name']) ?></b><small><?= e($u['email']) ?></small></span>
+  </a>
   <nav class="mt-sidebar-links" aria-label="Secciones de MyTeacher">
     <p class="mt-sidebar-heading">APRENDIZAJE</p>
     <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Mis niveles</span></a>
@@ -91,6 +121,7 @@ $description = match ($path) {
     <a href="/review.php"<?= $navCur('/review.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span>Prácticas</span></a>
     <a href="/glossary.php"<?= $navCur('/glossary.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg><span>Mi glosario</span></a>
     <p class="mt-sidebar-heading">RECURSOS</p>
+    <a href="/library.php"<?= $navCur('/library.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C3.5 4.5 5.5 4 7.5 4S11 4.5 12 5.5V20c-1-1-2.5-1.5-4.5-1.5S3.5 19 2 20zM22 5.5C20.5 4.5 18.5 4 16.5 4S13 4.5 12 5.5V20c1-1 2.5-1.5 4.5-1.5s4 .5 5.5 1.5z"/></svg><span>Biblioteca</span></a>
     <a href="/video-learning.php"<?= $navCur('/video-learning.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><span>Video Learning</span></a>
     <a href="/life-dialogues.php"<?= $navCur('/life-dialogues.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.8-5A8.4 8.4 0 1 1 21 11.5z"/></svg><span>Diálogos reales</span></a>
     <a href="/tutor.php"<?= $navCur('/tutor.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 0M8 5v3c0 5-2 8-5 10M5 12c1 2 4 4 7 5M13 20l5-12 5 12M15 16h6"/></svg><span>Diccionario</span></a>
@@ -101,6 +132,13 @@ $description = match ($path) {
     <?php if (is_admin($u)): ?><a href="/admin/"><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h7"/></svg><span>Administración</span></a><?php endif; ?>
     <form method="post" action="/logout.php"><?= csrf_field() ?><button type="submit"><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Cerrar sesión</span></button></form>
   </nav>
+<?php if (!$fullAccess): ?>
+  <div class="mtn-upsell">
+    <b>Estás en la demo gratuita</b>
+    <span>Desbloqueá todas las unidades, situaciones y talleres.</span>
+    <a href="/account.php">Ver plan completo →</a>
+  </div>
+<?php endif; ?>
 </aside>
 <?php endif; ?>
 <main id="main">
