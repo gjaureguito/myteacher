@@ -354,17 +354,21 @@
       const rec = li.querySelector('.record');
       const self = li.querySelector('.self-check');
       const fb = li.querySelector('.feedback');
-      if (!SR) self.hidden = false;
+      if (!SR && !window.ipVoice?.supported) self.hidden = false;
       self.addEventListener('click', () => handle(li, { self: true }));
       rec.addEventListener('click', () => {
-        if (rec.classList.contains('is-listening') || !window.ipRecognize) return;
+        if (rec.classList.contains('is-busy') || !window.ipRecognize) return;
+        if (rec.classList.contains('is-listening')) { window.ipVoice?.stop(); return; }
         rec.classList.add('is-listening'); rec.textContent = '🎙️ Preparando…';
         window.ipPlay && ipPlay('mic');
         window.ipRecognize(li.querySelector('.say-target')?.textContent || '', {
-          onStart: () => { rec.textContent = '🔴 Escuchando… hablá ahora'; },
+          onStart: () => { rec.textContent = '🔴 Te escucho… (tocá para terminar)'; },
+          onSearching: () => { rec.textContent = '🔎 Buscando micrófono…'; },
+          onLevel: v => rec.style.setProperty('--mic-level', v.toFixed(2)),
+          onProcessing: () => { rec.classList.remove('is-listening'); rec.classList.add('is-busy'); rec.textContent = '⏳ Analizando…'; },
           onResult: alts => handle(li, { transcript: alts[0] }),
-          onFail: msg => { fb.className = 'feedback is-bad'; fb.innerHTML = '<strong>⚠️ ' + esc(msg) + '</strong><p><button type="button" class="linkbtn mh-link" data-mic-help>Cómo activar el micrófono →</button></p>' + (window.ipEdgeHelpHTML?.() || ''); self.hidden = false; },
-          onEnd: () => { rec.classList.remove('is-listening'); rec.textContent = '🎙️ Grabar de nuevo'; },
+          onFail: msg => { fb.className = 'feedback is-bad'; fb.textContent = msg; self.hidden = false; },
+          onEnd: () => { rec.classList.remove('is-listening', 'is-busy'); rec.style.removeProperty('--mic-level'); rec.textContent = '🎙️ Grabar de nuevo'; },
         });
       });
     }
