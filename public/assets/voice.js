@@ -27,6 +27,7 @@
   const MESSAGES = {
     denied: 'Para escucharte necesitamos permiso para usar el micrófono. Tocá «Permitir» cuando el navegador lo pregunte. Si antes elegiste «Bloquear», tocá el candado junto a la dirección del sitio y cambialo a «Permitir».',
     nomic: 'No encontramos un micrófono que funcione en este equipo. Podés seguir igual: escuchá la frase y repetila en voz alta.',
+    blocked: 'Tu computadora no está dejando que el navegador use el micrófono. Seguí los pasos del recuadro y te avisamos cuando quede listo.',
     nospeech: 'No te escuchamos. Tocá el botón y hablá cerca del micrófono.',
     server: 'No pudimos procesar tu voz en este momento. Probá de nuevo en unos segundos.',
     quota: 'Llegaste al límite de prácticas con voz por hoy. Mañana podés seguir.',
@@ -35,7 +36,7 @@
   };
 
   class VoiceError extends Error {
-    constructor(code) { super(MESSAGES[code] || MESSAGES.server); this.code = code; }
+    constructor(code, details) { super(MESSAGES[code] || MESSAGES.server); this.code = code; this.details = details || []; }
   }
 
   /* ---------- 1. Encontrar un micrófono que funcione ---------- */
@@ -83,6 +84,7 @@
     if (await permissionDenied()) throw new VoiceError('denied');
     const saved = store.get(SAVED_MIC);
     let denied = false, tries = 0;
+    const errors = [];
 
     const attempt = async audio => {
       if (++tries === 2 && onSearching) onSearching(); // el primero falló: avisamos que seguimos buscando
@@ -90,11 +92,13 @@
       try {
         stream = await navigator.mediaDevices.getUserMedia({ audio });
       } catch (e) {
+        errors.push(e && e.name || 'Error');
         if (e && (e.name === 'NotAllowedError' || e.name === 'SecurityError')) denied = true;
         if (e && (e.name === 'NotReadableError' || e.name === 'AbortError')) await wait(350); // Windows libera el dispositivo con demora
         return null;
       }
       if (await hasSignal(stream)) return stream;
+      errors.push('Silent');
       stream.getTracks().forEach(t => t.stop());
       return null;
     };
@@ -129,7 +133,11 @@
     }
 
     if (saved) store.del(SAVED_MIC);
-    throw new VoiceError(denied || await permissionDenied() ? 'denied' : 'nomic');
+    if (denied || await permissionDenied()) throw new VoiceError('denied', errors);
+    // Permiso del sitio concedido, pero el sistema no deja abrir ningún micrófono (privacidad de Windows o
+    // un programa que lo tiene tomado): el caso que más se repite en Chrome para Windows.
+    const sysBlocked = errors.length > 0 && errors.every(n => n === 'NotReadableError' || n === 'AbortError');
+    throw new VoiceError(sysBlocked ? 'blocked' : 'nomic', errors);
   }
 
   /* ---------- 2. Grabar y cortar solo ---------- */
@@ -252,6 +260,88 @@
     throw new VoiceError('server');
   }
 
+  /* ---------- Rescate: el sistema bloquea el micrófono ---------- */
+  const isWindows = /Windows/.test(navigator.userAgent);
+  const isMac = /Macintosh/.test(navigator.userAgent) && !/Mobile/.test(navigator.userAgent);
+  const browser = /Edg\//.test(navigator.userAgent) ? 'Edge' : /Firefox\//.test(navigator.userAgent) ? 'Firefox' : 'Chrome';
+  let rescue = null;
+
+  function report(code, details) {
+    try {
+      const body = JSON.stringify({ code, details: (details || []).slice(0, 12), page: location.pathname });
+      navigator.sendBeacon?.('/api/voice_log.php', new Blob([body], { type: 'application/json' }));
+    } catch (e) { /* el registro es opcional */ }
+  }
+
+  function el(tag, attrs, ...children) {
+    const n = document.createElement(tag);
+    Object.entries(attrs || {}).forEach(([k, v]) => { if (k === 'class') n.className = v; else n.setAttribute(k, v); });
+    children.forEach(c => n.append(c));
+    return n;
+  }
+
+  function showRescue() {
+    if (rescue) { rescue.box.hidden = false; rescue.watch(); return; }
+    const steps = isWindows ? [
+      'Tocá el botón azul. Se abre la configuración de Windows (si el navegador pregunta, elegí «Abrir»).',
+      'Activá «Acceso al micrófono».',
+      'Más abajo, activá «Permitir que las aplicaciones de escritorio accedan al micrófono».',
+      'Volvé a esta página: te avisamos solos cuando funcione.',
+    ] : isMac ? [
+      'Tocá el botón azul. Se abre Privacidad y seguridad › Micrófono.',
+      'Activá el interruptor de ' + browser + '.',
+      'Volvé a esta página: te avisamos solos cuando funcione.',
+    ] : [
+      'Revisá que el micrófono esté conectado y que ningún otro programa lo esté usando.',
+      'Volvé a esta página: te avisamos solos cuando funcione.',
+    ];
+    const settingsUrl = isWindows ? 'ms-settings:privacy-microphone'
+      : isMac ? 'x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone' : '';
+
+    const status = el('p', { class: 'mtv-status', role: 'status' }, 'Esperando que habilites el micrófono…');
+    const close = el('button', { type: 'button', class: 'mtv-close', 'aria-label': 'Cerrar' }, '×');
+    const list = el('ol', {}, ...steps.map(t => el('li', {}, t)));
+    const actions = el('div', { class: 'mtv-actions' });
+    if (settingsUrl) actions.append(el('a', { class: 'mtv-btn', href: settingsUrl }, isWindows ? 'Abrir el ajuste de Windows' : 'Abrir el ajuste del Mac'));
+    const tip = el('p', { class: 'mtv-tip' }, 'Si tenés abierto Zoom, Teams, Meet o Discord, cerralos: a veces se quedan con el micrófono.');
+    const box = el('section', { class: 'mtv-rescue', role: 'dialog', 'aria-live': 'polite', 'aria-label': 'Activar el micrófono' },
+      close, el('h3', {}, 'Activá el micrófono de tu computadora'), list, actions, tip, status);
+    document.body.append(box);
+
+    let timer = null, until = 0, checking = false;
+    const check = async () => {
+      if (checking || box.hidden) return;
+      checking = true;
+      try {
+        const s = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const ok = await hasSignal(s);
+        if (ok) remember(s);
+        s.getTracks().forEach(t => t.stop());
+        if (ok) {
+          stopWatch();
+          box.classList.add('is-ok');
+          status.textContent = '¡Listo! Ya te escucho. Tocá «Decilo vos» y hablá.';
+          report('rescued');
+          window.dispatchEvent(new CustomEvent('ipvoice:ready'));
+          setTimeout(() => { box.hidden = true; box.classList.remove('is-ok'); }, 6000);
+        }
+      } catch (e) { /* todavía bloqueado */ }
+      finally { checking = false; }
+      if (timer && Date.now() > until) { stopWatch(); status.textContent = 'Cuando lo actives, volvé a tocar «Decilo vos».'; }
+    };
+    const stopWatch = () => { clearInterval(timer); timer = null; };
+    const watch = () => {
+      until = Date.now() + 5 * 60 * 1000;
+      status.textContent = 'Esperando que habilites el micrófono…';
+      if (!timer) timer = setInterval(check, 2500);
+    };
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+    window.addEventListener('focus', check);
+    close.addEventListener('click', () => { box.hidden = true; stopWatch(); });
+    rescue = { box, watch };
+    watch();
+  }
+
   /* ---------- API pública ---------- */
   let current = null;
 
@@ -282,6 +372,8 @@
         if (current === handle) current = null;
         return;
       }
+      if (code === 'blocked' || code === 'nomic' || code === 'denied' || code === 'server') report(code, err.details || [err.name]);
+      if (code === 'blocked') showRescue();
       onFail && onFail(err instanceof VoiceError ? err.message : MESSAGES.server, code);
     } finally {
       if (current === handle) current = null;
@@ -296,5 +388,6 @@
     openMic,
     toWav,
     messages: MESSAGES,
+    showRescue,
   };
 })();
