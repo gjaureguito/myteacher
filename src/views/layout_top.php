@@ -50,7 +50,7 @@ $description = match ($path) {
 <meta name="theme-color" content="#edf7ff">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
-<style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style><link rel="stylesheet" href="/assets/sidebar.css?v=2">
+<style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style><link rel="stylesheet" href="/assets/sidebar.css?v=3">
 <link rel="stylesheet" href="/assets/nav.css?v=1">
 </head>
 <body class="site-modern<?= $u ? ' has-bottom-nav' : '' ?>">
@@ -116,7 +116,32 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
   <nav class="mt-sidebar-links" aria-label="Secciones de MyTeacher">
     <p class="mt-sidebar-heading">APRENDIZAJE</p>
     <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Mis niveles</span></a>
-    <a href="/book.php"<?= $navCur('/book.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Libros de estudio</span></a>
+<?php
+    // Desglose de los libros dentro del menú: Libros de estudio > nivel > capítulos.
+    require_once ROOT . '/src/study_book.php';
+    $menuBookCode = $path === '/book.php' ? (is_string($_GET['code'] ?? null) ? strtolower($_GET['code']) : 'a1') : '';
+    $menuBookChapter = $path === '/book.php' && is_string($_GET['chapter'] ?? null) ? $_GET['chapter'] : '';
+    $menuBooks = [];
+    foreach (q_all('SELECT id, slug, title, level_code, position FROM units WHERE is_published = 1 ORDER BY position, id') as $menuUnit) {
+        $menuBooks[$menuUnit['level_code']][] = $menuUnit;
+    }
+?>
+    <details class="mt-side-group" data-side-group="books"<?= $path === '/book.php' ? ' open' : '' ?>>
+      <summary<?= $path === '/book.php' ? ' class="is-current"' : '' ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Libros de estudio</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <div class="mt-side-tree">
+<?php foreach (['a1', 'a2', 'b1', 'b2', 'c1', 'c2'] as $menuCode): $menuLevel = study_level($menuCode); $menuIsLevel = $menuBookCode === $menuCode; ?>
+        <details class="mt-side-level" name="mt-book-levels"<?= $menuIsLevel ? ' open' : '' ?>>
+          <summary<?= $menuIsLevel ? ' class="is-current"' : '' ?>><b><?= e(strtoupper($menuCode)) ?></b><span title="<?= e($menuLevel['title'] ?? '') ?>"><?= e($menuLevel['title'] ?? '') ?></span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+          <ol>
+            <li><a href="/book.php?code=<?= e($menuCode) ?>"<?= $menuIsLevel && $menuBookChapter === '' ? ' aria-current="page"' : '' ?>><span>Guía de estudio y proyecto</span></a></li>
+<?php foreach ($menuBooks[$menuCode] ?? [] as $menuUnit): $menuOpen = can_access_unit($u, $menuUnit); ?>
+            <li><a href="/book.php?code=<?= e($menuCode) ?>&amp;chapter=<?= e($menuUnit['slug']) ?>"<?= $menuIsLevel && $menuBookChapter === $menuUnit['slug'] ? ' aria-current="page"' : '' ?><?= $menuOpen ? '' : ' class="is-locked" title="Con suscripción"' ?>><em><?= (int) $menuUnit['position'] ?></em><span><?= e($menuUnit['title']) ?></span><?php if (!$menuOpen): ?><svg class="mt-side-lock" viewBox="0 0 24 24" aria-label="Con suscripción"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><?php endif; ?></a></li>
+<?php endforeach; ?>
+          </ol>
+        </details>
+<?php endforeach; ?>
+      </div>
+    </details>
     <a href="/grammar.php"<?= $navCur('/grammar.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 19 6-14 6 14M6 15h8M17 8h5M19.5 8v11"/></svg><span>Gramática</span></a>
     <a href="/review.php"<?= $navCur('/review.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span>Prácticas</span></a>
     <a href="/glossary.php"<?= $navCur('/glossary.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg><span>Mi glosario</span></a>
