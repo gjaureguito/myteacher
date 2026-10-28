@@ -32,3 +32,10 @@ html[data-theme=dark] .book-page{--book-paper:#182b2d;--book-ink:#e9eee6;--book-
 
 /* El índice de niveles y capítulos vive en el menú lateral: el libro ocupa todo el ancho. */
 .book-layout{grid-template-columns:minmax(0,1fr)}
+
+/* Escena pedagógica opcional: imagen propia almacenada por diálogo. */
+.book-dialogue-scene{margin:1.5rem 0 2rem;border:1px solid var(--book-rule);border-radius:16px;overflow:hidden;background:var(--book-paper)}
+.book-dialogue-scene img{display:block;width:100%;height:auto;max-height:440px;object-fit:cover}
+.book-dialogue-scene figcaption{padding:.85rem 1.1rem;line-height:1.6;font-size:.95rem}
+@media(max-width:600px){.book-dialogue-scene{margin:1.1rem 0}.book-dialogue-scene img{max-height:280px}}
+@media print{.book-dialogue-scene{break-inside:avoid}}
