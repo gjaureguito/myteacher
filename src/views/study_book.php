@@ -27,6 +27,23 @@
           </ol>
         </nav>
         <?php require __DIR__ . '/_mic_notice.php'; ?>
+<?php
+        // Escenas locales asociadas al capítulo: no se genera IA durante la visita.
+        $dialogueScenes = [
+          'a1-greetings-introductions' => [
+            'file' => 'a1-maya-tom.webp',
+            'alt' => 'Maya y Tom se presentan en su primer día de clase de inglés.',
+            'caption' => 'Maya y Tom se conocen durante su primer día de curso. Observá la escena antes de leer la conversación.',
+          ],
+        ];
+        $scene = $dialogueScenes[$chapterUnit['slug']] ?? null;
+        $scenePath = $scene ? ROOT . '/public/assets/images/dialogues/' . $scene['file'] : '';
+        if ($scene && is_file($scenePath)): ?>
+        <figure class="book-dialogue-scene">
+          <img src="/assets/images/dialogues/<?= e($scene['file']) ?>" alt="<?= e($scene['alt']) ?>" width="788" height="479" loading="lazy" decoding="async">
+          <figcaption><?= e($scene['caption']) ?></figcaption>
+        </figure>
+        <?php endif; ?>
 <section class="theory book-theory" id="chapter-theory"><h2>Fundamentos: qué significa y cómo se utiliza</h2><p class="book-section-lead">Leé las explicaciones en orden. Identificá la regla, observá la estructura y compará los ejemplos antes de pasar a los ejercicios.</p><?= $chapterUnit['theory_html'] /* trusted published curriculum */ ?></section>
         <?php if ($chapter): require __DIR__ . '/study_chapter.php'; else: ?><section class="book-section"><h2>Comprobá lo aprendido</h2><p>Explicá con tus palabras cuándo se utiliza la estructura de este capítulo. Creá dos ejemplos propios y luego resolvé la práctica de la unidad.</p></section><?php endif; ?>
         <?php $words = json_decode($chapterUnit['vocab_json'], true) ?: []; if ($words): ?>
