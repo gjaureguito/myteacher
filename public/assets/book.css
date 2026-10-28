@@ -29,3 +29,6 @@ html[data-theme=dark] .book-page{--book-paper:#182b2d;--book-ink:#e9eee6;--book-
 .book-top-levels .book-levels a:hover,.book-top-levels .book-levels a:focus-visible{border-color:var(--book-accent);text-decoration:underline}
 .book-top-levels .book-levels a[aria-current="page"]{background:var(--book-accent);color:var(--book-paper);border-color:var(--book-accent)}
 @media print{.book-top-levels{display:none!important}}
+
+/* El índice de niveles y capítulos vive en el menú lateral: el libro ocupa todo el ancho. */
+.book-layout{grid-template-columns:minmax(0,1fr)}

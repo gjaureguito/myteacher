@@ -1,10 +1,6 @@
-<link rel="stylesheet" href="/assets/book.css?v=1">
+<link rel="stylesheet" href="/assets/book.css?v=2">
 <section class="wrap page book-page">
   <nav class="crumbs" aria-label="Ruta"><a href="/dashboard.php">Mis niveles</a> / <a href="/level.php?code=<?= e($code) ?>"><?= e(strtoupper($code)) ?></a> / <a href="/book.php?code=<?= e($code) ?>">Libro de estudio</a></nav>
-  <nav class="book-top-levels" aria-label="Seleccionar libro de estudio">
-    <span class="book-top-levels-label">Elegí tu libro de estudio</span>
-    <div class="book-levels"><?php foreach (['a1','a2','b1','b2','c1','c2'] as $other): ?><a href="/book.php?code=<?= e($other) ?>" <?= $other === $code ? 'aria-current="page"' : '' ?>><?= e(strtoupper($other)) ?></a><?php endforeach; ?></div>
-  </nav>
   <header class="book-cover">
     <p class="eyebrow">MYTEACHER · LIBRO DE ESTUDIO <?= e(strtoupper($code)) ?></p>
     <h1><?= e($chapterUnit ? $chapterUnit['title'] : $book['title']) ?></h1>
@@ -12,13 +8,6 @@
     <div class="book-badges"><span>Teoría desarrollada</span><span>Ejemplos analizados</span><span>Práctica con soluciones</span></div>
   </header>
   <div class="book-layout">
-    <aside class="book-index">
-      <h2>Índice del nivel</h2>
-      <a href="/book.php?code=<?= e($code) ?>" <?= !$chapterUnit ? 'aria-current="page"' : '' ?>>Guía de estudio y proyecto</a>
-      <ol><?php foreach ($units as $item): $open = can_access_unit($u, $item); ?>
-        <li><a href="/book.php?code=<?= e($code) ?>&amp;chapter=<?= e($item['slug']) ?>" <?= $chapterUnit && $item['id'] === $chapterUnit['id'] ? 'aria-current="page"' : '' ?>><?= e($item['title']) ?><?php if (!$open): ?><small>Con suscripción</small><?php endif; ?></a></li>
-      <?php endforeach; ?></ol>
-    </aside>
     <article class="book-paper">
       <?php if ($chapterUnit): ?>
         <p class="book-chapter-meta">Nivel <?= e(strtoupper($code)) ?> · Capítulo <?= (int)$chapterUnit['position'] ?> · Lectura y aplicación</p>

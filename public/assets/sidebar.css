@@ -55,3 +55,42 @@ html[data-theme=dark] .mt-sidebar{background:#152a40}
 html[data-theme=dark] .mt-sidebar-heading:not(:first-child){border-color:#32495e}
 @media(max-width:1000px) and (min-width:761px){body.has-bottom-nav{--mt-side-width:228px}.mt-sidebar{width:var(--mt-side-width)}}
 @media(max-width:760px){.mt-sidebar{width:min(290px,85vw)}.mt-sidebar-links{padding-top:35px}}
+
+/* Desglose jerárquico: Libros de estudio > nivel > capítulos. */
+.mt-sidebar .mt-side-group,.mt-sidebar .mt-side-level{margin:0;padding:0;border:0}
+.mt-side-group>summary,.mt-side-level>summary{list-style:none;cursor:pointer;display:flex;align-items:center;box-sizing:border-box;width:100%;border-radius:10px;font-family:inherit}
+.mt-side-group>summary::-webkit-details-marker,.mt-side-level>summary::-webkit-details-marker{display:none}
+.mt-sidebar .mt-side-group>summary{min-height:43px;padding:10px 12px;gap:12px;color:#3a4e67;font-size:.82rem;font-weight:650;line-height:1.35;margin:0}
+.mt-side-group>summary>span{flex:1;min-width:0}
+.mt-side-group>summary:hover,.mt-side-level>summary:hover{background:#eaf2fa}
+.mt-side-group>summary.is-current{background:#e9f2ff;color:#155b9e;box-shadow:inset 3px 0 0 #2476c4}
+.mt-side-group>summary:focus-visible,.mt-side-level>summary:focus-visible{outline:3px solid #75b7fa;outline-offset:2px}
+.mt-side-chevron{flex:0 0 14px;width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;opacity:.6;transition:transform .16s}
+details[open]>summary>.mt-side-chevron{transform:rotate(90deg)}
+.mt-side-tree{margin:2px 0 6px 21px;padding-left:10px;border-left:1px solid #dfe8f2;display:flex;flex-direction:column;gap:1px}
+.mt-sidebar .mt-side-level>summary{gap:8px;padding:7px 8px;color:#3a4e67;font-size:.78rem;font-weight:600;margin:0}
+.mt-side-level>summary b{flex:0 0 auto;font-size:.72rem;font-weight:800;letter-spacing:.03em;color:#155b9e;background:#e9f2ff;border-radius:6px;padding:2px 6px}
+.mt-side-level>summary span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+.mt-side-level>summary.is-current span{color:#155b9e;font-weight:750}
+.mt-side-level ol{list-style:none;margin:2px 0 6px;padding:0 0 0 8px}
+.mt-sidebar-links .mt-side-level ol a{min-height:0;padding:6px 8px;gap:8px;font-size:.76rem;font-weight:550;line-height:1.3;align-items:flex-start;border-radius:8px;white-space:normal}
+.mt-side-level ol a em{flex:0 0 1.1em;font-style:normal;font-weight:750;color:#8795a6;text-align:right}
+.mt-side-level ol a span{flex:1;min-width:0}
+.mt-sidebar-links .mt-side-level ol a[aria-current=page]{box-shadow:inset 2px 0 0 #2476c4}
+.mt-side-level ol a.is-locked{color:#7d8c9d}
+.mt-side-lock{flex:0 0 13px;width:13px;height:13px;margin-top:1px;fill:none;stroke:currentColor;stroke-width:2;opacity:.7}
+html[data-theme=dark] .mt-side-group>summary,html[data-theme=dark] .mt-side-level>summary{color:#deecfc}
+html[data-theme=dark] .mt-side-group>summary.is-current{background:#294a69;color:#fff}
+html[data-theme=dark] .mt-side-group>summary:hover,html[data-theme=dark] .mt-side-level>summary:hover{background:#21405c}
+html[data-theme=dark] .mt-side-tree{border-color:#32495e}
+html[data-theme=dark] .mt-side-level>summary b{background:#294a69;color:#cfe5ff}
+html[data-theme=dark] .mt-side-level ol a.is-locked{color:#9fb3c8}
+@media(prefers-reduced-motion:reduce){.mt-side-chevron{transition:none}}
+/* Mismo aspecto que los demás ítems del menú (nav.css). */
+.mtn-sidebar .mt-side-group>summary{min-height:40px;padding:8px 12px;border-radius:9px;color:var(--mtn-ink,#3a4e67);font-size:.89rem;font-weight:600;opacity:.88}
+.mtn-sidebar .mt-side-group>summary:hover,.mtn-sidebar .mt-side-level>summary:hover{background:var(--mtn-hover,#eaf2fa);opacity:1}
+.mtn-sidebar .mt-side-group>summary.is-current{background:var(--mtn-blue-soft,#e9f2ff);color:var(--mtn-blue,#155b9e);font-weight:750;opacity:1;box-shadow:none}
+.mtn-sidebar .mt-side-level>summary{color:var(--mtn-ink,#3a4e67)}
+.mtn-sidebar .mt-side-level>summary.is-current span{color:var(--mtn-blue,#155b9e)}
+.mtn-sidebar .mt-sidebar-links .mt-side-level ol a{min-height:0;padding:6px 8px;font-size:.78rem;font-weight:550;opacity:.9}
+.mtn-sidebar .mt-sidebar-links .mt-side-level ol a[aria-current=page]{background:var(--mtn-blue-soft,#e9f2ff);color:var(--mtn-blue,#155b9e);font-weight:750;opacity:1}
