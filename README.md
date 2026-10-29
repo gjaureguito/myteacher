@@ -151,7 +151,7 @@ Estas prácticas comparan con modelos locales, sin calificación docente ni guar
 1. En Google Cloud creá o seleccioná un proyecto con facturación habilitada.
 2. Habilitá **Cloud Translation API** y creá una clave API. Restringila a Cloud Translation API. Guardala solo en variables privadas del servidor.
 3. En Railway, servicio web de MyTeacher → **Variables**, agregá `GOOGLE_TRANSLATE_API_KEY` con el valor de la clave. No la incluyas en GitHub ni en JavaScript.
-4. Volvé a desplegar. La ruta `/api/translate.php` (selección de texto, diccionario y glosario) usa Google cuando esa variable está definida; en modo automático Google detecta si el texto está en español o en inglés. Si Google falla (clave, cuota o facturación), sigue con DeepL y, si tampoco está, con MyMemory, y deja el motivo en el log.
+4. Volvé a desplegar. Toda la traducción del sitio (selección de texto, diccionario, glosario y diálogos) usa únicamente Google Cloud Translation. En modo automático Google detecta si el texto está en español o en inglés. Sin `GOOGLE_TRANSLATE_API_KEY`, o si Google no responde, se muestra un aviso: no hay otro proveedor de respaldo.
 5. En `/life-dialogues.php`, el navegador solicita al backend traducciones de todas las frases de la situación elegida; se cachean en `dialogue_translation_cache` según el texto en inglés. Una traducción no disponible se muestra como error, no se reemplaza por una traducción genérica.
 6. Configurá presupuestos y alertas de facturación en Google Cloud. El caché reduce solicitudes, pero las traducciones nuevas consumen cuota. Revisá traducciones didácticas antes de considerarlas definitivas: ninguna traducción automática es infalible.
 
