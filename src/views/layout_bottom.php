@@ -11,7 +11,7 @@
       <?php if ($c = env('CONTACT_EMAIL')): ?><a href="mailto:<?= e($c) ?>">Contacto</a><?php endif; ?>
     </nav>
   </div>
-</footer>
+<p><a href="/consumer-request.php">Botón de arrepentimiento</a> · <a href="/consumer-request.php">Botón de baja de servicio</a></p></footer>
 <?php if (current_user()): $bp = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH); $cur = fn($p) => in_array($bp, (array) $p, true) ? ' aria-current="page"' : ''; ?>
 <nav class="mtn-tabbar" aria-label="Accesos rápidos">
   <a href="/dashboard.php"<?= $cur(['/dashboard.php', '/level.php', '/unit.php']) ?>><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></svg><span>Niveles</span></a>

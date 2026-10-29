@@ -1,6 +1,7 @@
 <section class="wrap page">
   <p class="eyebrow">GESTIÓN DE LA ACADEMIA</p><h1>Resumen de actividad</h1><p class="muted">Accesos, suscripciones y contenido en un mismo lugar.</p>
   <?php require __DIR__ . '/admin_nav.php'; ?>
+  <p><a href="/admin/billing.php">Consultar datos para facturación</a></p>
 
   <div class="stats">
     <?php foreach ($stats as $label => $n): ?>
