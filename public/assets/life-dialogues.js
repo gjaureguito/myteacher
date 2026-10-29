@@ -48,7 +48,37 @@ function bubble(speaker,en,es){
  
 }
 function showStep(){choices.replaceChildren();if(!current)return;if(step>=current.steps.length){status.textContent='¡Escena completada! Podés descargar el diálogo o reiniciar para practicar otras respuestas.';try{localStorage.setItem('life-completed-'+current.slug,'1');}catch{}renderList();return;}const node=current.steps[step];bubble(npcRole(),node.npc,node.es);transcript.push({who:npcRole(),en:node.npc,es:node.es});status.textContent='Tu turno: '+current.role+'. Elegí una respuesta.';for(const option of node.choices){const b=document.createElement('button');b.type='button';b.className='life-choice';const en=document.createElement('strong');en.textContent=option.en;const es=document.createElement('span');es.textContent=option.es;es.hidden=!translation.checked;b.append(en,es);b.addEventListener('click',()=>{const first=transcript.length;bubble(learnerRole(),option.en,option.es);transcript.push({who:learnerRole(),en:option.en,es:option.es});if(option.reply){bubble(npcRole(),option.reply.en,option.reply.es);transcript.push({who:npcRole(),en:option.reply.en,es:option.reply.es});}step++;showStep();if(autoplay.checked)speakTurns(transcript.slice(first));});choices.append(b);}}
-function selectScene(scene){if('speechSynthesis'in window)++playbackToken;speechSynthesis.cancel();current=scene;step=0;transcript=[];chat.replaceChildren();document.getElementById('life-title').textContent=scene.title;document.getElementById('life-role').textContent=scene.level+' · '+scene.category+' · Tu rol: '+learnerRole()+' · Otro personaje: '+npcRole();showStep();if(autoplay.checked)speakTurns(transcript.slice());}
+let sceneLoadToken=0;
+async function selectScene(scene){
+ const token=++sceneLoadToken;
+ status.textContent='Cargando traducciones de Google…';
+ const translations={};
+ let translationOk=false;
+ try{
+  const csrf=document.querySelector('meta[name="csrf"]')?.content||'';
+  const response=await fetch('/api/dialogue-translations.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':csrf},body:JSON.stringify({slug:scene.slug})});
+  const result=await response.json();
+  if(!response.ok)throw new Error(result.error||'No se pudo traducir.');
+  Object.assign(translations,result.translations||{});
+  translationOk=true;
+ }catch(err){if(token!==sceneLoadToken)return;status.textContent='Traducción de Google no disponible: '+err.message;}
+ if(token!==sceneLoadToken)return;
+ const prepared=JSON.parse(JSON.stringify(scene));
+ for(const turn of prepared.steps||[]){
+  turn.es=translationOk?(translations[turn.npc]||''):'';
+  for(const choice of turn.choices||[]){
+   choice.es=translationOk?(translations[choice.en]||''):'';
+   if(choice.reply)choice.reply.es=translationOk?(translations[choice.reply.en]||''):'';
+  }
+ }
+ translation.checked=translationOk;
+ if('speechSynthesis'in window){++playbackToken;speechSynthesis.cancel();}
+ current=prepared;step=0;transcript=[];chat.replaceChildren();
+ document.getElementById('life-title').textContent=prepared.title;
+ document.getElementById('life-role').textContent=prepared.level+' · '+prepared.category+' · Tu rol: '+learnerRole()+' · Otro personaje: '+npcRole();
+ if(translationOk)status.textContent='';
+ showStep();if(autoplay.checked)speakTurns(transcript.slice());
+}
 translation.addEventListener('change',()=>{chat.querySelectorAll('.life-translation').forEach(el=>el.hidden=!translation.checked);choices.querySelectorAll('.life-choice span').forEach(el=>el.hidden=!translation.checked);});
 const replay=document.getElementById('life-replay');
 if(replay)replay.addEventListener('click',()=>{if(transcript.length)speakTurns(transcript);else status.textContent='Primero elegí una situación.';});
