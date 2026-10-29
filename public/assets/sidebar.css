@@ -94,3 +94,8 @@ html[data-theme=dark] .mt-side-level ol a.is-locked{color:#9fb3c8}
 .mtn-sidebar .mt-side-level>summary.is-current span{color:var(--mtn-blue,#155b9e)}
 .mtn-sidebar .mt-sidebar-links .mt-side-level ol a{min-height:0;padding:6px 8px;font-size:.78rem;font-weight:550;opacity:.9}
 .mtn-sidebar .mt-sidebar-links .mt-side-level ol a[aria-current=page]{background:var(--mtn-blue-soft,#e9f2ff);color:var(--mtn-blue,#155b9e);font-weight:750;opacity:1}
+
+/* Menú más ancho: los títulos de niveles y capítulos se leen completos (pueden ocupar dos líneas). */
+.mt-sidebar .mt-side-level>summary{align-items:center;line-height:1.35}
+.mt-sidebar .mt-side-level>summary span{white-space:normal;overflow:visible;text-overflow:clip}
+.mt-sidebar .mt-side-group>summary>span,.mt-sidebar-links a span{white-space:normal}

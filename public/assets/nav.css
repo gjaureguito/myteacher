@@ -55,7 +55,7 @@ html[data-theme=dark] .mtn-brand-mark{background:#2f6fd0}
 .mtn-header :focus-visible,.mtn-sidebar :focus-visible,.mtn-tabbar :focus-visible{outline:3px solid var(--mtn-blue);outline-offset:2px}
 
 /* ---------- Barra lateral del alumno ---------- */
-body.has-bottom-nav{--mt-side-width:256px}
+body.has-bottom-nav{--mt-side-width:312px}
 .mtn-sidebar.mt-sidebar{top:var(--topbar-h,64px);width:var(--mt-side-width);display:flex;flex-direction:column;background:var(--mtn-side);border-right:1px solid var(--mtn-line);box-shadow:none;font-family:Manrope,"Segoe UI",system-ui,sans-serif}
 .mtn-side-user{display:none}
 .mtn-sidebar .mt-sidebar-links{padding:14px 12px 16px;gap:2px}
@@ -75,7 +75,7 @@ body.has-bottom-nav{--mt-side-width:256px}
 .mtn-tabbar{display:none}
 
 /* ---------- Pantallas medianas y chicas ---------- */
-@media (max-width:1000px) and (min-width:761px){body.has-bottom-nav{--mt-side-width:232px}}
+@media (max-width:1000px) and (min-width:761px){body.has-bottom-nav{--mt-side-width:272px}}
 
 @media (max-width:900px){
   .mtn-bar{width:auto;margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));gap:8px}
@@ -95,7 +95,7 @@ body.has-bottom-nav{--mt-side-width:256px}
   .mtn-user-text{display:none}
   .mtn-header.is-app .mtn-bar{padding-left:max(8px,env(safe-area-inset-left,0px))}
 
-  .mtn-sidebar.mt-sidebar{top:0;width:min(300px,86vw);padding-top:0;z-index:300}
+  .mtn-sidebar.mt-sidebar{top:0;width:min(340px,90vw);padding-top:0;z-index:300}
   .mtn-side-user{display:flex;align-items:center;gap:12px;padding:calc(18px + env(safe-area-inset-top,0px)) 18px 16px;border-bottom:1px solid var(--mtn-line);color:var(--mtn-ink);text-decoration:none}
   .mtn-side-user>span:last-child{display:flex;flex-direction:column;min-width:0;line-height:1.25}
   .mtn-side-user b{font-size:.95rem}
