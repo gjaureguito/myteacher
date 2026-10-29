@@ -1,6 +1,8 @@
 <?php $full = has_full_access($u); ?>
 <section class="wrap page">
   <h1>Mi cuenta</h1>
+  <?php $agreements=q_all('SELECT id,accepted_at FROM purchase_agreements WHERE user_id=? ORDER BY id DESC LIMIT 10',[$u['id']]); if($agreements): ?>
+  <details class="panel"><summary>Contratos aceptados y datos de facturación</summary><?php foreach($agreements as $agreement): ?><p><a href="/agreement.php?id=<?= (int)$agreement['id'] ?>">Contratación del <?= e($agreement['accepted_at']) ?> UTC</a></p><?php endforeach; ?></details><?php endif; ?>
 
   <div class="grid-2">
     <div class="panel">
@@ -29,12 +31,12 @@
             <p class="note">El pago online todavía no está disponible. Escribinos y te habilitamos el acceso.</p>
           <?php else: ?>
             <?php if ($mode !== 'once'): ?>
-              <form method="post" action="/subscribe.php"><?= csrf_field() ?><input type="hidden" name="kind" value="subscription">
-                <button class="btn btn-mp">Suscribirme con Mercado Pago</button></form>
+              <form method="get" action="/checkout.php"><input type="hidden" name="kind" value="subscription">
+                <button class="btn btn-mp">Revisar contrato y suscribirme</button></form>
             <?php endif; ?>
             <?php if ($mode !== 'subscription'): ?>
-              <form method="post" action="/subscribe.php" style="margin-top:10px"><?= csrf_field() ?><input type="hidden" name="kind" value="once">
-                <button class="btn <?= $mode === 'once' ? 'btn-mp' : 'btn-ghost' ?>" style="width:100%">Pagar <?= $days ?> días con Mercado Pago</button></form>
+              <form method="get" action="/checkout.php" style="margin-top:10px"><input type="hidden" name="kind" value="once">
+                <button class="btn <?= $mode === 'once' ? 'btn-mp' : 'btn-ghost' ?>" style="width:100%">Revisar contrato y pagar <?= $days ?> días</button></form>
               <p class="fine">El pago único acepta tarjeta, débito, dinero en cuenta y efectivo (Rapipago, Pago Fácil).</p>
             <?php endif; ?>
             <p class="fine">Usá en Mercado Pago el mismo email de tu cuenta (<?= e($u['email']) ?>) para que el pago se asocie sin demoras.</p>

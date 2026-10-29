@@ -10,6 +10,36 @@ function run_schema(): void
     $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
     $tables = [
+        "CREATE TABLE IF NOT EXISTS purchase_agreements (
+            id $pk,
+            user_id $fk NOT NULL,
+            nonce VARCHAR(64) NOT NULL UNIQUE,
+            version VARCHAR(40) NOT NULL,
+            document_hash VARCHAR(64) NOT NULL,
+            document_text $text NOT NULL,
+            amount DECIMAL(12,2) NOT NULL,
+            currency VARCHAR(3) NOT NULL,
+            kind VARCHAR(20) NOT NULL,
+            days INT NOT NULL,
+            accepted_at DATETIME NOT NULL
+        )$engine",
+        "CREATE TABLE IF NOT EXISTS consumer_requests (
+            id $pk,
+            receipt VARCHAR(40) NOT NULL UNIQUE,
+            name VARCHAR(120) NOT NULL,
+            email VARCHAR(190) NOT NULL,
+            kind VARCHAR(20) NOT NULL,
+            reference VARCHAR(300) NOT NULL,
+            status VARCHAR(20) NOT NULL DEFAULT 'received',
+            created_at DATETIME NOT NULL
+        )$engine",
+
+        "CREATE TABLE IF NOT EXISTS purchase_billing (
+            nonce VARCHAR(64) NOT NULL PRIMARY KEY,
+            user_id $fk NOT NULL,
+            billing_data $text NOT NULL,
+            created_at DATETIME NOT NULL
+        )$engine",
         "CREATE TABLE IF NOT EXISTS scene_status (
             user_id $fk NOT NULL,
             scene_id VARCHAR(80) NOT NULL,
