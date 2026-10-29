@@ -25,15 +25,14 @@ CATALOG
 } catch(Throwable $e){error_log('Life dialogues: '.$e->getMessage());$data=[];$catalogError=true;}
 require ROOT.'/src/views/layout_top.php';
 ?>
-<link rel="stylesheet" href="/assets/life-dialogues.css?v=1">
+<link rel="stylesheet" href="/assets/life-dialogues.css?v=2">
 <section class="wrap life-page">
 <p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / Simulador de situaciones reales</p>
-<header><p class="eyebrow">INGLÉS EN LA VIDA REAL</p><h1>Simulador de diálogos interactivos</h1><p>Elegí tu nivel, una situación y un personaje. Escuchá las frases, respondé y descargá tu práctica. No consume consultas de IA.</p></header>
+<header><p class="eyebrow">INGLÉS EN LA VIDA REAL</p><h1>Simulador de diálogos interactivos</h1><p>Seleccioná una situación desde el menú «Diálogos reales» de la izquierda. Escuchá las frases, respondé y guardá tu práctica. No consume consultas de IA.</p></header>
 <?php if(!empty($catalogError)):?><p role="alert">No se pudo cargar el catálogo de situaciones. Revisá los registros del servicio web.</p><?php endif;?>
 <div class="life-layout">
-<aside class="life-catalog"><label for="life-level">Nivel MCER</label><select id="life-level"><?php foreach(['A1','A2','B1','B2','C1','C2'] as $l):?><option><?=e($l)?></option><?php endforeach;?></select><label for="life-filter">Buscar situación</label><input id="life-filter" type="search" placeholder="Restaurante, entrevista, viajes…"><p id="life-catalog-count" class="life-muted"></p><div id="life-scenes" class="life-scene-list"></div></aside>
 <div class="life-main"><div class="life-scene-head"><div><p id="life-role" class="life-muted"></p><h2 id="life-title">Elegí una situación</h2></div><div class="life-actions"><button type="button" id="life-replay">▶ Escuchar conversación</button><button type="button" id="life-reset">Reiniciar</button><button type="button" id="life-export">↓ Guardar TXT</button></div></div><div class="life-config"><label><input type="checkbox" id="life-translate" checked> Mostrar traducción</label><label><input type="checkbox" id="life-autoplay"> Escuchar automáticamente a los dos personajes</label></div><div id="life-chat" class="life-chat" role="log" aria-live="polite"></div><div id="life-choices" class="life-choices"></div><div id="life-status" role="status" class="life-muted"></div></div>
 </div></section>
 <script id="life-data" type="application/json"><?=json_encode($data,JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT)?></script>
-<script defer src="/assets/life-dialogues.js?v=6"></script>
+<script defer src="/assets/life-dialogues.js?v=7"></script>
 <?php require ROOT.'/src/views/layout_bottom.php'; ?>
