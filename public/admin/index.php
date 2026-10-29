@@ -64,6 +64,55 @@ if (is_post()) {
             log_line("Admin {$admin['email']} generó una contraseña nueva para {$target['email']}");
             flash('ok', "Contraseña nueva para {$target['email']}: $password — compartila ahora, no se vuelve a mostrar. El alumno puede cambiarla después con «¿Olvidaste tu contraseña?».");
         }
+    } elseif ($action === 'delete') {
+        $confirm = trim((string) ($_POST['confirm_email'] ?? ''));
+        $target = $uid > 0 ? q_one('SELECT id, email, role, sub_status, mp_preapproval_id FROM users WHERE id = ?', [$uid]) : null;
+        if (!$target) {
+            flash('error', 'No encontramos ese usuario.');
+        } elseif ((int) $target['id'] === (int) $admin['id']) {
+            flash('error', 'No podés eliminar tu propia cuenta de administrador.');
+        } elseif (!hash_equals(mb_strtolower((string) $target['email']), mb_strtolower($confirm))) {
+            flash('error', 'Para eliminar un usuario, confirmá su dirección de email exacta.');
+        } elseif (in_array((string) $target['sub_status'], ['active', 'pending', 'authorized'], true) || !empty($target['mp_preapproval_id'])) {
+            flash('error', 'Este usuario tiene o tuvo una suscripción vinculada. Revisá y desvinculá o cancelá correctamente la suscripción en Mercado Pago antes de eliminarlo.');
+        } elseif ($target['role'] === 'admin' && (int) q_val("SELECT COUNT(*) FROM users WHERE role = 'admin'") <= 1) {
+            flash('error', 'No se puede eliminar el último administrador.');
+        } else {
+            try {
+                $pdo = db();
+                $pdo->beginTransaction();
+                // Limpiar datos asociados de tablas que tengan columna user_id.
+                // Mantener el historial de pagos sin vincularlo al usuario eliminado.
+                if (db_is_sqlite()) {
+                    $tables = $pdo->query("SELECT name FROM sqlite_master WHERE type='table'")->fetchAll(PDO::FETCH_COLUMN);
+                    foreach ($tables as $table) {
+                        if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', (string) $table) || $table === 'users') continue;
+                        $cols = $pdo->query('PRAGMA table_info("' . $table . '")')->fetchAll(PDO::FETCH_ASSOC);
+                        if (!in_array('user_id', array_column($cols, 'name'), true)) continue;
+                        if ($table === 'payments_log') $pdo->prepare('UPDATE payments_log SET user_id = NULL WHERE user_id = ?')->execute([$uid]);
+                        else $pdo->prepare('DELETE FROM "' . $table . '" WHERE user_id = ?')->execute([$uid]);
+                    }
+                } else {
+                    $stmt = $pdo->prepare("SELECT TABLE_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND COLUMN_NAME = 'user_id'");
+                    $stmt->execute();
+                    foreach ($stmt->fetchAll(PDO::FETCH_COLUMN) as $table) {
+                        if (!preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', (string) $table) || $table === 'users') continue;
+                        $sql = $table === 'payments_log'
+                            ? 'UPDATE `payments_log` SET user_id = NULL WHERE user_id = ?'
+                            : 'DELETE FROM `' . $table . '` WHERE user_id = ?';
+                        $pdo->prepare($sql)->execute([$uid]);
+                    }
+                }
+                $pdo->prepare('DELETE FROM users WHERE id = ?')->execute([$uid]);
+                $pdo->commit();
+                log_line("Admin {$admin['email']} eliminó definitivamente la cuenta {$target['email']} (ID {$uid})");
+                flash('ok', 'Usuario eliminado. Su cuenta y progreso asociado ya no están disponibles.');
+            } catch (Throwable $e) {
+                if (db()->inTransaction()) db()->rollBack();
+                error_log('Admin delete account: ' . $e->getMessage());
+                flash('error', 'No fue posible eliminar el usuario. No se aplicaron cambios.');
+            }
+        }
     } elseif ($action === 'revoke') {
         q("UPDATE users SET access_until = NULL, sub_status = 'none' WHERE id = ?", [$uid]);
         flash('ok', 'Acceso quitado.');
