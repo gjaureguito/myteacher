@@ -61,6 +61,15 @@
             <button class="linkbtn">Quitar</button>
           </form>
           <?php endif; ?>
+          <?php if ((int) $x['id'] !== (int) $admin['id']): ?>
+          <form method="post" class="inline" onsubmit="const email = <?= e(json_encode((string) $x['email'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT)) ?>; const typed = prompt('Eliminación permanente de ' + email + '. Se borrarán su cuenta y su progreso. Escribí el email exacto para confirmar:'); if (typed === null) return false; this.querySelector('[name=confirm_email]').value = typed; return typed.trim().toLowerCase() === email.toLowerCase() && confirm('¿Eliminar definitivamente la cuenta ' + email + '? Esta acción no se puede deshacer.');">
+            <?= csrf_field() ?>
+            <input type="hidden" name="user_id" value="<?= (int) $x['id'] ?>">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="confirm_email" value="">
+            <button type="submit" class="linkbtn" style="color:#b42332">Eliminar usuario</button>
+          </form>
+          <?php endif; ?>
         </td>
       </tr>
     <?php endforeach; ?>
