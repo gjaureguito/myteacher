@@ -145,3 +145,14 @@ Estas prácticas comparan con modelos locales, sin calificación docente ni guar
 ### Cuadernos de gramática
 
 `/grammar.php` reúne explicación, ejemplos y ejercicios con corrección y progreso compartidos con la unidad. Práctica abierta con respuestas comentadas de autoestudio, sin puntuación ni guardado de borradores. Respeta acceso por suscripción y demo. Contenido propio.
+
+
+## Google Cloud Translation (diccionario y diálogos)
+1. En Google Cloud creá o seleccioná un proyecto con facturación habilitada.
+2. Habilitá **Cloud Translation API** y creá una clave API. Restringila a Cloud Translation API. Guardala solo en variables privadas del servidor.
+3. En Railway, servicio web de MyTeacher → **Variables**, agregá `GOOGLE_TRANSLATE_API_KEY` con el valor de la clave. No la incluyas en GitHub ni en JavaScript.
+4. Volvé a desplegar. La ruta `/api/translate.php` prioriza Google sobre DeepL y MyMemory cuando esa variable está definida.
+5. En `/life-dialogues.php`, el navegador solicita al backend traducciones de todas las frases de la situación elegida; se cachean en `dialogue_translation_cache` según el texto en inglés. Una traducción no disponible se muestra como error, no se reemplaza por una traducción genérica.
+6. Configurá presupuestos y alertas de facturación en Google Cloud. El caché reduce solicitudes, pero las traducciones nuevas consumen cuota. Revisá traducciones didácticas antes de considerarlas definitivas: ninguna traducción automática es infalible.
+
+Nota: esto no traduce automáticamente textos de teoría, libros o ejercicios almacenados en el repositorio. Esos contenidos requieren auditoría editorial y un proceso de traducción/revisión aparte.
