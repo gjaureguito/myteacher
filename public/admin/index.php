@@ -137,4 +137,4 @@ $active = $stats['Suscripciones activas'];
 $mrr = $active * plan_price();
 $log = q_all('SELECT p.*, u.email FROM payments_log p LEFT JOIN users u ON u.id = p.user_id ORDER BY p.id DESC LIMIT 15');
 
-render('admin_home', compact('users', 'stats', 's', 'mrr', 'log'), 'Admin');
+render('admin_home', compact('users', 'stats', 's', 'mrr', 'log', 'admin'), 'Admin');
