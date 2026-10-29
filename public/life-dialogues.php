@@ -34,5 +34,5 @@ require ROOT.'/src/views/layout_top.php';
 <div class="life-main"><div class="life-scene-head"><div><p id="life-role" class="life-muted"></p><h2 id="life-title">Elegí una situación</h2></div><div class="life-actions"><button type="button" id="life-replay">▶ Escuchar conversación</button><button type="button" id="life-reset">Reiniciar</button><button type="button" id="life-export">↓ Guardar TXT</button></div></div><div class="life-config"><label><input type="checkbox" id="life-translate" checked> Mostrar traducción</label><label><input type="checkbox" id="life-autoplay"> Escuchar automáticamente a los dos personajes</label></div><div id="life-chat" class="life-chat" role="log" aria-live="polite"></div><div id="life-choices" class="life-choices"></div><div id="life-status" role="status" class="life-muted"></div></div>
 </div></section>
 <script id="life-data" type="application/json"><?=json_encode($data,JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT)?></script>
-<script defer src="/assets/life-dialogues.js?v=8"></script>
+<script defer src="/assets/life-dialogues.js?v=9"></script>
 <?php require ROOT.'/src/views/layout_bottom.php'; ?>
