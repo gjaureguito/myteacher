@@ -5,6 +5,8 @@ RewriteCond %{HTTP_HOST} ^www\.myteacher\.com\.ar$ [NC]
 RewriteRule ^ https://myteacher.com.ar%{REQUEST_URI} [L,R=301,NE]
 RewriteCond %{HTTP:X-Forwarded-Proto} =http
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# /sitemap.xml sirve el sitemap dinámico
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
 <IfModule mod_headers.c>
   Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
