@@ -1,5 +1,6 @@
 <?php
 require dirname(__DIR__, 2) . '/src/bootstrap.php';
+require_once ROOT . '/src/mercadopago.php';
 $admin = require_admin();
 
 if (is_post()) {
@@ -73,8 +74,13 @@ if (is_post()) {
             flash('error', 'No podés eliminar tu propia cuenta de administrador.');
         } elseif (!hash_equals(mb_strtolower((string) $target['email']), mb_strtolower($confirm))) {
             flash('error', 'Para eliminar un usuario, confirmá su dirección de email exacta.');
-        } elseif (in_array((string) $target['sub_status'], ['active', 'pending', 'authorized'], true) || !empty($target['mp_preapproval_id'])) {
-            flash('error', 'Este usuario tiene o tuvo una suscripción vinculada. Revisá y desvinculá o cancelá correctamente la suscripción en Mercado Pago antes de eliminarlo.');
+        } elseif (in_array((string) $target['sub_status'], ['active', 'authorized', 'paused'], true)) {
+            // Suscripción vigente: primero hay que cancelarla para que Mercado Pago no siga cobrando.
+            flash('error', 'Este usuario tiene una suscripción vigente en Mercado Pago. Cancelala primero y después eliminá la cuenta.');
+        } elseif (!empty($target['mp_preapproval_id']) && (string) $target['sub_status'] !== 'cancelled' && !(function (array $t): bool { try { return mp_cancel_subscription($t); } catch (Throwable $e) { error_log('Admin delete: cancelar suscripción: ' . $e->getMessage()); return false; } })($target)) {
+            // Suscripción iniciada y no terminada (pending): se cancela en Mercado Pago antes de borrar,
+            // así un pago tardío no queda asociado a una cuenta inexistente.
+            flash('error', 'No se pudo cancelar en Mercado Pago la suscripción pendiente de este usuario. Intentá de nuevo en unos minutos.');
         } elseif ($target['role'] === 'admin' && (int) q_val("SELECT COUNT(*) FROM users WHERE role = 'admin'") <= 1) {
             flash('error', 'No se puede eliminar el último administrador.');
         } else {
