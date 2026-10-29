@@ -25,7 +25,7 @@ CATALOG
 } catch(Throwable $e){error_log('Life dialogues: '.$e->getMessage());$data=[];$catalogError=true;}
 require ROOT.'/src/views/layout_top.php';
 ?>
-<link rel="stylesheet" href="/assets/life-dialogues.css?v=2">
+<link rel="stylesheet" href="/assets/life-dialogues.css?v=3">
 <section class="wrap life-page">
 <p class="crumbs"><a href="/dashboard.php">Mis niveles</a> / Simulador de situaciones reales</p>
 <header><p class="eyebrow">INGLÉS EN LA VIDA REAL</p><h1>Simulador de diálogos interactivos</h1><p>Seleccioná una situación desde el menú «Diálogos reales» de la izquierda. Escuchá las frases, respondé y guardá tu práctica. No consume consultas de IA.</p></header>
