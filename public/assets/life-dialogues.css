@@ -2,3 +2,15 @@
 /* La navegación de situaciones vive en el menú principal, no en un panel duplicado. */
 .life-page .life-layout{display:block;max-width:1100px;margin-inline:auto}
 .life-page .life-main{width:100%;box-sizing:border-box}
+
+
+/* Un único panel de conversación: anular la antigua grilla de dos columnas. */
+.life-page .life-layout{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%!important;max-width:none!important;gap:0!important}
+.life-page .life-layout>.life-main{grid-column:1 / -1!important;min-width:0!important;width:100%!important;max-width:none!important;margin:0!important;box-sizing:border-box}
+.life-page .life-scene-head{align-items:center;gap:16px}
+.life-page .life-scene-head h2{font-size:clamp(1.65rem,2.5vw,2.45rem);line-height:1.15;margin:4px 0 12px}
+.life-page .life-actions{display:flex;flex-wrap:wrap;gap:9px}
+.life-page .life-actions button{min-height:42px;white-space:normal}
+.life-page .life-chat{min-height:420px;height:min(60vh,670px)}
+.life-page .life-bubble{max-width:min(78%,680px)}
+@media(max-width:760px){.life-page .life-layout>.life-main{padding:16px!important}.life-page .life-chat{min-height:330px;height:50vh}.life-page .life-bubble{max-width:94%}.life-page .life-scene-head{display:block}.life-page .life-actions{margin-bottom:12px}}
