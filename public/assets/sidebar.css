@@ -99,3 +99,12 @@ html[data-theme=dark] .mt-side-level ol a.is-locked{color:#9fb3c8}
 .mt-sidebar .mt-side-level>summary{align-items:center;line-height:1.35}
 .mt-sidebar .mt-side-level>summary span{white-space:normal;overflow:visible;text-overflow:clip}
 .mt-sidebar .mt-side-group>summary>span,.mt-sidebar-links a span{white-space:normal}
+
+
+/* Submenús compactos para gramática, prácticas y video. */
+.mt-sidebar-links .mt-side-quicklinks{margin-top:3px;margin-bottom:7px;gap:2px}
+.mt-sidebar-links .mt-side-quicklinks>a{min-height:32px;padding:7px 10px;font-size:.78rem;font-weight:550;border-radius:8px;white-space:normal}
+.mt-sidebar-links .mt-side-quicklinks>a:hover{background:#eaf2fa}
+.mt-sidebar-links .mt-side-group-extra>summary{justify-content:flex-start}
+.mt-sidebar-links .mt-side-group-extra>summary .mt-side-chevron{margin-left:auto}
+html[data-theme=dark] .mt-sidebar-links .mt-side-quicklinks>a:hover{background:#284761}
