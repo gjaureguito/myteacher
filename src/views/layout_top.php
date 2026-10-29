@@ -171,9 +171,35 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
     </details>
     <details class="mt-side-group mt-side-group-extra" data-side-group="dialogos-reales"<?= $path === '/life-dialogues.php' ? ' open' : '' ?>>
       <summary<?= $path === '/life-dialogues.php' ? ' class="is-current"' : '' ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.8-5A8.4 8.4 0 1 1 21 11.5z"/></svg><span>Diálogos reales</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
-      <div class="mt-side-tree mt-side-quicklinks">
+      <div class="mt-side-tree">
+<?php
+    // Usar el catálogo real de diálogos sin duplicar situaciones ni inventar enlaces.
+    $dialogueMenu = [];
+    try {
+        foreach (q_all('SELECT slug, level_code, title FROM life_dialogues ORDER BY level_code, slug') as $dialogueRow) {
+            $dialogueMenu[strtoupper((string) $dialogueRow['level_code'])][] = $dialogueRow;
+        }
+    } catch (Throwable $menuError) {
+        // La tabla puede no existir hasta la primera visita al simulador.
+    }
+    $activeDialogueLevel = strtoupper((string) ($_GET['level'] ?? ''));
+    $activeDialogueSlug = (string) ($_GET['scene'] ?? '');
+    if ($activeDialogueSlug && !$activeDialogueLevel) {
+        foreach ($dialogueMenu as $code => $items) {
+            foreach ($items as $item) if ($item['slug'] === $activeDialogueSlug) $activeDialogueLevel = $code;
+        }
+    }
+?>
 <?php foreach (['A1','A2','B1','B2','C1','C2'] as $dialogueLevel): ?>
-        <a href="/life-dialogues.php?level=<?= e($dialogueLevel) ?>">Nivel <?= e($dialogueLevel) ?></a>
+        <details class="mt-side-level" name="mt-dialogue-levels"<?= $path === '/life-dialogues.php' && $activeDialogueLevel === $dialogueLevel ? ' open' : '' ?>>
+          <summary><b><?= e($dialogueLevel) ?></b><span>Nivel <?= e($dialogueLevel) ?></span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+          <ol>
+            <li><a href="/life-dialogues.php?level=<?= e($dialogueLevel) ?>">Todas las situaciones</a></li>
+<?php foreach ($dialogueMenu[$dialogueLevel] ?? [] as $dialogueItem): ?>
+            <li><a href="/life-dialogues.php?level=<?= e($dialogueLevel) ?>&amp;scene=<?= rawurlencode((string) $dialogueItem['slug']) ?>"<?= $path === '/life-dialogues.php' && $activeDialogueSlug === $dialogueItem['slug'] ? ' aria-current="page"' : '' ?>><span><?= e($dialogueItem['title']) ?></span></a></li>
+<?php endforeach; ?>
+          </ol>
+        </details>
 <?php endforeach; ?>
       </div>
     </details>
