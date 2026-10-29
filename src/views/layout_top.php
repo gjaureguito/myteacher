@@ -142,12 +142,33 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
 <?php endforeach; ?>
       </div>
     </details>
-    <a href="/grammar.php"<?= $navCur('/grammar.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 19 6-14 6 14M6 15h8M17 8h5M19.5 8v11"/></svg><span>Gramática</span></a>
-    <a href="/review.php"<?= $navCur('/review.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span>Prácticas</span></a>
+    <details class="mt-side-group mt-side-group-extra" data-side-group="gramática">
+      <summary<?= $path === '/grammar.php' ? ' class="is-current"' : '' ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 19 6-14 6 14M6 15h8M17 8h5M19.5 8v11"/></svg><span>Gramática</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <div class="mt-side-tree mt-side-quicklinks">
+      <?php foreach (['a1','a2','b1','b2','c1','c2'] as $gc): $gu = $menuBooks[$gc][0] ?? null; ?>
+      <?php if ($gu): ?><a href="/grammar.php?id=<?= (int) $gu['id'] ?>"><?= e(strtoupper($gc)) ?> · Primera unidad</a><?php endif; ?>
+<?php endforeach; ?>
+      </div>
+    </details>
+    <details class="mt-side-group mt-side-group-extra" data-side-group="prácticas">
+      <summary><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg><span>Prácticas</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <div class="mt-side-tree mt-side-quicklinks">
+      <a href="/review.php?m=errores">Corregir errores</a>
+      <a href="/review.php?m=refuerzo">Reforzar aprendizajes</a>
+      <a href="/dashboard.php">Prácticas por nivel</a>
+      </div>
+    </details>
     <a href="/glossary.php"<?= $navCur('/glossary.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg><span>Mi glosario</span></a>
     <p class="mt-sidebar-heading">RECURSOS</p>
     <a href="/library.php"<?= $navCur('/library.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C3.5 4.5 5.5 4 7.5 4S11 4.5 12 5.5V20c-1-1-2.5-1.5-4.5-1.5S3.5 19 2 20zM22 5.5C20.5 4.5 18.5 4 16.5 4S13 4.5 12 5.5V20c1-1 2.5-1.5 4.5-1.5s4 .5 5.5 1.5z"/></svg><span>Biblioteca</span></a>
-    <a href="/video-learning.php"<?= $navCur('/video-learning.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><span>Video Learning</span></a>
+    <details class="mt-side-group mt-side-group-extra" data-side-group="video-learning">
+      <summary><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><span>Video Learning</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <div class="mt-side-tree mt-side-quicklinks">
+      <?php for ($vl = 1; $vl <= 7; $vl++): ?>
+      <a href="/video-learning.php?lesson=<?= $vl ?>">Video A1 · Lección <?= $vl ?></a>
+<?php endfor; ?>
+      </div>
+    </details>
     <a href="/life-dialogues.php"<?= $navCur('/life-dialogues.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.8-5A8.4 8.4 0 1 1 21 11.5z"/></svg><span>Diálogos reales</span></a>
     <a href="/tutor.php"<?= $navCur('/tutor.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 0M8 5v3c0 5-2 8-5 10M5 12c1 2 4 4 7 5M13 20l5-12 5 12M15 16h6"/></svg><span>Diccionario</span></a>
     <a href="/stats.php"<?= $navCur('/stats.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20V8"/></svg><span>Estadísticas</span></a>
