@@ -169,7 +169,14 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
 <?php endfor; ?>
       </div>
     </details>
-    <a href="/life-dialogues.php"<?= $navCur('/life-dialogues.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.8-5A8.4 8.4 0 1 1 21 11.5z"/></svg><span>Diálogos reales</span></a>
+    <details class="mt-side-group mt-side-group-extra" data-side-group="dialogos-reales"<?= $path === '/life-dialogues.php' ? ' open' : '' ?>>
+      <summary<?= $path === '/life-dialogues.php' ? ' class="is-current"' : '' ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.8-5A8.4 8.4 0 1 1 21 11.5z"/></svg><span>Diálogos reales</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
+      <div class="mt-side-tree mt-side-quicklinks">
+<?php foreach (['A1','A2','B1','B2','C1','C2'] as $dialogueLevel): ?>
+        <a href="/life-dialogues.php?level=<?= e($dialogueLevel) ?>">Nivel <?= e($dialogueLevel) ?></a>
+<?php endforeach; ?>
+      </div>
+    </details>
     <a href="/tutor.php"<?= $navCur('/tutor.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 0M8 5v3c0 5-2 8-5 10M5 12c1 2 4 4 7 5M13 20l5-12 5 12M15 16h6"/></svg><span>Diccionario</span></a>
     <a href="/stats.php"<?= $navCur('/stats.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20V8"/></svg><span>Estadísticas</span></a>
     <a href="/placement.php"<?= $navCur('/placement.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><span>Test de nivel</span></a>
