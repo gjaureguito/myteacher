@@ -61,6 +61,7 @@ require ROOT . '/src/helpers.php';
 require ROOT . '/src/auth.php';
 require ROOT . '/src/access.php';
 require ROOT . '/src/progress.php';
+require ROOT . '/src/certificates.php';
 require ROOT . '/src/grading.php';
 require ROOT . '/src/learning.php';
 require ROOT . '/src/scenes.php';

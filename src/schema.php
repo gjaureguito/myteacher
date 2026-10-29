@@ -10,6 +10,18 @@ function run_schema(): void
     $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
     $tables = [
+        "CREATE TABLE IF NOT EXISTS certificates (
+            id $pk,
+            user_id $fk NOT NULL,
+            level_code VARCHAR(4) NOT NULL,
+            student_name VARCHAR(120) NOT NULL,
+            level_name VARCHAR(80) NOT NULL,
+            issued_at DATETIME NOT NULL,
+            reference VARCHAR(24) NOT NULL UNIQUE,
+            exercise_count INT NOT NULL,
+            concepts_json $text NOT NULL,
+            UNIQUE (user_id, level_code)
+        )$engine",
         "CREATE TABLE IF NOT EXISTS purchase_agreements (
             id $pk,
             user_id $fk NOT NULL,

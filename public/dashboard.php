@@ -10,6 +10,8 @@ if ($u['sub_status'] === 'active' && $u['mp_preapproval_id'] && !has_full_access
     $u = q_one('SELECT * FROM users WHERE id = ?', [$u['id']]);
 }
 
+award_completed_levels($u);
+
 $levels = q_all('SELECT * FROM levels ORDER BY position');
 $lp = level_progress((int) $u['id']);
 $last = last_unit((int) $u['id']);
