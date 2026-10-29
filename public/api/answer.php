@@ -54,6 +54,8 @@ if ($st) {
         [$u['id'], $id, $ok ? 1 : 0, 1, now_utc(), $lastAnswer]);
 }
 
+if ($ok) award_completed_levels($u);
+
 $tries = ($st['tries'] ?? 0) + 1;
 // La respuesta correcta se revela si acertó o después de 2 intentos fallidos. En escritura el modelo se muestra siempre.
 $reveal = $ok || $tries >= 2 || $ex['type'] === 'write';

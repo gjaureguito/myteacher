@@ -156,3 +156,12 @@ Estas prácticas comparan con modelos locales, sin calificación docente ni guar
 6. Configurá presupuestos y alertas de facturación en Google Cloud. El caché reduce solicitudes, pero las traducciones nuevas consumen cuota. Revisá traducciones didácticas antes de considerarlas definitivas: ninguna traducción automática es infalible.
 
 Nota: esto no traduce automáticamente textos de teoría, libros o ejercicios almacenados en el repositorio. Esos contenidos requieren auditoría editorial y un proceso de traducción/revisión aparte.
+
+
+## Ruta de aprendizaje y certificados
+
+`/learning-path.php` muestra los conceptos de cada unidad publicada y su avance real, con enlaces para continuar o repasar. Un concepto se marca como aprendido cuando todos los ejercicios de su unidad están resueltos. La emisión requiere completar todas las unidades publicadas del nivel, con al menos un ejercicio en cada una; no usa porcentajes redondeados.
+
+La migración 6 agrega `certificates`. Al responder correctamente o visitar el panel/ruta, se registran automáticamente los niveles completados, incluidos los anteriores a esta función. Se conserva una única constancia por alumno y nivel, con nombre, fecha UTC de emisión, código aleatorio, cantidad de ejercicios y conceptos del programa. Reiniciar ejercicios, cambiar de nombre o agregar contenido no altera constancias emitidas. La descarga `/certificate.php?level=a1` exige sesión y solo entrega certificados propios, incluso sin suscripción vigente. PDF horizontal de una página, con tipografía estándar Windows-1252 (acentos españoles; otros alfabetos se transliteran). No es una firma digital criptográfica ni una acreditación oficial del MCER.
+
+Validación: `python tests/certificates.py` usa una base temporal y cubre emisión, idempotencia, conservación, acceso por alumno y descarga PDF. Si está instalado PyMuPDF, también analiza y renderiza el archivo.

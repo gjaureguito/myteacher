@@ -204,6 +204,7 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
       </div>
     </details>
     <a href="/tutor.php"<?= $navCur('/tutor.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 6 0M8 5v3c0 5-2 8-5 10M5 12c1 2 4 4 7 5M13 20l5-12 5 12M15 16h6"/></svg><span>Diccionario</span></a>
+    <a href="/learning-path.php"<?= $navCur('/learning-path.php') ?>><span>Mi ruta y certificados</span></a>
     <a href="/stats.php"<?= $navCur('/stats.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20V8"/></svg><span>Estadísticas</span></a>
     <a href="/placement.php"<?= $navCur('/placement.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><span>Test de nivel</span></a>
     <p class="mt-sidebar-heading">CUENTA</p>
