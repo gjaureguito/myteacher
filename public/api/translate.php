@@ -28,21 +28,41 @@ try {
 $translation='';
 $usedProvider=$provider;
 if($googleKey!==''){
- $ch=curl_init('https://translation.googleapis.com/language/translate/v2?key='.rawurlencode($googleKey));
- curl_setopt_array($ch,[CURLOPT_POST=>true,CURLOPT_HTTPHEADER=>['Content-Type: application/json; charset=utf-8'],CURLOPT_POSTFIELDS=>json_encode(['q'=>[$term],'source'=>strtolower($source),'target'=>strtolower($target),'format'=>'text'],JSON_UNESCAPED_UNICODE),CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>15,CURLOPT_FOLLOWLOCATION=>false]);
- $body=curl_exec($ch);$http=(int)curl_getinfo($ch,CURLINFO_HTTP_CODE);curl_close($ch);
- $result=json_decode((string)$body,true);
- $translation=trim(html_entity_decode((string)($result['data']['translations'][0]['translatedText']??''),ENT_QUOTES|ENT_HTML5,'UTF-8'));
- if($http!==200||$translation===''){error_log('Google translation HTTP '.$http);json_out(['error'=>'Google Translation no respondió. Revisá la API y la facturación del proyecto.'],503);}
- if(mb_strtolower($translation)===mb_strtolower($term))json_out(['error'=>'No se pudo determinar el idioma. Indicá la dirección de traducción.'],422);
- $translation=mb_substr($translation,0,800);
- try{
-  if(db_is_sqlite())q('INSERT OR IGNORE INTO translation_cache(term_key,translation,created_at) VALUES (?,?,?)',[$key,$translation,gmdate('Y-m-d H:i:s')]);
-  else q('INSERT IGNORE INTO translation_cache(term_key,translation,created_at) VALUES (?,?,UTC_TIMESTAMP())',[$key,$translation]);
- }catch(Throwable $e){error_log('Google translation cache insert: '.$e->getMessage());}
- json_out(['term'=>$term,'translation'=>$translation,'cached'=>false,'provider'=>'google','direction'=>strtolower($source).'-'.strtolower($target)]);
+ // Google Cloud Translation v2. En modo automático Google detecta el idioma:
+ // si el texto está en español se traduce al inglés; si no, al español.
+ $google=function(string $to,?string $from) use($googleKey,$term):array{
+  $payload=['q'=>[$term],'target'=>$to,'format'=>'text'];
+  if($from!==null)$payload['source']=$from;
+  $ch=curl_init('https://translation.googleapis.com/language/translate/v2?key='.rawurlencode($googleKey));
+  curl_setopt_array($ch,[CURLOPT_POST=>true,CURLOPT_HTTPHEADER=>['Content-Type: application/json; charset=utf-8'],CURLOPT_POSTFIELDS=>json_encode($payload,JSON_UNESCAPED_UNICODE),CURLOPT_RETURNTRANSFER=>true,CURLOPT_CONNECTTIMEOUT=>5,CURLOPT_TIMEOUT=>15,CURLOPT_FOLLOWLOCATION=>false]);
+  $body=curl_exec($ch);$http=(int)curl_getinfo($ch,CURLINFO_HTTP_CODE);curl_close($ch);
+  $item=(json_decode((string)$body,true)['data']['translations'][0]??[]);
+  $text=trim(html_entity_decode((string)($item['translatedText']??''),ENT_QUOTES|ENT_HTML5,'UTF-8'));
+  return [$text,strtolower((string)($item['detectedSourceLanguage']??'')),$http];
+ };
+ if($direction==='auto'){
+  [$googleText,$detected,$googleHttp]=$google('es',null);
+  if($googleHttp===200&&str_starts_with($detected,'es')){
+   [$googleText,,$googleHttp]=$google('en','es');$source='ES';$target='EN';
+  }elseif($googleHttp===200){$source='EN';$target='ES';}
+ }else{
+  [$googleText,,$googleHttp]=$google(strtolower($target),strtolower($source));
+ }
+ if($googleHttp===200&&$googleText!==''&&mb_strtolower($googleText)!==mb_strtolower($term)){
+  $translation=mb_substr($googleText,0,800);
+  $key=hash('sha256','google:'.strtolower($source).'-'.strtolower($target).':'.mb_strtolower($term));
+  try{
+   if(db_is_sqlite())q('INSERT OR IGNORE INTO translation_cache(term_key,translation,created_at) VALUES (?,?,?)',[$key,$translation,gmdate('Y-m-d H:i:s')]);
+   else q('INSERT IGNORE INTO translation_cache(term_key,translation,created_at) VALUES (?,?,UTC_TIMESTAMP())',[$key,$translation]);
+  }catch(Throwable $e){error_log('Google translation cache insert: '.$e->getMessage());}
+  json_out(['term'=>$term,'translation'=>$translation,'cached'=>false,'provider'=>'google','direction'=>strtolower($source).'-'.strtolower($target)]);
+ }
+ // Si Google falla (clave, cuota o facturación) se sigue con DeepL o MyMemory.
+ error_log('Google translation HTTP '.$googleHttp.'; se usa el proveedor alternativo');
 }
 if($apiKey!==''){
+ $usedProvider='deepl';
+ $key=hash('sha256','deepl:'.strtolower($source).'-'.strtolower($target).':'.mb_strtolower($term));
  $host=str_ends_with($apiKey,':fx')?'https://api-free.deepl.com':'https://api.deepl.com';
  $ch=curl_init($host.'/v2/translate');
  curl_setopt_array($ch,[
