@@ -39,6 +39,8 @@ html[data-theme=dark] .mh{
 .mh-btn-light:hover{transform:translateY(-1px)}
 
 /* Hero */
+.mh-welcome-banner{width:100%;max-width:2062px;margin-inline:auto;background:var(--mh-sky)}
+.mh-welcome-banner img{display:block;width:100%;height:auto}
 .mh-hero{background:var(--mh-sky);border-bottom:1px solid var(--mh-line);padding-block:64px 72px}
 .mh-hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center}
 .mh-hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
