@@ -25,6 +25,10 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar gratis';
 ?>
 <div class="mh">
 
+<div class="mh-welcome-banner">
+  <img src="/assets/images/myteacher-welcome.png" width="2062" height="763" alt="MyTeacher, escuela de inglés online. Inglés para tu vida real: clases interactivas, ejercicios prácticos, desde cualquier lugar y a tu propio ritmo. Una estudiante con auriculares aprende desde su computadora." fetchpriority="high">
+</div>
+
 <section class="mh-hero" aria-labelledby="mh-title">
   <div class="wrap mh-hero-grid">
     <div class="mh-hero-copy">
