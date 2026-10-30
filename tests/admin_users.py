@@ -68,3 +68,5 @@ with tempfile.TemporaryDirectory(prefix='admin-users-') as tmp:
         print('PASS: admin creates users with access; duplicates rejected; students cannot create users')
     finally:
         server.terminate()
+        server.wait(timeout=5)
+        if "con" in locals(): con.close()
