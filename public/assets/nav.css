@@ -12,6 +12,13 @@ html[data-theme=dark]{
   --mtn-side:#0f1f31;--mtn-shadow:0 10px 28px -16px rgba(0,0,0,.7);--mtn-avatar:#23446a;--mtn-avatar-ink:#dcebff;
 }
 
+.mtn-facebook-strip{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 20px;padding:12px 16px;background:var(--mtn-blue-soft);color:var(--mtn-ink);border-bottom:1px solid var(--mtn-line);font-family:Manrope,"Segoe UI",system-ui,sans-serif;font-size:.95rem;font-weight:700}
+.mtn-facebook-strip .mtn-facebook-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:0 22px;border-radius:999px;background:#0866ff;color:#fff;text-decoration:none;font-size:.95rem;font-weight:800;box-shadow:0 4px 12px #0866ff26;transition:background-color .15s}
+.mtn-facebook-strip .mtn-facebook-button:hover{background:#0752cc;color:#fff}
+.mtn-facebook-button svg{width:22px;height:22px;flex:none}
+.mtn-facebook-button:focus-visible{outline:3px solid var(--mtn-ink);outline-offset:3px}
+@media(max-width:420px){.mtn-facebook-strip{gap:8px;font-size:.85rem}.mtn-facebook-strip .mtn-facebook-button{padding-inline:16px;font-size:.9rem}}
+
 /* ---------- Barra superior ---------- */
 .mtn-header{position:sticky;top:0;z-index:130;background:var(--mtn-bg);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--mtn-line);font-family:Manrope,"Segoe UI",system-ui,sans-serif;transition:box-shadow .2s}
 .mtn-header.is-scrolled{box-shadow:var(--mtn-shadow)}

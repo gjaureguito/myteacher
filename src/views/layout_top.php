@@ -58,7 +58,7 @@ $description = match ($path) {
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
 <style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style><link rel="stylesheet" href="/assets/sidebar.css?v=5">
-<link rel="stylesheet" href="/assets/nav.css?v=2">
+<link rel="stylesheet" href="/assets/nav.css?v=3">
 </head>
 <body class="site-modern<?= $u ? ' has-bottom-nav' : '' ?>">
 <a class="skip" href="#main">Saltar al contenido</a>
@@ -229,6 +229,10 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
 </aside>
 <?php endif; ?>
 <main id="main">
+<div class="mtn-facebook-strip" aria-label="MyTeacher en Facebook">
+  <span>¡Seguinos en Facebook!</span>
+  <a class="mtn-facebook-button" href="https://www.facebook.com/profile.php?id=61595955180180" target="_blank" rel="noopener noreferrer" aria-label="Visitar MyTeacher en Facebook (se abre en otra pestaña)"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 12a12 12 0 1 0-13.875 11.855v-8.386H7.078V12h3.047V9.356c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.513c-1.49 0-1.956.925-1.956 1.874V12h3.328l-.532 3.469h-2.796v8.386A12.003 12.003 0 0 0 24 12Z"/></svg>Ir a Facebook <span aria-hidden="true">↗</span></a>
+</div>
 <?php if ($flashes): ?>
   <div class="wrap flashes">
     <?php foreach ($flashes as $f): ?>
