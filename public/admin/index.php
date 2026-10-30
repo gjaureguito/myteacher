@@ -2,6 +2,8 @@
 require dirname(__DIR__, 2) . '/src/bootstrap.php';
 require_once ROOT . '/src/mercadopago.php';
 $admin = require_admin();
+require_once ROOT . '/src/admin_billing.php';
+header('Cache-Control: private, no-store');
 
 if (is_post()) {
     csrf_check();
@@ -126,11 +128,15 @@ if (is_post()) {
     redirect('/admin/?s=' . urlencode((string) ($_GET['s'] ?? '')));
 }
 
-$s = trim((string) ($_GET['s'] ?? ''));
+$s = is_string($_GET['s'] ?? null) ? mb_substr(trim($_GET['s']), 0, 190) : '';
 $params = [];
 $where = '';
-if ($s !== '') { $where = 'WHERE email LIKE ? OR name LIKE ?'; $params = ["%$s%", "%$s%"]; }
-$users = q_all("SELECT * FROM users $where ORDER BY id DESC LIMIT 100", $params);
+if ($s !== '') {
+    $digits = preg_replace('/[^0-9]/', '', $s);
+    $where = 'WHERE u.email LIKE ? OR u.name LIKE ? OR b.billing_data LIKE ? OR b.billing_data LIKE ?';
+    $params = ["%$s%", "%$s%", "%$s%", '%'.($digits !== '' ? $digits : $s).'%'];
+}
+$users = q_all('SELECT u.*, '.admin_billing_fields().' FROM users u '.admin_billing_join().$where.' ORDER BY u.id DESC LIMIT 100', $params);
 
 $stats = [
     'Usuarios' => (int) q_val('SELECT COUNT(*) FROM users'),
