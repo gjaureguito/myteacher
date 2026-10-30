@@ -1,7 +1,10 @@
 </main>
 <footer class="footer">
   <div class="wrap footer-in">
-    <span>© <?= date('Y') ?> <?= e(app_name()) ?> · Inglés para la vida real</span>
+    <div>
+      <span>© <?= date('Y') ?> <?= e(app_name()) ?> · Inglés para la vida real</span>
+      <p><a href="https://www.facebook.com/profile.php?id=61595955180180" target="_blank" rel="noopener noreferrer" aria-label="Seguinos en Facebook (se abre en otra pestaña)">Seguinos en Facebook ↗</a></p>
+    </div>
     <nav aria-label="Legales">
       <a href="/program.php">Programa</a>
       <a href="/library.php">Biblioteca</a>
