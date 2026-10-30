@@ -25,8 +25,15 @@ $description = match ($path) {
 <link rel="canonical" href="<?= e($canonical) ?>">
 <meta property="og:title" content="<?= e($title) ?>">
 <meta property="og:description" content="<?= e($description) ?>">
-<meta property="og:image" content="<?= e(app_url('/assets/images/learning-together-v1.webp')) ?>">
-<meta property="og:image:alt" content="Imagen ilustrativa de personas compartiendo una lectura.">
+<meta property="og:image" content="<?= e(app_url('/assets/images/og-myteacher-1200x630.png')) ?>">
+<meta property="og:image:secure_url" content="<?= e(app_url('/assets/images/og-myteacher-1200x630.png')) ?>">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MyTeacher, escuela digital de inglés: Inglés para pensar, conectar y crecer.">
+<meta property="og:site_name" content="MyTeacher">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="<?= e(app_url('/assets/images/og-myteacher-1200x630.png')) ?>">
 <meta property="og:type" content="website">
 <meta property="og:url" content="<?= e($canonical) ?>">
 <meta property="og:locale" content="es_AR">
