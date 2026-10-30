@@ -1,7 +1,8 @@
+<link rel="stylesheet" href="/assets/admin-billing.css?v=1">
 <section class="wrap page">
   <p class="eyebrow">GESTIÓN DE LA ACADEMIA</p><h1>Resumen de actividad</h1><p class="muted">Accesos, suscripciones y contenido en un mismo lugar.</p>
   <?php require __DIR__ . '/admin_nav.php'; ?>
-  <p><a href="/admin/billing.php">Consultar datos para facturación</a></p>
+  <section class="admin-billing-summary"><h2>Facturación de alumnos</h2><p>Consultá razón social, CUIT/CUIL o DNI, domicilio y correo. Abrí los datos fiscales de cada usuario en la tabla o usá la vista dedicada.</p><a class="btn" href="/admin/billing.php">Abrir datos de facturación</a><p class="fine">Los datos se toman de la última declaración del alumno. Tener una suscripción activa no acredita un cobro.</p></section>
 
   <div class="stats">
     <?php foreach ($stats as $label => $n): ?>
@@ -28,19 +29,20 @@
     </form>
   </details>
   <form class="form admin-search" method="get">
-    <label>Buscar por email o nombre<input name="s" value="<?= e($s) ?>" type="search"></label><button class="btn">Buscar</button><a href="/admin/">Limpiar</a>
+    <label>Buscar por correo, nombre o documento<input name="s" value="<?= e($s) ?>" type="search"></label><button class="btn">Buscar</button><a href="/admin/">Limpiar</a>
   </form>
   <div class="table-scroll" role="region" aria-label="Usuarios" tabindex="0">
   <table class="tbl"><caption>Hasta 100 usuarios, ordenados por alta más reciente.</caption>
-    <thead><tr><th>Usuario</th><th>Alta</th><th>Ingreso</th><th>Estado</th><th>Acceso hasta</th><th>Acciones</th></tr></thead>
+    <thead><tr><th>Usuario</th><th>Datos para facturación</th><th>Alta</th><th>Ingreso</th><th>Estado</th><th>Acceso hasta</th><th>Acciones</th></tr></thead>
     <tbody>
-    <?php if (!$users): ?><tr><td colspan="6">No encontramos usuarios con esa búsqueda.</td></tr><?php endif; ?>
+    <?php if (!$users): ?><tr><td colspan="7">No encontramos usuarios con esa búsqueda.</td></tr><?php endif; ?>
     <?php foreach ($users as $x): ?>
       <tr>
         <td><strong><?= e($x['name']) ?></strong><br><span class="muted"><?= e($x['email']) ?></span></td>
+        <td><?php require __DIR__ . '/_admin_billing_details.php'; ?></td>
         <td><?= fmt_date($x['created_at']) ?></td>
         <td><?= $x['google_sub'] ? 'Google ' : '' ?><?= $x['microsoft_sub'] ? 'Microsoft ' : '' ?><?= $x['password_hash'] ? 'Email' : '' ?></td>
-        <td><?= e($x['sub_status']) ?></td>
+        <td><?= e(admin_subscription_label($x['sub_status'])) ?></td>
         <td><?= fmt_date($x['access_until']) ?></td>
         <td>
           <form method="post" class="inline"><?= csrf_field() ?>
