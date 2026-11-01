@@ -39,57 +39,98 @@ function award_completed_levels(array $user, ?array $path = null): void
     }
 }
 
-/** JPEG RGB del ícono del nivel, o null si no existe (el certificado se emite igual, sin imagen). */
-function certificate_level_image(string $levelCode): ?array
+/** JPEG RGB de public/assets/images/certificates/<nombre>.jpg, o null si falta (el certificado se emite igual). */
+function certificate_jpeg(string $name): ?array
 {
-    if (!preg_match('/^[a-c][12]$/', $levelCode)) return null;
-    $path = dirname(__DIR__) . '/public/assets/images/certificates/' . $levelCode . '.jpg';
+    if (!preg_match('/^[a-z0-9]+$/', $name)) return null;
+    $path = dirname(__DIR__) . '/public/assets/images/certificates/' . $name . '.jpg';
     $info = is_file($path) ? @getimagesize($path) : false;
     if (!$info || $info[2] !== IMAGETYPE_JPEG || ($info['channels'] ?? 3) !== 3) return null;
     return ['width'=>$info[0], 'height'=>$info[1], 'data'=>(string)file_get_contents($path)];
 }
 
-/** A self-contained, single-page PDF using standard embedded PDF font references. */
+/** Texto UTF-8 → Windows-1252 apto para un string literal de PDF (sin escapar). */
+function certificate_pdf_text(string $value): string
+{
+    $value = preg_replace('/[\x00-\x1F\x7F]/u', ' ', $value);
+    return (string)iconv('UTF-8', 'Windows-1252//TRANSLIT', $value);
+}
+
+/** Ancho en puntos de un texto Windows-1252 en una fuente estándar. */
+function certificate_text_width(string $raw, string $font, float $size): float
+{
+    static $widths = null;
+    $widths ??= certificate_font_widths();
+    $total = 0;
+    foreach (str_split($raw) as $ch) {
+        $code = ord($ch);
+        $total += $code >= 32 ? $widths[$font][$code - 32] : 0;
+    }
+    return $total * $size / 1000;
+}
+
+/**
+ * Certificado A4 apaisado tipo diploma: fondo de alta resolución (marco, guilloche, título y sello,
+ * diseñado en docs/certificado/fondo.html) y encima los datos del alumno como texto real del PDF.
+ */
 function certificate_pdf(array $certificate): string
 {
-    $text = function(string $value): string {
-        $value = preg_replace('/[\x00-\x1F\x7F]/u', ' ', $value);
-        return str_replace(['\\', '(', ')'], ['\\\\', '\\(', '\\)'], iconv('UTF-8', 'Windows-1252//TRANSLIT', $value));
+    require_once __DIR__ . '/certificate_fonts.php';
+    $fonts = ['Helvetica'=>'F1', 'Times-Roman'=>'F2', 'Times-Bold'=>'F3', 'Times-Italic'=>'F4', 'Times-BoldItalic'=>'F5'];
+    $navy = '0.090 0.220 0.373'; $muted = '0.294 0.353 0.439';
+    $stream = '';
+    // Segmentos [fuente, texto, color] centrados en $cx sobre la línea base $y.
+    $centered = function (array $segments, float $cx, float $y, float $size) use (&$stream, $fonts): void {
+        $raw = array_map(fn($s) => certificate_pdf_text($s[1]), $segments);
+        $width = 0;
+        foreach ($segments as $i => $s) $width += certificate_text_width($raw[$i], $s[0], $size);
+        $stream .= sprintf("BT 1 0 0 1 %.2F %.2F Tm\n", $cx - $width / 2, $y);
+        foreach ($segments as $i => $s) {
+            $escaped = str_replace(['\\', '(', ')'], ['\\\\', '\\(', '\\)'], $raw[$i]);
+            $stream .= sprintf("%s rg /%s %.2F Tf (%s) Tj\n", $s[2], $fonts[$s[0]], $size, $escaped);
+        }
+        $stream .= "ET\n";
     };
-    $stream = "0.97 0.98 1 rg 0 0 842 595 re f\n0.09 0.22 0.39 RG 3 w 28 28 786 539 re S\n0.95 0.5 0.17 rg 55 506 64 6 re f\n";
-    $line = function(string $value, int $y, int $size = 16) use (&$stream, $text): void {
-        $stream .= "0.09 0.22 0.39 rg BT /F1 $size Tf 55 $y Td (" . $text($value) . ") Tj ET\n";
-    };
-    $line('MyTeacher', 530, 24);
-    $line('CERTIFICADO DE FINALIZACIÓN', 458, 30);
-    $line('Se deja constancia de que', 408);
-    $name = $certificate['student_name'];
-    // Conservatively fit long names in the available width without truncating them.
-    foreach (mb_str_split($name, 45) as $i => $part) $line($part, 375 - $i * 24, 16);
-    $line('completó el nivel ' . strtoupper($certificate['level_code']), 284, 20);
-    $line($certificate['level_name'], 260, 14);
-    $line($certificate['exercise_count'] . ' ejercicios del programa publicados al momento de la emisión.', 231, 14);
-    $line('Fecha de emisión: ' . substr($certificate['issued_at'], 0, 10) . ' (UTC)', 190, 13);
-    $line('Código único: ' . $certificate['reference'], 162, 13);
-    $line('Curso libre de educación no formal. Certificado sin validez oficial:', 101, 12);
-    $line('no es un título reconocido por el Ministerio de Educación ni una certificación de nivel MCER.', 80, 12);
-    // Ícono del nivel (JPEG pregenerado desde public/assets/images/levels/*.svg) arriba a la derecha.
-    $image = certificate_level_image((string)$certificate['level_code']);
-    $xobject = '';
-    if ($image) {
-        $stream .= "q 170 0 0 170 617 330 cm /Im1 Do Q\n";
-        $xobject = ' /XObject << /Im1 6 0 R >>';
-    }
+
+    $background = certificate_jpeg('fondo');
+    $icon = certificate_jpeg((string)$certificate['level_code']);
+    if ($background) $stream .= "q 842 0 0 595 0 0 cm /Im0 Do Q\n";
+    else $stream .= "0.98 0.97 0.95 rg 0 0 842 595 re f\n$navy RG 8 w 14 14 814 567 re S\n";
+    if ($icon) $stream .= "q 62 0 0 62 390 132 cm /Im1 Do Q\n";
+
+    // Nombre: tan grande como entre sobre la línea dorada (450 pt), sin cortarlo.
+    $name = trim((string)$certificate['student_name']);
+    $size = 38;
+    while ($size > 14 && certificate_text_width(certificate_pdf_text($name), 'Times-BoldItalic', $size) > 440) $size -= 1;
+    $centered([['Times-BoldItalic', $name, $navy]], 421, 318, $size);
+
+    $level = strtoupper((string)$certificate['level_code']) . ' · ' . $certificate['level_name'];
+    $centered([['Times-Roman', 'por haber completado el nivel ', $muted], ['Times-Bold', $level, $navy]], 421, 268, 15);
+    $centered([['Times-Italic', 'del programa de MyTeacher, con ' . (int)$certificate['exercise_count'] . ' ejercicios resueltos.', $muted]], 421, 248, 13);
+
+    $date = DateTime::createFromFormat('Y-m-d', substr((string)$certificate['issued_at'], 0, 10));
+    $centered([['Helvetica', $date ? $date->format('d/m/Y') : substr((string)$certificate['issued_at'], 0, 10), $navy]], 198, 134, 12);
+    $centered([['Helvetica', trim(chunk_split((string)$certificate['reference'], 4, ' ')), $navy]], 644, 134, 9.5);
+
+    $fontObjects = [];
+    foreach ($fonts as $font => $id) $fontObjects[] = "/$id " . (4 + count($fontObjects)) . ' 0 R';
+    $images = array_filter(['Im0'=>$background, 'Im1'=>$icon]);
+    $firstImage = 4 + count($fonts) + 1;
+    $xobjects = [];
+    foreach (array_keys($images) as $i => $key) $xobjects[] = "/$key " . ($firstImage + $i) . ' 0 R';
     $objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-        '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 4 0 R >>' . $xobject . ' >> /Contents 5 0 R >>',
-        '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
-        '<< /Length ' . strlen($stream) . ">>\nstream\n" . $stream . 'endstream'];
-    if ($image) $objects[] = '<< /Type /XObject /Subtype /Image /Width ' . $image['width'] . ' /Height ' . $image['height']
+        '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << ' . implode(' ', $fontObjects) . ' >>'
+            . ($xobjects ? ' /XObject << ' . implode(' ', $xobjects) . ' >>' : '') . ' >> /Contents ' . (4 + count($fonts)) . ' 0 R >>'];
+    foreach (array_keys($fonts) as $font) $objects[] = "<< /Type /Font /Subtype /Type1 /BaseFont /$font /Encoding /WinAnsiEncoding >>";
+    $objects[] = '<< /Length ' . strlen($stream) . ">>\nstream\n" . $stream . 'endstream';
+    foreach ($images as $image) $objects[] = '<< /Type /XObject /Subtype /Image /Width ' . $image['width'] . ' /Height ' . $image['height']
         . ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' . strlen($image['data']) . ">>\nstream\n" . $image['data'] . "\nendstream";
+
     $size = count($objects) + 1;
-    $pdf = "%PDF-1.4\n"; $offsets = [0];
-    foreach ($objects as $i => $object) { $offsets[] = strlen($pdf); $pdf .= ($i+1) . " 0 obj\n$object\nendobj\n"; }
-    $xref = strlen($pdf); $pdf .= "xref\n0 $size\n0000000000 65535 f \n";
-    foreach (array_slice($offsets, 1) as $offset) $pdf .= sprintf('%010d 00000 n ', $offset) . "\n";
-    return $pdf . "trailer\n<< /Size $size /Root 1 0 R >>\nstartxref\n$xref\n%%EOF\n";
+    $pdf = "%PDF-1.4\n%\xE2\xE3\xCF\xD3\n"; $offsets = [];
+    foreach ($objects as $i => $object) { $offsets[] = strlen($pdf); $pdf .= ($i + 1) . " 0 obj\n$object\nendobj\n"; }
+    $xref = strlen($pdf);
+    $pdf .= "xref\n0 $size\n0000000000 65535 f \n";
+    foreach ($offsets as $offset) $pdf .= sprintf('%010d 00000 n ', $offset) . "\n";
+    return $pdf . "trailer\n<< /Size $size /Root 1 0 R /Info << /Title (Certificado MyTeacher) /Producer (MyTeacher) >> >>\nstartxref\n$xref\n%%EOF\n";
 }

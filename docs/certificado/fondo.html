@@ -1,0 +1,87 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  @page{size:842px 595px;margin:0}
+  html,body{margin:0;width:842px;height:595px;overflow:hidden}
+  body{background:#fbf8f1;font-family:Inter,sans-serif;color:#17385f;position:relative}
+  .abs{position:absolute}
+  svg.full{position:absolute;left:0;top:0}
+  .center{left:0;right:0;text-align:center}
+  .brand{top:58px;font-family:Lora,serif;font-weight:700;font-size:23px;letter-spacing:.5px}
+  .brand b{color:#e8762b;font-weight:700}
+  .tag{top:90px;font-size:8.5px;letter-spacing:3.6px;font-weight:600;color:#7b8798}
+  .title{top:110px;font-family:Lora,serif;font-weight:600;font-size:50px;letter-spacing:12px;padding-left:12px}
+  .sub{top:176px;font-size:10.5px;letter-spacing:5.5px;font-weight:600;color:#a8822f;padding-left:5px}
+  .lead{top:204px;font-family:Lora,serif;font-style:italic;font-size:15.5px;color:#4b5a70}
+  .label{font-size:7.5px;letter-spacing:2.6px;font-weight:700;color:#7b8798;width:220px;text-align:center}
+  .foot{top:540px;font-size:7.6px;color:#6b778a;letter-spacing:.15px}
+</style></head><body>
+<svg class="full" width="842" height="595" viewBox="0 0 842 595">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e2c27a"/><stop offset=".45" stop-color="#b8903b"/>
+      <stop offset=".7" stop-color="#d9b768"/><stop offset="1" stop-color="#9c7629"/>
+    </linearGradient>
+    <radialGradient id="wash" cx=".5" cy=".42" r=".75">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset="1" stop-color="#f3eee2" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="inner"><rect x="34" y="34" width="774" height="527"/></clipPath>
+  </defs>
+  <!-- guilloche de seguridad -->
+  <g clip-path="url(#inner)" fill="none" stroke="#17385f" stroke-opacity=".055" stroke-width=".7" id="guil"></g>
+  <rect x="34" y="34" width="774" height="527" fill="url(#wash)"/>
+  <!-- marco -->
+  <rect x="14" y="14" width="814" height="567" fill="none" stroke="#17385f" stroke-width="10"/>
+  <rect x="24.5" y="24.5" width="793" height="546" fill="none" stroke="url(#gold)" stroke-width="1.6"/>
+  <rect x="34" y="34" width="774" height="527" fill="none" stroke="#17385f" stroke-opacity=".35" stroke-width=".6"/>
+  <g fill="url(#gold)" id="corners"></g>
+  <!-- filetes del subtítulo -->
+  <line x1="210" y1="182.5" x2="272" y2="182.5" stroke="#b8903b" stroke-width="1.2"/>
+  <line x1="570" y1="182.5" x2="632" y2="182.5" stroke="#b8903b" stroke-width="1.2"/>
+  <!-- línea del nombre -->
+  <line x1="196" y1="290" x2="646" y2="290" stroke="#b8903b" stroke-width="1.3"/>
+  <circle cx="421" cy="290" r="2.6" fill="#b8903b"/>
+  <!-- líneas de fecha y código -->
+  <line x1="98" y1="468" x2="298" y2="468" stroke="#17385f" stroke-opacity=".55" stroke-width=".8"/>
+  <line x1="544" y1="468" x2="744" y2="468" stroke="#17385f" stroke-opacity=".55" stroke-width=".8"/>
+  <!-- sello -->
+  <g transform="translate(421 432)">
+    <path d="M-20 40 L-30 80 L-16 72 L-7 86 L2 46 Z" fill="#17385f"/>
+    <path d="M20 40 L30 80 L16 72 L7 86 L-2 46 Z" fill="#20497a"/>
+    <path id="rosette" fill="url(#gold)"/>
+    <circle r="54" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>
+    <circle r="47" fill="#ffffff"/>
+    <circle r="47" fill="none" stroke="#b8903b" stroke-width="1.4"/>
+  </g>
+</svg>
+<div class="abs center brand">My<b>Teacher</b></div>
+<div class="abs center tag">ESCUELA DIGITAL DE INGLÉS</div>
+<div class="abs center title">CERTIFICADO</div>
+<div class="abs center sub">DE FINALIZACIÓN DE NIVEL</div>
+<div class="abs center lead">Se otorga el presente a</div>
+<div class="abs label" style="left:88px;top:476px">FECHA DE EMISIÓN</div>
+<div class="abs label" style="left:534px;top:476px">CÓDIGO DE VERIFICACIÓN</div>
+<div class="abs center foot">Curso libre de educación no formal. Certificado sin validez oficial: no es un título reconocido por el Ministerio de Educación ni una certificación de nivel MCER.</div>
+<script>
+  // Guilloche: familias de ondas entrelazadas
+  const g=document.getElementById('guil');let d='';
+  for(let k=0;k<46;k++){
+    let p='';const ph=k*0.37, off=20+k*12.4;
+    for(let x=30;x<=812;x+=4){
+      const y=off+9*Math.sin(x/38+ph)+5*Math.sin(x/13-ph*2);
+      p+=(x===30?'M':'L')+x.toFixed(1)+' '+y.toFixed(1)+' ';
+    }
+    d+=p;
+  }
+  g.innerHTML='<path d="'+d+'"/>';
+  // Roseta del sello
+  let r='';const n=40;
+  for(let i=0;i<n*2;i++){const a=Math.PI*i/n, rad=i%2?58:64;r+=(i?'L':'M')+(rad*Math.cos(a)).toFixed(2)+' '+(rad*Math.sin(a)).toFixed(2);}
+  document.getElementById('rosette').setAttribute('d',r+'Z');
+  // Ornamentos en las esquinas internas
+  const c=document.getElementById('corners');
+  for(const [x,y] of [[34,34],[808,34],[34,561],[808,561]]){
+    c.innerHTML+=`<path transform="translate(${x} ${y}) rotate(45)" d="M-5 0 L0 -5 L5 0 L0 5 Z"/>`;
+  }
+</script>
+</body></html>
