@@ -41,13 +41,29 @@ document.querySelectorAll('[data-book-quiz] .book-quiz-question').forEach((card,
    label.append(input,span);slot.append(label);
    input.addEventListener('change',()=>{check.disabled=false;feedback.textContent='';});
  });
- check.addEventListener('click',()=>{
+ function showDone(){
+   card.querySelector('.book-quiz-done').hidden=false;
+   slot.querySelectorAll('input').forEach(i=>{i.checked=i.value===reference;i.disabled=true;});
+   check.disabled=true;retry.hidden=true;
+   feedback.textContent='¡Correcto! Consultá la solución comentada para entender por qué.';
+   feedback.classList.add('is-correct');feedback.classList.remove('is-wrong');
+ }
+ if(card.dataset.done==='1')showDone();
+ check.addEventListener('click',async()=>{
    const selected=slot.querySelector('input:checked');if(!selected)return;
    const ok=selected.value===reference;
    feedback.textContent=ok?'¡Correcto! Consultá la solución comentada para entender por qué.':'Todavía no. Revisá la regla y probá otra opción.';
    feedback.classList.toggle('is-correct',ok);feedback.classList.toggle('is-wrong',!ok);
-   if(ok){slot.querySelectorAll('input').forEach(i=>i.disabled=true);check.disabled=true;retry.hidden=true;}else retry.hidden=false;
+   if(ok){
+     check.disabled=true;
+     try{
+       const res=await fetch('/api/book-quiz.php',{method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name="csrf"]')?.content||''},body:JSON.stringify({unit_id:Number(card.closest('[data-book-quiz]').dataset.unitId),index:Number(card.dataset.index),answer:selected.value})});
+       const data=await res.json();if(!res.ok||!data.ok)throw new Error(data.error||'No se pudo guardar.');
+       showDone();
+     }catch(error){feedback.textContent='Respuesta correcta, pero no se pudo guardar el progreso. Intentá de nuevo.';feedback.classList.remove('is-correct');feedback.classList.add('is-wrong');check.disabled=false;}
+   }else retry.hidden=false;
  });
  retry.addEventListener('click',()=>{slot.querySelectorAll('input').forEach(i=>{i.checked=false;i.disabled=false;});check.disabled=true;retry.hidden=true;feedback.textContent='';feedback.classList.remove('is-wrong','is-correct');});
 });
 })();
+

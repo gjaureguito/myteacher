@@ -1,6 +1,7 @@
 
 /* Autoevaluacion de los ejercicios guiados del libro. */
 .book-quiz-question{padding:12px 0 20px}
+.book-quiz-done{display:inline-block;margin-left:.5rem;padding:.2rem .55rem;border-radius:999px;background:#e3f5e9;color:#12633c;font-size:.75rem;font-weight:750;line-height:1.4}.book-quiz-done[hidden]{display:none}html[data-theme=dark] .book-quiz-done{background:#244b38;color:#b9efcc}
 .book-quiz-options{display:grid;grid-template-columns:1fr;gap:9px;margin:12px 0}
 .book-quiz-choice{display:flex;align-items:center;gap:12px;border:1px solid var(--book-rule,#d8e2e9);border-radius:12px;padding:11px 14px;cursor:pointer;background:var(--book-paper,#fff);font-size:.94rem;line-height:1.5}
 .book-quiz-choice:hover{border-color:#3b83c5}
@@ -15,3 +16,4 @@ html[data-theme=dark] .book-quiz-choice{background:#1c3037;color:#e5f1ee;border-
 html[data-theme=dark] .book-quiz-choice:has(input:checked){background:#244f73;color:white}
 html[data-theme=dark] .book-quiz-feedback.is-correct{color:#7de3ad}
 @media(max-width:600px){.book-quiz-choice{padding:10px}}
+
