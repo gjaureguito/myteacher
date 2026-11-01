@@ -11,7 +11,7 @@ function has_full_access(?array $u): bool
 {
     if (!$u) return false;
     if (is_admin($u)) return true;
-    return !empty($u['access_until']) && $u['access_until'] > now_utc();
+    return trial_active($u) || (!empty($u['access_until']) && $u['access_until'] > now_utc());
 }
 
 function is_demo_unit(array $unit): bool
@@ -28,6 +28,7 @@ function can_access_unit(?array $u, array $unit): bool
 function sub_label(array $u): string
 {
     if (is_admin($u)) return 'Administrador';
+    if (trial_active($u) && (empty($u['access_until']) || $u['access_until'] <= now_utc())) return 'Mes gratis hasta ' . fmt_date($u['trial_ends_at']);
     if (has_full_access($u)) {
         return $u['sub_status'] === 'cancelled'
             ? 'Cancelada · acceso hasta ' . fmt_date($u['access_until'])

@@ -2,7 +2,8 @@
   <div class="auth-card">
     <p class="eyebrow">TU PRÓXIMO CAPÍTULO</p>
     <h1>Creá tu cuenta</h1>
-    <p class="muted">Gratis y sin tarjeta. Accedés a la primera unidad de cada nivel y al test de nivel.</p>
+    <p class="muted">Un mes gratis de acceso completo desde tu registro, sin tarjeta. Después, continuás solo si elegís pagar por Mercado Pago. Una prueba por cuenta; tu progreso se conserva.</p>
+    <p class="fine">Precio del plan al continuar: <?= money_ars(plan_price()) ?> ARS. Consultá duración y opciones en <a href="/#precio">planes</a>.</p>
     <?php require __DIR__ . '/_social.php'; ?>
     <?php if ($errors): ?>
       <div class="flash flash-error" role="alert"><?= implode('<br>', array_map('e', $errors)) ?></div>

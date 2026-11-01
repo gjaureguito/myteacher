@@ -1,6 +1,8 @@
 <?php $full = has_full_access($u); ?>
 <section class="wrap page">
   <h1>Mi cuenta</h1>
+  <?php trial_notice($u); ?>
+  <p><a class="btn btn-ghost" href="/opinion.php">Compartir mi experiencia</a></p>
   <?php $agreements=q_all('SELECT id,accepted_at FROM purchase_agreements WHERE user_id=? ORDER BY id DESC LIMIT 10',[$u['id']]); if($agreements): ?>
   <details class="panel"><summary>Contratos aceptados y datos de facturación</summary><?php foreach($agreements as $agreement): ?><p><a href="/agreement.php?id=<?= (int)$agreement['id'] ?>">Contratación del <?= e($agreement['accepted_at']) ?> UTC</a></p><?php endforeach; ?></details><?php endif; ?>
 

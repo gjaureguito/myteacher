@@ -31,7 +31,7 @@ if (is_post()) {
         } else {
             $generated = $password === '';
             if ($generated) $password = rtrim(strtr(base64_encode(random_bytes(9)), '+/', 'kq'), '=');
-            $extra = ['role' => $role];
+            $extra = ['role' => $role, 'sub_status' => 'none'];
             if ($days > 0) {
                 $extra['access_until'] = gmdate('Y-m-d H:i:s', time() + $days * 86400);
                 $extra['sub_status'] = 'manual';
@@ -122,7 +122,7 @@ if (is_post()) {
             }
         }
     } elseif ($action === 'revoke') {
-        q("UPDATE users SET access_until = NULL, sub_status = 'none' WHERE id = ?", [$uid]);
+        q("UPDATE users SET access_until = NULL, trial_ends_at = NULL, sub_status = 'none' WHERE id = ?", [$uid]);
         flash('ok', 'Acceso quitado.');
     }
     redirect('/admin/?s=' . urlencode((string) ($_GET['s'] ?? '')));

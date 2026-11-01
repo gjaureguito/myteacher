@@ -6,6 +6,8 @@ $first = explode(' ', $u['name'])[0];
 <link rel="stylesheet" href="/assets/learning-route.css?v=1">
 <link rel="stylesheet" href="/assets/roadmap.css?v=1">
 <section class="wrap page learning-dashboard">
+  <?php trial_notice($u); ?>
+  <p><a href="/opinion.php">¿Cómo te está yendo? Compartí tu experiencia</a></p>
   <p class="eyebrow">MYTEACHER / TU PRÓXIMO PASO</p>
   <div class="dash-head">
     <div>

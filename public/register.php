@@ -24,7 +24,7 @@ if (is_post()) {
     if (!$errors) {
         $id = create_user($old['email'], $old['name'], $pass);
         login_user($id);
-        flash('ok', '¡Listo! Tu cuenta está creada. Ya podés probar la primera unidad de cada nivel.');
+        flash('ok', '¡Listo! Tu cuenta está creada. ¡Comienza tu mes gratis con acceso completo, sin tarjeta ni cobro automático!');
         redirect('/placement.php?welcome=1');
     }
 }

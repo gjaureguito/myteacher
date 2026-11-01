@@ -58,6 +58,8 @@ date_default_timezone_set(env('TZ', 'America/Argentina/Buenos_Aires'));
 
 require ROOT . '/src/db.php';
 require ROOT . '/src/helpers.php';
+require ROOT . '/src/trial.php';
+require ROOT . '/src/testimonials.php';
 require ROOT . '/src/auth.php';
 require ROOT . '/src/access.php';
 require ROOT . '/src/progress.php';
