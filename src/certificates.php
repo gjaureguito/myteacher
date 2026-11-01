@@ -39,6 +39,16 @@ function award_completed_levels(array $user, ?array $path = null): void
     }
 }
 
+/** JPEG RGB del ícono del nivel, o null si no existe (el certificado se emite igual, sin imagen). */
+function certificate_level_image(string $levelCode): ?array
+{
+    if (!preg_match('/^[a-c][12]$/', $levelCode)) return null;
+    $path = dirname(__DIR__) . '/public/assets/images/certificates/' . $levelCode . '.jpg';
+    $info = is_file($path) ? @getimagesize($path) : false;
+    if (!$info || $info[2] !== IMAGETYPE_JPEG || ($info['channels'] ?? 3) !== 3) return null;
+    return ['width'=>$info[0], 'height'=>$info[1], 'data'=>(string)file_get_contents($path)];
+}
+
 /** A self-contained, single-page PDF using standard embedded PDF font references. */
 function certificate_pdf(array $certificate): string
 {
@@ -61,15 +71,25 @@ function certificate_pdf(array $certificate): string
     $line($certificate['exercise_count'] . ' ejercicios del programa publicados al momento de la emisión.', 231, 14);
     $line('Fecha de emisión: ' . substr($certificate['issued_at'], 0, 10) . ' (UTC)', 190, 13);
     $line('Código único: ' . $certificate['reference'], 162, 13);
-    $line('Constancia de finalización del programa de MyTeacher.', 101, 12);
-    $line('No equivale a una certificación oficial de dominio del MCER.', 80, 12);
+    $line('Curso libre de educación no formal. Certificado sin validez oficial:', 101, 12);
+    $line('no es un título reconocido por el Ministerio de Educación ni una certificación de nivel MCER.', 80, 12);
+    // Ícono del nivel (JPEG pregenerado desde public/assets/images/levels/*.svg) arriba a la derecha.
+    $image = certificate_level_image((string)$certificate['level_code']);
+    $xobject = '';
+    if ($image) {
+        $stream .= "q 170 0 0 170 617 330 cm /Im1 Do Q\n";
+        $xobject = ' /XObject << /Im1 6 0 R >>';
+    }
     $objects = ['<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-        '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
+        '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 842 595] /Resources << /Font << /F1 4 0 R >>' . $xobject . ' >> /Contents 5 0 R >>',
         '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
         '<< /Length ' . strlen($stream) . ">>\nstream\n" . $stream . 'endstream'];
+    if ($image) $objects[] = '<< /Type /XObject /Subtype /Image /Width ' . $image['width'] . ' /Height ' . $image['height']
+        . ' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' . strlen($image['data']) . ">>\nstream\n" . $image['data'] . "\nendstream";
+    $size = count($objects) + 1;
     $pdf = "%PDF-1.4\n"; $offsets = [0];
     foreach ($objects as $i => $object) { $offsets[] = strlen($pdf); $pdf .= ($i+1) . " 0 obj\n$object\nendobj\n"; }
-    $xref = strlen($pdf); $pdf .= "xref\n0 6\n0000000000 65535 f \n";
+    $xref = strlen($pdf); $pdf .= "xref\n0 $size\n0000000000 65535 f \n";
     foreach (array_slice($offsets, 1) as $offset) $pdf .= sprintf('%010d 00000 n ', $offset) . "\n";
-    return $pdf . "trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n$xref\n%%EOF\n";
+    return $pdf . "trailer\n<< /Size $size /Root 1 0 R >>\nstartxref\n$xref\n%%EOF\n";
 }

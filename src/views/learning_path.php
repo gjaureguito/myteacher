@@ -27,5 +27,5 @@
     </div>
   </section>
   <?php endforeach; ?>
-  <p class="muted">Los certificados conservan la fecha y el programa de su emisión, aunque después se agreguen ejercicios o reinicies la práctica. Son constancias de MyTeacher, no acreditaciones oficiales del MCER.</p>
+  <p class="muted">Los certificados conservan la fecha y el programa de su emisión, aunque después se agreguen ejercicios o reinicies la práctica. Son constancias de un curso libre de educación no formal, sin validez oficial: no son títulos reconocidos por el Ministerio de Educación ni certificaciones de nivel MCER.</p>
 </section>
