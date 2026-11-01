@@ -59,6 +59,11 @@ function create_user(string $email, string $name, ?string $password, array $extr
 {
     $cols = ['email' => strtolower($email), 'name' => $name, 'created_at' => now_utc()];
     if ($password !== null) $cols['password_hash'] = password_hash($password, PASSWORD_DEFAULT);
+    // Only new public student accounts receive the promotion; existing accounts are not reset.
+    if (($extra['role'] ?? 'student') === 'student' && !isset($extra['sub_status']) && !isset($extra['access_until'])) {
+        $cols['trial_started_at'] = $cols['created_at'];
+        $cols['trial_ends_at'] = trial_end($cols['created_at']);
+    }
     $cols = array_merge($cols, $extra);
     $keys = implode(', ', array_keys($cols));
     $ph = implode(', ', array_fill(0, count($cols), '?'));

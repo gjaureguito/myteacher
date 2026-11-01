@@ -1,5 +1,6 @@
 <nav class="admin-nav" aria-label="Administración">
   <a href="/admin/">Usuarios y pagos</a>
+  <a href="/admin/promotion.php">Mes gratis y opiniones</a>
   <a href="/admin/billing.php">Facturación</a>
   <a href="/admin/payments.php">Mercado Pago</a>
   <a href="/admin/units.php">Contenido</a>

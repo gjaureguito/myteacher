@@ -1,5 +1,15 @@
 # InglésPro — plataforma de inglés A1–C2
 
+## Promoción de un mes y testimonios
+
+Las nuevas cuentas públicas (email, Google y Microsoft) reciben un mes calendario de acceso completo, sin tarjeta ni cobro al vencer. El vencimiento se calcula en UTC y ajusta días inexistentes al último día del mes siguiente. La migración 7 agrega fechas separadas del acceso pago, sin cambiar cuentas existentes. Volver a iniciar sesión o vincular un proveedor no reinicia la promoción. Al vencer queda la demo y se conserva el progreso. La contratación sigue siendo expresa mediante el checkout existente de Mercado Pago; pagar durante la prueba inicia el período pago inmediatamente, según el aviso previo.
+
+`/admin/promotion.php` informa pruebas, uso, pagos únicos confirmados y suscripciones autorizadas por separado (autorización no equivale a cobro). La conversión mostrada corresponde a pagos únicos aprobados entre cuentas con prueba vencida; no incluye cobros recurrentes conciliados ni cuentas eliminadas.
+
+Los alumnos envían opiniones desde `/opinion.php`, con consentimiento explícito. Solo se guarda y muestra el primer nombre para atribuir el testimonio, nunca el apellido ni email. Administración debe comprobar también que el texto no incluya datos personales. La portada muestra hasta 12 testimonios aprobados como selección editorial; no presenta reseñas ficticias ni un promedio de valoraciones. Editar retira la publicación hasta una nueva aprobación y el alumno puede retirarla. La revisión controla que el texto no haya cambiado mientras se aprobaba.
+
+Validación aislada: `python tests/trial_reviews.py`; pagos existentes: `python tests/mercadopago.py`.
+
 PHP 8.3 + MySQL, sin frameworks. Registro con email, Google o Microsoft (Hotmail/Outlook), demo gratuita (primera unidad de cada nivel + test de nivel) y suscripción mensual de $30.000 con Mercado Pago. Listo para Railway con Dockerfile.
 
 ## Qué incluye

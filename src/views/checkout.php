@@ -1,6 +1,7 @@
 <section class="wrap page legal">
  <p class="crumbs"><a href="/account.php">Mi cuenta</a> / Antes de pagar</p>
  <h1>Revisá tu contratación</h1>
+ <?php if(trial_active($u)): ?><p class="note">Tu mes gratis vence el <?= e(fmt_date($u['trial_ends_at'])) ?>. Podés esperar hasta entonces para contratar. Si pagás ahora, el período contratado empieza al confirmarse el pago; no queda programado para el final de la prueba.</p><?php endif; ?>
  <p>Leé el alcance del servicio y las condiciones antes de continuar a Mercado Pago. Todavía no se realiza ningún cobro.</p>
  <div class="panel"><h2><?= money_ars($contract['amount']) ?> <?= $contract['kind']==='once'?'por '.$contract['days'].' días':'por mes' ?></h2><p><?= $contract['kind']==='once'?'Pago único, sin renovación automática.':'Suscripción mensual con débito automático hasta la cancelación.' ?></p><a href="/program.php" target="_blank" rel="noopener">Consultar programa y actividades</a> · <a href="/dashboard.php" target="_blank" rel="noopener">Explorar la demo</a></div>
  <article class="purchase-document" aria-label="Contrato de prestación del servicio">

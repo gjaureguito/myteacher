@@ -9,6 +9,7 @@ ob_start(); ?>
   <h2>Constancia de contratación</h2><p>Guardamos la fecha, precio, modalidad, versión y texto del contrato aceptado. Podés consultarlo desde Mi cuenta. También conservamos las solicitudes de baja y arrepentimiento para gestionarlas y cumplir obligaciones legales.</p>
   <h2>Datos de facturación</h2>
   <p>Para gestionar comprobantes fiscales guardamos la condición frente al IVA, nombre o razón social y, cuando corresponda o se informen voluntariamente, DNI, CUIL o CUIT y domicilio de facturación. Conservamos estos datos asociados a la contratación durante los plazos necesarios para cumplir obligaciones fiscales y atender consultas. Se informarán a ARCA cuando corresponda para emitir el comprobante. Podés solicitar su rectificación mediante nuestro correo de contacto.</p>
+  <h2>Opiniones voluntarias</h2><p>Si autorizás publicar tu experiencia, guardamos tu primer nombre, tu comentario y la fecha de consentimiento. Solo mostramos testimonios seleccionados y aprobados por administración, identificados por el primer nombre, sin apellido ni email. Evitá incluir datos personales en el texto. Podés editar o retirar tu opinión desde Mi cuenta. Las ediciones requieren una nueva revisión.</p>
   <h2>Pagos</h2>
   <p>Los pagos se procesan en Mercado Pago. Nunca vemos ni guardamos los datos de tu tarjeta; solo recibimos el estado de la suscripción.</p>
   <h2>Para qué los usamos</h2>

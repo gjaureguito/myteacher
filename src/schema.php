@@ -10,6 +10,16 @@ function run_schema(): void
     $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
     $tables = [
+        "CREATE TABLE IF NOT EXISTS testimonials (
+            user_id $fk NOT NULL PRIMARY KEY,
+            display_name VARCHAR(80) NOT NULL,
+            body VARCHAR(1500) NOT NULL,
+            status VARCHAR(20) NOT NULL DEFAULT 'pending',
+            consent_at DATETIME NOT NULL,
+            updated_at DATETIME NOT NULL,
+            reviewed_at DATETIME NULL,
+            reviewed_by $fk NULL
+        )$engine",
         "CREATE TABLE IF NOT EXISTS certificates (
             id $pk,
             user_id $fk NOT NULL,
@@ -172,6 +182,8 @@ function run_schema(): void
 
     // v2: habilidades, pistas, soluciones vistas, tiempo por respuesta e íconos de unidad
     $columns = [
+        ['users', 'trial_started_at', 'DATETIME NULL'],
+        ['users', 'trial_ends_at', 'DATETIME NULL'],
         ['exercises', 'skill', "VARCHAR(20) NOT NULL DEFAULT 'grammar'"],
         ['exercises', 'hint', "VARCHAR(500) NOT NULL DEFAULT ''"],
         ['exercises', 'compact_json', "$text NULL"],
