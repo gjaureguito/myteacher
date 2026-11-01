@@ -34,7 +34,9 @@ if ($chapterUnit) {
         $params = [(int) $u['id'], (int) $chapterUnit['id'], $key];
         q('DELETE FROM book_section_status WHERE user_id = ? AND unit_id = ? AND section_key = ?', $params);
         if (($_POST['done'] ?? '') === '1') q('INSERT INTO book_section_status (user_id, unit_id, section_key) VALUES (?, ?, ?)', $params);
-        redirect('/book.php?code=' . rawurlencode($code) . '&chapter=' . rawurlencode($slug) . '#chapter-contents');
+        $anchors = ['foundation' => 'chapter-foundation', 'example' => 'chapter-example', 'writing' => 'chapter-writing', 'check' => 'chapter-check'];
+        $anchor = ($_POST['return_to'] ?? '') === ($anchors[$key] ?? null) ? $anchors[$key] : 'chapter-contents';
+        redirect('/book.php?code=' . rawurlencode($code) . '&chapter=' . rawurlencode($slug) . '#' . $anchor);
     }
     $sectionDone = array_fill_keys(array_column(q_all('SELECT section_key FROM book_section_status WHERE user_id = ? AND unit_id = ?', [(int) $u['id'], (int) $chapterUnit['id']]), 'section_key'), true);
     if ($chapter) {
