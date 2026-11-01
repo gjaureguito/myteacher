@@ -10,6 +10,12 @@ function run_schema(): void
     $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
     $tables = [
+        "CREATE TABLE IF NOT EXISTS book_voice_status (
+            user_id $fk NOT NULL,
+            unit_id $fk NOT NULL,
+            phrase_hash CHAR(64) NOT NULL,
+            PRIMARY KEY (user_id, unit_id, phrase_hash)
+        )$engine",
         "CREATE TABLE IF NOT EXISTS book_quiz_status (
             user_id $fk NOT NULL,
             unit_id $fk NOT NULL,

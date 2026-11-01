@@ -29,7 +29,7 @@
 <script src="/assets/voice.js?v=5" defer></script>
 <script src="/assets/app.js?v=13" defer></script>
 <script src="/assets/learning.js?v=1" defer></script>
-<script src="/assets/pro.js?v=21" defer></script>
+<script src="/assets/pro.js?v=22" defer></script>
 <script src="/assets/scenes.js?v=1" defer></script>
 <script src="/assets/modern.js?v=1" defer></script>
 <script src="/assets/visual.js?v=1" defer></script>
@@ -37,3 +37,4 @@
 <?php if (current_user()): ?><script src="/assets/selection-glossary.js?v=2" defer></script><?php endif; ?>
 </body>
 </html>
+

@@ -14,7 +14,7 @@
         <p class="eyebrow">CAPÍTULO <?= (int) $chapterUnit['position'] ?></p>
         <nav class="chapter-contents" id="chapter-contents" aria-label="Índice de lectura del capítulo">
           <strong>Contenido de este capítulo</strong>
-          <p class="chapter-progress-help">Marcá las secciones de lectura que terminaste. Los ejercicios con soluciones y la práctica interactiva se actualizan automáticamente.</p>
+          <p class="chapter-progress-help">Podés marcar las secciones de lectura que terminaste. Los intentos de pronunciación cuentan aunque la pronunciación no sea perfecta.</p>
           <ol>
             <?php
             $sections = ['theory' => ['chapter-theory', 'Fundamentos y reglas']];
@@ -49,7 +49,7 @@
           <figcaption><?= e($scene['caption']) ?></figcaption>
         </figure>
         <?php endif; ?>
-<section class="theory book-theory" id="chapter-theory"><h2>Fundamentos: qué significa y cómo se utiliza</h2><p class="book-section-lead">Leé las explicaciones en orden. Identificá la regla, observá la estructura y compará los ejemplos antes de pasar a los ejercicios.</p><?= $chapterUnit['theory_html'] /* trusted published curriculum */ ?></section>
+<section class="theory book-theory" id="chapter-theory" data-unit-id="<?= (int)$chapterUnit['id'] ?>"><h2>Fundamentos: qué significa y cómo se utiliza</h2><p class="book-section-lead">Leé las explicaciones en orden. Identificá la regla, observá la estructura y compará los ejemplos antes de pasar a los ejercicios.</p><?= $chapterUnit['theory_html'] /* trusted published curriculum */ ?></section>
         <?php if ($chapter): require __DIR__ . '/study_chapter.php'; else: ?><section class="book-section"><h2>Comprobá lo aprendido</h2><p>Explicá con tus palabras cuándo se utiliza la estructura de este capítulo. Creá dos ejemplos propios y luego resolvé la práctica de la unidad.</p></section><?php endif; ?>
         <?php $words = json_decode($chapterUnit['vocab_json'], true) ?: []; if ($words): ?>
         <section class="book-section"><h2>Vocabulario para usar en contexto</h2><p>Elegí cinco expresiones e inventá una oración que las conecte con tu vida o con el tema del capítulo.</p><dl class="book-glossary"><?php foreach ($words as $word): ?><div><dt lang="en"><?= e($word[0]) ?></dt><dd><?= e($word[1]) ?></dd></div><?php endforeach; ?></dl></section>

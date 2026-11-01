@@ -521,6 +521,19 @@
         const b = document.createElement('b'); b.textContent = best.score + '% · ' + msg;
         const sm = document.createElement('span'); sm.textContent = ' Entendí: "' + best.t + '"' + (best.missing.length && cls !== 'good' ? ' · Revisá: ' + best.missing.slice(0, 4).join(', ') : '');
         outEl.append(b, sm);
+        const theory = btn.closest('#chapter-theory[data-unit-id]');
+        if (theory) {
+          const examples = [...theory.querySelectorAll('.ex')].filter(el => el.querySelector('.mic-btn'));
+          const index = examples.indexOf(btn.closest('.ex'));
+          if (index >= 0) fetch('/api/book-voice.php', {method:'POST',headers:{'Content-Type':'application/json','X-CSRF-Token':document.querySelector('meta[name="csrf"]')?.content||''},body:JSON.stringify({unit_id:Number(theory.dataset.unitId),index,total:examples.length})})
+            .then(r => { if (!r.ok) throw new Error('save'); return r.json(); })
+            .then(data => {
+              if (!data.complete) return;
+              const field=document.querySelector('#chapter-contents input[name="section"][value="theory"]');
+              const form=field?.closest('form'),button=form?.querySelector('button'),state=form?.querySelector('input[name="done"]');
+              if(button&&state){button.textContent='✓ Hecho';button.classList.add('is-complete');button.setAttribute('aria-label','Marcar como pendiente: Fundamentos y reglas');state.value='0';}
+            }).catch(() => { const note=document.createElement('span'); note.textContent=' No se pudo guardar el intento; probá de nuevo.'; outEl.append(note); });
+        }
         play(cls === 'good' ? 'ok' : cls === 'mid' ? 'tap' : 'bad');
         if (cls === 'good') { addXP(5, btn); burst(btn, 26); }
       },
@@ -691,3 +704,4 @@
   const greet = $('[data-greet]');
   if (greet) { const h = new Date().getHours(); greet.textContent = h < 6 ? 'Buenas noches' : h < 13 ? 'Buen día' : h < 20 ? 'Buenas tardes' : 'Buenas noches'; }
 })();
+
