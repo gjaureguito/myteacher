@@ -42,11 +42,14 @@ document.querySelectorAll('[data-book-quiz] .book-quiz-question').forEach((card,
    input.addEventListener('change',()=>{check.disabled=false;feedback.textContent='';});
  });
  function showDone(){
+   card.dataset.done='1';
    card.querySelector('.book-quiz-done').hidden=false;
    slot.querySelectorAll('input').forEach(i=>{i.checked=i.value===reference;i.disabled=true;});
    check.disabled=true;retry.hidden=true;
    feedback.textContent='¡Correcto! Consultá la solución comentada para entender por qué.';
    feedback.classList.add('is-correct');feedback.classList.remove('is-wrong');
+   const list=card.closest('[data-book-quiz]'),status=document.querySelector('[data-guided-status]');
+   if(status){const cards=[...list.querySelectorAll('.book-quiz-question')],done=cards.filter(item=>item.dataset.done==='1').length,complete=cards.length>0&&done===cards.length;status.classList.toggle('is-complete',complete);status.textContent=(complete?'✓ Hecho':'○ Pendiente')+' ('+done+'/'+cards.length+')';}
  }
  if(card.dataset.done==='1')showDone();
  check.addEventListener('click',async()=>{

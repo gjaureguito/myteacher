@@ -14,7 +14,7 @@
         <p class="eyebrow">CAPÍTULO <?= (int) $chapterUnit['position'] ?></p>
         <nav class="chapter-contents" id="chapter-contents" aria-label="Índice de lectura del capítulo">
           <strong>Contenido de este capítulo</strong>
-          <p class="chapter-progress-help">Marcá las secciones que terminaste. La práctica interactiva se actualiza automáticamente.</p>
+          <p class="chapter-progress-help">Marcá las secciones de lectura que terminaste. Los ejercicios con soluciones y la práctica interactiva se actualizan automáticamente.</p>
           <ol>
             <?php
             $sections = ['theory' => ['chapter-theory', 'Fundamentos y reglas']];
@@ -26,7 +26,7 @@
               'check' => ['chapter-check', 'Repaso final'],
             ];
             foreach ($sections as $key => [$anchor, $label]): $done = !empty($sectionDone[$key]); ?>
-            <li class="chapter-progress-item"><a href="#<?= e($anchor) ?>"><?= e($label) ?></a><form method="post"><?= csrf_field() ?><input type="hidden" name="section" value="<?= e($key) ?>"><input type="hidden" name="done" value="<?= $done ? '0' : '1' ?>"><button type="submit" class="chapter-status<?= $done ? ' is-complete' : '' ?>" aria-label="<?= $done ? 'Marcar como pendiente' : 'Marcar como completado' ?>: <?= e($label) ?>"><?= $done ? '✓ Hecho' : '○ Pendiente' ?></button></form></li>
+            <li class="chapter-progress-item"><a href="#<?= e($anchor) ?>"><?= e($label) ?></a><?php if ($key === 'practice'): $guidedDone = $guidedTotal > 0 && $guidedSolved === $guidedTotal; ?><span class="chapter-status<?= $guidedDone ? ' is-complete' : '' ?>" data-guided-status aria-live="polite"><?= $guidedDone ? '✓ Hecho' : '○ Pendiente' ?> (<?= (int)$guidedSolved ?>/<?= (int)$guidedTotal ?>)</span><?php else: ?><form method="post"><?= csrf_field() ?><input type="hidden" name="section" value="<?= e($key) ?>"><input type="hidden" name="done" value="<?= $done ? '0' : '1' ?>"><button type="submit" class="chapter-status<?= $done ? ' is-complete' : '' ?>" aria-label="<?= $done ? 'Marcar como pendiente' : 'Marcar como completado' ?>: <?= e($label) ?>"><?= $done ? '✓ Hecho' : '○ Pendiente' ?></button></form><?php endif; ?></li>
             <?php endforeach; ?>
             <li class="chapter-progress-item"><a href="#chapter-platform-practice">Práctica interactiva</a><span class="chapter-status<?= $practiceDone ? ' is-complete' : '' ?>"><?= $practiceDone ? '✓ Hecho' : '○ Pendiente' ?></span></li>
           </ol>

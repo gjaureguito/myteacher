@@ -1,6 +1,6 @@
 <?php $visualSlug=$chapterUnit['slug'] ?? $unit['slug'] ?? ''; $visual=study_visual($visualSlug); $quizUnit = $chapterUnit ?? $unit; $quizDone = array_fill_keys(array_column(q_all('SELECT question_hash FROM book_quiz_status WHERE user_id = ? AND unit_id = ?', [(int)$u['id'], (int)$quizUnit['id']]), 'question_hash'), true); ?>
 <link rel="stylesheet" href="/assets/book-quiz.css?v=2">
-<script src="/assets/book-quiz.js?v=2" defer></script>
+<script src="/assets/book-quiz.js?v=3" defer></script>
 <section class="book-section book-chapter-developed" aria-label="Desarrollo y práctica guiada">
   <p class="eyebrow">COMPRENDER ANTES DE MEMORIZAR</p>
   <h2 id="chapter-foundation">1. Comprender el concepto</h2>

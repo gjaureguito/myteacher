@@ -22,6 +22,8 @@ $chapter = $chapterUnit ? study_chapter($chapterUnit['slug']) : null;
 $sectionKeys = ['theory', 'foundation', 'example', 'practice', 'writing', 'check'];
 $sectionDone = [];
 $practiceDone = false;
+$guidedSolved = 0;
+$guidedTotal = 0;
 if ($chapterUnit) {
     if (is_post()) {
         csrf_check();
@@ -35,6 +37,13 @@ if ($chapterUnit) {
         redirect('/book.php?code=' . rawurlencode($code) . '&chapter=' . rawurlencode($slug) . '#chapter-contents');
     }
     $sectionDone = array_fill_keys(array_column(q_all('SELECT section_key FROM book_section_status WHERE user_id = ? AND unit_id = ?', [(int) $u['id'], (int) $chapterUnit['id']]), 'section_key'), true);
+    if ($chapter) {
+        $guidedHashes = array_fill_keys(array_column(q_all('SELECT question_hash FROM book_quiz_status WHERE user_id = ? AND unit_id = ?', [(int) $u['id'], (int) $chapterUnit['id']]), 'question_hash'), true);
+        foreach ($chapter['practice'] as [$prompt, $answer]) {
+            $guidedTotal++;
+            if (isset($guidedHashes[hash('sha256', $prompt . "\n" . $answer)])) $guidedSolved++;
+        }
+    }
     $progress = unit_progress((int) $u['id'], $code)[(int) $chapterUnit['id']] ?? ['total' => 0, 'solved' => 0];
     $practiceDone = $progress['total'] > 0 && $progress['solved'] >= $progress['total'];
 }
@@ -44,5 +53,5 @@ if ($chapterUnit) {
     $previous = $units[$index - 1] ?? null;
     $next = $units[$index + 1] ?? null;
 }
-render('study_book', compact('u', 'book', 'level', 'units', 'code', 'chapterUnit', 'chapter', 'previous', 'next', 'sectionDone', 'practiceDone'), 'Libro de estudio ' . strtoupper($code));
+render('study_book', compact('u', 'book', 'level', 'units', 'code', 'chapterUnit', 'chapter', 'previous', 'next', 'sectionDone', 'practiceDone', 'guidedSolved', 'guidedTotal'), 'Libro de estudio ' . strtoupper($code));
 
