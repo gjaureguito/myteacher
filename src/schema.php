@@ -10,6 +10,12 @@ function run_schema(): void
     $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
     $tables = [
+        "CREATE TABLE IF NOT EXISTS book_section_status (
+            user_id $fk NOT NULL,
+            unit_id $fk NOT NULL,
+            section_key VARCHAR(32) NOT NULL,
+            PRIMARY KEY (user_id, unit_id, section_key)
+        )$engine",
         "CREATE TABLE IF NOT EXISTS testimonials (
             user_id $fk NOT NULL PRIMARY KEY,
             display_name VARCHAR(80) NOT NULL,
@@ -201,3 +207,4 @@ function run_schema(): void
         try { db()->exec($sql); } catch (Throwable $e) { /* ya existe */ }
     }
 }
+

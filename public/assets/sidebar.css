@@ -108,3 +108,7 @@ html[data-theme=dark] .mt-side-level ol a.is-locked{color:#9fb3c8}
 .mt-sidebar-links .mt-side-group-extra>summary{justify-content:flex-start}
 .mt-sidebar-links .mt-side-group-extra>summary .mt-side-chevron{margin-left:auto}
 html[data-theme=dark] .mt-sidebar-links .mt-side-quicklinks>a:hover{background:#284761}
+
+.mt-side-level ol a .mt-side-complete{flex:0 0 auto;color:#147d52;font-size:1rem;font-weight:800;line-height:1}
+html[data-theme=dark] .mt-side-level ol a .mt-side-complete{color:#7fdfad}
+

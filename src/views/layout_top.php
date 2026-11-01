@@ -57,7 +57,7 @@ $description = match ($path) {
 <meta name="theme-color" content="#edf7ff">
 <script>(function(){try{if(localStorage.getItem('mt_motion')==='off')document.documentElement.dataset.motion='off';var t=localStorage.getItem('ip_theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23862c39'/><rect x='6' y='18' width='20' height='6' fill='%23e4c49a'/><text x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='white'>En</text></svg>">
-<style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style><link rel="stylesheet" href="/assets/sidebar.css?v=5">
+<style>.mt-selection-menu{position:fixed;z-index:9999;display:grid;gap:4px;min-width:235px;padding:7px;background:var(--surface,#fff);color:inherit;border:1px solid #a9baca;border-radius:12px;box-shadow:0 12px 32px #0003}.mt-selection-menu[hidden]{display:none}.mt-selection-menu button{background:transparent;color:inherit;text-align:left;border:0;border-radius:7px;padding:9px;cursor:pointer}.mt-selection-menu button:hover{background:rgba(80,130,190,.15)}.dictionary-result{margin-top:18px;padding:17px;border:1px solid #bdcede;border-radius:14px}.dictionary-definition{white-space:pre-wrap;line-height:1.7}.dictionary-result label{display:block;margin-top:12px;font-weight:600}.dictionary-result input,.dictionary-result textarea,.dictionary-result select{display:block;width:100%;box-sizing:border-box;background:var(--surface,#fff);color:inherit;border:1px solid #9db6ca;border-radius:9px;padding:10px}</style><link rel="stylesheet" href="/assets/sidebar.css?v=6">
 <link rel="stylesheet" href="/assets/nav.css?v=3">
 </head>
 <body class="site-modern<?= $u ? ' has-bottom-nav' : '' ?>">
@@ -129,6 +129,7 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
     $menuBookCode = $path === '/book.php' ? (is_string($_GET['code'] ?? null) ? strtolower($_GET['code']) : 'a1') : '';
     $menuBookChapter = $path === '/book.php' && is_string($_GET['chapter'] ?? null) ? $_GET['chapter'] : '';
     $menuBooks = [];
+    $menuProgress = unit_progress((int) $u['id']);
     foreach (q_all('SELECT id, slug, title, level_code, position FROM units WHERE is_published = 1 ORDER BY position, id') as $menuUnit) {
         $menuBooks[$menuUnit['level_code']][] = $menuUnit;
     }
@@ -141,8 +142,8 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
           <summary<?= $menuIsLevel ? ' class="is-current"' : '' ?>><b><?= e(strtoupper($menuCode)) ?></b><span title="<?= e($menuLevel['title'] ?? '') ?>"><?= e($menuLevel['title'] ?? '') ?></span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
           <ol>
             <li><a href="/book.php?code=<?= e($menuCode) ?>"<?= $menuIsLevel && $menuBookChapter === '' ? ' aria-current="page"' : '' ?>><span>Guía de estudio y proyecto</span></a></li>
-<?php foreach ($menuBooks[$menuCode] ?? [] as $menuUnit): $menuOpen = can_access_unit($u, $menuUnit); ?>
-            <li><a href="/book.php?code=<?= e($menuCode) ?>&amp;chapter=<?= e($menuUnit['slug']) ?>"<?= $menuIsLevel && $menuBookChapter === $menuUnit['slug'] ? ' aria-current="page"' : '' ?><?= $menuOpen ? '' : ' class="is-locked" title="Con suscripción"' ?>><em><?= (int) $menuUnit['position'] ?></em><span><?= e($menuUnit['title']) ?></span><?php if (!$menuOpen): ?><svg class="mt-side-lock" viewBox="0 0 24 24" aria-label="Con suscripción"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><?php endif; ?></a></li>
+<?php foreach ($menuBooks[$menuCode] ?? [] as $menuUnit): $menuOpen = can_access_unit($u, $menuUnit); $menuState = $menuProgress[(int) $menuUnit['id']] ?? ['total' => 0, 'solved' => 0]; $menuDone = $menuState['total'] > 0 && $menuState['solved'] >= $menuState['total']; ?>
+            <li><a href="/book.php?code=<?= e($menuCode) ?>&amp;chapter=<?= e($menuUnit['slug']) ?>"<?= $menuIsLevel && $menuBookChapter === $menuUnit['slug'] ? ' aria-current="page"' : '' ?><?= $menuOpen ? '' : ' class="is-locked" title="Con suscripción"' ?>><em><?= (int) $menuUnit['position'] ?></em><span><?= e($menuUnit['title']) ?></span><?php if ($menuDone): ?><span class="mt-side-complete" role="img" aria-label="Práctica del capítulo completada" title="Práctica del capítulo completada">✓</span><?php endif; ?><?php if (!$menuOpen): ?><svg class="mt-side-lock" viewBox="0 0 24 24" aria-label="Con suscripción"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><?php endif; ?></a></li>
 <?php endforeach; ?>
           </ol>
         </details>
@@ -240,3 +241,4 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
     <?php endforeach; ?>
   </div>
 <?php endif; ?>
+

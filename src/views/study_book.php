@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/assets/book.css?v=2">
+<link rel="stylesheet" href="/assets/book.css?v=3">
 <section class="wrap page book-page">
   <nav class="crumbs" aria-label="Ruta"><a href="/dashboard.php">Mis niveles</a> / <a href="/level.php?code=<?= e($code) ?>"><?= e(strtoupper($code)) ?></a> / <a href="/book.php?code=<?= e($code) ?>">Libro de estudio</a></nav>
   <header class="book-cover">
@@ -12,18 +12,23 @@
       <?php if ($chapterUnit): ?>
         <p class="book-chapter-meta">Nivel <?= e(strtoupper($code)) ?> · Capítulo <?= (int)$chapterUnit['position'] ?> · Lectura y aplicación</p>
         <p class="eyebrow">CAPÍTULO <?= (int) $chapterUnit['position'] ?></p>
-        <nav class="chapter-contents" aria-label="Índice de lectura del capítulo">
+        <nav class="chapter-contents" id="chapter-contents" aria-label="Índice de lectura del capítulo">
           <strong>Contenido de este capítulo</strong>
+          <p class="chapter-progress-help">Marcá las secciones que terminaste. La práctica interactiva se actualiza automáticamente.</p>
           <ol>
-            <li><a href="#chapter-theory">Fundamentos y reglas</a></li>
-            <?php if ($chapter): ?>
-            <li><a href="#chapter-foundation">Explicación y diferencias</a></li>
-            <li><a href="#chapter-example">Ejemplo comentado</a></li>
-            <li><a href="#chapter-practice">Ejercicios con soluciones</a></li>
-            <li><a href="#chapter-writing">Escritura y conversación</a></li>
-            <li><a href="#chapter-check">Repaso final</a></li>
-            <?php endif; ?>
-            <li><a href="#chapter-platform-practice">Práctica interactiva</a></li>
+            <?php
+            $sections = ['theory' => ['chapter-theory', 'Fundamentos y reglas']];
+            if ($chapter) $sections += [
+              'foundation' => ['chapter-foundation', 'Explicación y diferencias'],
+              'example' => ['chapter-example', 'Ejemplo comentado'],
+              'practice' => ['chapter-practice', 'Ejercicios con soluciones'],
+              'writing' => ['chapter-writing', 'Escritura y conversación'],
+              'check' => ['chapter-check', 'Repaso final'],
+            ];
+            foreach ($sections as $key => [$anchor, $label]): $done = !empty($sectionDone[$key]); ?>
+            <li class="chapter-progress-item"><a href="#<?= e($anchor) ?>"><?= e($label) ?></a><form method="post"><?= csrf_field() ?><input type="hidden" name="section" value="<?= e($key) ?>"><input type="hidden" name="done" value="<?= $done ? '0' : '1' ?>"><button type="submit" class="chapter-status<?= $done ? ' is-complete' : '' ?>" aria-label="<?= $done ? 'Marcar como pendiente' : 'Marcar como completado' ?>: <?= e($label) ?>"><?= $done ? '✓ Hecho' : '○ Pendiente' ?></button></form></li>
+            <?php endforeach; ?>
+            <li class="chapter-progress-item"><a href="#chapter-platform-practice">Práctica interactiva</a><span class="chapter-status<?= $practiceDone ? ' is-complete' : '' ?>"><?= $practiceDone ? '✓ Hecho' : '○ Pendiente' ?></span></li>
           </ol>
         </nav>
         <?php require __DIR__ . '/_mic_notice.php'; ?>
@@ -64,3 +69,4 @@
     </article>
   </div>
 </section>
+

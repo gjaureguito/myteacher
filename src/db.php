@@ -88,7 +88,7 @@ function now_utc(): string
  */
 function db_migrate_if_needed(): void
 {
-    $target = 7;
+    $target = 8;
     try {
         $v = (int) q_val("SELECT v FROM meta WHERE k = 'schema_version'");
     } catch (Throwable $e) {
@@ -124,3 +124,4 @@ function meta_set(string $k, string $v): void
     if (q_val('SELECT k FROM meta WHERE k = ?', [$k]) !== null) q('UPDATE meta SET v = ? WHERE k = ?', [$v, $k]);
     else q('INSERT INTO meta (k, v) VALUES (?, ?)', [$k, $v]);
 }
+
