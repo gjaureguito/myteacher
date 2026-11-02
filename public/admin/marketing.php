@@ -2,8 +2,8 @@
 require dirname(__DIR__, 2) . '/src/bootstrap.php';
 require_admin();
 header('Cache-Control: private, no-store');
-$rows = q_all('SELECT variant, COUNT(*) AS visits, SUM(CASE WHEN registered_at IS NOT NULL THEN 1 ELSE 0 END) AS registrations FROM marketing_visits GROUP BY variant ORDER BY variant');
-$sources = q_all('SELECT source, campaign, COUNT(*) AS visits, SUM(CASE WHEN registered_at IS NOT NULL THEN 1 ELSE 0 END) AS registrations FROM marketing_visits GROUP BY source, campaign ORDER BY visits DESC LIMIT 50');
+$rows = q_all("SELECT variant, COUNT(*) AS visits, SUM(CASE WHEN registered_at IS NOT NULL THEN 1 ELSE 0 END) AS registrations FROM marketing_visits WHERE NOT (source = 'prueba_tecnica' AND campaign = 'verificacion') GROUP BY variant ORDER BY variant");
+$sources = q_all("SELECT source, campaign, COUNT(*) AS visits, SUM(CASE WHEN registered_at IS NOT NULL THEN 1 ELSE 0 END) AS registrations FROM marketing_visits WHERE NOT (source = 'prueba_tecnica' AND campaign = 'verificacion') GROUP BY source, campaign ORDER BY visits DESC LIMIT 50");
 ob_start(); ?>
 <section class="wrap page"><p class="eyebrow">GESTIÓN DE LA ACADEMIA</p><h1>Portadas y campañas</h1>
 <?php require ROOT . '/src/views/admin_nav.php'; ?>

@@ -2,6 +2,16 @@
 <section class="wrap page">
   <p class="eyebrow">GESTIÓN DE LA ACADEMIA</p><h1>Resumen de actividad</h1><p class="muted">Accesos, suscripciones y contenido en un mismo lugar.</p>
   <?php require __DIR__ . '/admin_nav.php'; ?>
+  <section class="admin-billing-summary" aria-labelledby="visitas-home-title">
+    <h2 id="visitas-home-title">Visitas a la página principal</h2>
+    <div class="stats">
+      <div class="stat"><strong><?= (int)($marketingVisits['total'] ?? 0) ?></strong><span class="muted">Sesiones registradas desde que se activó la medición</span></div>
+      <div class="stat"><strong><?= (int)($marketingVisits['week'] ?? 0) ?></strong><span class="muted">Sesiones en los últimos 7 días</span></div>
+      <div class="stat"><strong><?= (int)($marketingVisits['registrations'] ?? 0) ?></strong><span class="muted">Registros completados en esas sesiones</span></div>
+    </div>
+    <p class="fine">Cuenta sesiones de visitantes sin iniciar sesión que llegaron a la portada, no todas las visitas del sitio. Los datos no incluyen visitas anteriores a la activación.</p>
+    <a class="btn" href="/admin/marketing.php">Ver visitas, orígenes y portadas</a>
+  </section>
   <section class="admin-billing-summary"><h2>Facturación de alumnos</h2><p>Consultá razón social, CUIT/CUIL o DNI, domicilio y correo. Abrí los datos fiscales de cada usuario en la tabla o usá la vista dedicada.</p><a class="btn" href="/admin/billing.php">Abrir datos de facturación</a><p class="fine">Los datos se toman de la última declaración del alumno. Tener una suscripción activa no acredita un cobro.</p></section>
 
   <div class="stats">

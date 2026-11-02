@@ -145,8 +145,10 @@ $stats = [
     'Nuevos (7 días)' => (int) q_val('SELECT COUNT(*) FROM users WHERE created_at > ?', [gmdate('Y-m-d H:i:s', time() - 7 * 86400)]),
     'Respuestas hoy' => (int) q_val('SELECT COUNT(*) FROM attempts WHERE created_at > ?', [gmdate('Y-m-d 00:00:00')]),
 ];
+// Las sesiones de portada no incluyen la visita de verificación técnica.
+$marketingVisits = q_one("SELECT COUNT(*) AS total, SUM(CASE WHEN visited_at >= ? THEN 1 ELSE 0 END) AS week, SUM(CASE WHEN registered_at IS NOT NULL THEN 1 ELSE 0 END) AS registrations FROM marketing_visits WHERE NOT (source = ? AND campaign = ?)", [gmdate('Y-m-d H:i:s', time()-7*86400), 'prueba_tecnica', 'verificacion']);
 $active = $stats['Suscripciones activas'];
 $mrr = $active * plan_price();
 $log = q_all('SELECT p.*, u.email FROM payments_log p LEFT JOIN users u ON u.id = p.user_id ORDER BY p.id DESC LIMIT 15');
 
-render('admin_home', compact('users', 'stats', 's', 'mrr', 'log', 'admin'), 'Admin');
+render('admin_home', compact('users', 'stats', 's', 'mrr', 'log', 'admin', 'marketingVisits'), 'Admin');
