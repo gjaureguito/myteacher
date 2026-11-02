@@ -124,7 +124,7 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
   <nav class="mt-sidebar-links" aria-label="Secciones de MyTeacher">
     <a class="mt-professor-nav" href="/profesor.php"<?= $navCur('/profesor.php') ?>>
       <svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg>
-      <span><strong>Profesor con IA</strong><small><?= tutor_enabled()?'Conocé tu profesor →':'Piloto · conversación pausada' ?></small></span>
+      <span><strong>Profesor con IA</strong><small><?= tutor_dialog_access(current_user())?'Diálogo activo →':(tutor_enabled()?'Conocé tu profesor →':'Piloto · conversación pausada') ?></small></span>
     </a>
     <p class="mt-sidebar-heading">APRENDIZAJE</p>
     <a href="/dashboard.php"<?= $navCur('/dashboard.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>Mis niveles</span></a>
