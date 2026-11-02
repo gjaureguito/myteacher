@@ -32,10 +32,7 @@ $turn = $start
     : $message;
 
 $openaiKey = (string) env('OPENAI_API_KEY', '');
-$geminiKey = (string) env('GEMINI_API_KEY', '');
-$provider = strtolower((string) env('TUTOR_DIALOG_PROVIDER', $openaiKey !== '' ? 'openai' : 'gemini'));
-if ($provider === 'openai' && $openaiKey === '') json_out(['error' => 'Falta configurar OPENAI_API_KEY en Railway.'], 503);
-if ($provider !== 'openai' && $geminiKey === '') json_out(['error' => 'Falta configurar OPENAI_API_KEY (o GEMINI_API_KEY) en Railway.'], 503);
+if ($openaiKey === '') json_out(['error' => 'Falta configurar OPENAI_API_KEY en Railway.'], 503);
 
 // Límite diario de protección de costos (por cuenta, día UTC).
 $limit = max(1, min(2000, (int) env('TUTOR_FREE_DAILY_LIMIT', '150')));
@@ -54,7 +51,6 @@ $system = tutor_dialog_system($level, $scenario);
 session_write_close();
 
 /* ---------- OpenAI: respuesta en streaming (aparece mientras se escribe) ---------- */
-if ($provider === 'openai') {
     $model = (string) env('OPENAI_MODEL', TUTOR_MODEL);
     if (!preg_match('/^[a-zA-Z0-9._:-]+$/', $model)) $model = TUTOR_MODEL;
     $input = $history;
@@ -126,34 +122,3 @@ if ($provider === 'openai') {
     if (is_array($usage)) error_log('Profesor diálogo tokens in=' . ($usage['input_tokens'] ?? '?') . ' out=' . ($usage['output_tokens'] ?? '?'));
     $emit(['done' => true] + $parsed + ['remaining' => $remaining(), 'incomplete' => $streamError !== '']);
     exit;
-}
-
-/* ---------- Gemini: respuesta completa (sin streaming) ---------- */
-$contents = [];
-foreach ($history as $m) $contents[] = ['role' => $m['role'] === 'assistant' ? 'model' : 'user', 'parts' => [['text' => $m['content']]]];
-$contents[] = ['role' => 'user', 'parts' => [['text' => $turn]]];
-if ($contents[0]['role'] === 'model') array_unshift($contents, ['role' => 'user', 'parts' => [['text' => '(Start.)']]]);
-$payload = ['systemInstruction' => ['parts' => [['text' => $system]]], 'contents' => $contents,
-    'generationConfig' => ['temperature' => 0.7, 'maxOutputTokens' => 700]];
-$base = rtrim((string) env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com'), '/');
-$call = static fn(string $model): array => http_json('POST', $base . '/v1beta/models/' . rawurlencode($model) . ':generateContent', ['x-goog-api-key: ' . $geminiKey], $payload);
-$model = (string) env('GEMINI_MODEL', 'gemini-3.5-flash-lite');
-if (!preg_match('/^[a-zA-Z0-9._-]+$/', $model)) $model = 'gemini-3.5-flash-lite';
-$r = $call($model);
-if ($r['code'] === 404 && $model !== 'gemini-3.5-flash-lite') $r = $call('gemini-3.5-flash-lite');
-if ($r['code'] !== 200) {
-    $refund();
-    error_log('Profesor diálogo Gemini HTTP ' . $r['code'] . ' ' . substr((string) $r['raw'], 0, 300));
-    $hint = match (true) {
-        $r['code'] === 402 => 'Gemini se quedó sin saldo prepago.',
-        $r['code'] === 429 => 'Gemini alcanzó su límite de uso por ahora.',
-        $r['code'] === 401 || $r['code'] === 403 => 'Gemini rechazó la clave.',
-        default => 'Gemini no respondió (HTTP ' . $r['code'] . ').',
-    };
-    json_out(['error' => $hint . ' No se descontó el mensaje.'], 503);
-}
-$text = '';
-foreach ($r['data']['candidates'][0]['content']['parts'] ?? [] as $p) $text .= (string) ($p['text'] ?? '');
-$parsed = tutor_dialog_parse($text);
-if ($parsed['reply'] === '') { $refund(); json_out(['error' => 'El profesor no devolvió respuesta. No se descontó el mensaje.'], 503); }
-json_out($parsed + ['remaining' => $remaining()]);
