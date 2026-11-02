@@ -68,10 +68,10 @@ $session = json_encode([
 $ch = curl_init('https://api.openai.com/v1/realtime/calls');
 curl_setopt_array($ch, [
     CURLOPT_POST => true,
-    CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $key],
+    CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $key, 'OpenAI-Safety-Identifier: ' . hash('sha256', (string)$u['id'] . '|' . (env('VOICE_SAFETY_SALT') ?: 'myteacher-voice'))],
     CURLOPT_POSTFIELDS => [
         'sdp' => new CURLStringFile($sdp, 'offer.sdp', 'application/sdp'),
-        'session' => $session
+        'session' => new CURLStringFile($session, 'session.json', 'application/json')
     ],
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_CONNECTTIMEOUT => 10,
