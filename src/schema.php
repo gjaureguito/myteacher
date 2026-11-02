@@ -12,6 +12,14 @@ function run_schema(): void
     $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
 
     $tables = [
+        "CREATE TABLE IF NOT EXISTS marketing_visits (
+            id VARCHAR(64) NOT NULL PRIMARY KEY,
+            variant VARCHAR(12) NOT NULL,
+            source VARCHAR(80) NOT NULL,
+            campaign VARCHAR(100) NOT NULL,
+            visited_at VARCHAR(19) NOT NULL,
+            registered_at VARCHAR(19) NULL
+        )$engine",
         "CREATE TABLE IF NOT EXISTS book_voice_status (
             user_id $fk NOT NULL,
             unit_id $fk NOT NULL,

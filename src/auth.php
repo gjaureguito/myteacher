@@ -68,7 +68,9 @@ function create_user(string $email, string $name, ?string $password, array $extr
     $keys = implode(', ', array_keys($cols));
     $ph = implode(', ', array_fill(0, count($cols), '?'));
     q("INSERT INTO users ($keys) VALUES ($ph)", array_values($cols));
-    return (int) db()->lastInsertId();
+    $id = (int) db()->lastInsertId();
+    if (($extra['role'] ?? 'student') === 'student') marketing_registration();
+    return $id;
 }
 
 /**

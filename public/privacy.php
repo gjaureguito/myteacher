@@ -14,6 +14,7 @@ ob_start(); ?>
   <p>Los pagos se procesan en Mercado Pago. Nunca vemos ni guardamos los datos de tu tarjeta; solo recibimos el estado de la suscripción.</p>
   <h2>Para qué los usamos</h2>
   <p>Para darte acceso a la plataforma, guardar tu progreso, gestionar la suscripción y contactarte por temas de tu cuenta. No vendemos tus datos. Solo los comunicamos cuando resulta necesario para prestar el servicio o cumplir obligaciones legales.</p>
+  <h2>Medición de portadas y campañas</h2><p>Para evaluar el sitio registramos la versión de portada mostrada, el origen y la campaña cuando están disponibles, la fecha de visita y si se completó un registro durante la sesión. Estos datos se utilizan para obtener estadísticas agregadas.</p>
   <h2>Cookies</h2>
   <p>Usamos una única cookie de sesión, necesaria para mantenerte conectado.</p>
   <h2>Tus derechos</h2>

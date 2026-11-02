@@ -93,3 +93,5 @@ if (PHP_SAPI !== 'cli') {
 }
 
 db_migrate_if_needed();
+
+require_once ROOT . '/src/marketing.php';
