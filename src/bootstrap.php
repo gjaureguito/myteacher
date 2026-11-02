@@ -68,6 +68,8 @@ require ROOT . '/src/grading.php';
 require ROOT . '/src/learning.php';
 require ROOT . '/src/scenes.php';
 require ROOT . '/src/tutor.php';
+require ROOT . '/src/openai.php';
+require ROOT . '/src/tutor_classes.php';
 require_once ROOT . '/src/settings.php';
 
 if (PHP_SAPI !== 'cli') {
