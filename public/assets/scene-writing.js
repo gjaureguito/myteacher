@@ -9,6 +9,33 @@
   lab.className='scene-writing-lab';
   lab.innerHTML='<h3>✍️ Respondé con tus propias palabras</h3><p>Explicá en inglés el problema del diálogo, lo que propone cada persona y cuál sería el siguiente paso. Escribí al menos 40 palabras.</p><label for="scene-writing-'+scene.dataset.scene+'">Tu respuesta en inglés</label><textarea id="scene-writing-'+scene.dataset.scene+'" rows="6" spellcheck="true" lang="en" placeholder="In this conversation, the speakers..."></textarea><div class="sw-actions"><span class="sw-count" aria-live="polite">0 palabras</span><button type="button" data-sw="assess">Revisar mi respuesta</button><button type="button" data-sw="sample">Ver frases útiles</button><button type="button" data-sw="clear">Borrar borrador</button><button type="button" data-sw="copy">Copiar respuesta</button></div><div class="sw-feedback" role="status" aria-live="polite"></div><div class="sw-sample" hidden><strong>Expresiones para reformular:</strong><p lang="en">The main issue is… · One speaker suggests that… · However, the other person points out that… · A reasonable next step would be…</p></div><p class="sw-note">Revisión orientativa. El borrador se guarda solamente en este navegador, no en tu cuenta; evitá incluir información privada si usás un dispositivo compartido. No es una corrección gramatical ni suma puntos.</p>';
   host.appendChild(lab);
+  const modelEn=scene.dataset.modelEn||'',modelEs=scene.dataset.modelEs||'';
+  if(modelEn){
+   const solBtn=document.createElement('button');
+   solBtn.type='button';solBtn.dataset.sw='solution';solBtn.textContent='💡 Ver solución';
+   solBtn.setAttribute('aria-expanded','false');
+   lab.querySelector('[data-sw="sample"]').after(solBtn);
+   const sol=document.createElement('div');
+   sol.className='sw-solution';sol.hidden=true;sol.id='scene-solution-'+scene.dataset.scene;
+   solBtn.setAttribute('aria-controls',sol.id);
+   sol.innerHTML='<strong>Respuesta modelo</strong><p class="sw-solution-en" lang="en"></p>'+(modelEs?'<button type="button" class="sw-solution-toggle" aria-expanded="false">Mostrar traducción al español</button><p class="sw-solution-es" lang="es" hidden></p>':'')+'<p class="sw-solution-note">Es una respuesta posible: la tuya puede ser distinta y también estar bien. Compará cómo presenta el problema, las propuestas y el siguiente paso.</p>';
+   sol.querySelector('.sw-solution-en').textContent=modelEn;
+   lab.querySelector('.sw-sample').after(sol);
+   if(modelEs){
+    const es=sol.querySelector('.sw-solution-es'),tr=sol.querySelector('.sw-solution-toggle');
+    es.textContent=modelEs;
+    tr.addEventListener('click',()=>{es.hidden=!es.hidden;tr.setAttribute('aria-expanded',String(!es.hidden));tr.textContent=es.hidden?'Mostrar traducción al español':'Ocultar traducción';});
+   }
+   solBtn.addEventListener('click',()=>{
+    if(sol.hidden){
+     const written=field.value.trim().split(/\s+/).filter(Boolean).length;
+     if(written<40&&!window.confirm('Te conviene intentarlo primero. ¿Querés ver la solución igual?'))return;
+    }
+    sol.hidden=!sol.hidden;
+    solBtn.setAttribute('aria-expanded',String(!sol.hidden));
+    solBtn.textContent=sol.hidden?'💡 Ver solución':'Ocultar solución';
+   });
+  }
   const field=lab.querySelector('textarea'),count=lab.querySelector('.sw-count'),feedback=lab.querySelector('.sw-feedback');
   const draftKey='myteacher:scene:draft:'+scene.dataset.scene;
   const savedMessage=document.createElement('span');
@@ -55,7 +82,7 @@
   });
   if(!document.getElementById('scene-writing-styles')){
    const style=document.createElement('style');style.id='scene-writing-styles';
-   style.textContent='.scene-writing-lab{border:1px solid #a7b9d1;border-radius:16px;padding:18px;margin-top:24px;background:var(--surface,#f7f9fc)}.scene-writing-lab h3{margin-top:0}.scene-writing-lab label{display:block;font-weight:700;margin-bottom:6px}.scene-writing-lab textarea{display:block;width:100%;box-sizing:border-box;min-height:145px;padding:12px;border:1px solid #839bb8;border-radius:9px;font:inherit;resize:vertical;background:var(--surface,#fff);color:inherit}.sw-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0}.sw-actions button{border:1px solid #7089a7;border-radius:9px;padding:10px;background:transparent;color:inherit;cursor:pointer}.sw-feedback{font-weight:600;line-height:1.6}.sw-sample{background:#e5eefb;color:#172b49;border-radius:9px;padding:10px}.sw-note{font-size:.82rem;opacity:.85}';
+   style.textContent='.scene-writing-lab{border:1px solid #a7b9d1;border-radius:16px;padding:18px;margin-top:24px;background:var(--surface,#f7f9fc)}.scene-writing-lab h3{margin-top:0}.scene-writing-lab label{display:block;font-weight:700;margin-bottom:6px}.scene-writing-lab textarea{display:block;width:100%;box-sizing:border-box;min-height:145px;padding:12px;border:1px solid #839bb8;border-radius:9px;font:inherit;resize:vertical;background:var(--surface,#fff);color:inherit}.sw-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0}.sw-actions button{border:1px solid #7089a7;border-radius:9px;padding:10px;background:transparent;color:inherit;cursor:pointer}.sw-feedback{font-weight:600;line-height:1.6}.sw-sample{background:#e5eefb;color:#172b49;border-radius:9px;padding:10px}.sw-note{font-size:.82rem;opacity:.85}.sw-solution{background:#e8f6ee;color:#163d2a;border:1px solid #9fd0b4;border-radius:9px;padding:12px;margin-top:10px}.sw-solution p{line-height:1.6;margin:8px 0}.sw-solution-es{border-top:1px dashed #9fd0b4;padding-top:8px;font-style:italic}.sw-solution-toggle{border:1px solid #5f9c7b;border-radius:9px;padding:8px 10px;background:transparent;color:inherit;cursor:pointer}.sw-solution-note{font-size:.82rem;opacity:.85}';
    document.head.appendChild(style);
   }
  });

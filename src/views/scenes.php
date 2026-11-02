@@ -3,7 +3,7 @@ $states = scene_progress((int)$u['id'],$scene['id']);
 $done = array_sum(array_column($states,'solved'));
 $questionTotal = count($scene['questions']);
 $solvedIds = array_column(array_filter($states,fn($s)=>(int)$s['solved']===1),'question_id'); ?>
-<article class="scene" data-scene="<?= e($scene['id']) ?>">
+<article class="scene" data-scene="<?= e($scene['id']) ?>"<?php if (!empty($scene['model_answer']['en'])): ?> data-model-en="<?= e($scene['model_answer']['en']) ?>" data-model-es="<?= e($scene['model_answer']['es'] ?? '') ?>"<?php endif; ?>>
   <header class="scene-heading"><p><?= e($scene['level']) ?> · REAL LIFE ENGLISH</p><h2><?= e($scene['title']) ?></h2><p>Escuchá, seguí el diálogo y practicá con la misma situación.</p></header>
   <div class="scene-workspace">
   <aside class="scene-reference" aria-label="Diálogo de referencia" tabindex="0">

@@ -81,7 +81,11 @@
       }
     ],
     "category": "Vida diaria",
-    "goal": "Conocer a alguien y presentarte."
+    "goal": "Conocer a alguien y presentarte.",
+    "model_answer": {
+      "en": "In this conversation, the speakers meet at a café. The situation is simple: Sam wants to sit down, so first he asks if the seat is free. Mia says yes and introduces herself. Then Sam introduces himself and asks if she is a student. She is, but her class is at nine. A good next step would be to talk about their studies.",
+      "es": "En esta conversación, los hablantes se conocen en un café. La situación es simple: Sam quiere sentarse, así que primero pregunta si el asiento está libre. Mia dice que sí y se presenta. Después Sam se presenta y le pregunta si es estudiante. Lo es, pero su clase es a las nueve. Un buen siguiente paso sería hablar de sus estudios."
+    }
   },
   {
     "id": "shopping",
@@ -166,7 +170,11 @@
       }
     ],
     "category": "Vida diaria",
-    "goal": "Pedir productos y consultar precios."
+    "goal": "Pedir productos y consultar precios.",
+    "model_answer": {
+      "en": "In this conversation, a customer is at the market. The main problem is that the customer needs a bag for the apples. The seller explains that there is a bag next to the tomatoes. Then the customer asks about the price, and the seller says the apples are three pounds. However, the customer does not decide yet. A reasonable next step would be to pay for the apples or ask for a different quantity.",
+      "es": "En esta conversación, un cliente está en el mercado. El problema principal es que el cliente necesita una bolsa para las manzanas. El vendedor explica que hay una bolsa al lado de los tomates. Después el cliente pregunta el precio y el vendedor dice que las manzanas cuestan tres libras. Sin embargo, el cliente todavía no decide. Un siguiente paso razonable sería pagar las manzanas o pedir otra cantidad."
+    }
   },
   {
     "id": "weekend",
@@ -251,7 +259,11 @@
       }
     ],
     "category": "Viajes",
-    "goal": "Contar una experiencia y cómo viajaste."
+    "goal": "Contar una experiencia y cómo viajaste.",
+    "model_answer": {
+      "en": "In this conversation, Alex asks Jo about her day yesterday. First, Jo explains that she visited the city with her sister and they took the bus. Then they ate at a small restaurant and walked to the museum. There is no real problem in the situation; however, Alex wants more details. A good next step would be to ask about the museum, for example: \"What did you see there?\"",
+      "es": "En esta conversación, Alex le pregunta a Jo qué hizo ayer. Primero, Jo explica que visitó la ciudad con su hermana y que fueron en colectivo. Después comieron en un restaurante pequeño y caminaron hasta el museo. No hay un problema real en la situación; sin embargo, Alex quiere más detalles. Un buen siguiente paso sería preguntar por el museo, por ejemplo: \"¿Qué viste ahí?\""
+    }
   },
   {
     "id": "plans",
@@ -336,7 +348,11 @@
       }
     ],
     "category": "Vida diaria",
-    "goal": "Organizar planes y ofrecer ayuda."
+    "goal": "Organizar planes y ofrecer ayuda.",
+    "model_answer": {
+      "en": "In this conversation, Ella and Ben are planning a picnic in the park on Saturday. The main issue is organizing the food and drinks. Ella offers to bring sandwiches, and then Ben says he will bring water. However, the weather could be a problem: if it rains, they will stay at home. A reasonable next step would be to check the weather forecast on Friday and decide the time.",
+      "es": "En esta conversación, Ella y Ben están planeando un picnic en el parque para el sábado. El tema principal es organizar la comida y la bebida. Ella se ofrece a llevar sándwiches y después Ben dice que va a llevar agua. Sin embargo, el clima podría ser un problema: si llueve, se van a quedar en casa. Un siguiente paso razonable sería revisar el pronóstico el viernes y decidir el horario."
+    }
   },
   {
     "id": "workday",
@@ -423,7 +439,11 @@
         "answer": 1,
         "explanation": "Dice “I start at nine”, no a las ocho."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, Leo asks Nina about her work routine. First, Nina explains that she starts work at nine and works from home on Fridays. Then Leo asks about lunch, and she says that her team has lunch at the office at one. There is no problem here, but the conversation shows her daily habits. A good next step would be to ask what time she finishes work.",
+      "es": "En esta conversación, Leo le pregunta a Nina por su rutina de trabajo. Primero, Nina explica que empieza a trabajar a las nueve y que los viernes trabaja desde su casa. Después Leo pregunta por el almuerzo y ella dice que su equipo almuerza en la oficina a la una. Acá no hay un problema, pero la conversación muestra sus hábitos diarios. Un buen siguiente paso sería preguntarle a qué hora termina de trabajar."
+    }
   },
   {
     "id": "family",
@@ -507,7 +527,11 @@
         "answer": 1,
         "explanation": "Tom presenta a Rosa como “our mother”, no como hermana."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, Tom is talking to Emma about his family. First, Emma asks about his brother. Tom says that his name is Daniel and he is a chef. Then she asks about the woman next to him, and Tom explains that she is their mother, Rosa. The topic is family, not a problem. However, Emma could learn more: a good next step would be to ask about other family members.",
+      "es": "En esta conversación, Tom le habla a Emma sobre su familia. Primero, Emma pregunta por su hermano. Tom dice que se llama Daniel y que es chef. Después ella pregunta por la mujer que está al lado de él, y Tom explica que es la madre de ellos, Rosa. El tema es la familia, no un problema. Sin embargo, Emma podría saber más: un buen siguiente paso sería preguntar por otros miembros de la familia."
+    }
   },
   {
     "id": "station",
@@ -592,7 +616,11 @@
         "answer": 0,
         "explanation": "El visitante pregunta si está al lado del supermercado y la persona responde “Yes”."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a visitor is lost and needs to find the station. The local person gives directions: first go straight, then turn left at the bank. The visitor asks if the station is next to the supermarket. The local says yes, but also adds that it is opposite the park. A reasonable next step would be to say thank you and follow the directions, or ask how far it is.",
+      "es": "En esta conversación, un visitante está perdido y necesita encontrar la estación. Una persona del lugar le da indicaciones: primero seguir derecho y después doblar a la izquierda en el banco. El visitante pregunta si la estación está al lado del supermercado. La persona dice que sí, pero además agrega que está enfrente del parque. Un siguiente paso razonable sería dar las gracias y seguir las indicaciones, o preguntar qué tan lejos queda."
+    }
   },
   {
     "id": "restaurant",
@@ -678,7 +706,11 @@
         "answer": 1,
         "explanation": "La respuesta es “Two sandwiches”, no tres."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a customer is ordering food at a restaurant. First, the waiter asks if the customer is ready, and the customer orders a salad and some water. Then the waiter asks how many sandwiches the customer would like, and the customer orders two. However, the customer also wants bread, so the next step would be for the waiter to say if there is any bread and then bring the order.",
+      "es": "En esta conversación, un cliente está pidiendo comida en un restaurante. Primero, el mozo pregunta si el cliente está listo, y el cliente pide una ensalada y un poco de agua. Después el mozo pregunta cuántos sándwiches quiere, y el cliente pide dos. Sin embargo, el cliente también quiere pan, así que el siguiente paso sería que el mozo diga si hay pan y después traiga el pedido."
+    }
   },
   {
     "id": "hotel",
@@ -763,7 +795,11 @@
         "answer": 0,
         "explanation": "La última intervención confirma “both rooms have breakfast included”."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a guest is choosing between two hotel rooms. The main issue is noise and price: the garden room is quieter, but it is more expensive. The street room is smaller, although both rooms include breakfast. The guest should decide what is more important. Therefore, a reasonable next step would be to book the garden room if a good night's sleep is the priority.",
+      "es": "En esta conversación, un huésped está eligiendo entre dos habitaciones de hotel. El tema principal es el ruido y el precio: la habitación que da al jardín es más silenciosa, pero es más cara. La que da a la calle es más chica, aunque las dos incluyen desayuno. El huésped debería decidir qué es más importante. Por lo tanto, un siguiente paso razonable sería reservar la habitación del jardín si dormir bien es la prioridad."
+    }
   },
   {
     "id": "airport",
@@ -847,7 +883,11 @@
         "answer": 1,
         "explanation": "Owen estaba comprando un café, no un sándwich."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, Owen explains what happened at the airport. He was buying a coffee when they called his flight, and then he heard the announcement. The main problem was that the airline changed the gate, so he was not waiting in the right place. However, he walked to gate twelve in time. A reasonable next step would be to check the screens regularly and arrive at the gate early.",
+      "es": "En esta conversación, Owen explica qué pasó en el aeropuerto. Estaba comprando un café cuando llamaron a su vuelo, y después escuchó el anuncio. El problema principal fue que la aerolínea cambió la puerta de embarque, así que él no estaba esperando en el lugar correcto. Sin embargo, caminó hasta la puerta doce a tiempo. Un siguiente paso razonable sería revisar las pantallas con frecuencia y llegar temprano a la puerta."
+    }
   },
   {
     "id": "project-review",
@@ -967,7 +1007,11 @@
         "answer": 0,
         "explanation": "Maya conecta el aviso de demora con la necesidad de identificar tareas en riesgo."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, Maya and Leo are reviewing a project. The main issue is that the supplier has warned them about a possible delay, so the delivery schedule may no longer be realistic. Maya suggests identifying the tasks that are most likely to be affected. Leo agrees, but he goes further and recommends preparing a contingency plan. Therefore, a reasonable next step would be to have that plan ready by Friday and share it with the team.",
+      "es": "En esta conversación, Maya y Leo están revisando un proyecto. El problema principal es que el proveedor les advirtió sobre una posible demora, así que el cronograma de entrega quizás ya no sea realista. Maya propone identificar las tareas que tienen más probabilidades de verse afectadas. Leo está de acuerdo, pero va más allá y recomienda preparar un plan de contingencia. Por lo tanto, un siguiente paso razonable sería tener ese plan listo para el viernes y compartirlo con el equipo."
+    }
   },
   {
     "id": "research-brief",
@@ -1084,7 +1128,11 @@
         "answer": 0,
         "explanation": "Sin grupo de control no se puede atribuir causalidad de forma sólida."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a researcher and an editor are discussing a study. The main issue is that, although the results are promising, the sample was relatively small and there was no control group. As a result, the researcher admits that they cannot draw causal conclusions. The editor therefore suggests describing the findings as preliminary. A reasonable next step would be to publish them with clear caveats and plan a larger, controlled study.",
+      "es": "En esta conversación, una investigadora y un editor están analizando un estudio. El problema principal es que, aunque los resultados son prometedores, la muestra fue relativamente chica y no hubo grupo de control. En consecuencia, la investigadora admite que no pueden sacar conclusiones causales. Por eso el editor propone presentar los hallazgos como preliminares. Un siguiente paso razonable sería publicarlos con advertencias claras y planificar un estudio más grande y con grupo de control."
+    }
   },
   {
     "id": "diplomatic-meeting",
@@ -1204,7 +1252,11 @@
         "answer": 0,
         "explanation": "La aceptación es condicional: ambas partes deben acordar el alcance."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a client and a manager are negotiating a delivery date. The main issue is that the client would like an earlier delivery; however, the manager points out that the current schedule is already tight. The client then proposes prioritising the critical components. The manager accepts that this could be feasible, but only if they agree on a revised scope. Therefore, the next step would be to define that scope in writing.",
+      "es": "En esta conversación, un cliente y un gerente están negociando una fecha de entrega. El problema principal es que el cliente quisiera una entrega más temprana; sin embargo, el gerente señala que el cronograma actual ya está muy ajustado. Entonces el cliente propone priorizar los componentes críticos. El gerente acepta que eso podría ser viable, pero solo si acuerdan un alcance revisado. Por lo tanto, el siguiente paso sería definir ese alcance por escrito."
+    }
   },
   {
     "id": "evidence-debate",
@@ -1322,7 +1374,11 @@
         "answer": 0,
         "explanation": "Una variación en el modo de registrar datos puede afectar la serie."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a chair and an analyst are examining some data. Both accept that the figures changed after the policy was introduced. However, the analyst points out that this sequence alone does not prove causation. The chair agrees and asks for alternative explanations, and the analyst suggests that changes in reporting practices may explain part of the difference. Therefore, a reasonable next step would be to compare the data before and after those reporting changes.",
+      "es": "En esta conversación, una presidenta de comisión y un analista están examinando datos. Ambos aceptan que las cifras cambiaron después de que se introdujo la política. Sin embargo, el analista señala que esa secuencia por sí sola no demuestra causalidad. La presidenta está de acuerdo y pide explicaciones alternativas, y el analista sugiere que los cambios en la forma de informar los datos podrían explicar parte de la diferencia. Por lo tanto, un siguiente paso razonable sería comparar los datos antes y después de esos cambios."
+    }
   },
   {
     "id": "editorial-interview",
@@ -1443,7 +1499,11 @@
         "answer": 0,
         "explanation": "Reconoce que la meta vale la pena y cuestiona el cronograma."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a host interviews the author of an editorial. The main issue is an apparent contradiction: the writer calls the plan ambitious, yet questions its timetable. The writer clarifies that the objective is worthwhile, but the implementation schedule is unrealistic. As a result, the criticism is practical rather than ideological. A reasonable next step would be to propose a more realistic timetable, since even a sound idea can fail without sufficient preparation.",
+      "es": "En esta conversación, un conductor entrevista al autor de un editorial. El tema principal es una aparente contradicción: el autor dice que el plan es ambicioso y, sin embargo, cuestiona sus plazos. El autor aclara que el objetivo vale la pena, pero el cronograma de implementación no es realista. En consecuencia, la crítica es práctica y no ideológica. Un siguiente paso razonable sería proponer un cronograma más realista, ya que incluso una buena idea puede fracasar sin la preparación suficiente."
+    }
   },
   {
     "id": "contract-meeting",
@@ -1562,6 +1622,10 @@
         "answer": 0,
         "explanation": "Aclarar control razonable y notificación escrita reduce ambigüedad."
       }
-    ]
+    ],
+    "model_answer": {
+      "en": "In this conversation, a lawyer and a director are reviewing a contract clause. The main issue is when the delay exception applies: only when the delay is outside the supplier's reasonable control. However, the director asks whether notice is also needed, and the lawyer confirms that prompt written notice is required. Therefore, the director suggests making both conditions explicit. The next step would be to redraft the clause and send it to the supplier for approval.",
+      "es": "En esta conversación, una abogada y un director están revisando una cláusula de un contrato. El tema principal es cuándo se aplica la excepción por demora: solo cuando la demora está fuera del control razonable del proveedor. Sin embargo, el director pregunta si además hace falta un aviso, y la abogada confirma que se exige una notificación escrita inmediata. Por lo tanto, el director propone dejar ambas condiciones explícitas. El siguiente paso sería redactar de nuevo la cláusula y enviarla al proveedor para su aprobación."
+    }
   }
 ]
