@@ -122,3 +122,5 @@ $first = explode(' ', $u['name'])[0];
     <?php endforeach; ?>
   </ol>
 </section>
+
+<aside class="wrap"><p><a class="btn btn-ghost" href="/profesor.php">Nuevo · Profesor de conversación con IA: conocer el piloto</a></p></aside>

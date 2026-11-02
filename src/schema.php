@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 function run_schema(): void
 {
+    require_once ROOT.'/src/tutor_schema.php';
+    tutor_run_schema();
     $sqlite = db_is_sqlite();
     $pk = $sqlite ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY';
     $fk = $sqlite ? 'INTEGER' : 'INT UNSIGNED';

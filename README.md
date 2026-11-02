@@ -175,3 +175,7 @@ Nota: esto no traduce automáticamente textos de teoría, libros o ejercicios al
 La migración 6 agrega `certificates`. Al responder correctamente o visitar el panel/ruta, se registran automáticamente los niveles completados, incluidos los anteriores a esta función. Se conserva una única constancia por alumno y nivel, con nombre, fecha UTC de emisión, código aleatorio, cantidad de ejercicios y conceptos del programa. Reiniciar ejercicios, cambiar de nombre o agregar contenido no altera constancias emitidas. La descarga `/certificate.php?level=a1` exige sesión y solo entrega certificados propios, incluso sin suscripción vigente. PDF horizontal de una página, con tipografía estándar Windows-1252 (acentos españoles; otros alfabetos se transliteran). No es una firma digital criptográfica ni una acreditación oficial del MCER.
 
 Validación: `python tests/certificates.py` usa una base temporal y cubre emisión, idempotencia, conservación, acceso por alumno y descarga PDF. Si está instalado PyMuPDF, también analiza y renderiza el archivo.
+
+## Profesor de conversación con IA · piloto
+
+Nueva página `/profesor.php`, separada del diccionario existente en `/tutor.php`. Administración en `/admin/tutor.php`: presupuesto USD, límites, precio final ARS con impuestos incluidos (pendiente), comprobantes y saldos registrados. Publicación sin activar IA, venta ni consumo pago. Ver [configuración y límites](docs/PILOTO-IA.md).

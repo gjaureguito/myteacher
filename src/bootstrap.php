@@ -67,6 +67,7 @@ require ROOT . '/src/certificates.php';
 require ROOT . '/src/grading.php';
 require ROOT . '/src/learning.php';
 require ROOT . '/src/scenes.php';
+require ROOT . '/src/tutor.php';
 require_once ROOT . '/src/settings.php';
 
 if (PHP_SAPI !== 'cli') {
