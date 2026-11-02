@@ -16,6 +16,11 @@ $first = explode(' ', $u['name'])[0];
     </div>
     <span class="pill <?= $full ? 'pill-ok' : 'pill-demo' ?>"><?= e(sub_label($u)) ?></span>
   </div>
+  <section class="mt-professor-feature" aria-labelledby="professor-feature-title">
+    <div class="mt-professor-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg></div>
+    <div class="mt-professor-feature-copy"><p class="mt-professor-kicker">NUEVO EN MYTEACHER <span><?= tutor_enabled()?'Piloto disponible':'Conversación pausada' ?></span></p><h2 id="professor-feature-title">Tu profesor de conversación con IA</h2><p>Un espacio para practicar inglés a tu ritmo. Conocé el piloto y revisá tu acceso.</p><p class="mt-professor-feature-note"><?= tutor_enabled()?'Servicio independiente de la cuota mensual.':'La conversación todavía está desactivada. No se realizan cobros ni se consume saldo.' ?></p></div>
+    <a class="mt-professor-feature-cta" href="/profesor.php">Abrir Profesor con IA <span aria-hidden="true">→</span></a>
+  </section>
   <?php
     $doneUnits = 0; $allSolved = 0; $allTotal = 0;
     foreach ($lp as $p) { $allSolved += $p['solved']; $allTotal += $p['total']; }
@@ -122,5 +127,3 @@ $first = explode(' ', $u['name'])[0];
     <?php endforeach; ?>
   </ol>
 </section>
-
-<aside class="wrap"><p><a class="btn btn-ghost" href="/profesor.php">Nuevo · Profesor de conversación con IA: conocer el piloto</a></p></aside>
