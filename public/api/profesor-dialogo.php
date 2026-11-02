@@ -8,28 +8,37 @@ if (!$user) json_out(['error' => 'Ingresá a tu cuenta.'], 401);
 csrf_check();
 if (!tutor_dialog_access($user)) json_out(['error' => 'El diálogo con el profesor IA todavía no está habilitado para tu cuenta.'], 403);
 
-$raw = (string) file_get_contents('php://input', false, null, 0, 32769);
-if (strlen($raw) > 32768) json_out(['error' => 'Solicitud demasiado larga.'], 413);
+$raw = (string) file_get_contents('php://input', false, null, 0, 40001);
+if (strlen($raw) > 40000) json_out(['error' => 'Solicitud demasiado larga.'], 413);
 $in = json_decode($raw, true);
 if (!is_array($in)) json_out(['error' => 'Solicitud inválida.'], 400);
 
 $level = strtoupper((string) ($in['level'] ?? 'A2'));
 if (!in_array($level, ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'], true)) $level = 'A2';
-$scenario = (string) ($in['scenario'] ?? 'libre');
-if (!isset(TUTOR_SCENARIOS[$scenario])) $scenario = 'libre';
+$scenario = (string) ($in['scenario'] ?? 'chat');
+if (!isset(TUTOR_SCENARIOS[$scenario])) $scenario = 'chat';
 $start = !empty($in['start']);
 $message = trim((string) ($in['message'] ?? ''));
-if (!$start && (mb_strlen($message) < 1 || mb_strlen($message) > 600)) json_out(['error' => 'Escribí o decí un mensaje de hasta 600 caracteres.'], 422);
+if (!$start && (mb_strlen($message) < 1 || mb_strlen($message) > 1500)) json_out(['error' => 'Escribí o decí un mensaje de hasta 1500 caracteres.'], 422);
 
 $history = is_array($in['history'] ?? null) ? $in['history'] : [];
 $history = array_slice(array_values(array_filter($history, static fn($m) => is_array($m)
-    && in_array($m['role'] ?? '', ['user', 'assistant'], true) && is_string($m['content'] ?? null))), -12);
+    && in_array($m['role'] ?? '', ['user', 'assistant'], true) && is_string($m['content'] ?? null) && trim($m['content']) !== '')), -16);
+$history = array_map(static fn($m) => ['role' => $m['role'], 'content' => mb_substr($m['content'], 0, 2000)], $history);
+$turn = $start
+    ? ($scenario === 'chat'
+        ? '(The student just opened the chat. Greet them briefly in English and offer help: practice conversation or ask any question about English.)'
+        : '(The student has just joined. Start the role-play with a short greeting and a first question.)')
+    : $message;
 
-$key = env('GEMINI_API_KEY');
-if (!$key) json_out(['error' => 'Falta configurar GEMINI_API_KEY en Railway.'], 503);
+$openaiKey = (string) env('OPENAI_API_KEY', '');
+$geminiKey = (string) env('GEMINI_API_KEY', '');
+$provider = strtolower((string) env('TUTOR_DIALOG_PROVIDER', $openaiKey !== '' ? 'openai' : 'gemini'));
+if ($provider === 'openai' && $openaiKey === '') json_out(['error' => 'Falta configurar OPENAI_API_KEY en Railway.'], 503);
+if ($provider !== 'openai' && $geminiKey === '') json_out(['error' => 'Falta configurar OPENAI_API_KEY (o GEMINI_API_KEY) en Railway.'], 503);
 
 // Límite diario de protección de costos (por cuenta, día UTC).
-$limit = max(1, min(1000, (int) env('TUTOR_FREE_DAILY_LIMIT', '150')));
+$limit = max(1, min(2000, (int) env('TUTOR_FREE_DAILY_LIMIT', '150')));
 $uid = (int) $user['id'];
 $day = gmdate('Y-m-d');
 db()->exec(db_is_sqlite()
@@ -40,68 +49,111 @@ if (q('UPDATE tutor_dialog_usage SET used=used+1 WHERE user_id=? AND usage_day=?
     json_out(['error' => 'Llegaste al límite diario de ' . $limit . ' mensajes. Volvé mañana.'], 429);
 }
 $refund = static fn() => q('UPDATE tutor_dialog_usage SET used=CASE WHEN used>0 THEN used-1 ELSE 0 END WHERE user_id=? AND usage_day=?', [$uid, $day]);
+$remaining = static fn(): int => max(0, $limit - (int) q_val('SELECT used FROM tutor_dialog_usage WHERE user_id=? AND usage_day=?', [$uid, $day]));
+$system = tutor_dialog_system($level, $scenario);
+session_write_close();
 
-$contents = [];
-foreach ($history as $m) {
-    $contents[] = ['role' => $m['role'] === 'assistant' ? 'model' : 'user', 'parts' => [['text' => mb_substr($m['content'], 0, 1200)]]];
+/* ---------- OpenAI: respuesta en streaming (aparece mientras se escribe) ---------- */
+if ($provider === 'openai') {
+    $model = (string) env('OPENAI_MODEL', TUTOR_MODEL);
+    if (!preg_match('/^[a-zA-Z0-9._:-]+$/', $model)) $model = TUTOR_MODEL;
+    $input = $history;
+    $input[] = ['role' => 'user', 'content' => $turn];
+    $body = ['model' => $model, 'instructions' => $system, 'input' => $input, 'stream' => true, 'store' => false,
+        'max_output_tokens' => 700, 'reasoning' => ['effort' => 'none']];
+
+    $buffer = ''; $full = ''; $errorBody = ''; $started = false; $usage = null; $streamError = '';
+    $emit = static function (array $event): void { echo 'data: ' . json_encode($event, JSON_UNESCAPED_UNICODE) . "\n\n"; @ob_flush(); flush(); };
+    $begin = static function () use (&$started): void {
+        if ($started) return;
+        $started = true;
+        if (function_exists('apache_setenv')) @apache_setenv('no-gzip', '1');
+        @ini_set('zlib.output_compression', '0');
+        while (ob_get_level() > 0) ob_end_flush();
+        header('Content-Type: text/event-stream; charset=utf-8');
+        header('X-Accel-Buffering: no');
+    };
+    $ch = curl_init(rtrim((string) env('OPENAI_BASE_URL', 'https://api.openai.com'), '/') . '/v1/responses');
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Authorization: Bearer ' . $openaiKey],
+        CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE),
+        CURLOPT_CONNECTTIMEOUT => 10,
+        CURLOPT_TIMEOUT => 120,
+        CURLOPT_WRITEFUNCTION => function ($ch, string $chunk) use (&$buffer, &$full, &$errorBody, &$usage, &$streamError, $begin, $emit): int {
+            if ((int) curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) { $errorBody .= $chunk; return strlen($chunk); }
+            $buffer .= $chunk;
+            while (($pos = strpos($buffer, "\n\n")) !== false) {
+                $block = substr($buffer, 0, $pos); $buffer = substr($buffer, $pos + 2);
+                foreach (explode("\n", $block) as $line) {
+                    if (!str_starts_with($line, 'data:')) continue;
+                    $ev = json_decode(trim(substr($line, 5)), true);
+                    if (!is_array($ev)) continue;
+                    $type = $ev['type'] ?? '';
+                    if ($type === 'response.output_text.delta' && isset($ev['delta'])) {
+                        $full .= $ev['delta']; $begin(); $emit(['delta' => $ev['delta']]);
+                    } elseif ($type === 'response.completed') {
+                        $usage = $ev['response']['usage'] ?? null;
+                    } elseif ($type === 'error' || $type === 'response.failed') {
+                        $streamError = (string) ($ev['message'] ?? $ev['response']['error']['message'] ?? 'error');
+                    }
+                }
+            }
+            return strlen($chunk);
+        },
+    ]);
+    curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlErr = curl_error($ch);
+    curl_close($ch);
+
+    if (!$started) {
+        // No llegó nada: se puede responder un error común en JSON.
+        $refund();
+        error_log('Profesor diálogo OpenAI HTTP ' . $status . ' ' . substr($errorBody . $curlErr . $streamError, 0, 400));
+        $code = (string) (json_decode($errorBody, true)['error']['code'] ?? '');
+        $hint = match (true) {
+            $status === 401 => 'OpenAI rechazó la clave. Revisá OPENAI_API_KEY en Railway.',
+            $status === 429 && $code === 'insufficient_quota' => 'La cuenta de OpenAI no tiene saldo de API. Cargá créditos en platform.openai.com.',
+            $status === 429 => 'OpenAI está limitando las solicitudes. Probá en unos segundos.',
+            $status === 404 || $status === 400 => 'OpenAI rechazó el modelo o la solicitud. Revisá OPENAI_MODEL.',
+            $status === 0 => 'No se pudo conectar con OpenAI.',
+            default => 'OpenAI no respondió (HTTP ' . $status . ').',
+        };
+        json_out(['error' => $hint . ' No se descontó el mensaje.'], 503);
+    }
+    $parsed = tutor_dialog_parse($full);
+    if (is_array($usage)) error_log('Profesor diálogo tokens in=' . ($usage['input_tokens'] ?? '?') . ' out=' . ($usage['output_tokens'] ?? '?'));
+    $emit(['done' => true] + $parsed + ['remaining' => $remaining(), 'incomplete' => $streamError !== '']);
+    exit;
 }
-$contents[] = ['role' => 'user', 'parts' => [['text' => $start
-    ? '(The student has just joined. Start the role-play with a short greeting and a first question.)'
-    : $message]]];
-// Gemini requiere que la conversación empiece con un turno del usuario.
-if ($contents[0]['role'] === 'model') array_unshift($contents, ['role' => 'user', 'parts' => [['text' => '(Start.)']]]);
 
-$payload = [
-    'systemInstruction' => ['parts' => [['text' => tutor_dialog_system($level, $scenario)]]],
-    'contents' => $contents,
-    'generationConfig' => [
-        'temperature' => 0.7,
-        'maxOutputTokens' => 700,
-        'responseMimeType' => 'application/json',
-        'responseSchema' => [
-            'type' => 'OBJECT',
-            'properties' => [
-                'reply' => ['type' => 'STRING'],
-                'translation' => ['type' => 'STRING'],
-                'correction' => ['type' => 'STRING'],
-            ],
-            'required' => ['reply', 'translation', 'correction'],
-        ],
-    ],
-];
-$call = static function (string $model) use ($payload, $key): array {
-    return http_json('POST', rtrim((string) env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com'), '/') . '/v1beta/models/' . rawurlencode($model) . ':generateContent',
-        ['x-goog-api-key: ' . $key], $payload);
-};
-$model = env('GEMINI_MODEL', 'gemini-3.5-flash-lite');
+/* ---------- Gemini: respuesta completa (sin streaming) ---------- */
+$contents = [];
+foreach ($history as $m) $contents[] = ['role' => $m['role'] === 'assistant' ? 'model' : 'user', 'parts' => [['text' => $m['content']]]];
+$contents[] = ['role' => 'user', 'parts' => [['text' => $turn]]];
+if ($contents[0]['role'] === 'model') array_unshift($contents, ['role' => 'user', 'parts' => [['text' => '(Start.)']]]);
+$payload = ['systemInstruction' => ['parts' => [['text' => $system]]], 'contents' => $contents,
+    'generationConfig' => ['temperature' => 0.7, 'maxOutputTokens' => 700]];
+$base = rtrim((string) env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com'), '/');
+$call = static fn(string $model): array => http_json('POST', $base . '/v1beta/models/' . rawurlencode($model) . ':generateContent', ['x-goog-api-key: ' . $geminiKey], $payload);
+$model = (string) env('GEMINI_MODEL', 'gemini-3.5-flash-lite');
 if (!preg_match('/^[a-zA-Z0-9._-]+$/', $model)) $model = 'gemini-3.5-flash-lite';
 $r = $call($model);
 if ($r['code'] === 404 && $model !== 'gemini-3.5-flash-lite') $r = $call('gemini-3.5-flash-lite');
-
 if ($r['code'] !== 200) {
     $refund();
     error_log('Profesor diálogo Gemini HTTP ' . $r['code'] . ' ' . substr((string) $r['raw'], 0, 300));
     $hint = match (true) {
-        $r['code'] === 429 => 'Gemini alcanzó su límite de uso por ahora. Probá en unos minutos.',
-        $r['code'] === 401 || $r['code'] === 403 => 'Gemini rechazó la clave. Revisá GEMINI_API_KEY.',
-        $r['code'] === 0 => 'No se pudo conectar con Gemini.',
+        $r['code'] === 402 => 'Gemini se quedó sin saldo prepago.',
+        $r['code'] === 429 => 'Gemini alcanzó su límite de uso por ahora.',
+        $r['code'] === 401 || $r['code'] === 403 => 'Gemini rechazó la clave.',
         default => 'Gemini no respondió (HTTP ' . $r['code'] . ').',
     };
     json_out(['error' => $hint . ' No se descontó el mensaje.'], 503);
 }
 $text = '';
 foreach ($r['data']['candidates'][0]['content']['parts'] ?? [] as $p) $text .= (string) ($p['text'] ?? '');
-$out = json_decode(trim($text), true);
-if (!is_array($out)) $out = ['reply' => trim($text), 'translation' => '', 'correction' => ''];
-$reply = trim((string) ($out['reply'] ?? ''));
-if ($reply === '') {
-    $refund();
-    json_out(['error' => 'El profesor no devolvió respuesta. No se descontó el mensaje.'], 503);
-}
-$used = (int) q_val('SELECT used FROM tutor_dialog_usage WHERE user_id=? AND usage_day=?', [$uid, $day]);
-json_out([
-    'reply' => mb_substr($reply, 0, 1200),
-    'translation' => mb_substr(trim((string) ($out['translation'] ?? '')), 0, 1500),
-    'correction' => mb_substr(trim((string) ($out['correction'] ?? '')), 0, 1500),
-    'remaining' => max(0, $limit - $used),
-]);
+$parsed = tutor_dialog_parse($text);
+if ($parsed['reply'] === '') { $refund(); json_out(['error' => 'El profesor no devolvió respuesta. No se descontó el mensaje.'], 503); }
+json_out($parsed + ['remaining' => $remaining()]);
