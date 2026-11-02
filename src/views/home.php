@@ -34,7 +34,11 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
 
 <?php $cover = !$user ? marketing_visit() : 'C'; ?>
 <div class="mh-welcome-banner">
-  <?php if ($cover === 'D'): ?>
+  <?php if ($cover === 'E'): ?>
+  <img src="/assets/images/portada-estudiante-casa.webp" style="aspect-ratio:2062/763;object-fit:cover" alt="Un estudiante practica inglés desde su casa" fetchpriority="high">
+  <?php elseif ($cover === 'F'): ?>
+  <img src="/assets/images/portada-estudiante-adulta.webp" style="aspect-ratio:2062/763;object-fit:cover" alt="Una estudiante adulta practica inglés en su casa" fetchpriority="high">
+  <?php elseif ($cover === 'D'): ?>
   <img src="/assets/images/portada-espacio-v2.webp" style="aspect-ratio:2062/763;object-fit:cover" alt="Una estudiante practica inglés en un espacio compartido" fetchpriority="high">
   <?php else: ?>
   <img src="/assets/images/portada-casa-v2.webp" style="aspect-ratio:2062/763;object-fit:cover" alt="Una estudiante practica inglés desde su casa" fetchpriority="high">
