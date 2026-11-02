@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /*
- * Transcribe la voz del alumno con Gemini.
+ * Transcribe la voz del alumno con OpenAI (gpt-transcribe).
  * Recibe un WAV mono de 16 kHz grabado por /assets/voice.js (máx. ~15 s) y devuelve {"text": "..."}.
  * Requiere sesión iniciada y CSRF. Límite diario por alumno: STT_DAILY_LIMIT (por defecto 300).
  */
@@ -13,7 +13,7 @@ $u = current_user();
 if (!$u) json_out(['error' => 'Iniciá sesión para practicar con tu voz.', 'code' => 'login'], 401);
 csrf_check();
 
-$key = (string) env('GEMINI_API_KEY', '');
+$key = (string) env('OPENAI_API_KEY', '');
 if ($key === '') json_out(['error' => 'La transcripción de voz no está configurada.', 'code' => 'not_configured'], 503);
 
 $file = $_FILES['audio'] ?? null;
@@ -52,27 +52,26 @@ try {
 }
 
 $prompt = $lang === 'es-AR'
-    ? 'Transcribí exactamente lo que dice la persona en este audio, en el idioma en que habla. No corrijas errores ni completes palabras. Si no se entiende nada, respondé solo: [inaudible]. Devolvé únicamente la transcripción, sin comillas ni comentarios.'
-    : 'Transcribe exactly what the speaker says in this audio. The speaker is a Spanish-speaking learner practicing English. Write the words as they were actually pronounced: do not fix grammar, do not complete missing words and do not guess a more correct sentence. If nothing is intelligible, answer only: [inaudible]. Return only the transcript, without quotes or comments.';
+    ? 'Transcripción literal de una persona hablando. No corregir errores ni completar palabras.'
+    : 'Literal transcript of a Spanish-speaking learner practicing English. Keep the words exactly as pronounced: do not fix grammar or complete missing words.';
+$code = $lang === 'es-AR' ? 'es' : 'en';
+$model = (string) env('OPENAI_STT_MODEL', 'gpt-transcribe');
+if (!preg_match('/^[a-zA-Z0-9._:-]+$/', $model)) $model = 'gpt-transcribe';
 
-$payload = json_encode([
-    'contents' => [[
-        'role' => 'user',
-        'parts' => [
-            ['inline_data' => ['mime_type' => 'audio/wav', 'data' => base64_encode($audio)]],
-            ['text' => $prompt],
-        ],
-    ]],
-    'generationConfig' => ['temperature' => 0, 'maxOutputTokens' => 200],
-], JSON_UNESCAPED_UNICODE);
-
-$base = rtrim((string) env('GEMINI_API_BASE', 'https://generativelanguage.googleapis.com/v1beta'), '/');
-$call = static function (string $model) use ($base, $key, $payload): array {
-    $ch = curl_init($base . '/models/' . rawurlencode($model) . ':generateContent');
+$call = static function () use ($key, $model, $prompt, $code, $file): array {
+    $fields = [
+        'file' => new CURLFile($file['tmp_name'], 'audio/wav', 'voz.wav'),
+        'model' => $model,
+        'response_format' => 'json',
+        'prompt' => $prompt,
+    ];
+    // gpt-transcribe acepta varias pistas de idioma; los modelos anteriores, una sola.
+    if ($model === 'gpt-transcribe') $fields['languages[0]'] = $code; else $fields['language'] = $code;
+    $ch = curl_init(rtrim((string) env('OPENAI_BASE_URL', 'https://api.openai.com'), '/') . '/v1/audio/transcriptions');
     curl_setopt_array($ch, [
         CURLOPT_POST => true,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'x-goog-api-key: ' . $key],
-        CURLOPT_POSTFIELDS => $payload,
+        CURLOPT_HTTPHEADER => ['Authorization: Bearer ' . $key],
+        CURLOPT_POSTFIELDS => $fields,
         CURLOPT_CONNECTTIMEOUT => 6,
         CURLOPT_TIMEOUT => 25,
         CURLOPT_RETURNTRANSFER => true,
@@ -84,23 +83,19 @@ $call = static function (string $model) use ($base, $key, $payload): array {
     return [$status, is_string($raw) ? (json_decode($raw, true) ?: []) : [], is_string($raw) ? $raw : ''];
 };
 
-$fallback = 'gemini-3.5-flash-lite';
-$model = (string) (env('STT_MODEL') ?: env('GEMINI_MODEL', $fallback));
-[$status, $data, $raw] = $call($model);
-if (($status === 404 || $status === 400) && $model !== $fallback) [$status, $data, $raw] = $call($fallback);
-if ($status === 429 || $status >= 500) { usleep(600000); [$status, $data, $raw] = $call($model); }
+[$status, $data, $raw] = $call();
+if ($status === 429 && ($data['error']['code'] ?? '') !== 'insufficient_quota' || $status >= 500) { usleep(600000); [$status, $data, $raw] = $call(); }
 
 if ($status !== 200) {
-    error_log('STT Gemini HTTP ' . $status . ': ' . substr(preg_replace('/\s+/', ' ', $raw) ?? '', 0, 500));
-    // 401/402/403: la cuenta de Gemini no está habilitada (clave inválida, sin crédito o sin facturación).
-    // Respondemos "unavailable" para que el navegador pase solo a su propio reconocimiento de voz.
-    if (in_array($status, [401, 402, 403], true)) json_out(['error' => 'El servicio de transcripción no está disponible.', 'code' => 'unavailable'], 503);
+    error_log('STT OpenAI HTTP ' . $status . ': ' . substr(preg_replace('/\s+/', ' ', $raw) ?? '', 0, 500));
+    // Clave inválida, sin saldo o sin permiso: el navegador pasa solo a su propio reconocimiento de voz.
+    if (in_array($status, [401, 403], true) || ($data['error']['code'] ?? '') === 'insufficient_quota') {
+        json_out(['error' => 'El servicio de transcripción no está disponible.', 'code' => 'unavailable'], 503);
+    }
     json_out(['error' => 'No pudimos procesar tu voz en este momento.', 'code' => 'upstream'], 502);
 }
 
-$text = '';
-foreach ($data['candidates'][0]['content']['parts'] ?? [] as $part) $text .= (string) ($part['text'] ?? '');
-$text = trim(preg_replace('/\s+/u', ' ', $text) ?? '');
+$text = trim(preg_replace('/\s+/u', ' ', (string) ($data['text'] ?? '')) ?? '');
 $text = trim($text, " \"'“”«»");
 if ($text === '' || stripos($text, '[inaudible]') !== false) $text = '';
 

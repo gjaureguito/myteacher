@@ -63,7 +63,7 @@ function tutor_payload(int $uid, string $message): array {
         'input'=>$input];
 }
 
-/* ---------- Diálogo interactivo (Gemini) ---------- */
+/* ---------- Diálogo interactivo (OpenAI) ---------- */
 // Cuentas con acceso sin pago al diálogo: variable TUTOR_FREE_EMAILS en Railway (separadas por coma).
 function tutor_free_access(?array $u): bool {
     if (!$u) return false;

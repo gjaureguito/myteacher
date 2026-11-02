@@ -10,7 +10,7 @@ $checks=[
     'runtime_switch_disabled'=>env('TUTOR_ENABLED','0')!=='1',
     'ars_final_price_pending'=>$s['price_ars_cents']===null,
     'pilot_paused'=>(int)$s['pilot_open']===0,
-    'dictionary_preserved'=>is_file(ROOT.'/public/tutor.php')&&is_file(ROOT.'/public/api/tutor.php'),
+    'dictionary_preserved'=>is_file(ROOT.'/public/tutor.php')&&is_file(ROOT.'/public/assets/dictionary.js'),
     'new_professor_present'=>is_file(ROOT.'/public/profesor.php')&&is_file(ROOT.'/public/api/profesor.php')
 ];
 echo json_encode(['checks'=>$checks,'budget_usd_cents'=>(int)$s['budget_cents'],'reserved_usd_cents'=>(int)$s['reserved_cents'],'provider_key_present'=>(bool)env('OPENAI_API_KEY'),'student_payments_count'=>(int)q_val('SELECT COUNT(*) FROM tutor_payments')],JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE).PHP_EOL;
