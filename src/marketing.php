@@ -5,8 +5,8 @@ function marketing_label(string $value, int $length): string {
     return substr(trim($value), 0, $length);
 }
 function marketing_visit(): string {
-    if (isset($_SESSION['marketing_variant'])) return $_SESSION['marketing_variant'];
-    $variant = random_int(0, 1) ? 'B' : 'A';
+    if (in_array($_SESSION['marketing_variant'] ?? '', ['C', 'D'], true)) return $_SESSION['marketing_variant'];
+    $variant = random_int(0, 1) ? 'D' : 'C';
     $_SESSION['marketing_variant'] = $variant;
     $source = marketing_label((string)($_GET['utm_source'] ?? ''), 80);
     if ($source === '') {

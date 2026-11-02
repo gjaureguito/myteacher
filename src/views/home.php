@@ -32,12 +32,12 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
 <?php endif; ?>
 <style>.mh-trial-promo{background:#e9f2ff;color:#12365c;padding:22px 0}.mh-trial-promo>.wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}.mh-trial-promo strong{font-size:clamp(1.2rem,3vw,1.8rem)}.mh-trial-promo p{margin:6px 0 0;line-height:1.5}.mh-trial-promo .mh-btn{flex-shrink:0}@media(max-width:650px){.mh-trial-promo>.wrap{flex-direction:column;align-items:flex-start}.mh-trial-promo .mh-btn{width:100%;text-align:center}}</style>
 
-<?php $cover = !$user ? marketing_visit() : 'A'; ?>
+<?php $cover = !$user ? marketing_visit() : 'C'; ?>
 <div class="mh-welcome-banner">
-  <?php if ($cover === 'B'): ?>
-  <img src="/assets/images/study-desk-v2-1280.webp" style="aspect-ratio:2062/763;object-fit:cover" alt="Espacio de estudio para aprender inglés" fetchpriority="high">
+  <?php if ($cover === 'D'): ?>
+  <img src="/assets/images/portada-espacio-v2.webp" style="aspect-ratio:2062/763;object-fit:cover" alt="Una estudiante practica inglés en un espacio compartido" fetchpriority="high">
   <?php else: ?>
-  <img src="/assets/images/myteacher-welcome.png" width="2062" height="763" alt="MyTeacher, escuela de inglés online. Inglés para tu vida real." fetchpriority="high">
+  <img src="/assets/images/portada-casa-v2.webp" style="aspect-ratio:2062/763;object-fit:cover" alt="Una estudiante practica inglés desde su casa" fetchpriority="high">
   <?php endif; ?>
 </div>
 
