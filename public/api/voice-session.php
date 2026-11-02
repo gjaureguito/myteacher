@@ -19,11 +19,32 @@ if (!is_string($csrf) || !hash_equals((string)($_SESSION['voice_csrf'] ?? ''), $
 $key = env('OPENAI_API_KEY');
 if (!$key) voice_error(503, 'Falta configurar OpenAI en Railway');
 
-// Protección básica de arranque por usuario/sesión. No sustituye cuotas de facturación.
-$now = time();
-$last = (int)($_SESSION['voice_last_start'] ?? 0);
-if ($now - $last < 20) voice_error(429, 'Esperá unos segundos antes de reconectar');
-$_SESSION['voice_last_start'] = $now;
+// Límite diario persistente por usuario: evita crear sesiones sin control desde varias pestañas.
+// No es un límite monetario ni puede cortar una llamada WebRTC ya establecida.
+$maxStarts = max(1, min(20, (int)env('VOICE_DAILY_SESSIONS', '3')));
+try {
+    $pdo = db();
+    $pdo->exec(db_is_sqlite()
+        ? 'CREATE TABLE IF NOT EXISTS voice_daily_usage (user_id INTEGER NOT NULL, day_utc TEXT NOT NULL, starts INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(user_id, day_utc))'
+        : 'CREATE TABLE IF NOT EXISTS voice_daily_usage (user_id BIGINT NOT NULL, day_utc DATE NOT NULL, starts INT NOT NULL DEFAULT 0, PRIMARY KEY(user_id, day_utc)) ENGINE=InnoDB');
+    $today = gmdate('Y-m-d');
+    $pdo->beginTransaction();
+    if (db_is_sqlite()) {
+        q('INSERT OR IGNORE INTO voice_daily_usage (user_id, day_utc, starts) VALUES (?, ?, 0)', [(int)$u['id'], $today]);
+    } else {
+        q('INSERT INTO voice_daily_usage (user_id, day_utc, starts) VALUES (?, ?, 0) ON DUPLICATE KEY UPDATE starts=starts', [(int)$u['id'], $today]);
+    }
+    $updated = q('UPDATE voice_daily_usage SET starts=starts+1 WHERE user_id=? AND day_utc=? AND starts < ?', [(int)$u['id'], $today, $maxStarts]);
+    if ($updated->rowCount() !== 1) {
+        $pdo->rollBack();
+        voice_error(429, 'Alcanzaste el límite diario de conversaciones');
+    }
+    $pdo->commit();
+} catch (Throwable $e) {
+    if (isset($pdo) && $pdo->inTransaction()) $pdo->rollBack();
+    error_log('Voice quota failed: ' . $e->getMessage());
+    voice_error(503, 'No se pudo comprobar el límite de uso');
+}
 session_write_close();
 
 $sdp = file_get_contents('php://input', false, null, 0, 65537);
