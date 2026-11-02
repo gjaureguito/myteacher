@@ -57,8 +57,11 @@ $prompt = $lang === 'es-AR'
 $code = $lang === 'es-AR' ? 'es' : 'en';
 $model = (string) env('OPENAI_STT_MODEL', 'gpt-transcribe');
 if (!preg_match('/^[a-zA-Z0-9._:-]+$/', $model)) $model = 'gpt-transcribe';
+$pref = $model;
+$known = openai_working('stt');
+$model = ($known && ($known['pref'] ?? '') === $pref) ? (string) $known['model'] : (openai_pick_model('stt', $model) ?? $model);
 
-$call = static function () use ($key, $model, $prompt, $code, $file): array {
+$call = static function (string $model) use ($key, $prompt, $code, $file): array {
     $fields = [
         'file' => new CURLFile($file['tmp_name'], 'audio/wav', 'voz.wav'),
         'model' => $model,
@@ -83,18 +86,25 @@ $call = static function () use ($key, $model, $prompt, $code, $file): array {
     return [$status, is_string($raw) ? (json_decode($raw, true) ?: []) : [], is_string($raw) ? $raw : ''];
 };
 
-[$status, $data, $raw] = $call();
-if ($status === 429 && ($data['error']['code'] ?? '') !== 'insufficient_quota' || $status >= 500) { usleep(600000); [$status, $data, $raw] = $call(); }
+[$status, $data, $raw] = $call($model);
+$tried = [$model];
+while (($data['error']['code'] ?? '') === 'model_not_found' && count($tried) < 4 && ($other = openai_pick_model('stt', '__ninguno__', count($tried) === 1, $tried))) {
+    error_log('STT: ' . $model . ' no habilitado, uso ' . $other);
+    $tried[] = $model = $other;
+    [$status, $data, $raw] = $call($model);
+}
+if ($status === 429 && ($data['error']['code'] ?? '') !== 'insufficient_quota' || $status >= 500) { usleep(600000); [$status, $data, $raw] = $call($model); }
 
 if ($status !== 200) {
     error_log('STT OpenAI HTTP ' . $status . ': ' . substr(preg_replace('/\s+/', ' ', $raw) ?? '', 0, 500));
     // Clave inválida, sin saldo o sin permiso: el navegador pasa solo a su propio reconocimiento de voz.
-    if (in_array($status, [401, 403], true) || ($data['error']['code'] ?? '') === 'insufficient_quota') {
+    if (in_array($status, [401, 403], true) || in_array($data['error']['code'] ?? '', ['insufficient_quota', 'model_not_found'], true)) {
         json_out(['error' => 'El servicio de transcripción no está disponible.', 'code' => 'unavailable'], 503);
     }
     json_out(['error' => 'No pudimos procesar tu voz en este momento.', 'code' => 'upstream'], 502);
 }
 
+openai_working('stt', ['pref' => $pref, 'model' => $model]);
 $text = trim(preg_replace('/\s+/u', ' ', (string) ($data['text'] ?? '')) ?? '');
 $text = trim($text, " \"'“”«»");
 if ($text === '' || stripos($text, '[inaudible]') !== false) $text = '';

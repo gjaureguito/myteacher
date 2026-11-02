@@ -53,10 +53,16 @@ session_write_close();
 /* ---------- OpenAI: respuesta en streaming (aparece mientras se escribe) ---------- */
     $model = (string) env('OPENAI_MODEL', TUTOR_MODEL);
     if (!preg_match('/^[a-zA-Z0-9._:-]+$/', $model)) $model = TUTOR_MODEL;
+    // Usar un modelo que el proyecto de la clave tenga habilitado.
+    $pref = $model;
+    $known = openai_working('chat');
+    if ($known && ($known['pref'] ?? '') !== $pref) $known = null; // cambiaron OPENAI_MODEL: volver a elegir
+    $model = $known ? (string) $known['model'] : (openai_pick_model('chat', $model) ?? $model);
     $input = $history;
     $input[] = ['role' => 'user', 'content' => $turn];
     $body = ['model' => $model, 'instructions' => $system, 'input' => $input, 'stream' => true, 'store' => false,
         'max_output_tokens' => 700, 'reasoning' => ['effort' => 'none']];
+    if ($known && $known['model'] === $model && empty($known['reasoning'])) unset($body['reasoning']);
 
     $buffer = ''; $full = ''; $errorBody = ''; $started = false; $usage = null; $streamError = '';
     $emit = static function (array $event): void { echo 'data: ' . json_encode($event, JSON_UNESCAPED_UNICODE) . "\n\n"; @ob_flush(); flush(); };
@@ -69,39 +75,57 @@ session_write_close();
         header('Content-Type: text/event-stream; charset=utf-8');
         header('X-Accel-Buffering: no');
     };
-    $ch = curl_init(rtrim((string) env('OPENAI_BASE_URL', 'https://api.openai.com'), '/') . '/v1/responses');
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Authorization: Bearer ' . $openaiKey],
-        CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE),
-        CURLOPT_CONNECTTIMEOUT => 10,
-        CURLOPT_TIMEOUT => 120,
-        CURLOPT_WRITEFUNCTION => function ($ch, string $chunk) use (&$buffer, &$full, &$errorBody, &$usage, &$streamError, $begin, $emit): int {
-            if ((int) curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) { $errorBody .= $chunk; return strlen($chunk); }
-            $buffer .= $chunk;
-            while (($pos = strpos($buffer, "\n\n")) !== false) {
-                $block = substr($buffer, 0, $pos); $buffer = substr($buffer, $pos + 2);
-                foreach (explode("\n", $block) as $line) {
-                    if (!str_starts_with($line, 'data:')) continue;
-                    $ev = json_decode(trim(substr($line, 5)), true);
-                    if (!is_array($ev)) continue;
-                    $type = $ev['type'] ?? '';
-                    if ($type === 'response.output_text.delta' && isset($ev['delta'])) {
-                        $full .= $ev['delta']; $begin(); $emit(['delta' => $ev['delta']]);
-                    } elseif ($type === 'response.completed') {
-                        $usage = $ev['response']['usage'] ?? null;
-                    } elseif ($type === 'error' || $type === 'response.failed') {
-                        $streamError = (string) ($ev['message'] ?? $ev['response']['error']['message'] ?? 'error');
+    $tried = [];
+    for ($attempt = 0; $attempt < 4; $attempt++) {
+        $tried[] = $body['model'];
+        $errorBody = '';
+        $ch = curl_init(rtrim((string) env('OPENAI_BASE_URL', 'https://api.openai.com'), '/') . '/v1/responses');
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'Authorization: Bearer ' . $openaiKey],
+            CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE),
+            CURLOPT_CONNECTTIMEOUT => 10,
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_WRITEFUNCTION => function ($ch, string $chunk) use (&$buffer, &$full, &$errorBody, &$usage, &$streamError, $begin, $emit): int {
+                if ((int) curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) { $errorBody .= $chunk; return strlen($chunk); }
+                $buffer .= $chunk;
+                while (($pos = strpos($buffer, "\n\n")) !== false) {
+                    $block = substr($buffer, 0, $pos); $buffer = substr($buffer, $pos + 2);
+                    foreach (explode("\n", $block) as $line) {
+                        if (!str_starts_with($line, 'data:')) continue;
+                        $ev = json_decode(trim(substr($line, 5)), true);
+                        if (!is_array($ev)) continue;
+                        $type = $ev['type'] ?? '';
+                        if ($type === 'response.output_text.delta' && isset($ev['delta'])) {
+                            $full .= $ev['delta']; $begin(); $emit(['delta' => $ev['delta']]);
+                        } elseif ($type === 'response.completed') {
+                            $usage = $ev['response']['usage'] ?? null;
+                        } elseif ($type === 'error' || $type === 'response.failed') {
+                            $streamError = (string) ($ev['message'] ?? $ev['response']['error']['message'] ?? 'error');
+                        }
                     }
                 }
-            }
-            return strlen($chunk);
-        },
-    ]);
-    curl_exec($ch);
-    $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curlErr = curl_error($ch);
-    curl_close($ch);
+                return strlen($chunk);
+            },
+        ]);
+        curl_exec($ch);
+        $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlErr = curl_error($ch);
+        curl_close($ch);
+        if ($started || $status === 200) break;
+        $err = json_decode($errorBody, true)['error'] ?? [];
+        $msg = strtolower((string) ($err['message'] ?? ''));
+        if (($err['code'] ?? '') === 'model_not_found' || str_contains($msg, 'does not have access to model') || str_contains($msg, 'does not exist')) {
+            $other = openai_pick_model('chat', '__ninguno__', $attempt === 0, $tried);
+            if (!$other) break;
+            error_log('Profesor diálogo: ' . $body['model'] . ' no habilitado, uso ' . $other);
+            $body['model'] = $other;
+        } elseif (isset($body['reasoning']) && ($status === 400) && (str_contains($msg, 'reasoning') || str_starts_with((string) ($err['param'] ?? ''), 'reasoning'))) {
+            unset($body['reasoning']);
+        } else {
+            break;
+        }
+    }
 
     if (!$started) {
         // No llegó nada: se puede responder un error común en JSON.
@@ -109,6 +133,7 @@ session_write_close();
         error_log('Profesor diálogo OpenAI HTTP ' . $status . ' ' . substr($errorBody . $curlErr . $streamError, 0, 400));
         $code = (string) (json_decode($errorBody, true)['error']['code'] ?? '');
         $hint = match (true) {
+            $code === 'model_not_found' => 'Tu proyecto de OpenAI no tiene habilitado ningún modelo de texto. Habilitá modelos en platform.openai.com → Settings → Project → Limits.',
             $status === 401 => 'OpenAI rechazó la clave. Revisá OPENAI_API_KEY en Railway.',
             $status === 429 && $code === 'insufficient_quota' => 'La cuenta de OpenAI no tiene saldo de API. Cargá créditos en platform.openai.com.',
             $status === 429 => 'OpenAI está limitando las solicitudes. Probá en unos segundos.',
@@ -118,6 +143,7 @@ session_write_close();
         };
         json_out(['error' => $hint . ' No se descontó el mensaje.'], 503);
     }
+    openai_working('chat', ['pref' => $pref, 'model' => $body['model'], 'reasoning' => isset($body['reasoning'])]);
     $parsed = tutor_dialog_parse($full);
     if (is_array($usage)) error_log('Profesor diálogo tokens in=' . ($usage['input_tokens'] ?? '?') . ' out=' . ($usage['output_tokens'] ?? '?'));
     $emit(['done' => true] + $parsed + ['remaining' => $remaining(), 'incomplete' => $streamError !== '']);
