@@ -28,7 +28,7 @@ function can_access_unit(?array $u, array $unit): bool
 function sub_label(array $u): string
 {
     if (is_admin($u)) return 'Administrador';
-    if (trial_active($u) && (empty($u['access_until']) || $u['access_until'] <= now_utc())) return 'Mes gratis hasta ' . fmt_date($u['trial_ends_at']);
+    if (trial_active($u) && (empty($u['access_until']) || $u['access_until'] <= now_utc())) return 'Prueba gratuita hasta ' . fmt_date($u['trial_ends_at']);
     if (has_full_access($u)) {
         return $u['sub_status'] === 'cancelled'
             ? 'Cancelada · acceso hasta ' . fmt_date($u['access_until'])

@@ -21,13 +21,13 @@ foreach ($liveScenes as $item) {
 
 $user = current_user();
 $startUrl = $user ? '/dashboard.php' : '/register.php';
-$startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi mes gratis';
+$startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
 ?>
 <div class="mh">
 
 <?php if (!$user): ?>
 <aside class="mh-trial-promo" aria-label="Promoción de bienvenida">
-  <div class="wrap"><div><strong>Tu primer mes en MyTeacher, gratis.</strong><p>Acceso completo · Sin tarjeta · Después elegís si querés pagar por Mercado Pago.</p></div><a class="mh-btn mh-btn-primary" href="/register.php">Activar mi mes gratis →</a></div>
+  <div class="wrap"><div><strong>Probá MyTeacher gratis durante 7 días.</strong><p>Acceso completo · Sin tarjeta · Después elegís si querés pagar por Mercado Pago.</p></div><a class="mh-btn mh-btn-primary" href="/register.php">Activar mi prueba gratis →</a></div>
 </aside>
 <?php endif; ?>
 <style>.mh-trial-promo{background:#e9f2ff;color:#12365c;padding:22px 0}.mh-trial-promo>.wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}.mh-trial-promo strong{font-size:clamp(1.2rem,3vw,1.8rem)}.mh-trial-promo p{margin:6px 0 0;line-height:1.5}.mh-trial-promo .mh-btn{flex-shrink:0}@media(max-width:650px){.mh-trial-promo>.wrap{flex-direction:column;align-items:flex-start}.mh-trial-promo .mh-btn{width:100%;text-align:center}}</style>
@@ -46,7 +46,7 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi mes gratis';
         <a class="mh-btn mh-btn-primary" href="<?= $startUrl ?>"><?= $startLabel ?> <span aria-hidden="true">→</span></a>
         <a class="mh-btn mh-btn-ghost" href="#como-funciona">Ver cómo funciona</a>
       </div>
-      <p class="mh-note">Un mes gratis de acceso completo · Sin tarjeta ni cobro automático al finalizar</p>
+      <p class="mh-note">7 días gratis de acceso completo · Sin tarjeta ni cobro automático al finalizar</p>
     </div>
 
     <div class="mh-practice" data-mh-practice>
@@ -156,10 +156,10 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi mes gratis';
     <div class="mh-plans">
       <article class="mh-plan">
         <p class="mh-eyebrow">Para dar el primer paso</p>
-        <h3>Tu primer mes gratis</h3>
+        <h3>Tu prueba gratis de 7 días</h3>
         <p class="mh-price">$0 <small>sin tarjeta</small></p>
         <ul>
-          <li>Acceso completo a los 6 niveles durante un mes</li>
+          <li>Acceso completo a los 6 niveles durante 7 días</li>
           <li>Test de nivel orientativo</li>
           <li><?= (int) $sampleCount ?> lecturas abiertas de la biblioteca</li>
           <li>Ejercicios, situaciones y seguimiento del progreso</li>
@@ -179,7 +179,7 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi mes gratis';
           <li>Progreso y estadísticas en tu cuenta</li>
         </ul>
         <a class="mh-btn mh-btn-primary" href="<?= $user ? '/account.php' : '/register.php' ?>">Quiero el programa completo →</a>
-        <p class="mh-small">Al terminar el mes gratis, elegís si querés contratar por Mercado Pago. El pago no se inicia automáticamente. La modalidad, duración y condiciones de renovación se muestran antes de pagar.</p>
+        <p class="mh-small">Al terminar la prueba gratis, elegís si querés contratar por Mercado Pago. El pago no se inicia automáticamente. La modalidad, duración y condiciones de renovación se muestran antes de pagar.</p>
       </article>
     </div>
   </div>
@@ -195,7 +195,7 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi mes gratis';
     </div>
     <div>
       <details open><summary>¿Puedo empezar si no sé nada de inglés?</summary><p>Sí. A1 comienza con presentaciones, rutinas y situaciones simples. Las explicaciones están en castellano y podés activar la traducción en los diálogos multimedia.</p></details>
-      <details><summary>¿Qué incluye la cuenta gratuita?</summary><p>Cada cuenta nueva recibe un mes calendario de acceso completo desde el registro. No necesitás tarjeta ni se inicia una suscripción. Al vencer, conservás tu progreso y el acceso a la demo (primera unidad de cada nivel); para seguir con todo el contenido debés elegir y pagar un plan por Mercado Pago.</p></details>
+      <details><summary>¿Qué incluye la cuenta gratuita?</summary><p>Cada cuenta nueva recibe 7 días de acceso completo desde el registro. No necesitás tarjeta ni se inicia una suscripción. Al vencer, conservás tu progreso y el acceso a la demo (primera unidad de cada nivel); para seguir con todo el contenido debés elegir y pagar un plan por Mercado Pago.</p></details>
       <details><summary>¿Cómo se corrigen los ejercicios?</summary><p>Las preguntas cerradas se corrigen automáticamente y muestran explicaciones. La escritura guiada usa modelos y listas de revisión; no equivale a una corrección docente.</p></details>
       <details><summary>¿Hay clases en vivo o profesores particulares?</summary><p>El programa actual es de estudio autónomo. Incluye práctica con audio, pronunciación en navegadores compatibles y actividades con corrección. No incluye clases en vivo ni tutoría docente.</p></details>
       <details><summary>¿Puedo practicar desde el celular?</summary><p>Sí. La página se adapta a tu pantalla. El audio y el reconocimiento de voz dependen de las funciones y permisos del navegador. En Chrome para Windows, la ayuda del micrófono ofrece abrir la misma página en Edge.</p></details>

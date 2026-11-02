@@ -1,5 +1,5 @@
 <section class="wrap page">
-  <h1>Mes gratis y opiniones</h1>
+  <h1>Pruebas y opiniones</h1>
   <?php require __DIR__.'/admin_nav.php'; ?>
   <h2>Resultados de la promoción</h2>
   <p>Solo cuentas nuevas que recibieron la prueba. Una prueba por cuenta, sin reiniciarla al volver a ingresar.</p>

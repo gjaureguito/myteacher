@@ -2,7 +2,7 @@
   <div class="auth-card">
     <p class="eyebrow">TU PRÓXIMO CAPÍTULO</p>
     <h1>Creá tu cuenta</h1>
-    <p class="muted">Un mes gratis de acceso completo desde tu registro, sin tarjeta. Después, continuás solo si elegís pagar por Mercado Pago. Una prueba por cuenta; tu progreso se conserva.</p>
+    <p class="muted">7 días gratis de acceso completo desde tu registro, sin tarjeta. Después, continuás solo si elegís pagar por Mercado Pago. Una prueba por cuenta; tu progreso se conserva.</p>
     <p class="fine">Precio del plan al continuar: <?= money_ars(plan_price()) ?> ARS. Consultá duración y opciones en <a href="/#precio">planes</a>.</p>
     <?php require __DIR__ . '/_social.php'; ?>
     <?php if ($errors): ?>

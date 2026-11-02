@@ -37,4 +37,4 @@ $page = max(1,(int)($_GET['page']??1));
 $offset = ($page-1)*30;
 $reviews=q_all("SELECT t.*,u.email FROM testimonials t JOIN users u ON u.id=t.user_id ORDER BY CASE WHEN t.status='pending' THEN 0 ELSE 1 END,t.updated_at DESC LIMIT 31 OFFSET $offset");
 $more=count($reviews)>30; $reviews=array_slice($reviews,0,30);
-render('admin_promotion',compact('metrics','expired','expiredPaid','reviews','page','more'),'Mes gratis y opiniones');
+render('admin_promotion',compact('metrics','expired','expiredPaid','reviews','page','more'),'Pruebas y opiniones');

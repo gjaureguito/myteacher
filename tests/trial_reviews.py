@@ -12,9 +12,9 @@ with tempfile.TemporaryDirectory(prefix='myteacher-promotion-') as tmp:
         return r.stdout
     php(r'''
 function check($ok) {if (!$ok) throw new RuntimeException('Assertion failed');}
-check(trial_end('2026-01-31 12:30:00')==='2026-02-28 12:30:00');
-check(trial_end('2028-01-31 12:30:00')==='2028-02-29 12:30:00');
-check(trial_end('2026-12-15 12:30:00')==='2027-01-15 12:30:00');
+check(trial_end('2026-01-31 12:30:00')==='2026-02-07 12:30:00');
+check(trial_end('2028-01-31 12:30:00')==='2028-02-07 12:30:00');
+check(trial_end('2026-12-15 12:30:00')==='2026-12-22 12:30:00');
 $id=create_user('student@example.test','Lucía ApellidoPrivado','Local-test-123');
 check(testimonial_first_name('Lucía ApellidoPrivado')==='Lucía');
 check(testimonial_first_name("Lucía\u{00a0}ApellidoPrivado")==='Lucía');
@@ -51,7 +51,7 @@ meta_set('schema_version','6');
             try: code,home=req(guest,'/'); break
             except OSError: time.sleep(.1)
         else: raise RuntimeError('Local PHP server unavailable')
-        assert code==200 and 'Tu primer mes gratis' in home
+        assert code==200 and 'Tu prueba gratis de 7 días' in home
         login(student,'student@example.test'); login(admin,'admin@example.test')
         assert req(student,'/admin/promotion.php')[0]==403
         assert req(student,'/opinion.php',dict(body='Bad CSRF'))[0]==419
@@ -81,8 +81,8 @@ meta_set('schema_version','6');
         code,h=req(c,f'/unit.php?id={unit}'); assert code==200 and 'role="tablist"' in h
         con.execute("UPDATE users SET trial_ends_at='2000-01-01 00:00:00' WHERE id=?",(uid,)); con.commit()
         code,h=req(c,f'/unit.php?id={unit}'); assert 'role="tablist"' not in h
-        assert 'Tu mes gratis terminó' in req(c,'/account.php')[1]
+        assert 'Tu prueba gratuita terminó' in req(c,'/account.php')[1]
         con.close()
-        print('PASS: calendar month, expiry, paid access, OAuth linking, legacy migration, registration, protected lessons, consent, moderation, XSS escaping, edit invalidation, withdrawal and admin access')
+        print('PASS: seven-day trial, expiry, paid access, OAuth linking, legacy migration, registration, protected lessons, consent, moderation, XSS escaping, edit invalidation, withdrawal and admin access')
     finally:
         process.terminate(); process.wait(timeout=10)
