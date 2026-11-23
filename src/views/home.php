@@ -85,6 +85,40 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
   </div>
 </section>
 
+<section class="mh-benefits" aria-labelledby="mh-benefits-title">
+  <div class="wrap">
+    <div class="mh-head">
+      <p class="mh-eyebrow">Aprender, a tu manera</p>
+      <h2 id="mh-benefits-title">Una práctica que se adapta a tu vida.</h2>
+      <p class="mh-lead">Estudiá en tus tiempos, escuchá inglés real y entendé cada paso de tu progreso.</p>
+    </div>
+    <figure class="mh-benefits-visual">
+      <img src="/assets/images/beneficios-estudiantes-ia.png" alt="Cuatro escenas ilustrativas de personas adultas practicando inglés en casa, con audio y desde el celular" loading="lazy" decoding="async">
+      <figcaption>Personas ilustrativas generadas con IA; no son usuarios reales ni testimonios.</figcaption>
+    </figure>
+    <div class="mh-benefits-grid">
+      <article><span class="mh-benefit-mark" aria-hidden="true">01</span><h3>Aprendé a tu ritmo</h3><p>Entrá cuando quieras y retomá desde donde dejaste.</p></article>
+      <article><span class="mh-benefit-mark" aria-hidden="true">02</span><h3>Escuchá y practicá</h3><p>Diálogos con audio, transcripción y práctica de pronunciación.</p></article>
+      <article><span class="mh-benefit-mark" aria-hidden="true">03</span><h3>Entendé tus errores</h3><p>Recibí explicaciones para comprender cada corrección.</p></article>
+      <article><span class="mh-benefit-mark" aria-hidden="true">04</span><h3>Avanzá paso a paso</h3><p>Recorré seis niveles, desde A1 hasta C2.</p></article>
+    </div>
+  </div>
+</section>
+<style>
+.mh-benefits{padding:clamp(3.25rem,7vw,5.5rem) 0;background:#f4f8fc}
+.mh-benefits .mh-head{max-width:760px;margin:0 auto 28px;text-align:center}
+.mh-benefits-visual{position:relative;margin:0 0 24px;overflow:hidden;border-radius:24px;background:#dfeaf5;box-shadow:0 18px 48px rgba(25,55,91,.12)}
+.mh-benefits-visual img{display:block;width:100%;height:auto;aspect-ratio:2.69;object-fit:cover}
+.mh-benefits-visual figcaption{position:absolute;right:14px;bottom:14px;max-width:calc(100% - 28px);padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.94);color:#294260;font-size:.75rem;line-height:1.35}
+.mh-benefits-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.mh-benefits-grid article{padding:20px 18px;border:1px solid #e1e9f1;border-radius:18px;background:#fff;box-shadow:0 8px 24px rgba(25,55,91,.05)}
+.mh-benefit-mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-bottom:12px;border-radius:50%;background:#e9f2ff;color:#1764b1;font-size:.76rem;font-weight:800;letter-spacing:.04em}
+.mh-benefits-grid h3{margin:0 0 7px;color:#173251;font-size:1.04rem}
+.mh-benefits-grid p{margin:0;color:#53677f;font-size:.93rem;line-height:1.55}
+@media(max-width:900px){.mh-benefits-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.mh-benefits{padding:3rem 0}.mh-benefits-visual{border-radius:16px}.mh-benefits-visual figcaption{right:8px;bottom:8px;padding:6px 9px;font-size:.68rem}.mh-benefits-grid{gap:10px}.mh-benefits-grid article{padding:16px 14px}.mh-benefits-grid h3{font-size:.96rem}.mh-benefits-grid p{font-size:.85rem}}
+</style>
+
 <section class="mh-band" id="como-funciona" aria-labelledby="mh-how">
   <div class="wrap">
     <div class="mh-head">
