@@ -1,55 +1,68 @@
-<?php $testimonials = q_all("SELECT display_name,body FROM testimonials WHERE status='approved' ORDER BY reviewed_at DESC LIMIT 12"); ?>
-<section class="mh-band mh-testimonials" id="opiniones" aria-labelledby="opiniones-title">
+<?php
+$testimonials = q_all("SELECT display_name,body FROM testimonials WHERE status='approved' ORDER BY reviewed_at DESC LIMIT 12");
+$portraitPositions = ['0%', '33.333%', '66.667%', '100%'];
+$benefitExamples = [
+    ['title' => 'Practicá a tu ritmo', 'text' => 'Volvé a tus unidades cuando tengas un momento y retomá desde donde quedaste.'],
+    ['title' => 'Entendé tus errores', 'text' => 'Revisá las explicaciones y usalas para saber qué practicar después.'],
+    ['title' => 'Escuchá inglés de la vida real', 'text' => 'Acercate al idioma con diálogos, audio y situaciones cotidianas.'],
+];
+?>
+<section class="mh-opinions-band" id="opiniones" aria-labelledby="opiniones-title">
   <div class="wrap">
-    <div class="mh-head">
+    <header class="mh-opinions-head">
       <p class="mh-eyebrow">EXPERIENCIAS DE ALUMNOS</p>
-      <h2 id="opiniones-title">Opiniones reales sobre MyTeacher</h2>
-      <p>Publicamos comentarios de alumnos con su autorización y después de revisarlos.</p>
-    </div>
-    <div class="mh-testimonials-layout">
-      <figure class="mh-testimonials-visual">
-        <img src="/assets/images/beneficios-estudiantes-ia.png" alt="Escenas ilustrativas de personas practicando inglés en casa y desde el celular" loading="lazy" decoding="async">
-        <figcaption>Imágenes ilustrativas generadas con IA; no representan a los autores de las opiniones.</figcaption>
-      </figure>
-      <div class="mh-testimonials-content">
+      <h2 id="opiniones-title">Opiniones y aprendizajes de MyTeacher</h2>
+      <p>Las opiniones de alumnos se publican con su autorización y después de revisarlas.</p>
+    </header>
+
 <?php if ($testimonials): ?>
-        <div class="mh-testimonials-grid">
+    <div class="mh-opinions-row" aria-label="Opiniones de alumnos">
 <?php foreach ($testimonials as $testimonial): ?>
-          <article class="mh-testimonial-card">
-            <blockquote><?= e($testimonial['body']) ?></blockquote>
-            <p><strong><?= e(testimonial_first_name($testimonial['display_name'])) ?></strong></p>
-          </article>
+      <article class="mh-opinion-card">
+        <blockquote><?= e($testimonial['body']) ?></blockquote>
+        <footer><strong><?= e(testimonial_first_name($testimonial['display_name'])) ?></strong><span>Alumno de MyTeacher</span></footer>
+      </article>
 <?php endforeach; ?>
-        </div>
-<?php else: ?>
-        <div class="mh-testimonials-empty">
-          <p class="mh-testimonials-empty-title">Todavía no hay opiniones publicadas.</p>
-          <p>Queremos mostrar experiencias reales. Los alumnos pueden compartir su opinión desde su cuenta; después de revisarla y obtener su autorización, aparecerá acá.</p>
-          <ul>
-            <li>Estudiar inglés a tu ritmo, desde A1 hasta C2.</li>
-            <li>Practicar con diálogos y audio de situaciones cotidianas.</li>
-            <li>Entender las correcciones y seguir tu progreso.</li>
-          </ul>
-          <a class="mh-btn mh-btn-primary" href="/register.php">Probar MyTeacher gratis</a>
-        </div>
-<?php endif; ?>
-      </div>
     </div>
+<?php else: ?>
+    <div class="mh-opinions-empty">
+      <strong>Todavía no hay opiniones reales publicadas.</strong>
+      <span>Cuando los alumnos compartan su experiencia y la autoricen, sus comentarios aparecerán acá.</span>
+    </div>
+    <div class="mh-opinions-row mh-benefit-row" aria-label="Beneficios para practicar inglés">
+<?php foreach ($benefitExamples as $i => $benefit): ?>
+      <article class="mh-benefit-card">
+        <div class="mh-benefit-photo" style="background-position: <?= e($portraitPositions[$i]) ?>" role="img" aria-label="Retrato fotográfico de muestra generado con inteligencia artificial"></div>
+        <span class="mh-benefit-label">Beneficio de la plataforma</span>
+        <h3><?= e($benefit['title']) ?></h3>
+        <p><?= e($benefit['text']) ?></p>
+      </article>
+<?php endforeach; ?>
+    </div>
+    <p class="mh-opinions-note">Los retratos son fotográficos y generados con IA; no son fotos de alumnos ni representan opiniones reales.</p>
+<?php endif; ?>
+
+    <div class="mh-opinions-cta"><a class="mh-btn mh-btn-primary" href="/register.php">Probar MyTeacher gratis</a></div>
   </div>
 </section>
 <style>
-.mh-testimonials-layout{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(20px,4vw,44px);align-items:start}
-.mh-testimonials-visual{position:relative;margin:0;overflow:hidden;border-radius:24px;background:#dfeaf5;box-shadow:0 18px 48px rgba(25,55,91,.12)}
-.mh-testimonials-visual img{display:block;width:100%;height:auto;aspect-ratio:2.69;object-fit:cover}
-.mh-testimonials-visual figcaption{position:absolute;right:12px;bottom:12px;max-width:calc(100% - 24px);padding:8px 11px;border-radius:14px;background:rgba(255,255,255,.96);color:#294260;font-size:.78rem;line-height:1.4}
-.mh-testimonials-content{min-width:0}
-.mh-testimonials-grid{display:grid;gap:14px}
-.mh-testimonial-card,.mh-testimonials-empty{padding:clamp(20px,3vw,28px);border:1px solid #e1e9f1;border-radius:20px;background:#fff;box-shadow:0 8px 24px rgba(25,55,91,.06)}
-.mh-testimonial-card blockquote{margin:0;color:#173251;font-size:1.05rem;line-height:1.7;overflow-wrap:anywhere;white-space:pre-line}
-.mh-testimonial-card p{margin:16px 0 0;color:#294260}
-.mh-testimonials-empty-title{margin:0 0 10px;color:#173251;font-size:1.18rem;font-weight:750}
-.mh-testimonials-empty p:not(.mh-testimonials-empty-title){margin:0;color:#53677f;line-height:1.65}
-.mh-testimonials-empty ul{padding-left:1.2rem;color:#294260;line-height:1.8}
-.mh-testimonials-empty .mh-btn{margin-top:8px}
-@media(max-width:760px){.mh-testimonials-layout{grid-template-columns:1fr}.mh-testimonials-visual{border-radius:18px}.mh-testimonials-visual img{aspect-ratio:1.9}.mh-testimonials-visual figcaption{right:8px;bottom:8px;max-width:calc(100% - 16px);padding:7px 9px;font-size:.72rem}}
+.mh-opinions-band{width:100%;padding:clamp(3.5rem,7vw,6rem) 0;background:#edf4fc;border-top:1px solid #dce8f5;border-bottom:1px solid #dce8f5}
+.mh-opinions-head{max-width:760px;margin:0 auto 30px;text-align:center}
+.mh-opinions-head>p:last-child{margin:0;color:#53677f;line-height:1.6}
+.mh-opinions-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.mh-opinion-card,.mh-benefit-card{min-width:0;padding:24px;border:1px solid #dce6f0;border-radius:22px;background:#fff;box-shadow:0 12px 32px rgba(25,55,91,.07)}
+.mh-opinion-card blockquote{margin:0;color:#173251;font-size:1.04rem;line-height:1.7;overflow-wrap:anywhere;white-space:pre-line}
+.mh-opinion-card footer{display:grid;gap:3px;margin-top:18px;color:#173251}
+.mh-opinion-card footer span{color:#657991;font-size:.86rem}
+.mh-opinions-empty{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 14px;margin:0 0 18px;padding:14px 18px;border:1px solid #d7e5f4;border-radius:14px;background:rgba(255,255,255,.7);color:#294260;text-align:center}
+.mh-opinions-empty strong{color:#173251}
+.mh-opinions-empty span{line-height:1.5}
+.mh-benefit-photo{width:104px;height:104px;margin:0 auto 16px;border:4px solid #e7f0fa;border-radius:50%;background-image:url('/assets/images/beneficios-estudiantes-ia.png');background-repeat:no-repeat;background-size:400% 100%;box-shadow:0 6px 18px rgba(25,55,91,.14)}
+.mh-benefit-label{display:block;margin-bottom:8px;color:#2369ae;font-size:.76rem;font-weight:800;letter-spacing:.07em;text-align:center;text-transform:uppercase}
+.mh-benefit-card h3{margin:0 0 8px;color:#173251;font-size:1.08rem;text-align:center}
+.mh-benefit-card p{margin:0;color:#53677f;line-height:1.6;text-align:center}
+.mh-opinions-note{margin:14px 0 0;color:#53677f;font-size:.82rem;line-height:1.5;text-align:center}
+.mh-opinions-cta{display:flex;justify-content:center;margin-top:24px}
+@media(max-width:900px){.mh-opinions-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.mh-opinions-band{padding:3rem 0}.mh-opinions-head{margin-bottom:22px}.mh-opinions-row{grid-template-columns:1fr;gap:12px}.mh-opinion-card,.mh-benefit-card{padding:20px;border-radius:18px}.mh-benefit-photo{width:92px;height:92px}}
 </style>
