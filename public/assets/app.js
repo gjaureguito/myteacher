@@ -132,6 +132,13 @@
   function renderDetail(li, data) {
     const d = data.detail || {};
     let html = '';
+    if (li.dataset.type === 'cloze' && d.marks) {
+      li.querySelectorAll('.cloze-gap').forEach((input, i) => {
+        input.classList.toggle('is-ok', !!d.marks[i]);
+        input.classList.toggle('is-bad', !d.marks[i]);
+      });
+      if (!data.correct) html += '<p class="fine">Acertaste ' + d.right + ' de ' + d.total + ' palabras. Revisá solo los huecos marcados en rojo.</p>';
+    }
     if (li.dataset.type === 'write' && d.criteria) {
       li.querySelectorAll('.criteria li').forEach((c, i) => {
         c.classList.toggle('ok', !!(d.criteria[i] && d.criteria[i].ok));
