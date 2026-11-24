@@ -186,7 +186,8 @@ function exercise_rows(array $ex, array $readings = []): array
 
 function unit_content_hash(array $u): string
 {
-    return md5(json_encode($u, JSON_UNESCAPED_UNICODE));
+    // Bump when exercise conversion logic changes so existing seeded units resync after deploy.
+    return md5(json_encode($u, JSON_UNESCAPED_UNICODE) . '|cloze-writing-v1');
 }
 
 /** Inserta o actualiza en el lugar los ejercicios de una unidad, por posición. */
