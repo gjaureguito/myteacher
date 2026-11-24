@@ -1,89 +1,117 @@
 (() => {
- 'use strict';
- document.querySelectorAll('.scene[data-scene]').forEach(scene => {
-  const lines=[...scene.querySelectorAll('[data-line]')].map(el=>el.querySelector('[data-en]')?.textContent?.trim()||'').filter(Boolean);
-  if(lines.length<2)return;
-  const host=scene.querySelector('.scene-practice');
-  if(!host)return;
-  const lab=document.createElement('section');
-  lab.className='scene-writing-lab';
-  lab.innerHTML='<h3>✍️ Respondé con tus propias palabras</h3><p>Explicá en inglés el problema del diálogo, lo que propone cada persona y cuál sería el siguiente paso. Escribí al menos 40 palabras.</p><label for="scene-writing-'+scene.dataset.scene+'">Tu respuesta en inglés</label><textarea id="scene-writing-'+scene.dataset.scene+'" rows="6" spellcheck="true" lang="en" placeholder="In this conversation, the speakers..."></textarea><div class="sw-actions"><span class="sw-count" aria-live="polite">0 palabras</span><button type="button" data-sw="assess">Revisar mi respuesta</button><button type="button" data-sw="sample">Ver frases útiles</button><button type="button" data-sw="clear">Borrar borrador</button><button type="button" data-sw="copy">Copiar respuesta</button></div><div class="sw-feedback" role="status" aria-live="polite"></div><div class="sw-sample" hidden><strong>Expresiones para reformular:</strong><p lang="en">The main issue is… · One speaker suggests that… · However, the other person points out that… · A reasonable next step would be…</p></div><p class="sw-note">Revisión orientativa. El borrador se guarda solamente en este navegador, no en tu cuenta; evitá incluir información privada si usás un dispositivo compartido. No es una corrección gramatical ni suma puntos.</p>';
-  host.appendChild(lab);
-  const modelEn=scene.dataset.modelEn||'',modelEs=scene.dataset.modelEs||'';
-  if(modelEn){
-   const solBtn=document.createElement('button');
-   solBtn.type='button';solBtn.dataset.sw='solution';solBtn.textContent='💡 Ver solución';
-   solBtn.setAttribute('aria-expanded','false');
-   lab.querySelector('[data-sw="sample"]').after(solBtn);
-   const sol=document.createElement('div');
-   sol.className='sw-solution';sol.hidden=true;sol.id='scene-solution-'+scene.dataset.scene;
-   solBtn.setAttribute('aria-controls',sol.id);
-   sol.innerHTML='<strong>Respuesta modelo</strong><p class="sw-solution-en" lang="en"></p>'+(modelEs?'<button type="button" class="sw-solution-toggle" aria-expanded="false">Mostrar traducción al español</button><p class="sw-solution-es" lang="es" hidden></p>':'')+'<p class="sw-solution-note">Es una respuesta posible: la tuya puede ser distinta y también estar bien. Compará cómo presenta el problema, las propuestas y el siguiente paso.</p>';
-   sol.querySelector('.sw-solution-en').textContent=modelEn;
-   lab.querySelector('.sw-sample').after(sol);
-   if(modelEs){
-    const es=sol.querySelector('.sw-solution-es'),tr=sol.querySelector('.sw-solution-toggle');
-    es.textContent=modelEs;
-    tr.addEventListener('click',()=>{es.hidden=!es.hidden;tr.setAttribute('aria-expanded',String(!es.hidden));tr.textContent=es.hidden?'Mostrar traducción al español':'Ocultar traducción';});
-   }
-   solBtn.addEventListener('click',()=>{
-    if(sol.hidden){
-     const written=field.value.trim().split(/\s+/).filter(Boolean).length;
-     if(written<40&&!window.confirm('Te conviene intentarlo primero. ¿Querés ver la solución igual?'))return;
+  'use strict';
+
+  document.querySelectorAll('.scene[data-scene]').forEach(scene => {
+    const host = scene.querySelector('.scene-practice');
+    const model = scene.dataset.modelEn || '';
+    if (!host || !model) return;
+
+    const parts = model.match(/\\s+|[^\\s]+/gu) || [];
+    const indexes = [];
+    parts.forEach((part, i) => {
+      if (/^[\\p{L}][\\p{L}’'\\-]*[.,!?;:]?$/u.test(part) && part.replace(/[.,!?;:]$/u, '').length >= 3) indexes.push(i);
+    });
+    if (indexes.length < 4) return;
+
+    const count = Math.min(6, Math.max(3, Math.floor(indexes.length / 12)));
+    const selected = new Set();
+    for (let n = 1; n <= count; n++) {
+      selected.add(indexes[Math.round(n * (indexes.length - 1) / (count + 1))]);
     }
-    sol.hidden=!sol.hidden;
-    solBtn.setAttribute('aria-expanded',String(!sol.hidden));
-    solBtn.textContent=sol.hidden?'💡 Ver solución':'Ocultar solución';
-   });
-  }
-  const field=lab.querySelector('textarea'),count=lab.querySelector('.sw-count'),feedback=lab.querySelector('.sw-feedback');
-  const draftKey='myteacher:scene:draft:'+scene.dataset.scene;
-  const savedMessage=document.createElement('span');
-  savedMessage.className='sw-save-status';
-  savedMessage.setAttribute('role','status');
-  savedMessage.setAttribute('aria-live','polite');
-  lab.querySelector('.sw-actions').appendChild(savedMessage);
-  try {
-    const previous=localStorage.getItem(draftKey);
-    if(previous){field.value=previous;savedMessage.textContent='Borrador recuperado de este dispositivo';}
-  } catch { savedMessage.textContent='El navegador no permite guardar borradores'; }
-  function saveDraft(){
-    try {localStorage.setItem(draftKey,field.value);savedMessage.textContent='Borrador guardado en este dispositivo';}
-    catch {savedMessage.textContent='No fue posible guardar el borrador';}
-  }
-  lab.querySelector('[data-sw="clear"]').addEventListener('click',()=>{
-    if(!window.confirm('¿Eliminar este borrador guardado en el navegador?'))return;
-    field.value='';
-    try{localStorage.removeItem(draftKey);}catch{}
-    count.textContent='0 palabras';feedback.textContent='';savedMessage.textContent='Borrador eliminado';
+
+    const answers = [];
+    const lab = document.createElement('section');
+    lab.className = 'scene-writing-lab';
+    const heading = document.createElement('h3');
+    heading.textContent = '🔤 Completá las palabras del párrafo';
+    const instruction = document.createElement('p');
+    instruction.textContent = 'El texto ya está escrito. Leé el contexto y completá las palabras que faltan usando el banco.';
+    const passage = document.createElement('p');
+    passage.className = 'scene-cloze-passage';
+    passage.lang = 'en';
+    const bankLabel = document.createElement('strong');
+    bankLabel.textContent = 'Banco de palabras: ';
+    const bank = document.createElement('span');
+    bank.className = 'scene-cloze-bank';
+    const inputs = [];
+
+    parts.forEach((part, i) => {
+      if (!selected.has(i)) {
+        passage.append(document.createTextNode(part));
+        return;
+      }
+      const answer = part.replace(/^[.,!?;:]|[.,!?;:]$/gu, '');
+      const prefix = part.startsWith('.') || part.startsWith(',') ? part[0] : '';
+      const suffix = /[.,!?;:]$/u.test(part) ? part.slice(-1) : '';
+      if (prefix) passage.append(document.createTextNode(prefix));
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'scene-cloze-gap';
+      input.autocomplete = 'off';
+      input.autocapitalize = 'off';
+      input.spellcheck = false;
+      input.setAttribute('aria-label', 'Palabra faltante ' + (inputs.length + 1));
+      input.dataset.answerIndex = String(inputs.length);
+      input.size = Math.max(5, Math.min(11, answer.length + 1));
+      inputs.push(input);
+      answers.push(answer);
+      passage.append(input);
+      if (suffix) passage.append(document.createTextNode(suffix));
+      if (/\\s+$/u.test(parts[i + 1] || '')) passage.append(document.createTextNode(' '));
+    });
+
+    const bankWords = [...answers].sort(() => Math.random() - 0.5);
+    bank.append(document.createTextNode(bankWords.join(' · ')));
+    const actions = document.createElement('div');
+    actions.className = 'sw-actions';
+    const check = document.createElement('button');
+    check.type = 'button';
+    check.textContent = 'Comprobar';
+    const show = document.createElement('button');
+    show.type = 'button';
+    show.textContent = 'Ver solución';
+    const reset = document.createElement('button');
+    reset.type = 'button';
+    reset.textContent = 'Borrar respuestas';
+    const feedback = document.createElement('p');
+    feedback.className = 'sw-feedback';
+    feedback.setAttribute('role', 'status');
+    feedback.setAttribute('aria-live', 'polite');
+    actions.append(check, show, reset);
+    lab.append(heading, instruction, passage, bankLabel, bank, actions, feedback);
+    host.appendChild(lab);
+
+    const normalize = value => value.toLocaleLowerCase().replace(/[’']/gu, "'").replace(/[^\\p{L}\\p{N}'-]/gu, '').trim();
+    check.addEventListener('click', () => {
+      if (inputs.some(input => !input.value.trim())) {
+        feedback.textContent = 'Completá todos los espacios antes de comprobar.';
+        return;
+      }
+      let right = 0;
+      inputs.forEach((input, i) => {
+        const ok = normalize(input.value) === normalize(answers[i]);
+        input.classList.toggle('is-ok', ok);
+        input.classList.toggle('is-bad', !ok);
+        if (ok) right++;
+      });
+      feedback.textContent = right === answers.length
+        ? '¡Muy bien! Completaste todas las palabras.'
+        : 'Acertaste ' + right + ' de ' + answers.length + ' palabras. Corregí los espacios marcados en rojo.';
+    });
+    show.addEventListener('click', () => {
+      inputs.forEach((input, i) => { input.value = answers[i]; input.classList.remove('is-bad'); input.classList.add('is-ok'); });
+      feedback.textContent = 'Solución completada.';
+    });
+    reset.addEventListener('click', () => {
+      inputs.forEach(input => { input.value = ''; input.classList.remove('is-ok', 'is-bad'); });
+      feedback.textContent = '';
+    });
+
+    if (!document.getElementById('scene-writing-styles')) {
+      const style = document.createElement('style');
+      style.id = 'scene-writing-styles';
+      style.textContent = '.scene-writing-lab{border:1px solid #a7b9d1;border-radius:16px;padding:18px;margin-top:24px;background:var(--surface,#f7f9fc)}.scene-writing-lab h3{margin-top:0}.scene-cloze-passage{font-size:1.08rem;line-height:2.3}.scene-cloze-gap{width:auto;max-width:11ch;border:1px solid #839bb8;border-radius:6px;padding:5px 7px;background:var(--surface,#fff);color:inherit;font:inherit;text-align:center}.scene-cloze-gap.is-ok{border-color:#16834a;background:#e8f6ee}.scene-cloze-gap.is-bad{border-color:#c43d3d;background:#fff0f0}.scene-cloze-bank{display:block;margin-top:6px;font-weight:600}.sw-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0}.sw-actions button{border:1px solid #7089a7;border-radius:9px;padding:10px;background:transparent;color:inherit;cursor:pointer}.sw-feedback{font-weight:600;line-height:1.6}';
+      document.head.appendChild(style);
+    }
   });
-  lab.querySelector('[data-sw="copy"]').addEventListener('click',async()=>{
-    if(!field.value.trim()){savedMessage.textContent='No hay texto para copiar';return;}
-    try{await navigator.clipboard.writeText(field.value);savedMessage.textContent='Respuesta copiada';}
-    catch{field.focus();field.select();savedMessage.textContent='Seleccioná el texto y presioná Ctrl+C';}
-  });
-  function tokens(){return field.value.trim().split(/\s+/).filter(Boolean);}
-  count.textContent=tokens().length+' palabras';
-  field.addEventListener('input',()=>{count.textContent=tokens().length+' palabras';feedback.textContent='';saveDraft();});
-  lab.querySelector('[data-sw="sample"]').addEventListener('click',()=>{const box=lab.querySelector('.sw-sample');box.hidden=!box.hidden;});
-  lab.querySelector('[data-sw="assess"]').addEventListener('click',()=>{
-   const text=field.value.trim(),length=tokens().length;
-   const hasContrast=/\b(but|although|however|whereas|nevertheless|yet)\b/i.test(text);
-   const hasProposal=/\b(suggest|recommend|should|could|would|propose|need to)\b/i.test(text);
-   const remarks=[];
-   const hasOpening=/\b(issue|problem|discussion|conversation|concern|situation|challenge)\b/i.test(text);
-   const hasSequence=/\b(first|then|finally|therefore|as a result|next)\b/i.test(text);
-   remarks.push(length>=40?'✓ Extensión suficiente.':'Te faltan '+(40-length)+' palabras para el objetivo.');
-   remarks.push(hasContrast?'✓ Incluiste un contraste.':'Podés añadir un contraste usando however, although o but.');
-   remarks.push(hasProposal?'✓ Incluiste lenguaje para proponer una acción.':'Podés proponer un siguiente paso con should, could o recommend.');
-   remarks.push(hasOpening?'✓ Introdujiste una situación o problema.':'Podés comenzar presentando the main issue o the problem.');
-   remarks.push(hasSequence?'✓ Incluiste una secuencia o conclusión.':'Podés mejorar la organización con first, then o therefore.');
-   feedback.textContent=remarks.join(' ');
-  });
-  if(!document.getElementById('scene-writing-styles')){
-   const style=document.createElement('style');style.id='scene-writing-styles';
-   style.textContent='.scene-writing-lab{border:1px solid #a7b9d1;border-radius:16px;padding:18px;margin-top:24px;background:var(--surface,#f7f9fc)}.scene-writing-lab h3{margin-top:0}.scene-writing-lab label{display:block;font-weight:700;margin-bottom:6px}.scene-writing-lab textarea{display:block;width:100%;box-sizing:border-box;min-height:145px;padding:12px;border:1px solid #839bb8;border-radius:9px;font:inherit;resize:vertical;background:var(--surface,#fff);color:inherit}.sw-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0}.sw-actions button{border:1px solid #7089a7;border-radius:9px;padding:10px;background:transparent;color:inherit;cursor:pointer}.sw-feedback{font-weight:600;line-height:1.6}.sw-sample{background:#e5eefb;color:#172b49;border-radius:9px;padding:10px}.sw-note{font-size:.82rem;opacity:.85}.sw-solution{background:#e8f6ee;color:#163d2a;border:1px solid #9fd0b4;border-radius:9px;padding:12px;margin-top:10px}.sw-solution p{line-height:1.6;margin:8px 0}.sw-solution-es{border-top:1px dashed #9fd0b4;padding-top:8px;font-style:italic}.sw-solution-toggle{border:1px solid #5f9c7b;border-radius:9px;padding:8px 10px;background:transparent;color:inherit;cursor:pointer}.sw-solution-note{font-size:.82rem;opacity:.85}';
-   document.head.appendChild(style);
-  }
- });
 })();
