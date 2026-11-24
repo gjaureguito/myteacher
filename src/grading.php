@@ -29,10 +29,10 @@ function grade_detail(array $ex, $given): array
         case 'order':
         case 'dictation':
             if (!is_string($given)) return ['ok' => false, 'detail' => []];
-            $g = norm_answer($given);
+            $g = $ex['type'] === 'fill' ? norm_fill_answer($given) : norm_answer($given);
             if ($ex['type'] === 'dictation') $g = strip_punct($g);
             foreach ($answer['accept'] ?? [] as $acc) {
-                $a = norm_answer((string) $acc);
+                $a = $ex['type'] === 'fill' ? norm_fill_answer((string) $acc) : norm_answer((string) $acc);
                 if ($ex['type'] === 'dictation') $a = strip_punct($a);
                 if ($g === $a) return ['ok' => true, 'detail' => []];
             }
@@ -75,6 +75,13 @@ function grade_detail(array $ex, $given): array
 function grade_exercise(array $ex, $given): bool
 {
     return grade_detail($ex, $given)['ok'];
+}
+
+/** Normaliza campos de escritura para aceptar la contracción I'm por I am. */
+function norm_fill_answer(string $s): string
+{
+    $s = norm_answer($s);
+    return preg_replace("/\\bi'm\\b/u", 'i am', $s) ?? $s;
 }
 
 function strip_punct(string $s): string
