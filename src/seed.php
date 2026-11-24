@@ -75,7 +75,7 @@ function content_signature(): string
 {
     $parts = [];
     foreach ([...content_files(), ...unit_files()] as $f) $parts[] = basename($f) . ':' . hash_file('sha256', $f);
-    return hash('sha256', implode('|', $parts) . '|seed-v3');
+    return hash('sha256', implode('|', $parts) . '|seed-v4-cloze-writing');
 }
 
 function default_skill(string $type): string
@@ -115,6 +115,33 @@ function det_shuffle(array $items, string $seedText): array
     return $items;
 }
 
+/** Convierte un texto modelo en una práctica de completar palabras con apoyo del contexto. */
+function make_cloze(string $text): array
+{
+    $tokens = preg_split('/(\\s+)/u', trim($text), -1, PREG_SPLIT_DELIM_CAPTURE) ?: [];
+    $wordIndexes = [];
+    foreach ($tokens as $i => $token) {
+        if (preg_match('/^[\\p{L}][\\p{L}\\p{N}’\'-]*[.!?,;:]?$/u', $token) && mb_strlen(preg_replace('/[.!?,;:]$/u', '', $token)) >= 3) $wordIndexes[] = $i;
+    }
+    $total = count($wordIndexes);
+    if ($total < 4) return [$text, []];
+    $gapCount = min(7, max(3, (int) floor($total / 9)));
+    $chosen = [];
+    for ($g = 1; $g <= $gapCount; $g++) {
+        $slot = (int) round($g * ($total - 1) / ($gapCount + 1));
+        $chosen[$wordIndexes[$slot]] = true;
+    }
+    $answers = [];
+    foreach (array_keys($chosen) as $i) {
+        $token = $tokens[$i];
+        preg_match('/^([.!?,;:]?)([\\p{L}][\\p{L}\\p{N}’\'-]*)([.!?,;:]?)$/u', $token, $m);
+        if (!$m) continue;
+        $answers[] = $m[2];
+        $tokens[$i] = $m[1] . '___' . $m[3];
+    }
+    return [implode('', $tokens), $answers];
+}
+
 /** Compacto → [type, prompt, data, answer, explanation, skill, hint]. */
 function exercise_rows(array $ex, array $readings = []): array
 {
@@ -145,8 +172,10 @@ function exercise_rows(array $ex, array $readings = []): array
             $r = [$ex[1], ['left' => $left, 'right' => det_shuffle($right, implode('|', $right))], ['pairs' => $right], $ex[3] ?? '']; break;
         case 'write':
             $spec = $ex[2];
-            $r = [$ex[1], ['min' => (int) ($spec['min'] ?? 20), 'criteria' => array_column($spec['must'] ?? [], 1)],
-                ['must' => $spec['must'] ?? [], 'min' => (int) ($spec['min'] ?? 20), 'model' => $spec['model'] ?? ''], $ex[3] ?? '']; break;
+            [$paragraph, $gaps] = make_cloze((string) ($spec['model'] ?? ''));
+            $type = 'cloze';
+            $r = ['Completá las palabras que faltan en el párrafo. Usá las pistas del contexto.', ['paragraph' => $paragraph, 'gaps' => count($gaps)],
+                ['accept' => $gaps], $ex[3] ?? '']; break;
         case 'speak':
             $r = [$ex[1], ['say' => $ex[2]], ['accept' => [$ex[2]]], $ex[3] ?? '']; break;
         default:
