@@ -174,14 +174,6 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
     <a href="/glossary.php"<?= $navCur('/glossary.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg><span>Mi glosario</span></a>
     <p class="mt-sidebar-heading">RECURSOS</p>
     <a href="/library.php"<?= $navCur('/library.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C3.5 4.5 5.5 4 7.5 4S11 4.5 12 5.5V20c-1-1-2.5-1.5-4.5-1.5S3.5 19 2 20zM22 5.5C20.5 4.5 18.5 4 16.5 4S13 4.5 12 5.5V20c1-1 2.5-1.5 4.5-1.5s4 .5 5.5 1.5z"/></svg><span>Biblioteca</span></a>
-    <details class="mt-side-group mt-side-group-extra" data-side-group="video-learning">
-      <summary><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3z"/></svg><span>Video Learning</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
-      <div class="mt-side-tree mt-side-quicklinks">
-      <?php for ($vl = 1; $vl <= 7; $vl++): ?>
-      <a href="/video-learning.php?lesson=<?= $vl ?>">Video A1 · Lección <?= $vl ?></a>
-<?php endfor; ?>
-      </div>
-    </details>
     <details class="mt-side-group mt-side-group-extra" data-side-group="dialogos-reales"<?= $path === '/life-dialogues.php' ? ' open' : '' ?>>
       <summary<?= $path === '/life-dialogues.php' ? ' class="is-current"' : '' ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.8-5A8.4 8.4 0 1 1 21 11.5z"/></svg><span>Diálogos reales</span><svg class="mt-side-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></summary>
       <div class="mt-side-tree">
