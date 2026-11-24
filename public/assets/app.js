@@ -270,6 +270,7 @@
         showFeedback(li, data);
         if (data.index != null) markOptions(li, data, null);
         if (type === 'fill' && data.answer) { const g = li.querySelector('.gap'); if (g && !g.value) g.placeholder = data.answer; }
+        if (type === 'cloze' && data.answer) data.answer.split(' · ').forEach((word, i) => { const g = li.querySelector('.cloze-gap[data-gap="' + i + '"]'); if (g && !g.value) g.placeholder = word; });
         if (type === 'match' && data.pairs) solveMatch(li, data.pairs);
         document.dispatchEvent(new CustomEvent('ip:solution', { detail: { li } }));
       } catch (err) { (window.ipToast || alert)(err.message); }
@@ -287,6 +288,19 @@
       const go = () => input.value.trim() && handle(li, input.value);
       li.querySelector('.check').addEventListener('click', go);
       input.addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+    }
+
+    if (type === 'cloze') {
+      const inputs = [...li.querySelectorAll('.cloze-gap')];
+      const go = () => {
+        if (inputs.some(input => !input.value.trim())) {
+          (window.ipToast || alert)('Completá todas las palabras antes de comprobar.');
+          return;
+        }
+        handle(li, inputs.map(input => input.value.trim()));
+      };
+      li.querySelector('.check').addEventListener('click', go);
+      inputs.forEach(input => input.addEventListener('keydown', e => { if (e.key === 'Enter') go(); }));
     }
 
     if (type === 'order') {
@@ -389,6 +403,10 @@
     const mine = typeof d.mine === 'string' ? d.mine : (d.mine && d.mine.transcript) || '';
     if (d.index != null) li.querySelectorAll('.opt').forEach(o => { if (+o.dataset.value === d.index) o.classList.add('is-ok'); });
     if (type === 'fill' || type === 'dictation') { const i = li.querySelector(type === 'fill' ? '.gap' : '.dict'); i.value = mine || d.answer; i.classList.add('is-ok'); }
+    if (type === 'cloze') {
+      const answers = Array.isArray(d.mine) ? d.mine : [];
+      li.querySelectorAll('.cloze-gap').forEach((input, i) => { input.value = answers[i] || ''; input.classList.add('is-ok'); });
+    }
     if (type === 'order') {
       const built = li.querySelector('.built'), pool = li.querySelector('.chips');
       (mine || d.answer).split(/\s+/).forEach(w => { const c = [...pool.children].find(x => x.textContent === w); if (c) built.appendChild(c); });
