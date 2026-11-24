@@ -27,7 +27,7 @@
 <script src="/assets/sidebar.js?v=1" defer></script>
 <script src="/assets/nav.js?v=1" defer></script>
 <script src="/assets/voice.js?v=5" defer></script>
-<script src="/assets/app.js?v=13" defer></script>
+<script src="/assets/app.js?v=14" defer></script>
 <script src="/assets/learning.js?v=1" defer></script>
 <script src="/assets/pro.js?v=22" defer></script>
 <script src="/assets/scenes.js?v=1" defer></script>
