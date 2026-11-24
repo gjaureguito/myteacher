@@ -15,6 +15,16 @@ function grade_detail(array $ex, $given): array
         case 'image':
             return ['ok' => is_numeric($given) && (int) $given === (int) ($answer['index'] ?? -1), 'detail' => []];
 
+        case 'cloze':
+            $given = is_array($given) ? array_values($given) : [];
+            $accept = $answer['accept'] ?? [];
+            $marks = [];
+            foreach ($accept as $i => $expected) {
+                $marks[] = norm_answer((string) ($given[$i] ?? '')) === norm_answer((string) $expected);
+            }
+            $right = count(array_filter($marks));
+            return ['ok' => count($given) === count($accept) && $right === count($accept), 'detail' => ['right' => $right, 'total' => count($accept), 'marks' => $marks]];
+
         case 'fill':
         case 'order':
         case 'dictation':
@@ -167,6 +177,7 @@ function correct_answer_text(array $ex): string
         return implode(' · ', $out);
     }
     if ($ex['type'] === 'write') return (string) ($answer['model'] ?? '');
+    if ($ex['type'] === 'cloze') return implode(' · ', $answer['accept'] ?? []);
     if (isset($answer['index'])) return (string) ($data['options'][$answer['index']] ?? '');
     return (string) ($answer['accept'][0] ?? '');
 }
@@ -176,6 +187,7 @@ function generic_hint(string $type): string
 {
     return match ($type) {
         'fill' => 'Mirá el sujeto y el tiempo verbal de la oración antes de completar.',
+        'cloze' => 'Leé la oración completa y usá las palabras que la rodean para deducir cada respuesta.',
         'order' => 'Empezá por el sujeto o la palabra interrogativa y buscá el verbo.',
         'listen', 'dictation' => 'Escuchalo de nuevo en velocidad lenta (🐢) y prestá atención a las terminaciones.',
         'reading' => 'Volvé al texto y buscá la oración que contiene la información. La respuesta tiene que estar en el texto.',
