@@ -171,6 +171,7 @@ $navCur = fn(string $p) => $path === $p ? ' aria-current="page"' : '';
       <a href="/dashboard.php">Prácticas por nivel</a>
       </div>
     </details>
+    <a href="/video-learning.php"<?= $navCur('/video-learning.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3z"/></svg><span>Ejercitación con videos</span></a>
     <a href="/glossary.php"<?= $navCur('/glossary.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4zM8 8h8M8 12h8M8 16h5"/></svg><span>Mi glosario</span></a>
     <p class="mt-sidebar-heading">RECURSOS</p>
     <a href="/library.php"<?= $navCur('/library.php') ?>><svg class="mt-side-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 5.5C3.5 4.5 5.5 4 7.5 4S11 4.5 12 5.5V20c-1-1-2.5-1.5-4.5-1.5S3.5 19 2 20zM22 5.5C20.5 4.5 18.5 4 16.5 4S13 4.5 12 5.5V20c1-1 2.5-1.5 4.5-1.5s4 .5 5.5 1.5z"/></svg><span>Biblioteca</span></a>
