@@ -2,8 +2,8 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/src/bootstrap.php';
 $student = require_login();
-$lesson = in_array((string) ($_GET['lesson'] ?? '1'), ['1', '2', '3', '4', '5', '6', '7'], true) ? (int) $_GET['lesson'] : 1;
-$videos = [1 => ['id' => 'U08KdJ52E2M', 'title' => 'The Wrong Coffee'], 2 => ['id' => 'k8PJhpSCiSs', 'title' => 'Listening A1 · Video 02'], 3 => ['id' => 'DuMMG4KKgZ8', 'title' => 'The Impossible Interview'], 4 => ['id' => 'yQ-V-MQlKUA', 'title' => 'Listening A1 · Video 04'], 5 => ['id' => 'g8s7tA42laQ', 'title' => 'Listening A1 · Video 05'], 6 => ['id' => 'g8__o_S_E2Q', 'title' => 'Listening A1 · Video 06'], 7 => ['id' => '5eTD185kdM4', 'title' => 'Listening A1 · Video 07']];
+$lesson = (($_GET['lesson'] ?? '1') === '1') ? 1 : 1;
+$videos = [1 => ['id' => '1TIht4D_J70', 'title' => 'Living room']];
 $videoId = $videos[$lesson]['id'];
 $videoTitle = $videos[$lesson]['title'];
 ?>
@@ -38,14 +38,14 @@ button:disabled{opacity:.48;cursor:not-allowed}
 </style></head><body><main class="wrapper">
 <div class="top"><a class="brand" href="/dashboard.php">MyTeacher</a><a class="link" href="/dashboard.php">← Back to dashboard</a></div>
 <h1>Video Learning · A1</h1><p>Watch, listen and choose. No typing required. <span class="es" style="display:inline">Mirá, escuchá y elegí. Sin escribir.</span></p>
-<nav aria-label="Video lessons" style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0"><a class="pill" href="/video-learning.php?lesson=1" <?= $lesson === 1 ? 'aria-current="page"' : '' ?>>Lesson 01 · The Wrong Coffee</a><a class="pill" href="/video-learning.php?lesson=2" <?= $lesson === 2 ? 'aria-current="page"' : '' ?>>Lesson 02 · Listening A1</a><a class="pill" href="/video-learning.php?lesson=3" <?= $lesson === 3 ? 'aria-current="page"' : '' ?>>Lesson 03 · The Impossible Interview</a><a class="pill" href="/video-learning.php?lesson=4" <?= $lesson === 4 ? 'aria-current="page"' : '' ?>>Lesson 04 · Video</a><a class="pill" href="/video-learning.php?lesson=5" <?= $lesson === 5 ? 'aria-current="page"' : '' ?>>Lesson 05 · Video</a><a class="pill" href="/video-learning.php?lesson=6" <?= $lesson === 6 ? 'aria-current="page"' : '' ?>>Lesson 06 · Video</a><a class="pill" href="/video-learning.php?lesson=7" <?= $lesson === 7 ? 'aria-current="page"' : '' ?>>Lesson 07 · Video</a></nav>
+<nav aria-label="Video lessons" style="display:flex;gap:12px;flex-wrap:wrap;margin:14px 0"><a class="pill" href="/video-learning.php?lesson=1" aria-current="page">Video 01 · Living room</a></nav>
 <div class="grid">
 <section class="card"><span class="pill">Lesson <?= str_pad((string) $lesson, 2, '0', STR_PAD_LEFT) ?> · <?= e($videoTitle) ?></span><h2>Watch the scene</h2>
 <p>Listen carefully. Replay whenever you need.</p>
 <div class="player"><iframe title="<?= e($videoTitle) ?> · YouTube Short" src="https://www.youtube-nocookie.com/embed/<?= e($videoId) ?>" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
 <p><a class="link" href="https://www.youtube.com/shorts/<?= e($videoId) ?>" target="_blank" rel="noopener noreferrer">Open on YouTube</a></p>
 </section>
-<?php if ($lesson >= 4 && $lesson <= 7): ?>
+<?php if ($lesson === 1): ?>
 <section class="card" id="video-observation">
 <div class="bar"><span class="pill">Interactive scene study · <?= str_pad((string)$lesson,2,'0',STR_PAD_LEFT) ?></span><label class="toggle"><input type="checkbox" id="observation-translate"> Español / Translate</label></div>
 <h2>Watch and explore the scene</h2><p>Watch the short and select what you notice. You don't have to type. <span class="es">Mirá el video y seleccioná lo que observás. No hace falta escribir.</span></p>
