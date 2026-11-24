@@ -57,7 +57,6 @@
       answers.push(answer);
       passage.append(input);
       if (suffix) passage.append(document.createTextNode(suffix));
-      if (/\\s+$/u.test(parts[i + 1] || '')) passage.append(document.createTextNode(' '));
     });
 
     const bankWords = [...answers].sort(() => Math.random() - 0.5);
