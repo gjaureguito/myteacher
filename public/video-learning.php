@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require dirname(__DIR__) . '/src/bootstrap.php';
 $student = require_login();
-$lesson = (($_GET['lesson'] ?? '1') === '1') ? 1 : 1;
+$lesson = 1;
 $videos = [1 => ['id' => '1TIht4D_J70', 'title' => 'Living room']];
 $videoId = $videos[$lesson]['id'];
 $videoTitle = $videos[$lesson]['title'];
