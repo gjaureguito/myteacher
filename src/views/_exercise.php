@@ -54,6 +54,10 @@ $n = 0;
       <?php endif; ?>
     </p>
 
+    <?php if ($type === 'cloze'): $gapIndex = 0; ?>
+      <p class="cloze-passage" lang="en"><?= nl2br(preg_replace_callback('/_{3,}/', static function () use (&$gapIndex) { $i = $gapIndex++; return '<input class="gap cloze-gap" data-gap="' . $i . '" aria-label="Palabra faltante ' . ($i + 1) . '" autocomplete="off" autocapitalize="off" spellcheck="false">'; }, e($data['paragraph'] ?? ''))) ?></p>
+    <?php endif; ?>
+
     <?php if (in_array($type, ['listen', 'dictation', 'speak'], true)): ?>
       <p class="ex-audio"><button class="btn btn-ghost btn-sm speak" data-say="<?= e($data['say']) ?>">🔊 Escuchar</button>
          <button class="btn btn-ghost btn-sm speak" data-say="<?= e($data['say']) ?>" data-rate="0.65">🐢 Más lento</button></p>
@@ -78,7 +82,7 @@ $n = 0;
     <?php elseif ($type === 'dictation'): ?>
       <p><input class="dict" placeholder="Escribí lo que escuchás" autocomplete="off" autocapitalize="off" spellcheck="false"></p>
       <p><button class="btn btn-sm check">Comprobar</button></p>
-    <?php elseif ($type === 'fill'): ?>
+    <?php elseif ($type === 'fill' || $type === 'cloze'): ?>
       <p><button class="btn btn-sm check">Comprobar</button></p>
     <?php elseif ($type === 'match'): ?>
       <div class="match" data-n="<?= count($data['left']) ?>">
