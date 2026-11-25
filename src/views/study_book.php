@@ -11,6 +11,7 @@
     <article class="book-paper">
       <?php if ($chapterUnit): ?>
         <p class="book-chapter-meta">Nivel <?= e(strtoupper($code)) ?> · Capítulo <?= (int)$chapterUnit['position'] ?> · Lectura y aplicación</p>
+        <p><a class="btn btn-sm btn-ghost" href="/book-pdf.php?code=<?= e($code) ?>&amp;chapter=<?= e($chapterUnit['slug']) ?>">Descargar esta unidad en PDF</a></p>
         <p class="eyebrow">CAPÍTULO <?= (int) $chapterUnit['position'] ?></p>
         <nav class="chapter-contents" id="chapter-contents" aria-label="Índice de lectura del capítulo">
           <strong>Contenido de este capítulo</strong>
