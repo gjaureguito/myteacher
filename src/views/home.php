@@ -76,6 +76,27 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
   </div>
 </section>
 
+<?php if (!$user): ?>
+<section class="mh-band mh-alt" id="primeros-pasos" aria-labelledby="mh-first-steps">
+  <div class="wrap">
+    <div class="mh-head">
+      <p class="mh-eyebrow">¿Primera vez en MyTeacher?</p>
+      <h2 id="mh-first-steps">Empezá en tres pasos sencillos.</h2>
+      <p class="mh-lead">No hace falta experiencia previa ni instalar nada. Usá MyTeacher desde el celular o la computadora y avanzá a tu ritmo.</p>
+    </div>
+    <ol class="mh-steps">
+      <li><span class="mh-step-n">Paso 1</span><h3>Creá tu cuenta</h3><p>Registrate con tu nombre, email y una contraseña de al menos 8 caracteres. La prueba dura 7 días: no pide tarjeta y no inicia cobros automáticos.</p></li>
+      <li><span class="mh-step-n">Paso 2</span><h3>Elegí tu punto de partida</h3><p>Podés comenzar desde A1 si sos principiante o hacer el test orientativo para encontrar un nivel adecuado.</p></li>
+      <li><span class="mh-step-n">Paso 3</span><h3>Aprendé y retomá cuando quieras</h3><p>Leé explicaciones en castellano, practicá con diálogos y audio, resolvé ejercicios y guardá tu progreso en la cuenta.</p></li>
+    </ol>
+    <div class="mh-actions">
+      <a class="mh-btn mh-btn-primary" href="/register.php">Crear cuenta gratis →</a>
+      <a class="mh-btn mh-btn-ghost" href="/login.php">Ya tengo cuenta: ingresar</a>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <section class="mh-stats" aria-label="MyTeacher en números">
   <div class="wrap mh-stats-row">
     <p><strong><?= (int) $counts['units'] ?></strong><span>unidades publicadas</span></p>
