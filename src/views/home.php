@@ -76,26 +76,6 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
   </div>
 </section>
 
-<?php if (!$user): ?>
-<section class="mh-band mh-alt" id="primeros-pasos" aria-labelledby="mh-first-steps">
-  <div class="wrap">
-    <div class="mh-head">
-      <p class="mh-eyebrow">¿Primera vez en MyTeacher?</p>
-      <h2 id="mh-first-steps">Empezá en tres pasos sencillos.</h2>
-      <p class="mh-lead">No hace falta experiencia previa ni instalar nada. Usá MyTeacher desde el celular o la computadora y avanzá a tu ritmo.</p>
-    </div>
-    <ol class="mh-steps">
-      <li><span class="mh-step-n">Paso 1</span><h3>Creá tu cuenta</h3><p>Registrate con tu nombre, email y una contraseña de al menos 8 caracteres. La prueba dura 7 días: no pide tarjeta y no inicia cobros automáticos.</p></li>
-      <li><span class="mh-step-n">Paso 2</span><h3>Elegí tu punto de partida</h3><p>Podés comenzar desde A1 si sos principiante o hacer el test orientativo para encontrar un nivel adecuado.</p></li>
-      <li><span class="mh-step-n">Paso 3</span><h3>Aprendé y retomá cuando quieras</h3><p>Leé explicaciones en castellano, practicá con diálogos y audio, resolvé ejercicios y guardá tu progreso en la cuenta.</p></li>
-    </ol>
-    <div class="mh-actions">
-      <a class="mh-btn mh-btn-primary" href="/register.php">Crear cuenta gratis →</a>
-      <a class="mh-btn mh-btn-ghost" href="/login.php">Ya tengo cuenta: ingresar</a>
-    </div>
-  </div>
-</section>
-<?php endif; ?>
 
 <section class="mh-stats" aria-label="MyTeacher en números">
   <div class="wrap mh-stats-row">
@@ -106,32 +86,6 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
   </div>
 </section>
 
-<section class="mh-benefits" aria-labelledby="mh-benefits-title">
-  <div class="wrap">
-    <div class="mh-head">
-      <p class="mh-eyebrow">Aprender, a tu manera</p>
-      <h2 id="mh-benefits-title">Una práctica que se adapta a tu vida.</h2>
-      <p class="mh-lead">Estudiá en tus tiempos, escuchá inglés real y entendé cada paso de tu progreso.</p>
-    </div>
-    <div class="mh-benefits-grid">
-      <article><span class="mh-benefit-mark" aria-hidden="true">01</span><h3>Aprendé a tu ritmo</h3><p>Entrá cuando quieras y retomá desde donde dejaste.</p></article>
-      <article><span class="mh-benefit-mark" aria-hidden="true">02</span><h3>Escuchá y practicá</h3><p>Diálogos con audio, transcripción y práctica de pronunciación.</p></article>
-      <article><span class="mh-benefit-mark" aria-hidden="true">03</span><h3>Entendé tus errores</h3><p>Recibí explicaciones para comprender cada corrección.</p></article>
-      <article><span class="mh-benefit-mark" aria-hidden="true">04</span><h3>Avanzá paso a paso</h3><p>Recorré seis niveles, desde A1 hasta C2.</p></article>
-    </div>
-  </div>
-</section>
-<style>
-.mh-benefits{padding:clamp(3.25rem,7vw,5.5rem) 0;background:#f4f8fc}
-.mh-benefits .mh-head{max-width:760px;margin:0 auto 28px;text-align:center}
-.mh-benefits-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.mh-benefits-grid article{padding:20px 18px;border:1px solid #e1e9f1;border-radius:18px;background:#fff;box-shadow:0 8px 24px rgba(25,55,91,.05)}
-.mh-benefit-mark{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-bottom:12px;border-radius:50%;background:#e9f2ff;color:#1764b1;font-size:.76rem;font-weight:800;letter-spacing:.04em}
-.mh-benefits-grid h3{margin:0 0 7px;color:#173251;font-size:1.04rem}
-.mh-benefits-grid p{margin:0;color:#53677f;font-size:.93rem;line-height:1.55}
-@media(max-width:900px){.mh-benefits-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){.mh-benefits{padding:3rem 0}.mh-benefits-grid{gap:10px}.mh-benefits-grid article{padding:16px 14px}.mh-benefits-grid h3{font-size:.96rem}.mh-benefits-grid p{font-size:.85rem}}
-</style>
 
 <section class="mh-band" id="como-funciona" aria-labelledby="mh-how">
   <div class="wrap">
@@ -141,7 +95,7 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
       <p class="mh-lead">No necesitás saber inglés para dar el primer paso. Trabajás una habilidad a la vez, con explicaciones en castellano y práctica en inglés.</p>
     </div>
     <ol class="mh-steps">
-      <li><span class="mh-step-n">Paso 1</span><h3>Encontrá tu punto de partida</h3><p>Creá tu cuenta gratis y empezá desde A1 o hacé el test orientativo.</p></li>
+      <li><span class="mh-step-n">Paso 1</span><h3>Encontrá tu punto de partida</h3><p>Creá tu cuenta gratis en un minuto, sin tarjeta, y empezá desde A1 o hacé el test orientativo.</p></li>
       <li><span class="mh-step-n">Paso 2</span><h3>Practicá con una situación</h3><p>Leé el diálogo, escuchá el audio y consultá la traducción cuando la necesites.</p></li>
       <li><span class="mh-step-n">Paso 3</span><h3>Comprobá y seguí avanzando</h3><p>Resolvé, revisá la explicación y retomá tu progreso donde lo dejaste.</p></li>
     </ol>
@@ -150,6 +104,12 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
       <article><span class="mh-tag">Corrección explicada</span><h3>Entendé el error y probá otra vez.</h3><p>Cada respuesta muestra por qué es correcta. Tus aciertos y tu progreso quedan guardados en tu cuenta.</p></article>
       <article><span class="mh-tag">Libros de estudio</span><h3>Teoría que podés seguir.</h3><p>Explicaciones en castellano, ejemplos paso a paso y soluciones comentadas. <a href="/book.php">Ver los libros →</a></p></article>
     </div>
+<?php if (!$user): ?>
+    <div class="mh-actions mh-actions-center">
+      <a class="mh-btn mh-btn-primary" href="/register.php">Empezar mis 7 días gratis →</a>
+      <a class="mh-btn mh-btn-ghost" href="#precio">Ver precio</a>
+    </div>
+<?php endif; ?>
   </div>
 </section>
 
@@ -228,6 +188,7 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
         <p class="mh-eyebrow">El recorrido completo</p>
         <h3>MyTeacher Completo</h3>
         <p class="mh-price"><?= money_ars(plan_price()) ?> <small>ARS / mes</small></p>
+        <p class="mh-per-day">Equivale a unos <?= money_ars(ceil(plan_price() / 30 / 10) * 10) ?> por día</p>
         <ul>
           <li><?= (int) $counts['units'] ?> unidades y <?= number_format((int) $counts['exercises'], 0, ',', '.') ?> ejercicios de base</li>
           <li><?= $sceneCount ?> situaciones multimedia con <?= $sceneActivities ?> actividades</li>
@@ -235,7 +196,8 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
           <li>Audio, pronunciación y soluciones explicadas</li>
           <li>Progreso y estadísticas en tu cuenta</li>
         </ul>
-        <a class="mh-btn mh-btn-primary" href="<?= $user ? '/account.php' : '/register.php' ?>">Quiero el programa completo →</a>
+        <a class="mh-btn mh-btn-primary" href="<?= $user ? '/account.php' : '/register.php' ?>"><?= $user ? 'Quiero el programa completo' : 'Probar 7 días gratis' ?> →</a>
+        <p class="mh-assurances"><span>✓ Sin tarjeta para la prueba</span><span>✓ Sin cobro automático</span><span>✓ Cancelás desde Mi cuenta</span><span>✓ Tu progreso queda guardado</span></p>
         <p class="mh-small">Al terminar la prueba gratis, elegís si querés contratar por Mercado Pago. El pago no se inicia automáticamente. La modalidad, duración y condiciones de renovación se muestran antes de pagar.</p>
       </article>
     </div>
@@ -268,5 +230,22 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
   </div>
 </section>
 
+<?php if (!$user): ?>
+<div class="mh-sticky-cta" aria-label="Acceso rápido a la prueba gratis">
+  <span><strong>7 días gratis</strong> · sin tarjeta</span>
+  <a class="mh-btn mh-btn-primary" href="/register.php">Empezar →</a>
 </div>
+<?php endif; ?>
+</div>
+<style>
+.mh-actions-center{justify-content:center;margin-top:28px}
+.mh-per-day{margin:-4px 0 14px;color:#ffb27a;font-weight:700;font-size:.95rem}
+.mh-assurances{display:flex;flex-wrap:wrap;gap:6px 16px;margin:16px 0 0;font-size:.88rem;font-weight:600;color:#cfe0f3}
+.mh-sticky-cta{display:none}
+@media(max-width:700px){
+  .mh-sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:#fff;border-top:1px solid #dce6f0;box-shadow:0 -6px 20px rgba(25,55,91,.12);font-size:.9rem;color:#173251}
+  .mh-sticky-cta .mh-btn{padding:10px 18px;white-space:nowrap}
+  .mh{padding-bottom:72px}
+}
+</style>
 <script src="/assets/home.js?v=1" defer></script>
