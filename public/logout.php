@@ -6,4 +6,4 @@ if (is_post()) {
     $_SESSION = [];
     session_destroy();
 }
-redirect('/');
+redirect('https://myteacher.com.ar/');
