@@ -59,11 +59,11 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
 
     $rawText = static function (string $text, string $font, int $size, int $x, int $baseline, string $rgb) use (&$pages, &$pageIndex): void {
         $hex = strtoupper(bin2hex(study_pdf_ansi($text)));
-        $pages[$pageIndex] .= "BT /{$font} {$size} Tf {$rgb} rg {$x} {$baseline} Td <{$hex}> Tj ET\\n";
+        $pages[$pageIndex] .= "BT /{$font} {$size} Tf {$rgb} rg {$x} {$baseline} Td <{$hex}> Tj ET\n";
     };
 
     $rectangle = static function (int $x, int $bottom, int $width, int $height, string $rgb) use (&$pages, &$pageIndex): void {
-        $pages[$pageIndex] .= "q {$rgb} rg {$x} {$bottom} {$width} {$height} re f Q\\n";
+        $pages[$pageIndex] .= "q {$rgb} rg {$x} {$bottom} {$width} {$height} re f Q\n";
     };
 
     $decoratePage = static function () use (&$pages, &$pageIndex, $unit, $level, $rawText, $rectangle, $ink, $teal): void {
@@ -126,7 +126,7 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
     };
 
     $line = static function (int $x1, int $y1, int $x2, int $y2, string $rgb) use (&$pages, &$pageIndex): void {
-        $pages[$pageIndex] .= "q {$rgb} RG {$x1} {$y1} m {$x2} {$y2} l S Q\\n";
+        $pages[$pageIndex] .= "q {$rgb} RG {$x1} {$y1} m {$x2} {$y2} l S Q\n";
     };
 
     $kicker = strtoupper($level) . '  /  UNIT ' . str_pad((string) ($unit['position'] ?? ''), 2, '0', STR_PAD_LEFT);
@@ -185,26 +185,26 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
         $footerHex = strtoupper(bin2hex(study_pdf_ansi($footer)));
         $pageNumber = 'PAGE ' . str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) . '  /  ' . str_pad((string) $count, 2, '0', STR_PAD_LEFT);
         $pageNumberHex = strtoupper(bin2hex(study_pdf_ansi($pageNumber)));
-        $stream = $body . "q 0.82 0.87 0.88 RG 54 52 m 541 52 l S Q\\n";
-        $stream .= "BT /F1 8 Tf 0.42 0.49 0.54 rg 54 35 Td <{$footerHex}> Tj ET\\n";
-        $stream .= "BT /F2 8 Tf 0.08 0.40 0.44 rg 474 35 Td <{$pageNumberHex}> Tj ET\\n";
+        $stream = $body . "q 0.82 0.87 0.88 RG 54 52 m 541 52 l S Q\n";
+        $stream .= "BT /F1 8 Tf 0.42 0.49 0.54 rg 54 35 Td <{$footerHex}> Tj ET\n";
+        $stream .= "BT /F2 8 Tf 0.08 0.40 0.44 rg 474 35 Td <{$pageNumberHex}> Tj ET\n";
         $objects[$pageId] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R /F4 6 0 R >> >> /Contents ' . $streamId . ' 0 R >>';
-        $objects[$streamId] = '<< /Length ' . strlen($stream) . " >>\\nstream\\n" . $stream . "endstream";
+        $objects[$streamId] = '<< /Length ' . strlen($stream) . " >>\nstream\n" . $stream . "endstream";
     }
     $objects[2] = '<< /Type /Pages /Kids [' . implode(' ', $kids) . '] /Count ' . $count . ' >>';
     ksort($objects);
 
-    $pdf = "%PDF-1.4\\n";
+    $pdf = "%PDF-1.4\n";
     $offsets = [0];
     foreach ($objects as $number => $object) {
         $offsets[$number] = strlen($pdf);
-        $pdf .= $number . " 0 obj\\n" . $object . "\\nendobj\\n";
+        $pdf .= $number . " 0 obj\n" . $object . "\nendobj\n";
     }
     $xref = strlen($pdf);
     $size = max(array_keys($objects)) + 1;
-    $pdf .= "xref\\n0 {$size}\\n0000000000 65535 f \\n";
+    $pdf .= "xref\n0 {$size}\n0000000000 65535 f \n";
     for ($i = 1; $i < $size; $i++) {
-        $pdf .= sprintf("%010d 00000 %s \\n", $offsets[$i] ?? 0, isset($offsets[$i]) ? 'n' : 'f');
+        $pdf .= sprintf("%010d 00000 %s \n", $offsets[$i] ?? 0, isset($offsets[$i]) ? 'n' : 'f');
     }
-    return $pdf . "trailer\\n<< /Size {$size} /Root 1 0 R >>\\nstartxref\\n{$xref}\\n%%EOF\\n";
+    return $pdf . "trailer\n<< /Size {$size} /Root 1 0 R >>\nstartxref\n{$xref}\n%%EOF\n";
 }
