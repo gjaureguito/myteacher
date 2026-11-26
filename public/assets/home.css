@@ -1,17 +1,17 @@
 /* Portada de MyTeacher. Se carga solo en "/" y usa el prefijo .mh para no depender de las capas anteriores.
    Paleta de marca: azul #1264c7, naranja #ff812d (acción), tinta #142c49, cielo #edf7ff. */
 .mh{
-  --mh-bg:#ffffff;--mh-sky:#edf7ff;--mh-ink:#142c49;--mh-muted:#4a5f76;--mh-line:#d8e6f2;
-  --mh-blue:#1264c7;--mh-blue-soft:#e3effc;--mh-orange:#ff812d;--mh-orange-hover:#e8690f;--mh-on-orange:#ffffff;
-  --mh-mark:#ffd9bd;--mh-ok:#11845b;--mh-ok-bg:#e2f5ec;--mh-bad:#b8430f;--mh-bad-bg:#fdece3;
+  --mh-bg:#ffffff;--mh-sky:#f5f7fa;--mh-ink:#142b43;--mh-muted:#526579;--mh-line:#dce4ec;
+  --mh-blue:#174f83;--mh-blue-soft:#e9eff5;--mh-orange:#c83342;--mh-orange-hover:#aa2634;--mh-on-orange:#ffffff;
+  --mh-mark:#f5dfe2;--mh-ok:#11845b;--mh-ok-bg:#e2f5ec;--mh-bad:#b8430f;--mh-bad-bg:#fdece3;
   --mh-deep:#102d52;--mh-on-deep:#f2f7fd;--mh-on-deep-muted:#b9cce0;
   --mh-radius:16px;--mh-shadow:0 18px 44px -24px rgba(16,45,82,.35);
   background:var(--mh-bg);color:var(--mh-ink);font-family:Manrope,"Segoe UI",system-ui,sans-serif;
 }
 html[data-theme=dark] .mh{
-  --mh-bg:#0e1b2b;--mh-sky:#13263b;--mh-ink:#e9f2fb;--mh-muted:#a6bbd0;--mh-line:#26405b;
-  --mh-blue:#79adff;--mh-blue-soft:#1b3553;--mh-orange:#ff944a;--mh-orange-hover:#ffa866;--mh-on-orange:#1b1206;
-  --mh-mark:rgba(255,148,74,.28);--mh-ok:#53d3a2;--mh-ok-bg:#123a2d;--mh-bad:#ff9d70;--mh-bad-bg:#3c2116;
+  --mh-bg:#101b28;--mh-sky:#152437;--mh-ink:#eef3f8;--mh-muted:#afbfce;--mh-line:#2a3e51;
+  --mh-blue:#91b9e5;--mh-blue-soft:#20364c;--mh-orange:#ed7180;--mh-orange-hover:#f18b98;--mh-on-orange:#201218;
+  --mh-mark:rgba(237,113,128,.22);--mh-ok:#53d3a2;--mh-ok-bg:#123a2d;--mh-bad:#ff9d70;--mh-bad-bg:#3c2116;
   --mh-deep:#0a1522;--mh-on-deep:#e9f2fb;--mh-on-deep-muted:#9fb4c9;
   --mh-shadow:0 18px 44px -24px rgba(0,0,0,.6);
 }
@@ -179,3 +179,28 @@ body:has(.mh) .footer{margin-top:0}
 }
 @media (prefers-reduced-motion:reduce){.mh *{transition:none!important}}
 html[data-motion=off] .mh *{transition:none!important}
+
+/* Identidad refinada de la portada */
+body:has(.mh) .mtn-facebook-strip{display:none}
+body:has(.mh) .mtn-header{background:#fff;border-bottom:1px solid #e8edf2;box-shadow:none}
+body:has(.mh) .mtn-cta{background:#c83342;color:#fff}
+body:has(.mh) .mtn-nav a:hover{color:#174f83}
+.mh-hero{background:linear-gradient(180deg,#fff 0%,var(--mh-sky) 100%);padding-block:72px 80px}
+.mh-hero-grid{max-width:1240px;grid-template-columns:minmax(0,1.08fr) minmax(370px,.92fr);gap:64px}
+.mh-practice{border-radius:24px;padding:30px;border-color:#d7e0e8;box-shadow:0 24px 64px -34px rgba(20,43,67,.34)}
+.mh-welcome-banner{max-width:1280px;margin:0 auto 56px;padding:0 24px;box-sizing:border-box;background:transparent}
+.mh-welcome-banner img{border-radius:26px;box-shadow:0 20px 56px -34px rgba(20,43,67,.42)}
+.mh-band{padding-block:92px}
+.mh-stats-row strong{color:var(--mh-blue)}
+.mh-features article{background:var(--mh-bg);border:1px solid var(--mh-line);border-radius:20px;box-shadow:0 12px 34px -28px rgba(20,43,67,.3)}
+.mh-steps li{border-top:2px solid var(--mh-line)}
+.mh-rung{min-height:186px!important;justify-content:flex-start;background:var(--mh-bg);border-radius:16px;box-shadow:0 10px 30px -26px rgba(20,43,67,.36)}
+.mh-rung:nth-child(6){background:var(--mh-bg);border-color:var(--mh-blue);box-shadow:inset 0 3px 0 var(--mh-blue),0 10px 30px -26px rgba(20,43,67,.36)}
+.mh-rung:nth-child(6) code,.mh-rung:nth-child(6) b,.mh-rung:nth-child(6) span{color:var(--mh-ink)}
+.mh-scene{border-radius:20px;box-shadow:0 12px 32px -28px rgba(20,43,67,.38)}
+.mh-plan{border-radius:24px}
+.mh-btn{border-radius:12px}
+.mh-btn-primary{box-shadow:0 8px 18px -12px rgba(200,51,66,.65)}
+.mh-closing{background:linear-gradient(135deg,#102d52,#174f83)}
+@media(max-width:900px){.mh-hero-grid{grid-template-columns:1fr;gap:36px}.mh-welcome-banner{margin-bottom:40px}}
+@media(max-width:600px){.mh-hero{padding-block:48px 56px}.mh-welcome-banner{padding-inline:16px}.mh-welcome-banner img{border-radius:18px}.mh-band{padding-block:64px}}

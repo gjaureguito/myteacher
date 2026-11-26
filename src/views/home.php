@@ -25,12 +25,7 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
 ?>
 <div class="mh">
 
-<?php if (!$user): ?>
-<aside class="mh-trial-promo" aria-label="Promoción de bienvenida">
-  <div class="wrap"><div><strong>Probá MyTeacher gratis durante 7 días.</strong><p>Acceso completo · Sin tarjeta · Después elegís si querés pagar por Mercado Pago.</p></div><a class="mh-btn mh-btn-primary" href="/register.php">Activar mi prueba gratis →</a></div>
-</aside>
-<?php endif; ?>
-<style>.mh-trial-promo{background:#e9f2ff;color:#12365c;padding:22px 0}.mh-trial-promo>.wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}.mh-trial-promo strong{font-size:clamp(1.2rem,3vw,1.8rem)}.mh-trial-promo p{margin:6px 0 0;line-height:1.5}.mh-trial-promo .mh-btn{flex-shrink:0}@media(max-width:650px){.mh-trial-promo>.wrap{flex-direction:column;align-items:flex-start}.mh-trial-promo .mh-btn{width:100%;text-align:center}}</style>
+
 
 <section class="mh-hero" aria-labelledby="mh-title">
   <div class="wrap mh-hero-grid">
