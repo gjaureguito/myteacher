@@ -143,9 +143,9 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
         $sectionHeader('Grammar focus');
         $paragraph((string) ($chapter['explain'] ?? ''), $bodyColor, 11);
         $card('Form and use', (string) ($chapter['contrast'] ?? ''), $blueTint);
-        if ($visual && !empty($visual['foundation'])) {
-            $sectionHeader('The idea behind the form');
-            $paragraph((string) $visual['foundation'], $bodyColor, 11);
+        if (!empty($chapter['foundation'])) {
+            $sectionHeader('The idea behind the grammar');
+            $paragraph((string) $chapter['foundation'], $bodyColor, 11);
         }
         $card('Model sentence', (string) ($chapter['example'] ?? ''), $warmTint, 'F3', 14, $ink);
         $sectionHeader('Read the example');
