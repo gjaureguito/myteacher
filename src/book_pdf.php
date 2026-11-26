@@ -129,9 +129,7 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
         $pages[$pageIndex] .= "q {$rgb} RG {$x1} {$y1} m {$x2} {$y2} l S Q\n";
     };
 
-    $kicker = strtoupper($level) . '  /  UNIT ' . str_pad((string) ($unit['position'] ?? ''), 2, '0', STR_PAD_LEFT);
-    $writeLines($kicker, 'F2', 8, $teal, 13, 487);
-    $writeLines((string) ($unit['title'] ?? 'English study notes'), 'F4', 25, $ink, 31, 487);
+    $writeLines((string) ($unit['title'] ?? 'English study notes'), 'F4', 25, $ink, 32, 487);
     $writeLines('A clear guide for study and reference', 'F1', 10, $muted, 15, 487);
     $y -= 2;
     $paragraph((string) ($unit['summary'] ?? ''), $muted, 10);
