@@ -3,8 +3,79 @@ declare(strict_types=1);
 
 /**
  * Respuestas comerciales de MyTeacher.
- * Este agente usa reglas locales: no conserva mensajes ni los envía a un proveedor de IA.
+ * Los mensajes se guardan en la base propia de MyTeacher para mostrarlos a administradores.
+ * No se envían a un proveedor externo de IA.
  */
+function whatsapp_sales_storage(): void
+{
+    static $ready = false;
+    if ($ready) return;
+
+    $sqlite = db_is_sqlite();
+    $pk = $sqlite ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY';
+    $fk = $sqlite ? 'INTEGER NOT NULL' : 'INT UNSIGNED NOT NULL';
+    $text = $sqlite ? 'TEXT NOT NULL' : 'MEDIUMTEXT NOT NULL';
+    $engine = $sqlite ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci';
+
+    db()->exec("CREATE TABLE IF NOT EXISTS whatsapp_threads (
+        id $pk,
+        wa_id VARCHAR(32) NOT NULL UNIQUE,
+        created_at DATETIME NOT NULL,
+        last_message_at DATETIME NOT NULL
+    )$engine");
+    db()->exec("CREATE TABLE IF NOT EXISTS whatsapp_messages (
+        id $pk,
+        thread_id $fk,
+        direction VARCHAR(8) NOT NULL,
+        body $text,
+        message_id VARCHAR(160) NULL UNIQUE,
+        created_at DATETIME NOT NULL,
+        FOREIGN KEY (thread_id) REFERENCES whatsapp_threads(id) ON DELETE CASCADE
+    )$engine");
+    try { db()->exec('CREATE INDEX idx_whatsapp_messages_thread ON whatsapp_messages (thread_id, id)'); } catch (Throwable $e) { /* ya existe */ }
+    try { db()->exec('CREATE INDEX idx_whatsapp_threads_last ON whatsapp_threads (last_message_at)'); } catch (Throwable $e) { /* ya existe */ }
+
+    $ready = true;
+}
+
+/**
+ * Guarda una entrada o salida y devuelve el id del hilo.
+ * Si Meta reenvía un mensaje ya procesado, devuelve null para evitar responder dos veces.
+ */
+function whatsapp_store_message(string $waId, string $body, string $messageId, string $direction): ?int
+{
+    whatsapp_sales_storage();
+    $waId = preg_replace('/[^0-9]/', '', $waId) ?? '';
+    if ($waId === '' || !in_array($direction, ['in', 'out'], true)) return null;
+
+    $thread = q_one('SELECT id FROM whatsapp_threads WHERE wa_id = ?', [$waId]);
+    if (!$thread) {
+        try {
+            q('INSERT INTO whatsapp_threads (wa_id, created_at, last_message_at) VALUES (?, ?, ?)', [$waId, now_utc(), now_utc()]);
+        } catch (PDOException $e) {
+            // Otra entrega simultánea pudo crear el mismo hilo.
+            $thread = q_one('SELECT id FROM whatsapp_threads WHERE wa_id = ?', [$waId]);
+            if (!$thread) throw $e;
+        }
+        $thread = $thread ?: q_one('SELECT id FROM whatsapp_threads WHERE wa_id = ?', [$waId]);
+    }
+    if (!$thread) return null;
+
+    $threadId = (int) $thread['id'];
+    $messageId = trim($messageId);
+    if ($messageId !== '' && q_val('SELECT id FROM whatsapp_messages WHERE message_id = ?', [$messageId]) !== null) return null;
+
+    try {
+        q('INSERT INTO whatsapp_messages (thread_id, direction, body, message_id, created_at) VALUES (?, ?, ?, ?, ?)',
+            [$threadId, $direction, mb_substr($body, 0, 3500, 'UTF-8'), $messageId !== '' ? $messageId : null, now_utc()]);
+    } catch (PDOException $e) {
+        if ($messageId !== '' && q_val('SELECT id FROM whatsapp_messages WHERE message_id = ?', [$messageId]) !== null) return null;
+        throw $e;
+    }
+    q('UPDATE whatsapp_threads SET last_message_at = ? WHERE id = ?', [now_utc(), $threadId]);
+    return $threadId;
+}
+
 function whatsapp_sales_reply(string $message): string
 {
     $text = mb_strtolower(trim($message), 'UTF-8');
