@@ -132,23 +132,23 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
     $kicker = strtoupper($level) . '  /  UNIT ' . str_pad((string) ($unit['position'] ?? ''), 2, '0', STR_PAD_LEFT);
     $writeLines($kicker, 'F2', 8, $teal, 13, 487);
     $writeLines((string) ($unit['title'] ?? 'English study notes'), 'F4', 25, $ink, 31, 487);
-    $writeLines('A guided grammar reference for independent study', 'F1', 10, $muted, 15, 487);
+    $writeLines('A clear guide for study and reference', 'F1', 10, $muted, 15, 487);
     $y -= 2;
     $paragraph((string) ($unit['summary'] ?? ''), $muted, 10);
     $line(54, $y + 2, 541, $y + 2, $lineColor);
     $y -= 15;
 
     if ($chapter) {
-        $card('Learning goal  /  Objetivo de aprendizaje', (string) ($chapter['goal'] ?? ''), $warmTint);
-        $sectionHeader('Grammar focus  /  Reglas y estructura');
+        $card('Learning goal', (string) ($chapter['goal'] ?? ''), $warmTint);
+        $sectionHeader('Grammar focus');
         $paragraph((string) ($chapter['explain'] ?? ''), $bodyColor, 11);
-        $card('Form and use  /  Diferencias importantes', (string) ($chapter['contrast'] ?? ''), $blueTint);
+        $card('Form and use', (string) ($chapter['contrast'] ?? ''), $blueTint);
         if ($visual && !empty($visual['foundation'])) {
-            $sectionHeader('The idea behind the form  /  Cómo interpretar la estructura');
+            $sectionHeader('The idea behind the form');
             $paragraph((string) $visual['foundation'], $bodyColor, 11);
         }
-        $card('Model sentence  /  Ejemplo original', (string) ($chapter['example'] ?? ''), $warmTint, 'F3', 14, $ink);
-        $sectionHeader('Read the example  /  Análisis guiado');
+        $card('Model sentence', (string) ($chapter['example'] ?? ''), $warmTint, 'F3', 14, $ink);
+        $sectionHeader('Read the example');
         $paragraph((string) ($chapter['reason'] ?? ''), $bodyColor, 11);
 
         $applicationNotes = [];
@@ -161,11 +161,11 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
         }
         if ($applicationNotes) {
             $notesText = implode('   •   ', $applicationNotes);
-            $card('Language notes  /  Claves para recordar', $notesText, $blueTint);
+            $card('Language notes', $notesText, $blueTint);
         }
     } else {
         $theory = study_pdf_plain((string) ($unit['theory_html'] ?? ''));
-        $card('Grammar focus  /  Teoría gramatical', $theory !== '' ? $theory : (string) ($unit['summary'] ?? ''), $blueTint);
+        $card('Grammar focus', $theory !== '' ? $theory : (string) ($unit['summary'] ?? ''), $blueTint);
     }
 
     $count = count($pages);
@@ -181,7 +181,7 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
         $pageId = 7 + ($i * 2);
         $streamId = $pageId + 1;
         $kids[] = $pageId . ' 0 R';
-        $footer = 'MYTEACHER  /  ENGLISH GRAMMAR NOTES';
+        $footer = 'MYTEACHER  /  ENGLISH GRAMMAR STUDY GUIDE';
         $footerHex = strtoupper(bin2hex(study_pdf_ansi($footer)));
         $pageNumber = 'PAGE ' . str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) . '  /  ' . str_pad((string) $count, 2, '0', STR_PAD_LEFT);
         $pageNumberHex = strtoupper(bin2hex(study_pdf_ansi($pageNumber)));
