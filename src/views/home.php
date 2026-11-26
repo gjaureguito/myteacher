@@ -244,8 +244,8 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
 }
 
 /* Portada: aplicar los acentos de marca sobre los estilos globales del sitio. */
-body:has(.mh) #mtn-nav a[href*="register.php"]{background:#c83342!important;color:#fff!important;border-color:#c83342!important}
-body:has(.mh) #mtn-nav a[href*="register.php"]:hover{background:#aa2634!important;border-color:#aa2634!important}
+body:has(.mh) a[href*="register.php"]{background:#c83342!important;color:#fff!important;border-color:#c83342!important}
+body:has(.mh) a[href*="register.php"]:hover{background:#aa2634!important;border-color:#aa2634!important}
 body:has(.mh) main > :has(a[href*="facebook.com/profile.php"]){display:none!important}
 .mh .mh-btn-primary{background:#c83342!important;color:#fff!important;border-color:#c83342!important}
 .mh .mh-btn-primary:hover{background:#aa2634!important;border-color:#aa2634!important}
