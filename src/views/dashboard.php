@@ -127,11 +127,11 @@ $first = explode(' ', $u['name'])[0];
 .learning-dashboard>.dash-head .muted{font-size:1.04rem;line-height:1.6}
 .learning-dashboard>.mt-dashboard-start{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.85fr);gap:18px;margin:20px 0 28px}
 .learning-dashboard .mt-start-main,.learning-dashboard .mt-start-side{min-height:220px;padding:clamp(24px,3vw,36px);border:1px solid #dce6ef;border-radius:24px;box-shadow:0 16px 38px -30px rgba(16,45,82,.35)}
-.learning-dashboard .mt-start-main{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;background:linear-gradient(125deg,#102d52 0%,#174f83 100%);color:#fff}
-.learning-dashboard .mt-start-main .eyebrow{color:#b9d7f2}
-.learning-dashboard .mt-start-main h2{max-width:24ch;color:#fff;font-size:clamp(1.55rem,2.6vw,2.1rem);line-height:1.16}
-.learning-dashboard .mt-start-main>p:not(.eyebrow){max-width:58ch;color:#d8e7f5;line-height:1.6}
-.learning-dashboard .mt-start-main .btn{margin-top:5px;background:#c83342;color:#fff;border:1px solid #c83342;border-radius:12px;padding:12px 19px;font-weight:750;box-shadow:0 8px 22px -14px rgba(0,0,0,.7)}
+.learning-dashboard .mt-start-main{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;background:linear-gradient(125deg,#102d52 0%,#174f83 100%)!important;color:#fff!important}
+.learning-dashboard .mt-start-main .eyebrow{color:#b9d7f2!important}
+.learning-dashboard .mt-start-main h2{max-width:24ch;color:#fff!important;font-size:clamp(1.55rem,2.6vw,2.1rem);line-height:1.16}
+.learning-dashboard .mt-start-main>p:not(.eyebrow){max-width:58ch;color:#d8e7f5!important;line-height:1.6}
+.learning-dashboard .mt-start-main .btn{margin-top:5px;background:#c83342!important;color:#fff!important;border:1px solid #c83342!important;border-radius:12px;padding:12px 19px;font-weight:750;box-shadow:0 8px 22px -14px rgba(0,0,0,.7)}
 .learning-dashboard .mt-start-side{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;background:linear-gradient(145deg,#fff 0%,#f5f8fc 100%)}
 .learning-dashboard .mt-start-side h3{font-size:1.25rem;line-height:1.25;color:#102d52}
 .learning-dashboard .mt-start-side p{line-height:1.55;color:#526579}
@@ -154,6 +154,7 @@ $first = explode(' ', $u['name'])[0];
  .learning-dashboard .stat-row{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:560px){
+ body:has(.learning-dashboard) main > :has(a[href*="facebook.com/profile.php"]){display:none!important}
  .learning-dashboard>.dash-head{padding:22px;border-radius:18px}
  .learning-dashboard .mt-start-main,.learning-dashboard .mt-start-side{min-height:0;padding:22px;border-radius:18px}
  .learning-dashboard .stat-row{gap:8px}
