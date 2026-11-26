@@ -298,5 +298,405 @@
     "example": "In this small sample, regular practice was associated with higher scores. The findings suggest a possible benefit, but do not establish causation.",
     "reason": "In this small sample limits the group being discussed. Was associated with describes a relationship without claiming cause. Suggest and possible keep the conclusion cautious.",
     "foundation": "You can adjust certainty and scope separately. May lowers certainty; in this sample limits the cases covered. Separate an observation from an explanation and a recommendation. State clearly what the evidence does and does not show."
+  },
+  "a1-adverbs-frequency": {
+    "title": "Adverbs of frequency",
+    "summary": "Say how often you do everyday activities.",
+    "goal": "Place frequency words correctly in sentences and questions.",
+    "explain": "Use always, usually, often, sometimes and never to say how often something happens. They usually go before the main verb: “I often walk.” With be, put them after be: “She is always early.” Use how often to ask about frequency.",
+    "contrast": "Never already has a negative meaning, so do not add don't. In questions, put how often before do or does: “How often do you exercise?” The adverb can also come after the subject in a question: “Do you usually walk?”",
+    "example": "I usually walk after work, but I never go swimming on Mondays.",
+    "reason": "Usually comes before the main verb walk. Never comes before go and already means not ever.",
+    "foundation": "Frequency adverbs describe repeated habits. Their position depends on the verb: before most main verbs, but after be."
+  },
+  "a1-appointments-dates": {
+    "title": "Dates, times and appointments",
+    "summary": "Give dates and times and arrange an appointment.",
+    "goal": "Say when an appointment is and ask about another person's availability.",
+    "explain": "Use on with days and dates: on Monday, on 5 June. Use at with clock times: at 3:30. Use in with months, years and parts of the day: in July, in 2026, in the morning. Use “What time…?” to ask for a clock time and “When…?” to ask more generally.",
+    "contrast": "Say “at night,” but “in the evening.” Use “on Monday morning” when a day is included. Ask “Are you free on Tuesday?” for availability. A date and a time are different pieces of information, so include both when arranging a meeting.",
+    "example": "Are you free on Friday? My appointment is at ten in the morning.",
+    "reason": "On Friday gives the day. At ten gives the exact time. In the morning gives the part of the day.",
+    "foundation": "Time prepositions group time in different ways: a point, a day or a longer period. Learn each preposition with a full example."
+  },
+  "a1-asking-permission": {
+    "title": "Asking permission and making requests",
+    "summary": "Ask politely if you may do something or ask for help.",
+    "goal": "Ask for permission and make simple polite requests.",
+    "explain": "Use can I…? to ask for permission in everyday situations: “Can I sit here?” Use can you…? to ask another person to do something: “Can you open the door?” Add please to sound polite. Follow can with the base form of the verb, without to.",
+    "contrast": "Can I…? asks whether you are allowed to do something. Can you…? asks another person to do it. Could you…? is a more polite request. Do not use do after can: say “Can I leave?” not “Do I can leave?”",
+    "example": "Can I use your phone, please? Could you call a taxi for me?",
+    "reason": "Can I asks permission. Could you asks another person to help and sounds more polite.",
+    "foundation": "The modal can stays the same with every subject. The words after it use the base form. The situation and tone show whether it is permission or a request."
+  },
+  "a1-at-the-cafe": {
+    "title": "At a café: ordering and paying",
+    "summary": "Order food and drinks and ask for the bill.",
+    "goal": "Order politely, ask about prices and understand a simple bill.",
+    "explain": "Use “I'd like…” or “Can I have…?” to order politely. Use a or an with one countable item: a sandwich, an orange juice. Use some with an amount of an uncountable item: some water. Ask “How much is it?” for a price and “Can I have the bill, please?” when you are ready to pay.",
+    "contrast": "Would like is more polite than want in a service situation. For an item, say “a coffee”; for an uncountable drink, say “some tea.” A café menu may use a drink name to mean one cup or serving.",
+    "example": "I'd like a coffee and a cheese sandwich, please. Can I have the bill?",
+    "reason": "A coffee and a sandwich are ordered as individual items. The request uses please to sound polite.",
+    "foundation": "A clear order names the quantity or item and uses a polite request. Learn common phrases as complete chunks, not word by word."
+  },
+  "a1-basic-connectors": {
+    "title": "Basic connectors: and, but, because, so",
+    "summary": "Join short ideas and explain simple reasons.",
+    "goal": "Connect ideas without writing many short, separate sentences.",
+    "explain": "Use and to add information, but to show a contrast, because to give a reason, and so to show a result. A connector joins two ideas: “I was tired, so I went home.” Choose the connector by the relationship between the ideas.",
+    "contrast": "Because answers “why?” and introduces a reason: “I stayed home because it rained.” So introduces the result: “It rained, so I stayed home.” Do not use because and so together in the same simple clause.",
+    "example": "I like this café because the food is good, but it is far from my house.",
+    "reason": "Because gives the reason for liking the café. But introduces a different point.",
+    "foundation": "Connectors show how ideas relate. First decide whether you are adding, contrasting, giving a reason or showing a result."
+  },
+  "a1-common-prepositions": {
+    "title": "Common prepositions of time and place",
+    "summary": "Say when something happens and where it is.",
+    "goal": "Use common prepositions to describe time and location.",
+    "explain": "Use at for an exact time or point: at six, at the station. Use on for days and surfaces: on Monday, on the table. Use in for months, years, parts of the day and enclosed places: in July, in the room. Place prepositions such as next to, behind, under and between show where something is.",
+    "contrast": "Learn prepositions with the words around them: at home, on the bus, in a car. Between usually names two things. Opposite means across from; next to means beside. Prepositions often do not match Spanish word for word.",
+    "example": "The keys are on the table, next to the phone. We meet at six.",
+    "reason": "On shows the surface. Next to gives the phone as a nearby reference. At marks the exact meeting time.",
+    "foundation": "Prepositions describe relationships in time or space. Picture the place or time as you choose the word, and learn common phrases as a group."
+  },
+  "a1-comparing-objects": {
+    "title": "Comparing objects",
+    "summary": "Compare two things by size, price, colour or quality.",
+    "goal": "Describe similarities and differences between two objects.",
+    "explain": "Use an adjective to describe an object: big, small, cheap or comfortable. To compare two objects, many short adjectives add -er + than: “This bag is cheaper than that one.” Longer adjectives often use more: “This phone is more comfortable to use.” Some common forms are irregular: good/better and bad/worse.",
+    "contrast": "Use this for one nearby object and that for one farther away. Use than before the second object. Do not combine more with -er: “more cheaper” is incorrect. Compare the same feature, such as price or size.",
+    "example": "This jacket is warmer than that one, but it is more expensive.",
+    "reason": "Warmer uses -er with a short adjective. More expensive uses more with a longer adjective.",
+    "foundation": "A comparison needs two items and one clear feature. The adjective changes to show how the items differ."
+  },
+  "a1-daily-schedule": {
+    "title": "Daily schedules and routines",
+    "summary": "Describe a usual day and ask about someone's routine.",
+    "goal": "Talk about daily activities and say when they happen.",
+    "explain": "Use the present simple for a regular schedule: “I start work at eight.” Use the base verb with I, you, we and they. Add -s or -es with he, she and it: “She starts at eight.” Use at with clock times, in the morning, and on with days.",
+    "contrast": "A routine is different from an action happening now. “I work at nine” describes a schedule; “I'm working now” describes an activity in progress. Ask “What time do you…?” for a time and “How often do you…?” for frequency.",
+    "example": "I get up at seven, have breakfast, and leave home at eight.",
+    "reason": "The present simple describes repeated activities. At seven and at eight give exact times.",
+    "foundation": "A schedule is a sequence of usual activities. Use time phrases to make the order clear and keep the verb form consistent."
+  },
+  "a1-email-basics": {
+    "title": "Writing a simple email",
+    "summary": "Write a short, clear personal email.",
+    "goal": "Organise a short email with a greeting, message and closing.",
+    "explain": "Begin with a greeting such as “Hi Ana,” or “Hello Sam,”. Use short sentences to explain why you are writing. Put related information together and use a line break for a new idea. End with a closing such as “Best,” and your name. Use capital letters for names, days and the first word of a sentence.",
+    "contrast": "An email to a friend can sound warm and informal. A message to a teacher or workplace should be more polite. Use “Could you…?” or “Can you…?” for a request. Check that every sentence has a subject and a verb.",
+    "example": "Hi Ana, I'm free on Saturday. Would you like to have lunch? Best, Leo",
+    "reason": "The email has a greeting, a short message, a question and a closing. Each part helps the reader understand the purpose.",
+    "foundation": "A useful email is easy to scan. Put the purpose near the beginning and include only the details the reader needs."
+  },
+  "a1-everyday-problems": {
+    "title": "Everyday problems and simple solutions",
+    "summary": "Explain a common problem and ask for help.",
+    "goal": "Describe a simple problem and make a clear request for help.",
+    "explain": "Use “I have…” for a problem or possession: “I have a headache.” Use “There is…” to say something is present: “There is a problem with the door.” Use can or can't to explain what is possible, and use “I need…” to say what would help. Add please to a request.",
+    "contrast": "Have describes what a person has. There is describes what exists. “I can't open the window” explains the problem; “Can you help me?” asks for help. Keep the message short and name the problem before the request.",
+    "example": "I have a problem with my key. I can't open the door. Can you help me, please?",
+    "reason": "The speaker names the problem first, explains what cannot be done, and then asks for help.",
+    "foundation": "A clear problem message has three parts: the problem, its effect and the help you need. Simple grammar can communicate each part."
+  },
+  "a1-experiences-introduction": {
+    "title": "First experiences: ever and never",
+    "summary": "Ask about simple life experiences.",
+    "goal": "Ask whether someone has had an experience and give a short answer.",
+    "explain": "Use have or has + a past participle to ask about an experience up to now: “Have you ever visited Chile?” Ever means at any time in your life. Never means not at any time. Use “Yes, I have” or “No, I haven't” for a short answer. Add a specific finished time with the past simple: “I went in 2024.”",
+    "contrast": "The present perfect asks about experience without naming a finished date. The past simple tells when a particular event happened. Do not say “Have you went?”; use the past participle: “Have you been?” or “Have you visited?”",
+    "example": "Have you ever stayed in a hotel? — Yes, I have. I stayed in one last year.",
+    "reason": "The question asks about experience up to now. Last year gives a finished time, so the answer uses the past simple.",
+    "foundation": "The present perfect connects an earlier experience to the present. Use the past simple when you add a finished time or tell the details of one event."
+  },
+  "a1-family-weekend": {
+    "title": "A family weekend",
+    "summary": "Talk about family plans, activities and past events.",
+    "goal": "Describe family members and talk about a simple weekend.",
+    "explain": "Use possessives such as my, his and her to show family relationships: “My sister is here.” Use the present simple for usual activities and going to for a plan: “We're going to visit Grandma.” Use the past simple for a finished weekend event: “We watched a film.”",
+    "contrast": "A plan is not the same as a usual habit. “We visit Grandma on Sundays” is a routine; “We're going to visit her this Sunday” is a plan. Use was or were to describe a past state, and a past verb to describe an action.",
+    "example": "My cousins are coming on Saturday. We're going to cook together and watch a film.",
+    "reason": "My shows the family relationship. Going to presents a plan already made.",
+    "foundation": "Family descriptions often combine people, relationships and time. Make each reference clear before using he, she or they."
+  },
+  "a1-final-checkpoint": {
+    "title": "A1 final checkpoint",
+    "summary": "Review the core forms for everyday communication.",
+    "goal": "Check that you can use basic English in familiar situations.",
+    "explain": "A clear A1 sentence usually has a subject and a verb. Use be for identity, feelings and location. Use the present simple for routines, the present continuous for actions in progress, and the past simple for finished events. Use can for ability and simple requests. Add time and place words to give context.",
+    "contrast": "Check the subject and verb agreement: she works, they work. In questions, use be, do/does or did according to the main verb and time. After do, does, did or can, use the base form. Do not use two question auxiliaries together.",
+    "example": "I usually walk to work, but today I'm taking the bus. Yesterday I went by train.",
+    "reason": "Usually marks a routine, today marks a temporary action, and yesterday places the last event in a finished past time.",
+    "foundation": "Review meaning before memorising forms. Ask what the sentence describes, who the subject is and when the event happens."
+  },
+  "a1-future-plans": {
+    "title": "Plans for the weekend",
+    "summary": "Talk about simple plans and arrangements.",
+    "goal": "Describe a future plan and ask another person about theirs.",
+    "explain": "Use be going to + base verb for a plan you have already decided: “I'm going to visit my friend.” Be changes with the subject: I am, she is, they are. Use a time phrase such as tomorrow or this weekend to say when. Use the present continuous for a fixed arrangement with another person.",
+    "contrast": "Will is often used for a decision made while speaking or an offer. Going to usually presents a plan made before the conversation. “I'm going to study” is an intention; “I'll help you” can be an offer.",
+    "example": "We're going to see a film on Saturday. I'm meeting my cousin at six.",
+    "reason": "Going to describes a plan. Am meeting describes an arrangement at a set time.",
+    "foundation": "Future forms show how a plan or decision was made. Include a time phrase when it helps make the plan clear."
+  },
+  "a1-greetings-introductions": {
+    "title": "Greetings and introductions",
+    "summary": "Greet someone and exchange basic personal information.",
+    "goal": "Start a conversation and introduce yourself or another person.",
+    "explain": "Use “Hello,” “Hi,” or “Good morning” to greet someone. Say “My name is…” or “I'm…” to introduce yourself. Ask “What's your name?”, “Where are you from?” and “What do you do?” Use be for names, origin and jobs. Use capital letters for people's names and place names.",
+    "contrast": "“How are you?” is a greeting, not always a request for detailed information. A short answer can be “I'm fine, thanks.” Use “This is…” to introduce another person. Use “Nice to meet you” when you meet someone for the first time.",
+    "example": "Hi, I'm Rosa. I'm from Argentina. This is my friend Tom.",
+    "reason": "I'm introduces the speaker. This is introduces another person who is present.",
+    "foundation": "A first conversation moves from greeting to names and simple personal information. Ask one clear question at a time and listen for the key detail."
+  },
+  "a1-health-needs": {
+    "title": "Health and basic needs",
+    "summary": "Describe a simple health problem and say what you need.",
+    "goal": "Explain a basic need and ask for simple help.",
+    "explain": "Use “I have…” with a health problem: “I have a headache.” Use “I feel…” with an adjective: “I feel sick.” Use need + a noun or to + verb: “I need water,” “I need to rest.” Can you…? makes a simple request. Learn body and health words as full phrases.",
+    "contrast": "Use have for a symptom or condition, and feel for a state: “I have a cough,” “I feel tired.” Use should for simple advice when it is included in the conversation: “You should drink water.” It is not as strong as must.",
+    "example": "I have a sore throat and I feel tired. I need to rest.",
+    "reason": "Have names the health problem. Feel describes the person's state. Need to rest explains what would help.",
+    "foundation": "A clear health message names the problem and the help needed. Use familiar, direct words so the listener can respond."
+  },
+  "a1-hobbies-invitations": {
+    "title": "Hobbies and invitations",
+    "summary": "Talk about hobbies and invite someone to an activity.",
+    "goal": "Describe a hobby and make or accept a simple invitation.",
+    "explain": "Use like + -ing to describe a hobby: “I like reading.” Use “Would you like to…?” to invite someone: “Would you like to go to the cinema?” After would like, use to + base verb. Use let's + base verb to suggest an activity you can do together.",
+    "contrast": "“I like dancing” describes a general preference. “I'd like to dance” describes a wish now. “Would you like to dance?” asks another person. They are different patterns, even though they use the word like.",
+    "example": "I enjoy playing football. Would you like to play with us on Sunday?",
+    "reason": "Enjoy is followed by playing. Would you like is followed by to play and makes an invitation.",
+    "foundation": "Hobbies describe regular interests; invitations suggest one activity. Learn the verb pattern that follows each expression."
+  },
+  "a1-home-descriptions": {
+    "title": "Describing a home and a room",
+    "summary": "Describe rooms, furniture and where things are.",
+    "goal": "Describe a home and locate common objects.",
+    "explain": "Use there is for one thing and there are for more than one: “There is a table,” “There are two chairs.” Use adjectives before nouns: a small room, a blue sofa. Use place prepositions such as next to, under, behind and in front of to say where something is.",
+    "contrast": "Use a or an when you introduce one countable object. Use the when you mention the same object again: “There is a sofa. The sofa is blue.” There is/are introduces existence; it does not show ownership. Use have or has for what a person or place has.",
+    "example": "There is a desk in my room. The desk is next to the window.",
+    "reason": "There is introduces one desk. Next to the window gives its position.",
+    "foundation": "A useful description names the object and gives a location or quality. Choose details that help someone picture the room."
+  },
+  "a1-hotel-checkin": {
+    "title": "Checking in at a hotel",
+    "summary": "Give a reservation name and ask about a room.",
+    "goal": "Use simple questions and polite phrases at a hotel.",
+    "explain": "Start with a greeting and say “I have a reservation” or “My name is…”. Ask “Is breakfast included?” or “What time is check-out?” Use can I…? for a request: “Can I have the key?” Use there is/are to ask about facilities: “Is there a lift?”",
+    "contrast": "Use a question with be for a reservation or room detail: “Is the room ready?” Use do you…? with a main verb: “Do you have my booking?” Please and thank you make requests more polite.",
+    "example": "Hello, I have a reservation for Lee. Is breakfast included?",
+    "reason": "The guest gives the booking name and asks one clear question about the service.",
+    "foundation": "At check-in, share the information the receptionist needs, then ask about one detail at a time."
+  },
+  "a1-instructions-signs": {
+    "title": "Signs and simple instructions",
+    "summary": "Understand common public signs and instructions.",
+    "goal": "Recognise short instructions and explain what people can or cannot do.",
+    "explain": "Signs often use the imperative: “Stop,” “Turn left,” “Keep the door closed.” A negative instruction uses don't: “Don't enter.” Some signs use can or can't to show permission: “You can park here,” “You can't smoke.” Follow the verb and any place or time information.",
+    "contrast": "An imperative gives an instruction directly. A sign with can/can't states what is allowed. Don't confuse “No entry” (entry is not allowed) with “No parking” (parking is not allowed).",
+    "example": "Please wait here. Do not use your phone in this area.",
+    "reason": "Wait is a direct instruction. Do not use gives a prohibition.",
+    "foundation": "Signs use short language because readers need to understand quickly. Look for the action word and the place or condition."
+  },
+  "a1-integrated-assessment": {
+    "title": "A1 integrated assessment",
+    "summary": "Use familiar English to read, listen, write and speak.",
+    "goal": "Combine basic grammar and vocabulary in everyday situations.",
+    "explain": "Everyday communication combines several skills. Read a short message for its main idea. Listen for names, times and places. Use clear sentences when you write or speak. Choose be for identity and states, present simple for routines, present continuous for actions now, and past simple for finished events.",
+    "contrast": "Do not translate a whole sentence word for word. Identify the message first, then choose the structure that expresses it. Check subject–verb agreement, question word order and the base form after auxiliaries.",
+    "example": "I work near the station. Today I'm meeting a friend there. We went to a café last week.",
+    "reason": "The example moves from a routine to a current arrangement and then to a finished past event.",
+    "foundation": "Use the grammar you know to express a real message. Clear meaning is more important than a long sentence."
+  },
+  "a1-object-pronouns": {
+    "title": "Object pronouns",
+    "summary": "Refer to people and things without repeating their names.",
+    "goal": "Use object pronouns after verbs and prepositions.",
+    "explain": "Use me, you, him, her, it, us and them when a person or thing receives an action or follows a preposition. Say “I know him,” not “I know he.” Say “Come with us.” The subject pronoun does the action: she calls me. The object pronoun receives it: I call her.",
+    "contrast": "Use he or she before the verb as the subject. Use him or her after the verb or a preposition as the object. A name can be replaced only when the listener knows who it refers to.",
+    "example": "I see Maria every day. I see her at the bus stop.",
+    "reason": "Maria receives the action see, so her is the object pronoun.",
+    "foundation": "Pronouns help avoid repetition. Check whether the pronoun does the action or receives it."
+  },
+  "a1-objects-materials": {
+    "title": "Objects, materials and descriptions",
+    "summary": "Name everyday objects and describe their material and colour.",
+    "goal": "Describe an object with a noun, an adjective and a material.",
+    "explain": "Use an adjective before a noun: a small bag, a red cup. Material words can work like adjectives before a noun: a wooden table, a plastic bottle. Use made of to name the material after the object: “The table is made of wood.” Use this/that for one object and these/those for more than one.",
+    "contrast": "Adjectives usually come before the noun in English. Say “a blue plastic box,” not “a box plastic blue.” Use made of when you want to state the material clearly.",
+    "example": "These are small glass bottles. That chair is made of wood.",
+    "reason": "Small and glass come before bottles. Made of introduces the material of the chair.",
+    "foundation": "A clear description moves from general to specific: object, size or colour, then material. Use the order in model phrases."
+  },
+  "a1-offers-decisions": {
+    "title": "Offers and decisions",
+    "summary": "Offer help and respond to a need.",
+    "goal": "Make a simple offer and decide what to do.",
+    "explain": "Use “I'll…” for a decision made while speaking or an offer: “I'll carry that bag.” Use can I…? to offer help: “Can I help you?” Use will + base verb; will does not change with the subject. The negative is won't.",
+    "contrast": "Use going to for a plan decided earlier. Use will when you decide now or make an offer. “I'll open the window” can be a new decision; “I'm going to open a shop” is usually an earlier plan.",
+    "example": "That looks heavy. I'll help you carry it.",
+    "reason": "The speaker notices a need and makes an offer at that moment. Help and carry use the base form after will or help.",
+    "foundation": "Offers respond to another person's situation. Use a short sentence and make the help clear."
+  },
+  "a1-past-events": {
+    "title": "Past events",
+    "summary": "Say what happened yesterday or at another finished time.",
+    "goal": "Describe simple events that happened in a finished past period.",
+    "explain": "Use the past simple for a finished event: “I visited my friend yesterday.” Regular verbs often add -ed. Some common verbs are irregular: go/went, see/saw, have/had. Use a past time phrase such as yesterday, last night or two days ago to make the time clear.",
+    "contrast": "Be has was/were: “We were at home.” Other verbs use their past form: “We watched a film.” For a question, use did + base verb: “Did you watch it?” Do not use did with was/were.",
+    "example": "We watched a film last night and went to bed late.",
+    "reason": "Watched is a regular past form. Went is the irregular past of go. Last night gives a finished time.",
+    "foundation": "A past event is presented as complete. Learn irregular verbs in short phrases, and use time words to set the scene."
+  },
+  "a1-past-questions": {
+    "title": "Questions and negatives in the past",
+    "summary": "Ask what happened and say that something did not happen.",
+    "goal": "Form clear past questions and negative statements.",
+    "explain": "Use did + subject + base verb for a past question: “Did you call?” Use did not or didn't + base verb for a negative: “I didn't call.” Did carries the past meaning, so the main verb stays in its base form. Use was or were directly with be: “Were you at home?”",
+    "contrast": "Say “Did she go?” not “Did she went?” Use didn't with most main verbs, but not with was/were. The question word comes before did: “Where did you go?”",
+    "example": "Where did you go yesterday? I didn't go out; I was at home.",
+    "reason": "Did marks the past, so go stays in its base form. Was forms its own past statement without did.",
+    "foundation": "In past questions and negatives, one word carries the past mark. Use did with main verbs and was/were with be."
+  },
+  "a1-phone-messages": {
+    "title": "Phone calls and messages",
+    "summary": "Answer a call, ask for someone and leave a short message.",
+    "goal": "Use polite phrases to manage a simple phone call.",
+    "explain": "Start with “Hello” or “Good morning.” Ask “Can I speak to Ana, please?” If the person is unavailable, say “Can I leave a message?” or “Please tell her I called.” Use can + base verb for requests. Spell a name or give a phone number slowly when needed.",
+    "contrast": "On the phone, say “This is…” to identify yourself and “Is that…?” to ask who is speaking. Please and thank you help the conversation sound polite. Repeat important details such as a time or number.",
+    "example": "Hello, this is Tom. Can I speak to Ana, please? — She's not here. Can I leave a message?",
+    "reason": "The caller identifies himself and makes a polite request. The answer offers a way to pass on information.",
+    "foundation": "A phone message should include who called, why, and when the person can call back. Keep each piece short and clear."
+  },
+  "a1-present-contrast": {
+    "title": "Present simple or present continuous?",
+    "summary": "Choose the right present form for a routine or an action now.",
+    "goal": "Choose between a regular habit and a temporary action in progress.",
+    "explain": "Use the present simple for habits and stable facts: “I work in a shop.” Use the present continuous for an action happening now or a temporary situation: “I'm working at home this week.” The continuous form is am/is/are + -ing.",
+    "contrast": "A time word can help, but meaning decides. Usually often introduces a habit; right now can describe an action in progress. Some state verbs, such as know and want, normally use the simple form.",
+    "example": "She usually walks to work, but today she is taking the bus.",
+    "reason": "Usually describes her routine. Today introduces a temporary change.",
+    "foundation": "Both forms describe the present, but they show different viewpoints: a repeated or stable situation versus an action in progress."
+  },
+  "a1-question-words": {
+    "title": "Question words",
+    "summary": "Ask for information about people, places, times and reasons.",
+    "goal": "Choose the question word that matches the information you need.",
+    "explain": "Use who to ask about a person, where about a place, when about a time, what about a thing or action, why about a reason, and how about a way or condition. Add a form of be or do to build the question: “Where are you?” “Where do you live?”",
+    "contrast": "With be, put be before the subject: “Where is the station?” With a main verb, use do or does: “Where does she work?” After does, the main verb stays in the base form. How much asks about an amount or price; how many asks about a number.",
+    "example": "Where do you work? What time do you start? Why do you like the job?",
+    "reason": "Each question word asks for a different type of information. Do you work uses do because work is the main verb.",
+    "foundation": "Start with the information you need. Then choose the question word and the correct question pattern."
+  },
+  "a1-reading-notices": {
+    "title": "Reading notices and short messages",
+    "summary": "Find important details in signs, schedules and short notices.",
+    "goal": "Understand the purpose and key details in a short public message.",
+    "explain": "Short notices often use a heading, a time or date, and a direct instruction. Look for names, numbers, places and action words first. Common instructions use the imperative: “Please wait here.” A timetable uses days and times; a notice may use can or can't to show what is allowed.",
+    "contrast": "Read for the purpose before translating unfamiliar words. Ask: Is this a warning, an invitation, a schedule or a rule? Use nearby words to understand a new word.",
+    "example": "Library closed on Monday. Please return all books by Friday.",
+    "reason": "The notice gives a closing day and a deadline. The imperative return tells the reader what to do.",
+    "foundation": "A notice is short because the reader needs one main point. Find who it is for, what action is needed and when."
+  },
+  "a1-review-real-dialogues": {
+    "title": "Review: everyday dialogues",
+    "summary": "Use basic grammar and useful phrases in short conversations.",
+    "goal": "Understand and take part in simple everyday exchanges.",
+    "explain": "A short conversation often follows a pattern: greeting, question, answer and response. Use be for identity or state, do/does for present simple questions, and can for ability or requests. Use please and thank you in requests. Listen for the key words that answer who, where, when or how much.",
+    "contrast": "A complete answer does not need to repeat the whole question. “Where are you from?” — “I'm from San Juan.” Use short answers with be or can: “Yes, I am,” “No, I can't.”",
+    "example": "Can I help you? — Yes, please. Where is the bus station? — It's near the bank.",
+    "reason": "The first exchange is a request and response. The second asks for a location and gives a clear reference point.",
+    "foundation": "Conversation is turn-taking. Answer the question asked, then add one useful detail."
+  },
+  "a1-shopping-requests": {
+    "title": "Shopping: prices, quantities and requests",
+    "summary": "Ask for an item, a size or a price in a shop.",
+    "goal": "Make a simple purchase and ask for the information you need.",
+    "explain": "Use “Can I have…?” or “I'd like…” to ask for an item. Use how much to ask about price or an uncountable amount, and how many for countable items: “How much is this?” “How many apples?” Use this/these for items near you and that/those for items farther away.",
+    "contrast": "Use a/an for one countable item, some for an amount and a plural ending for more than one. Say “How much is it?” for a price. Please makes a request more polite.",
+    "example": "Can I have two apples and a bottle of water, please? How much is it?",
+    "reason": "Two apples is a countable quantity. A bottle gives a unit for water. The final question asks the price.",
+    "foundation": "A clear shopping request names the item and quantity. Ask one question at a time and check the total before paying."
+  },
+  "a1-short-stories": {
+    "title": "Understanding a short story",
+    "summary": "Follow people, events and time in a simple story.",
+    "goal": "Understand the order of events in a short story.",
+    "explain": "Stories often use the past simple for completed events: “She opened the door.” Use time words such as first, then, after that and finally to follow the order. Use was/were + -ing to describe what was in progress when another event happened.",
+    "contrast": "Past simple moves the story forward. Past continuous often gives background: “It was raining when she left.” Pronouns such as he, she and they refer to people already named; check the reference as you read.",
+    "example": "First, Mia missed the bus. Then she called her brother, who picked her up.",
+    "reason": "Missed and called are finished events. Then shows what happened next. Her refers to Mia.",
+    "foundation": "To understand a story, identify who is involved, what happened and in what order. Time words and pronouns help connect the events."
+  },
+  "a1-some-any-quantities": {
+    "title": "Some, any and quantities",
+    "summary": "Talk about amounts in offers, questions and negatives.",
+    "goal": "Choose a quantity word that matches the noun and sentence type.",
+    "explain": "Use some in many positive sentences: “We have some apples.” Use any in many questions and negatives: “Do you have any milk?” “We don't have any milk.” Use a few with countable plural nouns and a little with uncountable nouns. Use a lot of with both types.",
+    "contrast": "Some can also appear in an offer when you expect a positive answer: “Would you like some tea?” Use how many with countable plural nouns and how much with uncountable nouns. Check the noun before choosing the quantity word.",
+    "example": "We have a few tomatoes and a little rice, but we don't have any cheese.",
+    "reason": "Tomatoes can be counted, so the sentence uses a few. Rice and cheese are uncountable here.",
+    "foundation": "Quantity words depend on how the noun is counted. Identify the noun first, then choose the matching expression."
+  },
+  "a1-superlatives": {
+    "title": "Superlatives",
+    "summary": "Say which person or thing has the highest or lowest quality.",
+    "goal": "Compare one person or thing with a whole group.",
+    "explain": "Use a superlative to identify the highest or lowest degree in a group. Short adjectives often add -est: small/smallest. Long adjectives often use the most: the most comfortable. Use the before a superlative in common patterns: “the tallest building.” Some forms are irregular: good/best and bad/worst.",
+    "contrast": "A comparative compares two items and often uses than. A superlative compares one item with a group: “This is the cheapest shop in town.” Do not use more and -est together. Name the group when it is not clear.",
+    "example": "Of the three bags, this one is the lightest. It is also the most comfortable.",
+    "reason": "Light uses -est. Comfortable uses the most because it is a longer adjective.",
+    "foundation": "A superlative needs a group for comparison. Decide which items belong to the group before choosing the best or largest."
+  },
+  "a1-there-was-were": {
+    "title": "There was and there were",
+    "summary": "Say what existed or was present in a place in the past.",
+    "goal": "Describe past places and things that existed there.",
+    "explain": "Use there was with one thing or an uncountable noun: “There was a shop.” Use there were with plural nouns: “There were two shops.” Use a past time phrase such as last year or yesterday. Make a negative with wasn't or weren't. Make a question by moving was or were before there.",
+    "contrast": "Use there was/were to introduce what existed. Use a name and was/were to describe a known place: “There was a café. The café was small.” Do not use did with there was/were questions.",
+    "example": "There was a park near my old house, but there weren't any shops.",
+    "reason": "A park is singular, so it takes was. Shops is plural, so it takes were.",
+    "foundation": "There was/were describes existence in the past. Choose was or were by the noun that follows."
+  },
+  "a1-this-that-these-those": {
+    "title": "This, that, these and those",
+    "summary": "Point to objects and say whether they are near or far.",
+    "goal": "Identify people or things by distance and number.",
+    "explain": "Use this for one nearby thing and these for more than one nearby thing. Use that for one thing farther away and those for more than one farther away. Put the demonstrative before a noun: this book, those chairs. You can also use it alone: “Which one?” “This one.”",
+    "contrast": "This and that are singular, so use is or a singular noun. These and those are plural, so use are or a plural noun. Do not add a plural -s to the demonstrative itself.",
+    "example": "This cup is mine. Those cups are yours.",
+    "reason": "This points to one nearby cup. Those points to more than one cup farther away.",
+    "foundation": "Demonstratives combine two ideas: distance and number. Check both before choosing the word."
+  },
+  "a1-transport-tickets": {
+    "title": "Transport and tickets",
+    "summary": "Ask about routes, times and ticket prices.",
+    "goal": "Buy a ticket and understand simple travel information.",
+    "explain": "Use “Where does this bus go?” to ask about a route and “What time does it leave?” to ask about a schedule. Use at for an exact departure time and from/to for the start and end of a journey. Ask “How much is a ticket?” for the price. Use one-way and return to describe ticket types.",
+    "contrast": "Timetables use the present simple for scheduled times: “The train leaves at six.” Use can I…? to make a polite request: “Can I have a return ticket?” Check the destination, time and number of tickets.",
+    "example": "Can I have two return tickets to the city centre? What time does the next bus leave?",
+    "reason": "Return describes the ticket type. What time asks for a scheduled departure.",
+    "foundation": "When travelling, confirm three details: destination, time and ticket type. Repeat important numbers to avoid mistakes."
+  },
+  "a1-weather-clothes": {
+    "title": "Weather and clothes",
+    "summary": "Describe the weather and choose what to wear.",
+    "goal": "Talk about today's weather and suitable clothes.",
+    "explain": "Use it is + adjective to describe weather: “It's cold,” “It's sunny.” Use it is raining or it is snowing for weather happening now. Use wear for clothes: “I wear a coat in winter.” Use am/is/are wearing for clothes someone has on now: “She is wearing a blue jacket.”",
+    "contrast": "Present simple describes a usual choice or season. Present continuous describes what is happening now or what someone is wearing at this moment. Use a before one countable item: a coat, an umbrella.",
+    "example": "It's raining today, so I'm wearing a coat and carrying an umbrella.",
+    "reason": "It's raining describes current weather. I'm wearing describes clothes now. So links the weather to the choice.",
+    "foundation": "Weather language often links a condition with a practical choice. Describe the weather first, then say what clothing is suitable."
+  },
+  "a1-work-introductions": {
+    "title": "Introducing yourself at work",
+    "summary": "Share your name, job, workplace and basic duties.",
+    "goal": "Give a simple work introduction and ask a colleague basic questions.",
+    "explain": "Use be to give your name, job or workplace: “I'm a driver.” Use the present simple to describe duties: “I deliver packages.” With he or she, add -s to the main verb: “She manages a team.” Use at before a company or workplace name in common phrases: “I work at a hotel.”",
+    "contrast": "A job title names a role; a present simple verb describes a regular task. Use “I am…” for a role and “I work…” for an activity or workplace. Ask “What do you do?” about a person's job.",
+    "example": "Hi, I'm Daniel. I'm a mechanic and I work at a garage near the station.",
+    "reason": "I'm a mechanic gives the job. I work at a garage gives the workplace.",
+    "foundation": "A clear introduction gives a name, role and one useful detail. Use short sentences and speak at a steady pace."
   }
 }
