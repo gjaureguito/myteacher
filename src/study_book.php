@@ -9,6 +9,29 @@ function study_chapter(string $slug): ?array
     return $chapters[$slug] ?? null;
 }
 
+function study_chapter_english(string $slug): ?array
+{
+    static $chapters;
+    $chapters ??= json_decode(file_get_contents(ROOT . '/content/books/chapters_en.json'), true, 512, JSON_THROW_ON_ERROR);
+    return $chapters[$slug] ?? null;
+}
+
+function study_english_unit_fallback(array $unit): array
+{
+    $slug = preg_replace('/^[a-c][1-2]-/', '', (string) ($unit['slug'] ?? 'english'));
+    $title = ucwords(str_replace(['-', '_'], ' ', $slug));
+    return [
+        'title' => $title,
+        'summary' => 'A clear introduction to ' . strtolower($title) . ' in everyday English.',
+        'goal' => 'Understand how to use ' . strtolower($title) . ' clearly.',
+        'explain' => 'Start with the message you want to communicate. Choose a sentence pattern that expresses that meaning. Check the subject, the verb form and the word order. Read the model examples carefully and notice how the form supports the meaning.',
+        'contrast' => 'Compare this topic with a structure you already know. Ask what changes in the meaning, the time or the speaker’s intention. Use the context and the words around the main form to guide your choice.',
+        'example' => '',
+        'reason' => '',
+        'foundation' => 'English grammar connects form and meaning. Small changes can show time, focus, possibility or the relationship between speakers. Notice what each structure tells the listener, then create a new example with familiar words.',
+    ];
+}
+
 function study_visual(string $slug): ?array
 {
     static $visuals;
