@@ -16,6 +16,9 @@ $first = explode(' ', $u['name'])[0];
     </div>
     <span class="pill <?= $full ? 'pill-ok' : 'pill-demo' ?>"><?= e(sub_label($u)) ?></span>
   </div>
+<?php $startUnit=$last ?: q_one('SELECT id,title,level_code FROM units WHERE is_published=1 ORDER BY level_code,position LIMIT 1'); ?>
+  <div class="mt-dashboard-start"><article class="mt-start-main"><p class="eyebrow"><?= $last ? 'SEGUÍ DONDE QUEDASTE' : 'TU PRIMERA CONVERSACIÓN' ?></p><h2><?= $startUnit ? e($startUnit['title']) : 'Encontrá tu punto de partida.' ?></h2><p>Una explicación clara, una situación para escuchar y actividades para poner tu inglés en movimiento.</p><a class="btn" href="<?= $startUnit ? '/unit.php?id='.(int)$startUnit['id'].'#t-practice' : '/placement.php' ?>"><?= $last ? 'Continuar mi práctica' : 'Empezar mi práctica' ?> ↗</a></article><article class="mt-start-side"><span class="mt-badge">REAL LIFE ENGLISH</span><h3>¿Para qué querés usar tu inglés hoy?</h3><p>Un café, un viaje, tu trabajo. Elegí una escena y practicá con diálogos, fotos y audio.</p><a class="mt-text-link" href="/situations.php">Elegir una situación ↗</a></article></div>
+
   <section class="mt-professor-feature" aria-labelledby="professor-feature-title">
     <div class="mt-professor-feature-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></svg></div>
     <div class="mt-professor-feature-copy"><p class="mt-professor-kicker">NUEVO EN MYTEACHER <span><?= tutor_dialog_access(current_user())?'Diálogo activo':(tutor_enabled()?'Piloto disponible':'Conversación pausada') ?></span></p><h2 id="professor-feature-title">Tu profesor de conversación con IA</h2><p>Un espacio para practicar inglés a tu ritmo. Conocé el piloto y revisá tu acceso.</p><p class="mt-professor-feature-note"><?= tutor_enabled()?'Servicio independiente de la cuota mensual.':'La conversación todavía está desactivada. No se realizan cobros ni se consume saldo.' ?></p></div>
@@ -79,8 +82,7 @@ $first = explode(' ', $u['name'])[0];
     <div class="stat" style="--lv: var(--brand-2)"><span class="pring" style="--p: <?= $globalPct ?>"><span><?= $globalPct ?>%</span></span><div><strong style="font-size:1.1rem">Recorrido total</strong><span>A1 → C2 publicado</span></div></div>
   </div>
 
-<?php $startUnit=$last ?: q_one('SELECT id,title,level_code FROM units WHERE is_published=1 ORDER BY level_code,position LIMIT 1'); ?>
-  <div class="mt-dashboard-start"><article class="mt-start-main"><p class="eyebrow"><?= $last ? 'SEGUÍ DONDE QUEDASTE' : 'TU PRIMERA CONVERSACIÓN' ?></p><h2><?= $startUnit ? e($startUnit['title']) : 'Encontrá tu punto de partida.' ?></h2><p>Una explicación clara, una situación para escuchar y actividades para poner tu inglés en movimiento.</p><a class="btn" href="<?= $startUnit ? '/unit.php?id='.(int)$startUnit['id'].'#t-practice' : '/placement.php' ?>"><?= $last ? 'Continuar mi práctica' : 'Empezar mi práctica' ?> ↗</a></article><article class="mt-start-side"><span class="mt-badge">REAL LIFE ENGLISH</span><h3>¿Para qué querés usar tu inglés hoy?</h3><p>Un café, un viaje, tu trabajo. Elegí una escena y practicá con diálogos, fotos y audio.</p><a class="mt-text-link" href="/situations.php">Elegir una situación ↗</a></article></div>
+
 
   <article class="mt-study-dashboard"><img src="/assets/images/study-desk-v2-640.webp" width="640" height="427" alt="Cuaderno y auriculares en una mesa de estudio. Imagen ilustrativa generada con IA." loading="lazy" decoding="async"><div class="mt-study-dashboard-copy"><p class="eyebrow">TU BIBLIOTECA DE ESTUDIO</p><h2>Una idea nueva. Un capítulo más.</h2><p>Teoría desarrollada, ejemplos para comprender y actividades con soluciones comentadas. Dale tiempo a lo que querés aprender.</p><a class="mt-text-link" href="/book.php">Abrir mis libros de estudio ↗</a></div></article>
   <?php if (!$full): ?>
@@ -93,18 +95,7 @@ $first = explode(' ', $u['name'])[0];
     </div>
   <?php endif; ?>
 
-  <div class="dash-cards">
-    <?php if ($last): ?>
-      <a class="resume primary" href="/unit.php?id=<?= (int) $last['id'] ?>">
-        <span class="muted">▶ Seguí donde quedaste</span>
-        <strong><?= e(strtoupper($last['level_code'])) ?> · <?= e($last['title']) ?></strong>
-      </a>
-    <?php endif; ?>
-    <a class="resume" href="/placement.php">
-      <span class="muted"><?= $placement ? 'Tu último test de nivel' : '¿No sabés por dónde empezar?' ?></span>
-      <strong><?= $placement ? 'Resultado: ' . strtoupper(e($placement['level_code'])) . ' (' . (int) $placement['score'] . '/' . (int) $placement['total'] . ')' : 'Hacé el test de nivel (10 min)' ?></strong>
-    </a>
-  </div>
+
 
   <div class="desk-section-heading"><h2 class="section-title">Elegí tu próximo capítulo</h2><a class="text-link" href="/library.php">Ir a la biblioteca ↗</a></div>
   <ol class="level-grid">
@@ -127,3 +118,49 @@ $first = explode(' ', $u['name'])[0];
     <?php endforeach; ?>
   </ol>
 </section>
+
+<style>
+/* Dashboard: jerarquía visual, foco en la próxima acción y superficies más claras. */
+.learning-dashboard{max-width:1320px;padding-bottom:64px}
+.learning-dashboard>.dash-head{margin:22px 0 18px;padding:30px 34px;border:1px solid #d9e6f2;border-radius:24px;background:linear-gradient(120deg,#f0f7ff 0%,#fff 78%);box-shadow:0 16px 42px -32px rgba(16,45,82,.35)}
+.learning-dashboard>.dash-head h1{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.045em;color:#102d52}
+.learning-dashboard>.dash-head .muted{font-size:1.04rem;line-height:1.6}
+.learning-dashboard>.mt-dashboard-start{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.85fr);gap:18px;margin:20px 0 28px}
+.learning-dashboard .mt-start-main,.learning-dashboard .mt-start-side{min-height:220px;padding:clamp(24px,3vw,36px);border:1px solid #dce6ef;border-radius:24px;box-shadow:0 16px 38px -30px rgba(16,45,82,.35)}
+.learning-dashboard .mt-start-main{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:12px;background:linear-gradient(125deg,#102d52 0%,#174f83 100%);color:#fff}
+.learning-dashboard .mt-start-main .eyebrow{color:#b9d7f2}
+.learning-dashboard .mt-start-main h2{max-width:24ch;color:#fff;font-size:clamp(1.55rem,2.6vw,2.1rem);line-height:1.16}
+.learning-dashboard .mt-start-main>p:not(.eyebrow){max-width:58ch;color:#d8e7f5;line-height:1.6}
+.learning-dashboard .mt-start-main .btn{margin-top:5px;background:#c83342;color:#fff;border:1px solid #c83342;border-radius:12px;padding:12px 19px;font-weight:750;box-shadow:0 8px 22px -14px rgba(0,0,0,.7)}
+.learning-dashboard .mt-start-side{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px;background:linear-gradient(145deg,#fff 0%,#f5f8fc 100%)}
+.learning-dashboard .mt-start-side h3{font-size:1.25rem;line-height:1.25;color:#102d52}
+.learning-dashboard .mt-start-side p{line-height:1.55;color:#526579}
+.learning-dashboard .mt-start-side .mt-badge{color:#174f83;background:#e8f1fa;border-radius:999px;padding:6px 10px;font-size:.72rem;font-weight:800;letter-spacing:.08em}
+.learning-dashboard .mt-start-side .mt-text-link{margin-top:4px;color:#c83342;font-weight:750}
+.learning-dashboard .mt-professor-feature{margin:22px 0 26px;border-radius:22px}
+.learning-dashboard .mt-roadmap,.learning-dashboard .mt-learning-route{box-shadow:0 14px 36px -30px rgba(16,45,82,.34)}
+.learning-dashboard .stat-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:22px 0 30px}
+.learning-dashboard .stat-row>.stat{min-width:0;border:1px solid #e0e8f0;border-radius:18px;background:#fff;padding:18px 20px;box-shadow:0 10px 26px -24px rgba(16,45,82,.45)}
+.learning-dashboard .stat-row>.stat strong{color:#102d52}
+.learning-dashboard .stat-row>.stat .stat-ico{font-size:1.3rem}
+.learning-dashboard .mt-study-dashboard{overflow:hidden;border:1px solid #dce6ef;border-radius:22px;box-shadow:0 14px 34px -30px rgba(16,45,82,.35)}
+.learning-dashboard .level-grid{gap:18px}
+.learning-dashboard .level-card{border-radius:20px;transition:transform .18s ease,box-shadow .18s ease}
+.learning-dashboard .level-card:hover{transform:translateY(-4px);box-shadow:0 18px 38px -28px rgba(16,45,82,.45)}
+.learning-dashboard .desk-section-heading{margin-top:34px}
+.learning-dashboard .upsell{margin:24px 0;border-radius:20px}
+@media(max-width:850px){
+ .learning-dashboard>.mt-dashboard-start{grid-template-columns:1fr}
+ .learning-dashboard .stat-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+ .learning-dashboard>.dash-head{padding:22px;border-radius:18px}
+ .learning-dashboard .mt-start-main,.learning-dashboard .mt-start-side{min-height:0;padding:22px;border-radius:18px}
+ .learning-dashboard .stat-row{gap:8px}
+ .learning-dashboard .stat-row>.stat{padding:14px;border-radius:15px}
+}
+html[data-theme=dark] .learning-dashboard>.dash-head{background:linear-gradient(120deg,#142c43,#172d42);border-color:#38556f}
+html[data-theme=dark] .learning-dashboard>.dash-head h1,html[data-theme=dark] .learning-dashboard .mt-start-side h3{color:#eef5fc}
+html[data-theme=dark] .learning-dashboard .mt-start-side,html[data-theme=dark] .learning-dashboard .stat-row>.stat{background:#172d42;border-color:#38556f}
+html[data-theme=dark] .learning-dashboard .mt-start-side p,html[data-theme=dark] .learning-dashboard .stat-row>.stat strong{color:#dbe9f7}
+</style>
