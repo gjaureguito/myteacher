@@ -80,7 +80,7 @@ foreach ($messages as [$recipient, $incomingText, $incomingId]) {
     $reply = whatsapp_sales_reply($incomingText);
     $inboundCount = (int) q_val("SELECT COUNT(*) FROM whatsapp_messages WHERE thread_id=? AND direction='in'", [$threadId]);
     if ($inboundCount === 1) {
-        $reply = "Aviso: para atenderte, MyTeacher guarda tu número y el texto de este chat en su base de datos. Solo el equipo administrador puede consultarlo. Detalles: " . app_url('privacy.php') . " No envíes contraseñas, códigos ni datos de tarjeta.\\n\\n" . $reply;
+        $reply = "Aviso: para atenderte, MyTeacher guarda tu número y el texto de este chat en su base de datos. Solo el equipo administrador puede consultarlo. Detalles: " . app_url('privacy.php') . " No envíes contraseñas, códigos ni datos de tarjeta.\n\n" . $reply;
     }
     $request = [
         'messaging_product' => 'whatsapp',
