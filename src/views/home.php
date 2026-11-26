@@ -227,6 +227,7 @@ $startLabel = $user ? 'Ir a mis niveles' : 'Empezar mi prueba gratis';
   <div class="wrap mh-closing-in">
     <h2>Tu próxima conversación en inglés empieza hoy.</h2>
     <a class="mh-btn mh-btn-light" href="<?= $startUrl ?>"><?= $startLabel ?> →</a>
+    <a class="mh-btn mh-btn-light" href="https://wa.me/5492646263385?text=Hola%2C%20quiero%20conocer%20MyTeacher" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
   </div>
 </section>
 
