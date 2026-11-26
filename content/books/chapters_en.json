@@ -1,0 +1,302 @@
+{
+  "a1-verb-to-be": {
+    "title": "The verb be and personal pronouns",
+    "summary": "Introduce yourself and talk about identity, origin and feelings.",
+    "goal": "Introduce yourself, ask about another person, and describe identity, origin and feelings.",
+    "explain": "English sentences usually need a subject. Say “I am a student,” not “Am a student.” Choose the subject first: I, you, he, she, it, we or they. Then choose the matching form of be: am, are or is. The form depends on the subject. Use the matching pronoun for a name: Ana = she; Ana and Tom = they.",
+    "contrast": "To make a negative sentence, put not after am, is or are. To ask a yes/no question, move am, is or are before the subject. Do not use do. Say “Are you tired?” A short positive answer keeps the full verb: “Yes, I am.” Use a or an before a singular job: “She is an engineer.” Use from for origin and a number for age.",
+    "example": "Is your sister a teacher? — No, she isn't. She's an engineer.",
+    "reason": "Your sister means she, so the question begins with Is. The short negative uses isn't. Engineer begins with a vowel sound, so it takes an. Be links a person to a job or description.",
+    "foundation": "Think of be as a link between a person and information: a job, a feeling or a place. In “I am a teacher,” teacher names the job. In “I am tired,” tired describes a feeling. The subject controls the form: he is, they are. In a question, move the same verb to the front."
+  },
+  "a1-present-simple": {
+    "title": "Present simple: routines and habits",
+    "summary": "Talk about habits, routines and everyday facts.",
+    "goal": "Describe a routine and ask about another person's habits.",
+    "explain": "Use the present simple for habits, routines and facts. “I work in a café” describes a usual situation, not necessarily what is happening now. Most subjects use the base verb: I work, they study. With he, she or it, add -s or -es: works, watches. If a verb ends in consonant + y, change y to -ies: studies. Use time phrases such as every day and on Mondays.",
+    "contrast": "Use do or does to make questions and negatives. After does, the main verb returns to its base form: “Does she study?” and “She doesn't study.” Do not add -s to both does and the main verb. Frequency words usually go before the main verb: “I usually cook.” With be, they go after it: “I am usually tired.” Never is already negative, so do not add don't.",
+    "example": "Maya works at a library, but she doesn't work on Sundays. Does she start at nine?",
+    "reason": "Works has -s because the subject is she. In “doesn't work” and “Does she start,” does carries the third-person mark, so the main verbs stay in the base form. On Sundays describes a repeated habit.",
+    "foundation": "The -s in “she works” shows subject agreement. It does not show how often the action happens. In a question, does carries this mark, so adding -s to the main verb would repeat it. Build new sentences by choosing a subject, an auxiliary and a base verb."
+  },
+  "a1-there-is-articles": {
+    "title": "There is and there are: articles and plurals",
+    "summary": "Say what exists in a place and introduce things clearly.",
+    "goal": "Describe what a place has and introduce objects or places for the first time.",
+    "explain": "Use there is with one thing or an uncountable noun: “There is a bank.” Use there are with plural nouns: “There are two banks.” These forms introduce something that exists. To say where a known place is, use its name: “The bank is near here.” In questions, move is or are before there: “Is there a supermarket?” Use have for possession, not to translate “there is.”",
+    "contrast": "Use a or an before a singular countable noun that is new. Choose by sound: “an hour,” but “a university.” Use the when the listener can identify the noun. General plural nouns do not take a or an: “Books are useful.” Plurals often add -s or -es, but some change form, such as child/children. Some is common in positive sentences; any is common in neutral questions and negatives.",
+    "example": "There's a café opposite the station. The café is small, but there are some tables outside.",
+    "reason": "A café introduces a place for the first time. The café refers to the same place again. Tables is plural, so the sentence uses there are.",
+    "foundation": "Use there is or there are to introduce new information. After that, use the to refer to the same thing again. Articles do not always match Spanish word for word; choose them by whether the listener can identify the thing."
+  },
+  "a1-possessives-family": {
+    "title": "Possessives, have got and family",
+    "summary": "Talk about family members and show who owns something.",
+    "goal": "Describe family relationships and make it clear who owns an object.",
+    "explain": "Possessive determiners come before a noun: my sister, your bag, her name. Choose the form by the owner, not by the object. His sister means a sister belonging to him; her brother means a brother belonging to her. Do not put the before a possessive. To show ownership after a name, add 's: Emma's brother. With a regular plural ending in s, add only an apostrophe: my parents' house.",
+    "contrast": "A possessive determiner needs a noun: “This is my book.” A possessive pronoun replaces the noun: “This book is mine.” Its shows possession; it's means it is or it has. Use have got to talk about possession in the forms taught in this unit. Check that each pronoun clearly refers to a person already mentioned.",
+    "example": "This is my aunt's house. Her daughter is my cousin. The blue bike is hers.",
+    "reason": "My aunt's names the owner of the house. Her comes before daughter. Hers replaces “her bike,” so it does not need a noun after it.",
+    "foundation": "Ask two questions: Who owns it? Do I say the thing that is owned? If you say the noun, use a form such as her bag. If you replace the whole noun phrase, use hers. This helps you choose between a determiner and a pronoun."
+  },
+  "a1-present-continuous": {
+    "title": "Present continuous: actions happening now",
+    "summary": "Describe actions in progress and temporary situations.",
+    "goal": "Describe what is happening and distinguish it from a routine.",
+    "explain": "Form the present continuous with am, is or are + a verb ending in -ing: “I am working,” “she is working,” “they are working.” Be changes with the subject; -ing does not. Use this form for actions in progress and temporary situations around now. It can describe a longer temporary activity too: “I'm reading a long novel” may mean this week or month.",
+    "contrast": "Compare “I work at home” (a usual situation) with “I'm working at home this week” (temporary). For a question, put be before the subject. For a negative, put not after be. Spelling changes include make/making, run/running and lie/lying. State verbs such as know and want usually use the simple form. Choose the tense by meaning, not only by a word such as now.",
+    "example": "I usually take the bus, but today I'm walking because the weather is lovely.",
+    "reason": "Usually describes a habit, so the sentence uses the present simple. Today introduces a temporary change. I'm walking describes what is in progress.",
+    "foundation": "The continuous form shows an action from the inside, while it is developing. Be carries the subject agreement; -ing shows the ongoing process. Compare a routine with a temporary situation to choose the form by meaning."
+  },
+  "a1-can-ability": {
+    "title": "Can and can't: ability, permission and requests",
+    "summary": "Talk about abilities, permission and simple requests.",
+    "goal": "Talk about abilities, ask permission and make simple requests.",
+    "explain": "Can is followed by the base form of a verb, without to: “I can swim.” The form stays the same with every subject: “She can swim.” Make a negative with cannot or can't. For a question, put can before the subject: “Can you swim?” Do not use do or does. Short answers repeat can: “Yes, I can.” Add well or a little to describe how well someone can do something.",
+    "contrast": "Can can describe ability, permission or a request. The situation tells you which meaning is intended. “Can you open the window?” is often a request. Could you is usually a more polite request. Use can + activity for a skill: “I can drive.” Use know for information: “I know your address.”",
+    "example": "I can cook, but I can't bake bread very well. Can you help me?",
+    "reason": "Cook and bake use the base form after can. Very well describes the skill. The last question is a request and does not need do.",
+    "foundation": "Can adds an idea such as ability or possibility to an action. Can does not change for she or he, and the next verb stays in the base form. Context can turn the same question into a request."
+  },
+  "a1-food-countable": {
+    "title": "Food: countable and uncountable nouns",
+    "summary": "Ask for food and talk about quantities.",
+    "goal": "Order food and describe quantities with countable and uncountable nouns.",
+    "explain": "A countable noun has units you can count: one apple, two apples. An uncountable noun describes a substance or amount: water, rice, bread. In its usual meaning, an uncountable noun does not take a or a plural ending. To count it, name a unit or container: a glass of water, two slices of bread. A noun can be countable in one meaning and uncountable in another.",
+    "contrast": "Use how many with plural countable nouns and how much with uncountable nouns. Some is common in positive sentences and offers. Any is common in neutral questions and negatives. A few goes with countable nouns; a little goes with uncountable nouns. A lot of works with both. In a café, two coffees can mean two cups or servings.",
+    "example": "We need a little rice, a few tomatoes and two bottles of water. We don't need any bread.",
+    "reason": "Rice is uncountable, so the sentence uses a little. Tomatoes can be counted, so it uses a few. Bottles gives a countable unit for water.",
+    "foundation": "Countable and uncountable describe how we present something. We can count apples as separate objects, but water is usually treated as a substance. Add a unit, such as a bottle or a glass, when you need to count it."
+  },
+  "a1-was-were": {
+    "title": "The past of be: was and were",
+    "summary": "Describe people, places and states in the past.",
+    "goal": "Describe places, people and feelings at a past time.",
+    "explain": "Was and were are the past forms of be. Use was with I, he, she and it. Use were with you, we and they. They describe past states, identities and locations. Add a time phrase such as yesterday, last night or in 2020 when it helps the listener. The form depends on the subject, not on how long ago the situation happened.",
+    "contrast": "Add not to make a negative: wasn't or weren't. Make a question by moving was or were before the subject: “Were you at home?” Do not use did with be in this pattern. There was and there were describe what existed. “I was at the office” gives a location; “I worked at the office” describes an action.",
+    "example": "The museum was closed yesterday, but the cafés were open. Was the park busy?",
+    "reason": "Museum is singular, so it takes was. Cafés is plural, so it takes were. The question begins with was because park is singular.",
+    "foundation": "To talk about the past, keep the subject and description, then change be to was or were. Be can make its own questions and negatives, so it does not need did."
+  },
+  "a1-directions-imperatives": {
+    "title": "Directions and imperatives",
+    "summary": "Give simple instructions and directions around town.",
+    "goal": "Give clear instructions and help someone find a place.",
+    "explain": "Use the base form of a verb for an instruction: “Turn left,” “Open the door.” The subject you is understood. Use don't + base verb for a negative instruction: “Don't turn right.” Please can make a request sound more polite. Use let's + base verb to suggest doing something together: “Let's walk.” Do not add to after let's.",
+    "contrast": "Directions combine actions with place information: go straight, turn left, cross the street. Next to means beside; opposite means across from; between needs two reference points. Go past the bank means pass it. Go to the bank means travel there. Give steps in order and include a clear landmark at each turn.",
+    "example": "Go straight for two blocks. Turn right at the bank. The pharmacy is opposite the station.",
+    "reason": "The directions give a distance, a turn with a landmark, and the final location. The verbs use the base form. Opposite relates two places; it does not mean they are next to each other.",
+    "foundation": "A useful instruction helps another person take the right action. A turn needs a clear place reference. Check the route on a map and make sure each step leads to the next one."
+  },
+  "a1-likes-free-time": {
+    "title": "Likes and free time: like + -ing",
+    "summary": "Talk about hobbies, preferences and invitations.",
+    "goal": "Talk about things you enjoy and suggest a free-time activity.",
+    "explain": "Use like, love, enjoy and hate to talk about preferences. After enjoy, use a verb ending in -ing: “I enjoy reading.” Like and love can take -ing or to + verb in many situations. Use like + -ing for general preferences. You can also use a noun: “I like music.” Questions and negatives follow the present simple rules.",
+    "contrast": "“I like swimming” describes a general preference. “I'd like to swim” describes a wish or choice now. After would like, use to + base verb. Ask “Would you like to…?” to invite someone. Use let's or how about + -ing to suggest an activity together. A preference does not tell you how often you do the activity.",
+    "example": "I like cooking, but tonight I'd like to eat out. How about trying the new café?",
+    "reason": "Like cooking describes a general preference. Would like to eat describes a wish for tonight. How about is followed by trying and suggests an activity.",
+    "foundation": "A general preference and a wish for a particular moment are different meanings. Learn each verb with its pattern: enjoy + -ing, would like + to + verb. This makes it easier to describe a hobby or invite someone."
+  },
+  "a2-past-simple": {
+    "title": "Past simple: finished events",
+    "summary": "Tell a clear story about completed past events.",
+    "goal": "Tell a sequence of events that finished in the past.",
+    "explain": "Use the past simple for events viewed as complete in a past period. The time can be clear from words such as yesterday or last week, or from the conversation. Regular verbs usually add -ed. Irregular verbs have their own past form, such as go/went and buy/bought. The form is the same for most subjects; be uses was and were.",
+    "contrast": "Use did in questions and negatives, then return the main verb to its base form: “Did you go?” and “I didn't go.” Do not say didn't went. Organise a story with first, then and finally. The -ed ending does not always add a syllable: it can sound like /t/, /d/ or /ɪd/.",
+    "example": "We missed the bus, so we walked to the station and bought tickets there. Did you wait long?",
+    "reason": "Missed and walked are regular past forms; bought is the past of buy. So introduces a result. Did already marks past time, so wait stays in the base form.",
+    "foundation": "The past simple presents events as complete steps in a story. It does not show by itself how long an event lasted. In questions and negatives, did marks the past and the main verb returns to its base form."
+  },
+  "a2-comparatives": {
+    "title": "Comparatives and superlatives",
+    "summary": "Compare options and explain which one is better for you.",
+    "goal": "Compare choices and explain why you prefer one.",
+    "explain": "Use a comparative to compare two things: “The train is faster than the bus.” Use a superlative to identify one thing within a group: “It is the fastest option.” Short adjectives often take -er and -est. Longer adjectives often use more and most. Good and bad are irregular: better/best and worse/worst.",
+    "contrast": "Do not use two comparative forms together: more cheaper is incorrect. Use than before the second item. Superlatives often use the. As…as shows equality; not as…as shows a difference without naming a winner. Much and a little can show the size of a difference: much cheaper, a little quieter. Compare the same feature, such as price or speed.",
+    "example": "The train is more expensive than the bus, but it's much faster. For us, it's the best option.",
+    "reason": "Expensive uses more; fast uses -er. Much makes faster stronger. Best is the irregular superlative of good.",
+    "foundation": "A useful comparison needs a clear feature. One option may be cheaper while another is faster. Explain which feature matters to your decision. A superlative also needs a group of things for comparison."
+  },
+  "a2-future-going-to-will": {
+    "title": "Future plans and predictions: going to and will",
+    "summary": "Talk about plans, decisions, offers and predictions.",
+    "goal": "Choose between a plan, a decision made now and a prediction.",
+    "explain": "Use be going to + base verb for a plan made earlier or a prediction based on present evidence. Use will + base verb for a decision made while speaking, an offer, a promise or a prediction based on what you think. These forms can describe the same future event from different points of view. Ask whether you are describing an earlier plan, a new response or a prediction.",
+    "contrast": "Be changes with the subject in going to: “She's going to travel.” Will stays the same for every subject; its negative is won't. Use the present continuous for a fixed arrangement: “I'm meeting Ana at six.” “I'm going to London” describes travel; “I'm going to study” describes an intention.",
+    "example": "We've bought the paint. We're going to decorate the room. — I'll help you on Saturday.",
+    "reason": "Buying the paint shows an existing plan, so going to fits. The offer to help is a response made now, so will fits.",
+    "foundation": "Future forms show how the speaker sees an event. A plan was decided earlier; an offer may begin as a response in the conversation. Look at what was known or decided before the sentence."
+  },
+  "a2-past-continuous": {
+    "title": "Past continuous: actions in progress",
+    "summary": "Set the scene and describe events in a past story.",
+    "goal": "Describe the background of a story and connect it to an event.",
+    "explain": "Form the past continuous with was or were + a verb ending in -ing. It shows an action in progress at a past time. In a story, the past continuous often gives the background, while the past simple tells what happened. Choose the form by how you want to present the event, not only by how long it lasted.",
+    "contrast": "While often introduces an activity in progress; when often introduces an event that happens during it. They are not automatic rules. “While I was cooking, Leo was reading” shows two activities at the same time. “I cooked dinner and washed the dishes” presents two complete events. An interruption does not always mean the first activity stopped.",
+    "example": "I was waiting for the bus when I saw an old friend. She was carrying a large suitcase.",
+    "reason": "Was waiting sets the scene. Saw moves the story forward. Was carrying describes what the friend was doing at that moment.",
+    "foundation": "The background helps the reader understand what was happening when a new event appeared. The continuous form places the reader inside an activity; the simple form can present a complete event or a change."
+  },
+  "b1-present-perfect": {
+    "title": "Present perfect: experience and present results",
+    "summary": "Connect past events with experience or a situation now.",
+    "goal": "Connect past experience and results with the present.",
+    "explain": "Form the present perfect with have or has + a past participle. Use it for experience up to now, a present result or a situation that continues. The past simple places an event in a finished past time. “I've lost my keys” highlights a problem now; “I lost my keys yesterday” gives a finished time.",
+    "contrast": "Since gives a starting point; for gives a length of time. Use the present perfect for something that continues: “I've lived here for years.” Use the past simple with a finished date: “I moved here in 2020.” Been often describes a completed visit; gone often means the person has not returned yet.",
+    "example": "I've visited Lisbon twice. I went there in 2021 and stayed with a friend.",
+    "reason": "The first sentence describes experience up to now. The second tells about one visit in a finished year, so it uses the past simple.",
+    "foundation": "The present perfect looks at an earlier event from the present: what has happened up to now, what result exists now, or what is still continuing. Use the past simple to focus on a finished time or event."
+  },
+  "b1-conditionals-0-1": {
+    "title": "Zero and first conditional",
+    "summary": "Describe general results and real future possibilities.",
+    "goal": "Explain general results and possible future consequences.",
+    "explain": "Use the zero conditional for general results: “If you heat ice, it melts.” It commonly uses the present simple in both parts. Use the first conditional for a possible future situation and its result: “If it rains tomorrow, we'll stay home.” The if-clause uses the present simple even when it refers to the future. The result can be a decision, advice or instruction.",
+    "contrast": "If introduces a condition. When presents a time or event the speaker expects. Unless often means if…not: “Unless you hurry, you'll miss the bus.” Avoid adding another negative that changes the meaning. Use a comma when the if-clause comes first. Choose the form based on how you present the possibility.",
+    "example": "If you finish early, call me. We'll go for a walk if the weather stays dry.",
+    "reason": "Finish and stays use the present simple for future meaning. The first result is an instruction; the second uses will. The comma follows the opening condition.",
+    "foundation": "A condition shows when a result is true or what to do if a situation happens. The if-clause gives the situation; the main clause gives the result. Check that the result matches the condition."
+  },
+  "b1-passive-voice": {
+    "title": "The passive voice",
+    "summary": "Focus on a process, result or thing affected by an action.",
+    "goal": "Describe processes and focus on the result or receiver of an action.",
+    "explain": "The passive changes the focus of a sentence. The object of an active sentence becomes the subject: “Workers produce coffee” becomes “Coffee is produced by workers.” Form the passive with be + past participle. Be shows tense and subject agreement; the participle stays in the same form: is made, was made, will be made. A passive sentence usually needs a verb that has an object.",
+    "contrast": "The passive is not simply a more formal version. Use it when the agent is unknown, obvious or less important than the process. Add by + agent when the person or group matters. Too many passives can hide who is responsible. Check irregular participles and decide whether a be-form describes an action or a state.",
+    "example": "The documents were checked yesterday, and the results will be sent by email tomorrow.",
+    "reason": "Were checked agrees with documents and places the check in the past. Will be sent uses will, be and the participle sent. The agent is not named because the message focuses on the documents and results.",
+    "foundation": "Voice controls what the reader notices first. An active sentence usually begins with the person doing the action. A passive sentence can begin with the thing affected. Be carries tense and agreement; the participle names the action received."
+  },
+  "b1-modals-obligation": {
+    "title": "Obligation, prohibition and advice",
+    "summary": "State rules clearly and distinguish what is required from what is optional.",
+    "goal": "Distinguish obligation, prohibition, no obligation and advice.",
+    "explain": "Must and have to express obligation, but they differ in some situations and tenses. Have to can refer to the past with had to or the future with will have to. Must can express a strong rule or the speaker's strong requirement. Should gives advice or a softer expectation. Must and should are followed by a base verb, without to or an -s ending.",
+    "contrast": "The negative forms have different meanings. Mustn't means something is forbidden. Don't have to means it is not necessary, but it is allowed. Shouldn't gives advice not to do something. Didn't have to means there was no need in the past; it does not say whether the person did it.",
+    "example": "You mustn't take photos here. You don't have to leave your bag, but you should keep it closed.",
+    "reason": "The first sentence gives a prohibition. The second says leaving the bag is optional. The last sentence gives advice. Each form describes a different rule.",
+    "foundation": "Modal verbs show how a person or rule relates to an action: required, forbidden, optional or recommended. The negative can change the practical meaning, so choose it carefully."
+  },
+  "b2-conditionals-2-3": {
+    "title": "Second and third conditionals",
+    "summary": "Explore unreal present situations and different past outcomes.",
+    "goal": "Talk about hypothetical situations and alternatives to a finished past.",
+    "explain": "Use the second conditional for an unreal or unlikely present or future: “If I had more time, I would travel.” The past form creates distance from reality; it does not mean the event happened yesterday. Use the third conditional to imagine a different past: “If I'd left earlier, I would have caught the train.” Its if-clause uses the past perfect; its result uses would have + past participle.",
+    "contrast": "First decide when the imagined condition belongs. Use the second conditional for a present or future situation; use the third for a finished past. Could and might can show ability or a less certain result. In formal hypothetical language, were is possible with all subjects: “If I were you.” Was is also common in informal speech.",
+    "example": "If I knew the answer, I would tell you. If I had known yesterday, I would have called you.",
+    "reason": "Knew describes a hypothetical situation now. Had known describes an unreal condition in the past, so its result is would have called.",
+    "foundation": "Past forms in conditionals can show distance from reality, not past time. Write what really happened and what you imagine instead. Then place the condition and result on a timeline."
+  },
+  "b2-reported-speech": {
+    "title": "Reported speech",
+    "summary": "Report statements and questions from a new point of view.",
+    "goal": "Report statements and questions in a new speaking situation.",
+    "explain": "When you report what someone said, you describe the message from a new time and place. After a past reporting verb, tenses often move back: am becomes was, have done becomes had done, and will becomes would. Pronouns and words such as here, tomorrow and this may also change. These changes depend on who is reporting, where they are and when.",
+    "contrast": "Say does not need a direct listener; tell usually takes one: “She said that…” / “She told me that…”. Reported questions use statement word order: “She asked where I lived,” not “where did I live.” Use if or whether for yes/no questions. If information is still true, the speaker may keep the present tense.",
+    "example": "“I'll send you the file tomorrow,” Ana said on Monday. On Tuesday I explained that Ana had said she would send me the file that day.",
+    "reason": "Will becomes would. You changes to me because I was the listener. Tomorrow becomes that day because the report is made on Tuesday.",
+    "foundation": "Reporting speech changes the point of view. Work out who spoke, who listened, and when the message is being reported. Then adjust pronouns, time words and verb forms to keep the meaning clear."
+  },
+  "b2-relative-clauses": {
+    "title": "Relative clauses",
+    "summary": "Identify people and things, and add information clearly.",
+    "goal": "Identify people or things and add information without making a sentence difficult to follow.",
+    "explain": "A defining relative clause identifies which person or thing you mean: “The student who called yesterday.” A non-defining clause adds extra information about an already identified person or thing: “Ana, who lives next door, called yesterday.” Use commas around non-defining clauses; do not use that in them. Who refers to people, which to things, whose shows possession, and where can refer to a place.",
+    "contrast": "In a defining clause, you can omit the relative pronoun when it is the object: “The book (that) I bought.” Do not omit it when it is the subject: “The book that won the prize.” Do not repeat the object: “the book that I bought it” is incorrect. Commas can change which group you mean. Formal writing can place a preposition before which or whom.",
+    "example": "The colleague who organised the event sent me the photos that you requested. Ana, who works with her, will bring the originals.",
+    "reason": "Who is the subject of organised, so it cannot be omitted. That is the object of requested and can be omitted. The clause about Ana adds extra information and uses commas.",
+    "foundation": "A relative clause can identify a person or thing, or add a comment about one already known. To see if the relative can be omitted, check its job in the clause: a subject cannot be omitted; an object sometimes can."
+  },
+  "b2-gerund-infinitive": {
+    "title": "Gerunds and infinitives",
+    "summary": "Choose verb patterns and notice when the meaning changes.",
+    "goal": "Choose a verb pattern and notice changes in meaning.",
+    "explain": "The form after a verb depends on the whole pattern: enjoy doing, decide to do, make someone do. English does not use one single pattern for every Spanish infinitive. Learn a verb together with its complement and an example. After a preposition, use -ing when a verb follows: “interested in learning.” In “look forward to hearing,” to is a preposition, not an infinitive marker.",
+    "contrast": "Some verbs change meaning with the next form. Stop smoking means quit the habit; stop to smoke means pause another activity in order to smoke. Remember doing means remember an experience; remember to do means not forget a task. Used to + base verb describes a past habit. Be used to + noun or -ing means something feels familiar.",
+    "example": "I used to drive to work, but now I'm used to taking the train. I stopped to buy a ticket.",
+    "reason": "Used to drive describes a past habit. Am used to taking describes a familiar situation and takes -ing. Stopped to buy gives the purpose of a pause.",
+    "foundation": "Learn verb patterns as units of meaning. Record the verb, its complement and a full example. When you see to, check whether it introduces an infinitive or works as a preposition."
+  },
+  "c1-inversion": {
+    "title": "Inversion for emphasis",
+    "summary": "Use inversion selectively to control emphasis and formal style.",
+    "goal": "Use inversion to highlight information while controlling the level of formality.",
+    "explain": "After certain negative or limiting expressions at the start of a clause, the auxiliary comes before the subject: “Rarely have I seen…”. If there is no auxiliary, use do, does or did and keep the main verb in its base form: “Never did she complain.” The result is emphatic and often formal. Use it only when the emphasis helps the reader follow the point.",
+    "contrast": "In “Only after the meeting did we understand,” inversion is in the main clause, not inside the after-clause. Not every sentence starting with only uses inversion: “Only Maria knew the answer” has normal word order. Hardly…when and no sooner…than also depend on word order and time sequence.",
+    "example": "Only after the results were published did the committee acknowledge the problem.",
+    "reason": "The after-clause keeps normal subject–verb order. The main clause puts did before the committee, and acknowledge stays in the base form. This highlights how late the committee acted.",
+    "foundation": "Inversion changes the order to make a restriction or negative idea prominent. Compare it with a neutral sentence and ask what the reader notices first. Do not use a complex form if it adds no useful emphasis."
+  },
+  "c1-mixed-conditionals-wish": {
+    "title": "Mixed conditionals and wishes",
+    "summary": "Connect causes and results from different times.",
+    "goal": "Connect causes and results from different time periods and express unreal wishes.",
+    "explain": "Mixed conditionals connect different time periods. “If I had studied medicine, I would be a doctor now” links a past cause to a present result. “If I were more organised, I would have finished yesterday” links a present or general quality to a past result. Identify the time of each clause before choosing its verb form.",
+    "contrast": "Wish + past form often describes a present situation you want to be different: “I wish I knew.” Wish + past perfect expresses regret about the past: “I wish I had known.” Wish + would can express a desire for change, often with annoyance. Use hope for a possible result: “I hope she passes.” If only makes an unreal wish stronger.",
+    "example": "If I'd accepted the scholarship, I would be living abroad now. I wish I had considered it more carefully.",
+    "reason": "The decision belongs to the past; living abroad is the imagined result now. Had considered expresses regret about an earlier decision.",
+    "foundation": "A mixed conditional is not a random mix of tenses. It links a cause in one time period to a result in another. Mark each time on a timeline, then check the relationship."
+  },
+  "c1-advanced-passive-causative": {
+    "title": "Reporting passives and causative have",
+    "summary": "Attribute claims and describe services done by other people.",
+    "goal": "Attribute information and explain when another person performs a service.",
+    "explain": "Reporting passives let you attribute a claim without presenting it as your own: “It is believed that…” or “The company is believed to…”. A simple infinitive often describes a simultaneous or general situation. The perfect infinitive, to have done, places the event before the report. Attribution shows where a claim comes from; it does not prove that the claim is true.",
+    "contrast": "Have or get something done means another person performs a service: “I had my laptop repaired.” This is different from “I repaired my laptop.” Get is usually less formal. Have something done can also describe an unwanted experience: “He had his bag stolen.” Context tells you whether it was a service or an event someone experienced.",
+    "example": "The painting is believed to have been restored in the 1980s. The gallery is having its lighting replaced this week.",
+    "reason": "To have been restored is a perfect passive infinitive; the restoration happened before the current belief. Is having…replaced describes a service arranged by the gallery.",
+    "foundation": "Keep the roles clear: who made the claim, who arranged a service, and who carried out the action? Also check whether the reported event happened before, during or after the report."
+  },
+  "c1-discourse-markers": {
+    "title": "Discourse markers and cohesion",
+    "summary": "Connect ideas clearly without adding unnecessary linking words.",
+    "goal": "Build a coherent argument without using too many linking words.",
+    "explain": "A linking word shows a relationship between ideas, such as contrast, result, concession or addition. It does not create that relationship by itself. Before choosing however or therefore, decide what the logical connection is. Clear references, careful repetition and a clear topic sequence also help the reader follow the text.",
+    "contrast": "Although is followed by a clause. Despite is followed by a noun or -ing form: despite the delay, despite arriving late. However connects ideas and needs suitable punctuation; a comma alone cannot join two complete sentences. On the contrary corrects or rejects a previous claim. On the other hand introduces another view.",
+    "example": "The course is demanding. However, its flexible schedule makes it accessible. Despite the workload, most participants complete it.",
+    "reason": "However marks a contrast. Despite is followed by the noun phrase the workload, not a full clause. Its refers back to course and avoids repetition.",
+    "foundation": "Good cohesion makes the logic visible, but it cannot replace sound reasoning. Check what each paragraph claims and how the next idea follows. Then choose a linking word that accurately shows the relationship."
+  },
+  "c2-subjunctive-formal": {
+    "title": "Formal subjunctive and mandative structures",
+    "summary": "Make formal recommendations and requirements precise.",
+    "goal": "Choose mandative structures and express formal requirements clearly.",
+    "explain": "After verbs and expressions such as recommend, insist and essential, the subjunctive can use the base form for every subject: “They recommended that she attend.” Be stays be. For a negative, put not before the verb: “that he not be excluded.” British English also often uses should + base verb. The choice depends on style, variety and the purpose of the clause.",
+    "contrast": "Insist that she is right reports a belief. Insist that she be present requires her to be there. The subjunctive does not mark past time by itself and does not change automatically after a past reporting verb. Were it not for and had it not been for introduce formal present or past conditions.",
+    "example": "The panel recommended that each applicant be informed and that no personal information be disclosed.",
+    "reason": "Recommended introduces two requirements. Be informed and be disclosed use be plus a past participle. No personal information is already negative, so another not is not needed.",
+    "foundation": "Mandative structures describe what should happen, not simply what is true. Name the person responsible, the action required and the scope of any negative instruction. Clear wording matters more than complexity."
+  },
+  "c2-cleft-fronting": {
+    "title": "Cleft sentences and fronting",
+    "summary": "Control focus and information flow in a sentence.",
+    "goal": "Control focus and information order through restructuring.",
+    "explain": "Cleft sentences split an idea to highlight one part: “It was the timing that caused concern.” What-clefts can highlight a need or judgement: “What we need is a clear timetable.” They do not always add new facts; they change how the reader processes the information. Identify what the reader already knows and what you want to emphasise.",
+    "contrast": "Fronting moves a phrase to the start: “This proposal I can support.” It can create contrast or connect with earlier information, but it is not always inversion. If an object moves forward, normal subject–verb order may remain. Some place expressions allow inversion. Choose the structure for purpose, rhythm and style, not decoration.",
+    "example": "It wasn't the cost that worried us; it was the lack of a clear plan. What we needed was an explanation.",
+    "reason": "The first cleft rejects cost as the main issue and highlights the lack of a plan. The what-cleft makes the need the topic and the explanation the focus.",
+    "foundation": "Focus depends on the question the sentence answers. Before using a cleft, write that question down. If the new structure does not make the important information clearer, neutral word order may be better."
+  },
+  "c2-collocations-idioms": {
+    "title": "Collocations and idioms",
+    "summary": "Choose natural word combinations for each context.",
+    "goal": "Choose natural word combinations and expressions that fit the situation.",
+    "explain": "A collocation is a common word combination: make a decision, reach a conclusion, strong evidence. Knowing each word is not enough to produce a natural phrase. Record the full expression, its grammar pattern and a context. Idioms can have meanings that are hard to guess and may be limited by style, variety or situation. Notice which prepositions and subjects go with each phrase.",
+    "contrast": "Do not translate word combinations literally from Spanish or assume synonyms use the same patterns. Raise awareness and increase awareness can both work; do awareness does not. An idiom may sound natural in conversation but imprecise in a report. Sometimes a direct, literal phrase is clearer than a colourful expression.",
+    "example": "The team reached a tentative conclusion, but further evidence is needed before a firm commitment can be made.",
+    "reason": "Reach a conclusion and make a commitment are common combinations. Tentative makes the conclusion less certain; further evidence shows that more support is needed.",
+    "foundation": "Learn how words combine and when a phrase is appropriate. Record a collocation with its meaning and context. Use idioms only when they fit the audience and purpose."
+  },
+  "c2-hedging-register": {
+    "title": "Hedging, certainty and register",
+    "summary": "Match the strength of a statement to the evidence and audience.",
+    "goal": "Adjust certainty and style to suit the evidence and the reader.",
+    "explain": "Hedging means matching the strength of a claim to the evidence. May and might show possibility; appears to shows how something seems; tends to describes a pattern. Phrases such as in this sample limit the scope. A precise claim says what was observed, where it was observed and what conclusion it supports.",
+    "contrast": "This proves makes a stronger claim than this suggests. A correlation does not by itself show cause. Avoid too many hedges, such as may perhaps possibly; they make the point unclear. Formal style is not just long words. It depends on clear claims, careful attribution and suitable detail. A public version can use simpler words while keeping the limits of the evidence.",
+    "example": "In this small sample, regular practice was associated with higher scores. The findings suggest a possible benefit, but do not establish causation.",
+    "reason": "In this small sample limits the group being discussed. Was associated with describes a relationship without claiming cause. Suggest and possible keep the conclusion cautious.",
+    "foundation": "You can adjust certainty and scope separately. May lowers certainty; in this sample limits the cases covered. Separate an observation from an explanation and a recommendation. State clearly what the evidence does and does not show."
+  }
+}
