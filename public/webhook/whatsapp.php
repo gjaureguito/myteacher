@@ -67,12 +67,16 @@ foreach (($payload['entry'] ?? []) as $entry) {
             if (($message['type'] ?? '') !== 'text') continue;
             $from = (string) ($message['from'] ?? '');
             $body = trim((string) ($message['text']['body'] ?? ''));
-            if ($from !== '' && $body !== '') $messages[] = [$from, mb_substr($body, 0, 2000, 'UTF-8')];
+            if ($from !== '' && $body !== '') $messages[] = [$from, mb_substr($body, 0, 2000, 'UTF-8'), (string) ($message['id'] ?? '')];
         }
     }
 }
 
-foreach ($messages as [$recipient, $incomingText]) {
+foreach ($messages as [$recipient, $incomingText, $incomingId]) {
+    // Guardamos el mensaje entrante antes de responder; el WAMID evita duplicados de Meta.
+    $threadId = whatsapp_store_message($recipient, $incomingText, $incomingId, 'in');
+    if (!$threadId) continue;
+
     $reply = whatsapp_sales_reply($incomingText);
     $request = [
         'messaging_product' => 'whatsapp',
@@ -101,6 +105,10 @@ foreach ($messages as [$recipient, $incomingText]) {
     if ($response === false || $httpCode < 200 || $httpCode >= 300) {
         // No registrar el texto del alumno ni los tokens en logs.
         error_log('MyTeacher WhatsApp send failed; HTTP ' . $httpCode . ($curlError !== '' ? '; transport error' : ''));
+    } else {
+        $sent = json_decode((string) $response, true);
+        $outgoingId = (string) ($sent['messages'][0]['id'] ?? '');
+        whatsapp_store_message($recipient, $reply, $outgoingId, 'out');
     }
 }
 
