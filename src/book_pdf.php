@@ -24,27 +24,47 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
     $pages = [''];
     $pageIndex = 0;
     $y = 785;
+    $sectionNumber = 0;
 
-    $line = static function (string $text, string $font = 'F1', int $size = 11, int $leading = 16) use (&$pages, &$pageIndex, &$y): void {
+    $decoratePage = static function () use (&$pages, &$pageIndex, $unit, $level): void {
+        $pages[$pageIndex] .= "q 0.10 0.31 0.39 rg 0 834 595 8 re f Q\n";
+        $brand = strtoupper($level) . '  /  ENGLISH STUDY NOTES';
+        $brandHex = strtoupper(bin2hex(study_pdf_ansi($brand)));
+        $pages[$pageIndex] .= "BT /F2 8 Tf 0.24 0.36 0.42 rg 54 816 Td <{$brandHex}> Tj ET\n";
+        $tag = strtoupper($level) . '  /  ' . str_pad((string) ($unit['position'] ?? ''), 2, '0', STR_PAD_LEFT);
+        $tagHex = strtoupper(bin2hex(study_pdf_ansi($tag)));
+        $pages[$pageIndex] .= "q 0.91 0.96 0.96 rg 468 804 73 20 re f Q\n";
+        $pages[$pageIndex] .= "BT /F2 8 Tf 0.10 0.31 0.39 rg 477 811 Td <{$tagHex}> Tj ET\n";
+    };
+    $decoratePage();
+
+    $newPage = static function () use (&$pages, &$pageIndex, &$y, $decoratePage): void {
+        $pages[] = '';
+        $pageIndex++;
+        $y = 785;
+        $decoratePage();
+    };
+
+    $line = static function (string $text, string $font = 'F1', int $size = 11, int $leading = 16, string $rgb = '0.18 0.24 0.32', int $x = 54) use (&$pages, &$pageIndex, &$y, $newPage): void {
         $text = trim($text);
         if ($text === '') { $y -= max(5, $leading - 7); return; }
-        $maxChars = max(34, (int) (487 / max(4.5, $size * 0.52)));
+        $maxChars = max(30, (int) ((541 - $x) / max(4.5, $size * 0.52)));
         $words = preg_split('/\s+/u', $text) ?: [];
         $current = '';
         foreach ($words as $word) {
             $candidate = $current === '' ? $word : $current . ' ' . $word;
             if ($current !== '' && strlen(study_pdf_ansi($candidate)) > $maxChars) {
-                if ($y < 58) { $pages[] = ''; $pageIndex++; $y = 785; }
+                if ($y < 58) $newPage();
                 $hex = strtoupper(bin2hex(study_pdf_ansi($current)));
-                $pages[$pageIndex] .= "BT /{$font} {$size} Tf 54 {$y} Td <{$hex}> Tj ET\n";
+                $pages[$pageIndex] .= "BT /{$font} {$size} Tf {$rgb} rg {$x} {$y} Td <{$hex}> Tj ET\n";
                 $y -= $leading;
                 $current = $word;
             } else { $current = $candidate; }
         }
         if ($current !== '') {
-            if ($y < 58) { $pages[] = ''; $pageIndex++; $y = 785; }
+            if ($y < 58) $newPage();
             $hex = strtoupper(bin2hex(study_pdf_ansi($current)));
-            $pages[$pageIndex] .= "BT /{$font} {$size} Tf 54 {$y} Td <{$hex}> Tj ET\n";
+            $pages[$pageIndex] .= "BT /{$font} {$size} Tf {$rgb} rg {$x} {$y} Td <{$hex}> Tj ET\n";
             $y -= $leading;
         }
     };
@@ -53,15 +73,23 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
         foreach (preg_split('/\R/u', $text) ?: [] as $part) $line($part, 'F1', 11, 16);
         $y -= 5;
     };
-    $heading = static function (string $title, string $text) use ($line, $paragraph): void {
+    $heading = static function (string $title, string $text) use (&$pages, &$pageIndex, &$y, &$sectionNumber, $newPage, $paragraph): void {
         if (trim($text) === '') return;
-        $line($title, 'F2', 14, 20);
+        if ($y < 90) $newPage();
+        $sectionNumber++;
+        $number = str_pad((string) $sectionNumber, 2, '0', STR_PAD_LEFT);
+        $numberHex = strtoupper(bin2hex(study_pdf_ansi($number)));
+        $titleHex = strtoupper(bin2hex(study_pdf_ansi($title)));
+        $pages[$pageIndex] .= "q 0.12 0.49 0.52 rg 54 " . ($y - 4) . " 3 15 re f Q\n";
+        $pages[$pageIndex] .= "BT /F2 8 Tf 0.12 0.49 0.52 rg 64 {$y} Td <{$numberHex}> Tj ET\n";
+        $pages[$pageIndex] .= "BT /F2 12 Tf 0.10 0.22 0.33 rg 87 {$y} Td <{$titleHex}> Tj ET\n";
+        $y -= 20;
         $paragraph($text);
     };
 
-    $line('MYTEACHER  |  LIBRO DE ESTUDIO', 'F2', 9, 15);
-    $line(strtoupper($level) . '  |  UNIDAD ' . (int) $unit['position'], 'F2', 10, 18);
-    $line((string) $unit['title'], 'F2', 21, 29);
+    $line('APUNTES DE GRAMÁTICA INGLESA', 'F2', 9, 15, '0.12 0.49 0.52');
+    $line((string) $unit['title'], 'F2', 22, 30, '0.07 0.20 0.32');
+    $line('Guía teórica para estudiar y consultar', 'F1', 10, 16, '0.38 0.46 0.52');
     $paragraph((string) ($unit['summary'] ?? ''));
 
     if ($chapter) {
@@ -105,9 +133,13 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
         $pageId = 5 + ($i * 2);
         $streamId = $pageId + 1;
         $kids[] = $pageId . ' 0 R';
-        $footer = 'MyTeacher  |  ' . strtoupper($level) . '  |  Pagina ' . ($i + 1) . ' de ' . $count;
+        $footer = 'MYTEACHER  /  APUNTES DE GRAMÁTICA INGLESA';
         $footerHex = strtoupper(bin2hex(study_pdf_ansi($footer)));
-        $stream = $body . "BT /F1 8 Tf 54 35 Td <{$footerHex}> Tj ET\n";
+        $pageNumber = str_pad((string) ($i + 1), 2, '0', STR_PAD_LEFT) . ' / ' . str_pad((string) $count, 2, '0', STR_PAD_LEFT);
+        $pageNumberHex = strtoupper(bin2hex(study_pdf_ansi($pageNumber)));
+        $stream = "q 0.78 0.84 0.86 RG 54 51 m 541 51 l S Q\n" . $body;
+        $stream .= "BT /F1 8 Tf 0.38 0.46 0.52 rg 54 35 Td <{$footerHex}> Tj ET\n";
+        $stream .= "BT /F2 8 Tf 0.10 0.31 0.39 rg 500 35 Td <{$pageNumberHex}> Tj ET\n";
         $objects[$pageId] = '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents ' . $streamId . ' 0 R >>';
         $objects[$streamId] = '<< /Length ' . strlen($stream) . " >>\nstream\n" . $stream . "endstream";
     }
