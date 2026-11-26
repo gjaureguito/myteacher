@@ -121,6 +121,8 @@ $first = explode(' ', $u['name'])[0];
 
 <style>
 /* Dashboard: jerarquía visual, foco en la próxima acción y superficies más claras. */
+body:has(.learning-dashboard) main > :first-child{display:none!important}
+
 .learning-dashboard{max-width:1320px;padding-bottom:64px}
 .learning-dashboard>.dash-head{margin:22px 0 18px;padding:30px 34px;border:1px solid #d9e6f2;border-radius:24px;background:linear-gradient(120deg,#f0f7ff 0%,#fff 78%);box-shadow:0 16px 42px -32px rgba(16,45,82,.35)}
 .learning-dashboard>.dash-head h1{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.045em;color:#102d52}
