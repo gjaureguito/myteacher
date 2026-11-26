@@ -65,24 +65,29 @@ function study_pdf_generate(array $unit, string $level, ?array $chapter, ?array 
     $paragraph((string) ($unit['summary'] ?? ''));
 
     if ($chapter) {
-        $heading('Objetivo de la unidad', (string) ($chapter['goal'] ?? ''));
-        $heading('Explicación gramatical', (string) ($chapter['explain'] ?? ''));
-        $heading('Diferencias y uso', (string) ($chapter['contrast'] ?? ''));
-        if ($visual && !empty($visual['foundation'])) $heading('Por qué funciona así', (string) $visual['foundation']);
-        $heading('Ejemplo', (string) ($chapter['example'] ?? ''));
-        $heading('Análisis del ejemplo', (string) ($chapter['reason'] ?? ''));
+        $heading('Propósito de aprendizaje', (string) ($chapter['goal'] ?? ''));
+        $heading('Desarrollo teórico: reglas y estructura', (string) ($chapter['explain'] ?? ''));
+        $heading('Uso, forma y diferencias importantes', (string) ($chapter['contrast'] ?? ''));
+        if ($visual && !empty($visual['foundation'])) {
+            $heading('Fundamento: cómo interpretar la estructura', (string) $visual['foundation']);
+        }
+        $heading('Ejemplo original trabajado', (string) ($chapter['example'] ?? ''));
+        $heading('Análisis paso a paso', (string) ($chapter['reason'] ?? ''));
+
+        // Reuse only explanatory notes from the practice data as additional theory.
+        // Never print exercise prompts, answer keys, writing assignments, or speaking tasks.
+        $applicationNotes = [];
         if (!empty($chapter['practice']) && is_array($chapter['practice'])) {
-            $line('Práctica guiada con soluciones', 'F2', 14, 20);
-            foreach ($chapter['practice'] as $index => $item) {
-                if (!is_array($item) || count($item) < 3) continue;
-                $line(((int) $index + 1) . '. ' . (string) $item[0], 'F2', 11, 16);
-                $line('Respuesta: ' . (string) $item[1], 'F1', 10, 15);
-                $paragraph((string) $item[2]);
+            foreach ($chapter['practice'] as $item) {
+                if (!is_array($item) || empty($item[2]) || !is_string($item[2])) continue;
+                $note = trim($item[2]);
+                if ($note !== '' && !in_array($note, $applicationNotes, true)) $applicationNotes[] = $note;
             }
         }
-        $heading('Aplicación escrita', (string) ($chapter['task'] ?? ''));
-        $heading('Modelo de respuesta', (string) ($chapter['model'] ?? ''));
-        $heading('Práctica oral', (string) ($chapter['speaking'] ?? ''));
+        if ($applicationNotes) {
+            $line('Notas teóricas para aplicar la regla', 'F2', 14, 20);
+            foreach ($applicationNotes as $note) $paragraph('• ' . $note);
+        }
     } else {
         $theory = study_pdf_plain((string) ($unit['theory_html'] ?? ''));
         $heading('Teoría gramatical de la unidad', $theory !== '' ? $theory : (string) ($unit['summary'] ?? ''));
