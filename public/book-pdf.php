@@ -19,8 +19,10 @@ if (!can_access_unit($user, $unit)) {
     flash('info', 'Esta unidad requiere acceso activo. La demo incluye la primera unidad de cada nivel.');
     redirect('/account.php');
 }
-$chapter = study_chapter($slug);
-$visual = study_visual($slug);
+$chapter = study_chapter_english($slug) ?? study_english_unit_fallback($unit);
+$unit['title'] = (string) ($chapter['title'] ?? 'English study guide');
+$unit['summary'] = (string) ($chapter['summary'] ?? '');
+$visual = null;
 $pdf = study_pdf_generate($unit, $code, $chapter, $visual);
 $filename = 'MyTeacher-' . strtoupper($code) . '-unidad-' . (int) $unit['position'] . '.pdf';
 
