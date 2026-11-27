@@ -107,8 +107,30 @@ foreach ($messages as [$recipient, $incomingText, $incomingId]) {
     curl_close($ch);
 
     if ($response === false || $httpCode < 200 || $httpCode >= 300) {
-        // No registrar el texto del alumno ni los tokens en logs.
-        error_log('MyTeacher WhatsApp send failed; HTTP ' . $httpCode . ($curlError !== '' ? '; transport error' : ''));
+        // Registrar solo el error estructurado de Meta; nunca el texto del chat ni credenciales.
+        $decodedResponse = is_string($response) ? json_decode($response, true) : null;
+        $apiError = is_array($decodedResponse) && is_array($decodedResponse['error'] ?? null)
+            ? $decodedResponse['error'] : [];
+        $apiCode = isset($apiError['code']) ? (string) $apiError['code'] : 'n/a';
+        $apiSubcode = isset($apiError['error_subcode']) ? (string) $apiError['error_subcode'] : 'n/a';
+        $apiType = preg_replace('/[^A-Za-z0-9_ -]/', '', (string) ($apiError['type'] ?? 'n/a')) ?? 'n/a';
+        $apiMessage = trim((string) ($apiError['message'] ?? ''));
+        if ($apiMessage !== '') {
+            $apiMessage = str_replace($recipient, '[recipient]', $apiMessage);
+            $apiMessage = preg_replace('/\\bEAA[A-Za-z0-9_-]{20,}\\b/', '[redacted-token]', $apiMessage) ?? '[unavailable]';
+            $apiMessage = preg_replace('/\\b\\d{8,15}\\b/', '[number]', $apiMessage) ?? '[unavailable]';
+            $apiMessage = mb_substr($apiMessage, 0, 240, 'UTF-8');
+        } else {
+            $apiMessage = $curlError !== '' ? 'transport error' : 'no Meta error message';
+        }
+        $trace = preg_replace('/[^A-Za-z0-9_-]/', '', (string) ($apiError['fbtrace_id'] ?? '')) ?? '';
+        error_log('MyTeacher WhatsApp send failed; HTTP ' . $httpCode
+            . '; Meta code ' . $apiCode
+            . '; subcode ' . $apiSubcode
+            . '; type ' . $apiType
+            . '; message ' . $apiMessage
+            . ($trace !== '' ? '; trace ' . $trace : '')
+            . ($curlError !== '' ? '; transport error' : ''));
     } else {
         $sent = json_decode((string) $response, true);
         $outgoingId = (string) ($sent['messages'][0]['id'] ?? '');
