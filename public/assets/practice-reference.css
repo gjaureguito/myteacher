@@ -17,3 +17,8 @@
 html[data-theme=dark] .unit-page .mt-practice-reference{background:#1c334b;border-color:#49637d}
 html[data-theme=dark] .unit-page .mt-practice-reference-body,html[data-theme=dark] .unit-page .mt-practice-reference-link{border-color:#49637d}
 @media(max-width:760px){.unit-page .mt-practice-reference{top:72px}.unit-page .mt-practice-reference-head{padding:10px 12px}.unit-page .mt-practice-reference-body{max-height:42vh;padding:12px}}
+
+/* Una instrucción breve por actividad reduce dudas antes de responder. */
+.unit-page .ex-instruction{margin:.25rem 0 .85rem;padding:.55rem .75rem;border-left:3px solid var(--lv,#2747d9);border-radius:0 8px 8px 0;background:#f1f5fb;color:#35435b;font-size:.9rem;line-height:1.5}
+html[data-theme=dark] .unit-page .ex-instruction{background:#22374f;color:#e4ebf5}
+@media(max-width:600px){.unit-page .ex-instruction{font-size:.95rem;padding:.65rem .75rem}}
