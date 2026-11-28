@@ -15,6 +15,19 @@ $n = 0;
   $type = $ex['type'];
   $skill = $ex['skill'] ?? default_skill($type);
   [$skEn, $skEs, $skIco] = $labels[$skill] ?? $labels['grammar'];
+  $instruction = match ($type) {
+      'mcq', 'image' => 'Elegí una opción. Al tocarla vas a ver si es correcta y por qué.',
+      'listen' => 'Escuchá el audio —si hace falta, usá “Más lento”— y elegí una respuesta.',
+      'reading' => 'Leé el texto y buscá en él una pista antes de elegir tu respuesta.',
+      'fill' => 'Escribí la palabra que falta y después tocá “Comprobar”.',
+      'cloze' => 'Leé el párrafo completo, completá los espacios y tocá “Comprobar”.',
+      'order' => 'Tocá las palabras en el orden correcto. Si querés empezar de nuevo, tocá “Reiniciar”.',
+      'dictation' => 'Escuchá el audio y escribí lo que entendés. Podés reproducirlo más lento.',
+      'match' => 'Elegí un elemento de cada columna para formar las parejas y luego comprobá.',
+      'write' => 'Escribí tu respuesta en inglés. Revisá los criterios y usá el modelo para aprender.',
+      'speak' => 'Escuchá la frase y repetila. Si el micrófono no está disponible, podés marcar que la dijiste en voz alta.',
+      default => 'Leé la consigna y probá. La corrección te ayudará a entender tu respuesta.',
+  };
   $n++;
 ?>
   <?php if (!empty($groupBySkill) && $skill !== $prevSkill): $prevSkill = $skill; ?>
@@ -53,6 +66,7 @@ $n = 0;
         <?= e($ex['prompt']) ?>
       <?php endif; ?>
     </p>
+    <p class="ex-instruction"><?= e($instruction) ?></p>
 
     <?php if ($type === 'cloze'): $gapIndex = 0; ?>
       <p class="cloze-passage" lang="en"><?= nl2br(preg_replace_callback('/_{3,}/', static function () use (&$gapIndex) { $i = $gapIndex++; return '<input class="gap cloze-gap" data-gap="' . $i . '" aria-label="Palabra faltante ' . ($i + 1) . '" autocomplete="off" autocapitalize="off" spellcheck="false">'; }, e($data['paragraph'] ?? ''))) ?></p>
